@@ -6,27 +6,23 @@ import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Jason Chang", page_icon="◆")
 
-# Session state for scroll control
-if 'last_page' not in st.session_state:
-    st.session_state.last_page = None
-
 st.markdown("""
 <link href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap' rel='stylesheet'>
 <style>
     :root {
-        --b: #080808;
-        --w: #fafafa;
-        --c1: #f4f0eb;
-        --c2: #e9e3db;
-        --g1: #f5f5f5;
-        --g2: #e5e5e5;
-        --g3: #d4d4d4;
-        --g4: #a3a3a3;
-        --g5: #737373;
-        --g6: #525252;
-        --g7: #404040;
-        --g8: #262626;
-        --g9: #171717;
+        --b: #111111;
+        --w: #ffffff;
+        --c1: #f5f5f5;
+        --c2: #e5e5e5;
+        --g1: #e5e5e5;
+        --g2: #d4d4d4;
+        --g3: #a3a3a3;
+        --g4: #737373;
+        --g5: #525252;
+        --g6: #404040;
+        --g7: #262626;
+        --g8: #171717;
+        --g9: #111111;
     }
     
     ::-webkit-scrollbar{width:4px}
@@ -277,24 +273,33 @@ with st.sidebar:
     st.markdown('<p class="nl">Menu</p>', unsafe_allow_html=True)
     page = st.radio("", ["Home","Engagement","Executive","Warehouse","Automation","Skills","Certs","Contact"], label_visibility="collapsed")
 
-# SCROLL TO TOP - Using iframe scrollIntoView method (proven solution)
-# Creates invisible element and scrolls to it
-def scroll_to_top():
+# SCROLL TO TOP - Must be called at START of each page content
+def scroll_to_top(key):
     components.html(
         """
-        <div id="scroll-anchor" style="position:absolute;top:0;left:0;"></div>
         <script>
-            // Method: scrollIntoView on iframe element
-            window.frameElement.scrollIntoView({behavior:'instant',block:'start'});
+            // Multiple methods to ensure scroll works
+            var main = window.parent.document.querySelector('.main');
+            if(main) main.scrollTop = 0;
+            
+            var container = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
+            if(container) container.scrollTop = 0;
+            
+            var block = window.parent.document.querySelector('.block-container');
+            if(block) block.scrollTop = 0;
+            
+            // Also try scrollIntoView on this iframe
+            if(window.frameElement) {
+                window.frameElement.scrollIntoView({behavior:'instant', block:'start'});
+            }
+            
+            // Fallback: scroll window
+            window.parent.scrollTo(0,0);
         </script>
         """,
-        height=0
+        height=0,
+        key=f"scroll_{key}"
     )
-
-# Detect page change and trigger scroll
-if st.session_state.last_page != page:
-    st.session_state.last_page = page
-    scroll_to_top()
 
 @st.cache_data
 def load_data(url):
@@ -305,6 +310,7 @@ def load_data(url):
 data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
 
 if page == "Home":
+    scroll_to_top("home")
     st.markdown("""
     <div class="hs">
         <div class="hl">
@@ -328,6 +334,7 @@ if page == "Home":
     """, unsafe_allow_html=True)
 
 elif page == "Engagement":
+    scroll_to_top("engagement")
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
     <div class="cd">
@@ -395,6 +402,7 @@ elif page == "Engagement":
     """, unsafe_allow_html=True)
 
 elif page == "Executive":
+    scroll_to_top("executive")
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Post-merger environment with 5 fragmented sales domains and inconsistent metrics. Finance and marketing leadership lacked unified performance visibility.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
@@ -410,6 +418,7 @@ elif page == "Executive":
     """, unsafe_allow_html=True)
 
 elif page == "Warehouse":
+    scroll_to_top("warehouse")
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
     <div class="cd">
@@ -426,6 +435,7 @@ elif page == "Warehouse":
     """, unsafe_allow_html=True)
 
 elif page == "Automation":
+    scroll_to_top("automation")
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">99+ vendor data sources with inconsistent formats. Manual ingestion consumed analyst bandwidth and introduced refresh errors impacting downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
@@ -445,6 +455,7 @@ elif page == "Automation":
     """, unsafe_allow_html=True)
 
 elif page == "Skills":
+    scroll_to_top("skills")
     st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
@@ -462,6 +473,7 @@ elif page == "Skills":
     """, unsafe_allow_html=True)
 
 elif page == "Certs":
+    scroll_to_top("certs")
     st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div><div class="cl">', unsafe_allow_html=True)
     certs = [
         ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
@@ -477,6 +489,7 @@ elif page == "Certs":
     st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Contact":
+    scroll_to_top("contact")
     st.markdown("""
     <div class="sd"><p class="sdt">Get in Touch</p><p class="sdn">LET'S<br>CONNECT</p></div>
     <div class="qs"><span class="qm">"</span><p class="qt">In God we trust; for all else, we turn to the validation of data.</p></div>
