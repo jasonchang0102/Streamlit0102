@@ -2,18 +2,18 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆")
-
-def scroll_to_top():
-    components.html("""<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>""", height=0)
 
 # Premium Designer CSS
 st.markdown("""
 <link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap' rel='stylesheet'>
 <style>
     /* === BASE === */
+    html, body, [data-testid="stAppViewContainer"], section.main {
+        scroll-behavior: auto !important;
+    }
+    
     .stApp {
         background: #0a0a0f;
     }
@@ -76,7 +76,7 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
         font-size: 17px;
         font-weight: 400;
-        color: #9ca3af;
+        color: #d1d5db;
         line-height: 1.8;
         margin-bottom: 20px;
     }
@@ -137,7 +137,7 @@ st.markdown("""
     .metric-label {
         font-family: 'Inter', sans-serif;
         font-size: 13px;
-        color: #6b7280;
+        color: #9ca3af;
         margin-top: 12px;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -186,14 +186,14 @@ st.markdown("""
     .result-desc {
         font-family: 'Inter', sans-serif;
         font-size: 14px;
-        color: #6b7280;
+        color: #9ca3af;
     }
     
     /* === BULLET POINTS === */
     .bullet {
         font-family: 'Inter', sans-serif;
         font-size: 16px;
-        color: #9ca3af;
+        color: #d1d5db;
         line-height: 1.7;
         margin-bottom: 12px;
         padding-left: 24px;
@@ -209,7 +209,7 @@ st.markdown("""
     }
     
     .bullet strong {
-        color: #e5e7eb;
+        color: #ffffff;
     }
     
     /* === SIDEBAR === */
@@ -265,7 +265,7 @@ st.markdown("""
     .skill-list {
         font-family: 'Inter', sans-serif;
         font-size: 15px;
-        color: #9ca3af;
+        color: #d1d5db;
         line-height: 1.6;
     }
     
@@ -294,7 +294,7 @@ st.markdown("""
     .cert-org {
         font-family: 'Inter', sans-serif;
         font-size: 14px;
-        color: #6b7280;
+        color: #9ca3af;
     }
     
     /* === CONTACT === */
@@ -310,7 +310,7 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
         font-size: 11px;
         font-weight: 500;
-        color: #4b5563;
+        color: #9ca3af;
         letter-spacing: 2px;
         text-transform: uppercase;
         margin-bottom: 6px;
@@ -328,7 +328,7 @@ st.markdown("""
         font-family: 'Inter', sans-serif;
         font-size: 22px;
         font-weight: 400;
-        color: #6b7280;
+        color: #d1d5db;
         font-style: italic;
         line-height: 1.6;
         border-left: 3px solid #f59e0b;
@@ -355,7 +355,7 @@ st.markdown("""
     
     p, li {
         font-family: 'Inter', sans-serif !important;
-        color: #9ca3af !important;
+        color: #d1d5db !important;
     }
     
     /* === CODE LABELS === */
@@ -368,6 +368,16 @@ st.markdown("""
         margin-bottom: 12px;
     }
 </style>
+
+<script>
+    // Scroll to top on page load
+    var mainSection = window.parent.document.querySelector('section.main');
+    if (mainSection) {
+        mainSection.scrollTop = 0;
+    }
+    window.parent.document.documentElement.scrollTop = 0;
+    window.parent.document.body.scrollTop = 0;
+</script>
 """, unsafe_allow_html=True)
 
 # Sidebar
@@ -384,7 +394,14 @@ with st.sidebar:
         "Contact"
     ], label_visibility="collapsed")
 
-scroll_to_top()
+# Scroll to top on page change
+st.markdown(f'''
+    <div id="top-anchor"></div>
+    <script>
+        window.parent.document.querySelector('[data-testid="stAppViewContainer"]').scrollTo(0, 0);
+        window.scrollTo(0, 0);
+    </script>
+''', unsafe_allow_html=True)
 
 @st.cache_data
 def load_data(url):
