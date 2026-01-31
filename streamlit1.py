@@ -4,13 +4,13 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # =====================================================
-# PAGE CONFIG (runs instantly)
+# PAGE CONFIG
 # =====================================================
 st.set_page_config(layout="wide", page_title="Jason Chang's Portfolio")
 
 
 # =====================================================
-# GLOBAL STYLE (lightweight only)
+# GLOBAL STYLE
 # =====================================================
 st.markdown("""
 <link href='https://fonts.googleapis.com/css?family=Bebas+Neue|Lato&display=swap' rel='stylesheet'>
@@ -29,6 +29,11 @@ body {background-color:#F2F9FF;}
 # =====================================================
 with st.sidebar:
     st.markdown("### Navigation")
+
+    # ✅ manual refresh button (optional but useful)
+    if st.button("🔄 Refresh data"):
+        st.cache_data.clear()
+
     page = st.radio("", [
         "WELCOME",
         "DATA ANALYTICS / ENGAGEMENT & MONETIZATION",
@@ -42,10 +47,10 @@ with st.sidebar:
 
 
 # =====================================================
-# ✅ MODERN CACHE (NO WARNING)
-# Only used when needed
+# ✅ AUTO-REFRESH CACHE
+# ttl=300 → re-download GitHub every 5 minutes
 # =====================================================
-@st.cache_data(show_spinner=False)
+@st.cache_data(show_spinner=False, ttl=300)
 def load_data(url: str):
     df = pd.read_csv(url)
     df["Date"] = pd.to_datetime(df["Date"])
@@ -73,7 +78,7 @@ DATA_URL = "https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/
 # =====================================================
 
 # -----------------------------------------------------
-# WELCOME (instant load, no data)
+# WELCOME
 # -----------------------------------------------------
 if page == "WELCOME":
 
@@ -88,13 +93,12 @@ if page == "WELCOME":
 
 
 # -----------------------------------------------------
-# DATA ANALYTICS (lazy loads data ONLY here)
+# DATA ANALYTICS
 # -----------------------------------------------------
 elif page == "DATA ANALYTICS / ENGAGEMENT & MONETIZATION":
 
     st.header("DATA ANALYTICS / ENGAGEMENT & MONETIZATION")
 
-    # ✅ load only when this page is opened
     data = load_data(DATA_URL)
 
     heatmap_data = (
@@ -131,32 +135,27 @@ elif page == "DATA ANALYTICS / ENGAGEMENT & MONETIZATION":
 
 
 # -----------------------------------------------------
-# LIGHTWEIGHT TEXT PAGES (fast)
+# TEXT PAGES
 # -----------------------------------------------------
 elif page == "DASHBOARD / EXECUTIVE BUSINESS INSIGHTS":
     st.header("DASHBOARD / EXECUTIVE BUSINESS INSIGHTS")
     st.write("Executive dashboards, Snowflake modeling, Power BI reporting.")
 
-
 elif page == "DATA ANALYSIS / WAREHOUSE & GL ACCOUNT OPTIMIZATION":
     st.header("WAREHOUSE & GL ACCOUNT OPTIMIZATION")
     st.write("Cost analysis, process improvement, logistics optimization.")
-
 
 elif page == "PROCESS AUTOMATION / QUARTERLY ROYALTY MANAGEMENT":
     st.header("PROCESS AUTOMATION")
     st.write("Python + VBA automation reduced 1 month → 2 hours.")
 
-
 elif page == "SCOPE OF SKILLS":
     st.header("SKILLS")
     st.write("Python • SQL • Snowflake • Power BI • ETL • Analytics Strategy")
 
-
 elif page == "CERTIFICATIONS":
     st.header("CERTIFICATIONS")
     st.write("Machine Learning • Deep Learning • Power BI • AWS • SQL")
-
 
 elif page == "LET'S CONNECT":
     st.header("LET'S CONNECT")
