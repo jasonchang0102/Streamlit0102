@@ -4,43 +4,22 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # =====================================================
-# PAGE CONFIG
+# PAGE CONFIG (runs instantly)
 # =====================================================
 st.set_page_config(layout="wide", page_title="Jason Chang's Portfolio")
 
 
 # =====================================================
-# GLOBAL STYLING
+# GLOBAL STYLE (lightweight only)
 # =====================================================
-def set_background_color_and_right_space():
-    st.markdown("""
-        <style>
-        body {
-            background-color: #F2F9FF !important;
-        }
-        .reportview-container .main {
-            background-color: #F2F9FF !important;
-        }
-        .reportview-container .main .block-container{
-            padding-right: 16.666% !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
-
-set_background_color_and_right_space()
-
-
 st.markdown("""
 <link href='https://fonts.googleapis.com/css?family=Bebas+Neue|Lato&display=swap' rel='stylesheet'>
 <style>
-.big-font { font-family:'Bebas Neue'; font-size:94px !important; color:#3e4047; margin-top:-40px;}
-.big2-font { font-family:'Bebas Neue'; font-size:60px !important; color:#3e4047; margin-top:20px;}
-.med2-font { font-family:'Bebas Neue'; font-size:26px !important; color:#D09E55;}
-.medium-font { font-family:'Bebas Neue'; font-size:38px !important; color:#D09E55;}
-.small-font { font-family:'Lato'; font-size:30px !important; color:#282D33;}
-.streamlit-container p, li { font-family:'Lato' !important; font-size:30px !important; color:#282D33;}
-.sidebar .sidebar-content { background-color:#1D262F; color:white; }
+body {background-color:#F2F9FF;}
+.big-font {font-family:'Bebas Neue'; font-size:94px; color:#3e4047;}
+.big2-font {font-family:'Bebas Neue'; font-size:60px; color:#3e4047;}
+.med2-font {font-family:'Bebas Neue'; font-size:26px; color:#D09E55;}
+.sidebar .sidebar-content {background:#1D262F; color:white;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -49,8 +28,7 @@ st.markdown("""
 # SIDEBAR
 # =====================================================
 with st.sidebar:
-    st.markdown('<p class="medium-font">Navigation</p>', unsafe_allow_html=True)
-
+    st.markdown("### Navigation")
     page = st.radio("", [
         "WELCOME",
         "DATA ANALYTICS / ENGAGEMENT & MONETIZATION",
@@ -64,7 +42,8 @@ with st.sidebar:
 
 
 # =====================================================
-# ✅ NEW STREAMLIT CACHE (NO WARNING)
+# ✅ MODERN CACHE (NO WARNING)
+# Only used when needed
 # =====================================================
 @st.cache_data(show_spinner=False)
 def load_data(url: str):
@@ -86,35 +65,37 @@ def load_data(url: str):
     return df
 
 
-data_url = "https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv"
-data = load_data(data_url)
+DATA_URL = "https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv"
 
 
 # =====================================================
 # PAGES
 # =====================================================
 
-# -------------------------
-# WELCOME
-# -------------------------
+# -----------------------------------------------------
+# WELCOME (instant load, no data)
+# -----------------------------------------------------
 if page == "WELCOME":
 
     st.markdown('<p class="big-font">JASON CHANG</p>', unsafe_allow_html=True)
-    st.markdown('<p class="big2-font">PORTFOLIO</p><hr>', unsafe_allow_html=True)
+    st.markdown('<p class="big2-font">PORTFOLIO</p>', unsafe_allow_html=True)
     st.markdown('<p class="med2-font">Full Stack Senior Data Analyst</p>', unsafe_allow_html=True)
 
-    st.markdown("""
-    As a Senior Data Analyst focused on analytics strategy, data engineering, and monetization,
-    I convert complex datasets into measurable business outcomes and scalable systems.
+    st.write("""
+    Senior Data Analyst specializing in analytics strategy, data engineering,
+    automation, and revenue optimization.
     """)
 
 
-# -------------------------
-# DATA ANALYTICS
-# -------------------------
+# -----------------------------------------------------
+# DATA ANALYTICS (lazy loads data ONLY here)
+# -----------------------------------------------------
 elif page == "DATA ANALYTICS / ENGAGEMENT & MONETIZATION":
 
     st.header("DATA ANALYTICS / ENGAGEMENT & MONETIZATION")
+
+    # ✅ load only when this page is opened
+    data = load_data(DATA_URL)
 
     heatmap_data = (
         data.groupby(["region", "platform"])["dollars_spent"]
@@ -125,6 +106,7 @@ elif page == "DATA ANALYTICS / ENGAGEMENT & MONETIZATION":
     fig1 = plt.figure(figsize=(7, 5))
     sns.heatmap(heatmap_data, annot=True, cmap="YlGnBu", fmt=".2f")
     st.pyplot(fig1)
+    plt.close(fig1)
 
     event_1 = data[(data["Date"] >= "2017-01-24") & (data["Date"] <= "2017-02-14")]
     event_2 = data[(data["Date"] >= "2017-02-28") & (data["Date"] <= "2017-03-21")]
@@ -145,19 +127,20 @@ elif page == "DATA ANALYTICS / ENGAGEMENT & MONETIZATION":
 
     plt.tight_layout()
     st.pyplot(fig)
+    plt.close(fig)
 
 
-# -------------------------
-# OTHER PAGES
-# -------------------------
+# -----------------------------------------------------
+# LIGHTWEIGHT TEXT PAGES (fast)
+# -----------------------------------------------------
 elif page == "DASHBOARD / EXECUTIVE BUSINESS INSIGHTS":
     st.header("DASHBOARD / EXECUTIVE BUSINESS INSIGHTS")
-    st.write("Executive reporting + Power BI + schema redesign.")
+    st.write("Executive dashboards, Snowflake modeling, Power BI reporting.")
 
 
 elif page == "DATA ANALYSIS / WAREHOUSE & GL ACCOUNT OPTIMIZATION":
     st.header("WAREHOUSE & GL ACCOUNT OPTIMIZATION")
-    st.write("Cost analysis + process improvement + savings.")
+    st.write("Cost analysis, process improvement, logistics optimization.")
 
 
 elif page == "PROCESS AUTOMATION / QUARTERLY ROYALTY MANAGEMENT":
@@ -167,14 +150,14 @@ elif page == "PROCESS AUTOMATION / QUARTERLY ROYALTY MANAGEMENT":
 
 elif page == "SCOPE OF SKILLS":
     st.header("SKILLS")
-    st.write("Python • SQL • Snowflake • Power BI • ETL • Modeling • Analytics Strategy")
+    st.write("Python • SQL • Snowflake • Power BI • ETL • Analytics Strategy")
 
 
 elif page == "CERTIFICATIONS":
     st.header("CERTIFICATIONS")
-    st.write("ML • Deep Learning • Power BI • AWS • SQL")
+    st.write("Machine Learning • Deep Learning • Power BI • AWS • SQL")
 
 
 elif page == "LET'S CONNECT":
     st.header("LET'S CONNECT")
-    st.write("LinkedIn: linkedin.com/in/jchang0102")
+    st.write("linkedin.com/in/jchang0102")
