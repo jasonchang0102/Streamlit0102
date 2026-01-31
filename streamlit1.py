@@ -275,7 +275,7 @@ st.markdown("""
 with st.sidebar:
     st.markdown('<div class="nb">JC</div>', unsafe_allow_html=True)
     st.markdown('<p class="nl">Navigate</p>', unsafe_allow_html=True)
-    page = st.radio("", ["Home","Engagement","Executive","Warehouse","Automation","Skills","Certs","Contact"], label_visibility="collapsed")
+    page = st.radio("", ["About","Revenue Growth","Strategic BI","Operations","Efficiency","Capabilities","Credentials","Connect"], label_visibility="collapsed")
 
 # Scroll to top on page change
 if st.session_state.prev_page != page:
@@ -296,7 +296,7 @@ def load_data(url):
 
 data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
 
-if page == "Home":
+if page == "About":
     st.markdown("""
     <div class="hs">
         <div class="hl">
@@ -319,7 +319,7 @@ if page == "Home":
     <div class="sw"><div class="sb"><p class="sn">10+</p><p class="sl">Years Experience</p></div><div class="sb"><p class="sn">70%</p><p class="sl">Faster Data Refresh</p></div><div class="sb"><p class="sn">36%</p><p class="sl">ROAS Increase</p></div></div>
     """, unsafe_allow_html=True)
 
-elif page == "Engagement":
+elif page == "Revenue Growth":
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
     <div class="cd">
@@ -386,7 +386,7 @@ elif page == "Engagement":
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Executive":
+elif page == "Strategic BI":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
@@ -401,7 +401,7 @@ elif page == "Executive":
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Warehouse":
+elif page == "Operations":
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
     <div class="cd">
@@ -417,7 +417,7 @@ elif page == "Warehouse":
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Automation":
+elif page == "Efficiency":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
@@ -436,7 +436,7 @@ elif page == "Automation":
     <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
     """, unsafe_allow_html=True)
 
-elif page == "Skills":
+elif page == "Capabilities":
     st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
@@ -453,7 +453,7 @@ elif page == "Skills":
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Certs":
+elif page == "Credentials":
     st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div><div class="cl">', unsafe_allow_html=True)
     certs = [
         ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
@@ -468,10 +468,10 @@ elif page == "Certs":
         st.image(img, width=280)
     st.markdown('</div>', unsafe_allow_html=True)
 
-elif page == "Contact":
+elif page == "Connect":
     st.markdown("""
     <div class="sd"><p class="sdt">Get in Touch</p><p class="sdn">LET'S<br>CONNECT</p></div>
-    <div class="qs"><span class="qm">"</span><p class="qt">Without data, you're just another person with an opinion.</p></div>
+    <div class="qs"><span class="qm">"</span><p class="qt">Great decisions start with the right questions—and the right data brings actionable insight and measurable growth.</p></div>
     <div class="cl">
         <div class="cg">
             <div class="cc"><p class="ccl">Phone</p><p class="ccv">(626) 203-3319</p></div>
