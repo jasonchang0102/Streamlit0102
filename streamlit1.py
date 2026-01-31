@@ -3,9 +3,12 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
-import time
 
 st.set_page_config(layout="wide", page_title="Jason Chang", page_icon="◆")
+
+# Track page changes
+if 'prev_page' not in st.session_state:
+    st.session_state.prev_page = None
 
 st.markdown("""
 <link href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap' rel='stylesheet'>
@@ -274,26 +277,15 @@ with st.sidebar:
     st.markdown('<p class="nl">Menu</p>', unsafe_allow_html=True)
     page = st.radio("", ["Home","Engagement","Executive","Warehouse","Automation","Skills","Certs","Contact"], label_visibility="collapsed")
 
-# SCROLL TO TOP - Session state approach to avoid key errors
-if 'current_page' not in st.session_state:
-    st.session_state.current_page = None
-if 'scroll_key' not in st.session_state:
-    st.session_state.scroll_key = 0
-
-def scroll_to_top():
-    st.session_state.scroll_key += 1
+# Scroll to top on page change
+if st.session_state.prev_page != page:
+    st.session_state.prev_page = page
     components.html(
-        """
-        <script>
-            var main = window.parent.document.querySelector('.main');
-            if(main) main.scrollTop = 0;
-            var container = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
-            if(container) container.scrollTop = 0;
-            window.parent.scrollTo(0,0);
-        </script>
-        """,
-        height=0,
-        key=f"scroll_{st.session_state.scroll_key}"
+        """<script>
+        var main = window.parent.document.querySelector('.main');
+        if(main) main.scrollTo({top: 0, behavior: 'instant'});
+        </script>""",
+        height=0
     )
 
 @st.cache_data
@@ -305,9 +297,6 @@ def load_data(url):
 data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
 
 if page == "Home":
-    if st.session_state.current_page != "Home":
-        st.session_state.current_page = "Home"
-        scroll_to_top()
     st.markdown("""
     <div class="hs">
         <div class="hl">
@@ -331,9 +320,6 @@ if page == "Home":
     """, unsafe_allow_html=True)
 
 elif page == "Engagement":
-    if st.session_state.current_page != "Engagement":
-        st.session_state.current_page = "Engagement"
-        scroll_to_top()
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
     <div class="cd">
@@ -401,9 +387,6 @@ elif page == "Engagement":
     """, unsafe_allow_html=True)
 
 elif page == "Executive":
-    if st.session_state.current_page != "Executive":
-        st.session_state.current_page = "Executive"
-        scroll_to_top()
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Post-merger environment with 5 fragmented sales domains and inconsistent metrics. Finance and marketing leadership lacked unified performance visibility.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
@@ -419,9 +402,6 @@ elif page == "Executive":
     """, unsafe_allow_html=True)
 
 elif page == "Warehouse":
-    if st.session_state.current_page != "Warehouse":
-        st.session_state.current_page = "Warehouse"
-        scroll_to_top()
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
     <div class="cd">
@@ -438,9 +418,6 @@ elif page == "Warehouse":
     """, unsafe_allow_html=True)
 
 elif page == "Automation":
-    if st.session_state.current_page != "Automation":
-        st.session_state.current_page = "Automation"
-        scroll_to_top()
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">99+ vendor data sources with inconsistent formats. Manual ingestion consumed analyst bandwidth and introduced refresh errors impacting downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
@@ -460,9 +437,6 @@ elif page == "Automation":
     """, unsafe_allow_html=True)
 
 elif page == "Skills":
-    if st.session_state.current_page != "Skills":
-        st.session_state.current_page = "Skills"
-        scroll_to_top()
     st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
@@ -480,9 +454,6 @@ elif page == "Skills":
     """, unsafe_allow_html=True)
 
 elif page == "Certs":
-    if st.session_state.current_page != "Certs":
-        st.session_state.current_page = "Certs"
-        scroll_to_top()
     st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div><div class="cl">', unsafe_allow_html=True)
     certs = [
         ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
@@ -498,9 +469,6 @@ elif page == "Certs":
     st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Contact":
-    if st.session_state.current_page != "Contact":
-        st.session_state.current_page = "Contact"
-        scroll_to_top()
     st.markdown("""
     <div class="sd"><p class="sdt">Get in Touch</p><p class="sdn">LET'S<br>CONNECT</p></div>
     <div class="qs"><span class="qm">"</span><p class="qt">In God we trust; for all else, we turn to the validation of data.</p></div>
