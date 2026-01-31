@@ -6,7 +6,7 @@ import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Jason Chang", page_icon="◆")
 
-# ULTIMATE AWARD-WINNING CSS
+# FIXED CSS - ALL TEXT VISIBLE, NO DEAD LINKS, SMALLER HERO
 st.markdown("""
 <link href='https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap' rel='stylesheet'>
 <style>
@@ -15,7 +15,6 @@ st.markdown("""
         --white: #fafafa;
         --cream: #f7f3ef;
         --cream-dark: #ebe5dd;
-        --grey-50: #fafafa;
         --grey-100: #f4f4f5;
         --grey-200: #e4e4e7;
         --grey-300: #d4d4d8;
@@ -26,14 +25,12 @@ st.markdown("""
         --grey-800: #27272a;
         --grey-900: #18181b;
         --ease: cubic-bezier(0.16, 1, 0.3, 1);
-        --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     
     /* === SCROLLBAR === */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--black); }
     ::-webkit-scrollbar-thumb { background: var(--grey-700); }
-    ::-webkit-scrollbar-thumb:hover { background: var(--grey-500); }
     
     /* === BASE === */
     .stApp { background: var(--white) !important; overflow-x: hidden !important; }
@@ -52,25 +49,17 @@ st.markdown("""
     }
     
     /* === KEYFRAMES === */
-    @keyframes heroReveal {
-        0% { clip-path: inset(0 0 100% 0); opacity: 0; }
-        100% { clip-path: inset(0); opacity: 1; }
-    }
     @keyframes heroSlide {
-        0% { transform: translateY(150px) skewY(7deg); opacity: 0; }
+        0% { transform: translateY(80px) skewY(4deg); opacity: 0; }
         100% { transform: translateY(0) skewY(0); opacity: 1; }
     }
     @keyframes fadeSlideUp {
-        0% { transform: translateY(60px); opacity: 0; }
+        0% { transform: translateY(40px); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
     }
     @keyframes fadeSlideLeft {
-        0% { transform: translateX(-40px); opacity: 0; }
+        0% { transform: translateX(-30px); opacity: 0; }
         100% { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes scaleIn {
-        0% { transform: scale(0.8); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
     }
     @keyframes lineGrow {
         0% { transform: scaleX(0); }
@@ -82,8 +71,7 @@ st.markdown("""
     }
     @keyframes float {
         0%, 100% { transform: translateY(0) rotate(0deg); }
-        25% { transform: translateY(-20px) rotate(3deg); }
-        75% { transform: translateY(10px) rotate(-2deg); }
+        50% { transform: translateY(-20px) rotate(3deg); }
     }
     @keyframes pulse {
         0%, 100% { transform: scale(1); opacity: 1; }
@@ -93,32 +81,10 @@ st.markdown("""
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
-    @keyframes dash {
-        0% { stroke-dashoffset: 1000; }
-        100% { stroke-dashoffset: 0; }
-    }
-    @keyframes gradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-    @keyframes breathe {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-    @keyframes borderFlow {
-        0% { background-position: 0% 0%; }
-        100% { background-position: 200% 0%; }
-    }
     
     /* ========== SIDEBAR ========== */
     section[data-testid="stSidebar"] {
         background: linear-gradient(180deg, var(--black) 0%, #0d0d0d 100%) !important;
-        border-right: 1px solid rgba(255,255,255,0.03) !important;
-    }
-    
-    section[data-testid="stSidebar"] * {
-        color: var(--grey-500) !important;
     }
     
     section[data-testid="stSidebar"] .stRadio > div {
@@ -127,96 +93,64 @@ st.markdown("""
     
     section[data-testid="stSidebar"] .stRadio > div > label {
         background: transparent !important;
-        color: var(--grey-500) !important;
+        color: var(--grey-400) !important;
         font-family: 'Inter', sans-serif !important;
         font-size: 12px !important;
         font-weight: 500 !important;
-        padding: 22px 35px !important;
+        padding: 20px 35px !important;
         letter-spacing: 1px !important;
-        transition: all 0.6s var(--ease) !important;
+        transition: all 0.5s var(--ease) !important;
         border-left: 2px solid transparent !important;
-        position: relative !important;
-    }
-    
-    section[data-testid="stSidebar"] .stRadio > div > label::before {
-        content: '';
-        position: absolute;
-        left: 35px;
-        bottom: 18px;
-        width: 0;
-        height: 1px;
-        background: var(--white);
-        transition: width 0.6s var(--ease);
     }
     
     section[data-testid="stSidebar"] .stRadio > div > label:hover {
         color: var(--white) !important;
         padding-left: 45px !important;
-    }
-    
-    section[data-testid="stSidebar"] .stRadio > div > label:hover::before {
-        width: 20px;
+        background: rgba(255,255,255,0.02) !important;
     }
     
     section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"] {
         color: var(--white) !important;
         font-weight: 700 !important;
         border-left-color: var(--white) !important;
-        background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, transparent 100%) !important;
+        background: rgba(255,255,255,0.04) !important;
     }
     
-    section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"]::before {
-        width: 30px;
+    section[data-testid="stSidebar"] .stRadio > div > label span,
+    section[data-testid="stSidebar"] .stRadio > div > label p {
+        color: inherit !important;
     }
     
     .nav-brand {
         font-family: 'Bebas Neue', sans-serif !important;
-        font-size: 56px !important;
+        font-size: 48px !important;
         color: var(--white) !important;
-        letter-spacing: 8px !important;
-        padding: 60px 35px 50px 35px !important;
+        letter-spacing: 6px !important;
+        padding: 50px 35px 40px 35px !important;
         border-bottom: 1px solid rgba(255,255,255,0.05) !important;
-        margin-bottom: 25px !important;
-        position: relative;
-        background: linear-gradient(90deg, var(--white) 0%, var(--grey-400) 50%, var(--white) 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: gradient 8s ease infinite;
-    }
-    
-    .nav-year {
-        position: absolute;
-        bottom: 20px;
-        right: 35px;
-        font-family: 'Inter', sans-serif;
-        font-size: 9px;
-        font-weight: 600;
-        color: var(--grey-700);
-        letter-spacing: 2px;
+        margin-bottom: 20px !important;
     }
     
     .nav-label {
         font-family: 'Inter', sans-serif !important;
         font-size: 9px !important;
         font-weight: 700 !important;
-        color: var(--grey-700) !important;
-        letter-spacing: 5px !important;
+        color: var(--grey-600) !important;
+        letter-spacing: 4px !important;
         text-transform: uppercase !important;
-        padding: 30px 35px 18px 35px !important;
+        padding: 25px 35px 15px 35px !important;
     }
     
-    /* ========== HERO SECTION ========== */
+    /* ========== HERO ========== */
     .hero-container {
         display: grid;
-        grid-template-columns: 58% 42%;
+        grid-template-columns: 55% 45%;
         min-height: 100vh;
-        position: relative;
     }
     
     .hero-left {
         background: var(--black);
-        padding: 100px 90px;
+        padding: 80px 70px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -224,34 +158,21 @@ st.markdown("""
         overflow: hidden;
     }
     
-    /* Giant background watermark */
     .hero-left::before {
         content: 'JC';
         position: absolute;
-        bottom: -150px;
-        right: -80px;
+        bottom: -100px;
+        right: -50px;
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 700px;
-        color: rgba(255,255,255,0.012);
+        font-size: 450px;
+        color: rgba(255,255,255,0.01);
         line-height: 0.75;
         pointer-events: none;
-        letter-spacing: -30px;
-    }
-    
-    /* Gradient line accent */
-    .hero-left::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 1px;
-        height: 100%;
-        background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
     }
     
     .hero-right {
         background: linear-gradient(145deg, var(--cream) 0%, var(--cream-dark) 100%);
-        padding: 100px 80px;
+        padding: 80px 70px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -259,16 +180,15 @@ st.markdown("""
         overflow: hidden;
     }
     
-    /* Decorative elements */
     .deco-ring {
         position: absolute;
-        width: 220px;
-        height: 220px;
-        border: 1px solid rgba(255,255,255,0.06);
+        width: 160px;
+        height: 160px;
+        border: 1px solid rgba(255,255,255,0.05);
         border-radius: 50%;
-        top: 100px;
-        right: 100px;
-        animation: rotate 40s linear infinite;
+        top: 80px;
+        right: 80px;
+        animation: rotate 35s linear infinite;
     }
     
     .deco-ring::before {
@@ -276,53 +196,31 @@ st.markdown("""
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 10px;
-        height: 10px;
+        width: 6px;
+        height: 6px;
         background: var(--white);
         border-radius: 50%;
         transform: translate(-50%, -50%);
-        animation: breathe 4s ease infinite;
-    }
-    
-    .deco-ring::after {
-        content: '';
-        position: absolute;
-        top: -1px;
-        left: 50%;
-        width: 1px;
-        height: 50px;
-        background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
     }
     
     .deco-box {
         position: absolute;
-        width: 120px;
-        height: 120px;
+        width: 90px;
+        height: 90px;
         border: 1px solid rgba(0,0,0,0.04);
-        bottom: 140px;
-        right: 100px;
-        animation: float 10s ease-in-out infinite;
-    }
-    
-    .deco-box::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 6px;
-        height: 6px;
-        background: var(--black);
-        transform: translate(-50%, -50%);
+        bottom: 100px;
+        right: 70px;
+        animation: float 8s ease-in-out infinite;
     }
     
     .deco-grid {
         position: absolute;
-        top: 120px;
-        left: 80px;
+        top: 90px;
+        left: 70px;
         display: grid;
-        grid-template-columns: repeat(6, 10px);
-        gap: 15px;
-        opacity: 0.12;
+        grid-template-columns: repeat(5, 10px);
+        gap: 10px;
+        opacity: 0.1;
     }
     
     .deco-dot {
@@ -332,44 +230,16 @@ st.markdown("""
         border-radius: 50%;
     }
     
-    .deco-lines {
-        position: absolute;
-        bottom: 100px;
-        left: 80px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .deco-line {
-        height: 1px;
-        background: rgba(0,0,0,0.08);
-    }
-    
-    .deco-line:nth-child(1) { width: 60px; }
-    .deco-line:nth-child(2) { width: 40px; }
-    .deco-line:nth-child(3) { width: 80px; }
-    
     /* Badge */
     .hero-badge {
         display: inline-flex;
         align-items: center;
-        gap: 14px;
-        padding: 14px 26px;
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 50px;
-        margin-bottom: 80px;
+        gap: 12px;
+        padding: 12px 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 40px;
+        margin-bottom: 50px;
         animation: fadeSlideLeft 0.8s var(--ease) 0.2s both;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .hero-badge::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-        animation: borderFlow 3s linear infinite;
     }
     
     .badge-dot {
@@ -378,7 +248,6 @@ st.markdown("""
         background: #22c55e;
         border-radius: 50%;
         animation: pulse 2s ease infinite;
-        box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
     }
     
     .badge-text {
@@ -386,97 +255,84 @@ st.markdown("""
         font-size: 10px;
         font-weight: 600;
         color: var(--grey-400);
-        letter-spacing: 3px;
+        letter-spacing: 2px;
         text-transform: uppercase;
     }
     
-    /* Hero name - MASSIVE */
+    /* Hero Name - REDUCED SIZE (was 200px, now 160px) */
     .hero-name-wrap {
         overflow: hidden;
-        perspective: 1000px;
     }
     
     .hero-name {
         font-family: 'Bebas Neue', sans-serif !important;
-        font-size: 240px !important;
+        font-size: 160px !important;
         font-weight: 400 !important;
         color: var(--white) !important;
-        letter-spacing: -6px !important;
-        line-height: 0.78 !important;
+        letter-spacing: -3px !important;
+        line-height: 0.85 !important;
         margin: 0 !important;
-        animation: heroSlide 1.4s var(--ease) both !important;
-        transform-origin: bottom left;
+        animation: heroSlide 1s var(--ease) both !important;
     }
     
-    .hero-name-2 { animation-delay: 0.12s !important; }
+    .hero-name-2 { animation-delay: 0.08s !important; }
     
     .hero-name-stroke {
         font-family: 'Bebas Neue', sans-serif !important;
-        font-size: 240px !important;
+        font-size: 160px !important;
         color: transparent !important;
-        -webkit-text-stroke: 1px rgba(255,255,255,0.15) !important;
-        letter-spacing: -6px !important;
-        line-height: 0.78 !important;
+        -webkit-text-stroke: 1px rgba(255,255,255,0.12) !important;
+        letter-spacing: -3px !important;
+        line-height: 0.85 !important;
         margin: 0 !important;
-        animation: heroSlide 1.4s var(--ease) 0.24s both !important;
-        transform-origin: bottom left;
+        animation: heroSlide 1s var(--ease) 0.16s both !important;
     }
     
     .hero-role-wrap {
         display: flex;
         align-items: center;
-        gap: 30px;
-        margin-top: 70px;
+        gap: 20px;
+        margin-top: 45px;
     }
     
     .hero-line {
-        width: 100px;
+        width: 70px;
         height: 1px;
-        background: linear-gradient(90deg, var(--grey-500), transparent);
-        animation: lineGrow 1s var(--ease) 0.8s both;
+        background: var(--grey-600);
+        animation: lineGrow 0.8s var(--ease) 0.5s both;
         transform-origin: left;
     }
     
     .hero-role {
         font-family: 'Inter', sans-serif;
         font-size: 10px;
-        font-weight: 700;
+        font-weight: 600;
         color: var(--grey-500);
-        letter-spacing: 6px;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        animation: fadeSlideLeft 0.8s var(--ease) 0.9s both;
+        animation: fadeSlideLeft 0.8s var(--ease) 0.6s both;
     }
     
-    /* Hero right content */
+    /* Hero Right - BLACK TEXT ON CREAM BG */
     .hero-eyebrow {
         font-family: 'Inter', sans-serif;
         font-size: 10px;
-        font-weight: 800;
+        font-weight: 700;
         color: var(--grey-500);
-        letter-spacing: 6px;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
         animation: fadeSlideLeft 0.8s var(--ease) 0.3s both;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    
-    .hero-eyebrow::before {
-        content: '';
-        width: 30px;
-        height: 1px;
-        background: var(--grey-400);
     }
     
     .hero-headline {
         font-family: 'Playfair Display', serif !important;
-        font-size: 64px !important;
+        font-size: 48px !important;
         font-weight: 500 !important;
         color: var(--black) !important;
-        line-height: 1.1 !important;
-        margin-bottom: 40px !important;
-        animation: fadeSlideUp 1s var(--ease) 0.4s both !important;
+        line-height: 1.15 !important;
+        margin-bottom: 25px !important;
+        animation: fadeSlideUp 0.8s var(--ease) 0.4s both !important;
     }
     
     .hero-headline em {
@@ -486,67 +342,17 @@ st.markdown("""
     
     .hero-body {
         font-family: 'Inter', sans-serif !important;
-        font-size: 16px !important;
+        font-size: 15px !important;
         color: var(--grey-600) !important;
-        line-height: 2 !important;
-        max-width: 400px !important;
-        animation: fadeSlideUp 1s var(--ease) 0.6s both !important;
-    }
-    
-    .hero-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 18px;
-        margin-top: 60px;
-        padding: 22px 45px;
-        background: var(--black);
-        color: var(--white) !important;
-        font-family: 'Inter', sans-serif;
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        text-decoration: none !important;
-        transition: all 0.6s var(--ease);
-        animation: fadeSlideUp 1s var(--ease) 0.8s both;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .hero-cta::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: var(--white);
-        transform: translateX(-100%);
-        transition: transform 0.6s var(--ease);
-    }
-    
-    .hero-cta:hover::before {
-        transform: translateX(0);
-    }
-    
-    .hero-cta:hover {
-        color: var(--black) !important;
-    }
-    
-    .hero-cta span {
-        position: relative;
-        z-index: 1;
-    }
-    
-    .hero-cta-arrow {
-        transition: transform 0.6s var(--ease);
-    }
-    
-    .hero-cta:hover .hero-cta-arrow {
-        transform: translateX(8px);
+        line-height: 1.85 !important;
+        max-width: 380px !important;
+        animation: fadeSlideUp 0.8s var(--ease) 0.5s both !important;
     }
     
     /* ========== MARQUEE ========== */
     .marquee-wrap {
         background: var(--black);
-        padding: 35px 0;
+        padding: 28px 0;
         overflow: hidden;
         border-top: 1px solid rgba(255,255,255,0.03);
         border-bottom: 1px solid rgba(255,255,255,0.03);
@@ -558,7 +364,7 @@ st.markdown("""
         content: '';
         position: absolute;
         top: 0;
-        width: 150px;
+        width: 80px;
         height: 100%;
         z-index: 2;
         pointer-events: none;
@@ -576,20 +382,20 @@ st.markdown("""
     
     .marquee-track {
         display: flex;
-        animation: marquee 40s linear infinite;
+        animation: marquee 35s linear infinite;
         width: max-content;
     }
     
     .marquee-item {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 15px;
+        font-size: 14px;
         color: var(--grey-600);
-        letter-spacing: 10px;
+        letter-spacing: 6px;
         white-space: nowrap;
-        padding: 0 35px;
+        padding: 0 25px;
         display: flex;
         align-items: center;
-        gap: 35px;
+        gap: 25px;
     }
     
     .marquee-dot {
@@ -607,12 +413,13 @@ st.markdown("""
     }
     
     .stat-box {
-        padding: 120px 60px;
+        padding: 90px 50px;
         text-align: center;
         border-right: 1px solid var(--grey-200);
         position: relative;
         overflow: hidden;
-        transition: all 0.8s var(--ease);
+        transition: all 0.7s var(--ease);
+        background: var(--white);
     }
     
     .stat-box:last-child { border-right: none; }
@@ -623,35 +430,20 @@ st.markdown("""
         inset: 0;
         background: var(--black);
         transform: translateY(100%);
-        transition: transform 0.8s var(--ease);
-    }
-    
-    .stat-box::after {
-        content: attr(data-label);
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        font-family: 'Inter', sans-serif;
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        color: var(--grey-300);
-        transition: color 0.8s var(--ease);
+        transition: transform 0.7s var(--ease);
     }
     
     .stat-box:hover::before { transform: translateY(0); }
-    .stat-box:hover::after { color: var(--grey-600); }
     .stat-box:hover .stat-num, .stat-box:hover .stat-label { color: var(--white) !important; }
     
     .stat-num {
         font-family: 'Bebas Neue', sans-serif !important;
-        font-size: 180px !important;
+        font-size: 130px !important;
         color: var(--black) !important;
-        line-height: 0.85 !important;
+        line-height: 0.9 !important;
         position: relative;
         z-index: 1;
-        transition: color 0.8s var(--ease);
+        transition: color 0.7s var(--ease);
     }
     
     .stat-label {
@@ -659,57 +451,46 @@ st.markdown("""
         font-size: 10px !important;
         font-weight: 700 !important;
         color: var(--grey-500) !important;
-        margin-top: 30px !important;
+        margin-top: 22px !important;
         text-transform: uppercase !important;
-        letter-spacing: 6px !important;
+        letter-spacing: 4px !important;
         position: relative;
         z-index: 1;
-        transition: color 0.8s var(--ease);
+        transition: color 0.7s var(--ease);
     }
     
-    /* ========== SECTIONS ========== */
+    /* ========== SECTION HEADERS ========== */
     .section-dark {
         background: var(--black);
-        padding: 200px 100px 140px 100px;
+        padding: 140px 100px 100px 100px;
         position: relative;
-        overflow: hidden;
     }
     
     .section-dark::before {
         content: attr(data-num);
         position: absolute;
-        top: 100px;
+        top: 60px;
         right: 80px;
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 400px;
+        font-size: 300px;
         color: rgba(255,255,255,0.015);
         line-height: 1;
         pointer-events: none;
     }
     
-    .section-dark::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 100px;
-        right: 100px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    }
-    
     .section-light {
-        padding: 200px 100px 140px 100px;
+        background: var(--white);
+        padding: 140px 100px 100px 100px;
         position: relative;
-        overflow: hidden;
     }
     
     .section-light::before {
         content: attr(data-num);
         position: absolute;
-        top: 100px;
+        top: 60px;
         right: 80px;
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 400px;
+        font-size: 300px;
         color: rgba(0,0,0,0.02);
         line-height: 1;
         pointer-events: none;
@@ -718,74 +499,75 @@ st.markdown("""
     .section-tag {
         font-family: 'Inter', sans-serif;
         font-size: 10px;
-        font-weight: 800;
-        letter-spacing: 5px;
+        font-weight: 700;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        margin-bottom: 50px;
+        margin-bottom: 35px;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 15px;
     }
     
-    .section-tag-dark { color: var(--grey-600); }
+    .section-tag-dark { color: var(--grey-500); }
     .section-tag-light { color: var(--grey-400); }
     
     .section-tag::before {
         content: '';
-        width: 50px;
+        width: 35px;
         height: 1px;
         background: currentColor;
     }
     
     .section-title {
         font-family: 'Bebas Neue', sans-serif !important;
-        font-size: 200px !important;
-        letter-spacing: -6px !important;
-        line-height: 0.82 !important;
+        font-size: 140px !important;
+        letter-spacing: -3px !important;
+        line-height: 0.85 !important;
         margin: 0 !important;
     }
     
     .section-title-dark { color: var(--white) !important; }
     .section-title-light { color: var(--black) !important; }
     
-    /* ========== CONTENT ========== */
+    /* ========== CONTENT AREAS ========== */
     .content-dark {
         background: var(--black);
-        padding: 0 100px 180px 100px;
+        padding: 0 100px 130px 100px;
     }
     
     .content-light {
-        padding: 0 100px 180px 100px;
+        background: var(--white);
+        padding: 0 100px 130px 100px;
     }
     
     /* ========== SUBSECTION ========== */
     .sub-wrap {
         display: grid;
-        grid-template-columns: 160px 1fr;
-        gap: 60px;
-        margin-top: 140px;
-        margin-bottom: 60px;
+        grid-template-columns: 110px 1fr;
+        gap: 45px;
+        margin-top: 100px;
+        margin-bottom: 45px;
     }
     
     .sub-num {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 140px;
+        font-size: 100px;
         line-height: 0.75;
     }
     
-    .sub-num-dark { color: rgba(255,255,255,0.06); }
+    .sub-num-dark { color: rgba(255,255,255,0.05); }
     .sub-num-light { color: var(--grey-200); }
     
-    .sub-content { padding-top: 20px; }
+    .sub-content { padding-top: 12px; }
     
     .sub-title {
         font-family: 'Inter', sans-serif !important;
         font-size: 10px !important;
         font-weight: 800 !important;
-        letter-spacing: 5px !important;
+        letter-spacing: 4px !important;
         text-transform: uppercase !important;
-        margin-bottom: 35px !important;
-        padding-bottom: 18px !important;
+        margin-bottom: 25px !important;
+        padding-bottom: 12px !important;
         display: inline-block !important;
         position: relative;
     }
@@ -804,12 +586,12 @@ st.markdown("""
     .sub-title-light { color: var(--black) !important; }
     .sub-title-light::after { background: var(--grey-300); }
     
-    /* ========== BODY ========== */
+    /* ========== BODY TEXT ========== */
     .body {
         font-family: 'Inter', sans-serif !important;
-        font-size: 17px !important;
-        line-height: 2 !important;
-        max-width: 580px !important;
+        font-size: 15px !important;
+        line-height: 1.85 !important;
+        max-width: 520px !important;
     }
     
     .body-dark { color: var(--grey-400) !important; }
@@ -820,26 +602,26 @@ st.markdown("""
     /* ========== BULLETS ========== */
     .bullet {
         font-family: 'Inter', sans-serif !important;
-        font-size: 16px !important;
-        line-height: 2 !important;
-        margin-bottom: 20px !important;
-        padding-left: 55px !important;
+        font-size: 14px !important;
+        line-height: 1.85 !important;
+        margin-bottom: 15px !important;
+        padding-left: 40px !important;
         position: relative !important;
-        transition: all 0.6s var(--ease) !important;
+        transition: all 0.5s var(--ease) !important;
     }
     
     .bullet::before {
         content: '';
         position: absolute;
         left: 0;
-        top: 14px;
-        width: 30px;
+        top: 11px;
+        width: 22px;
         height: 1px;
-        transition: all 0.6s var(--ease);
+        transition: all 0.5s var(--ease);
     }
     
-    .bullet:hover { padding-left: 85px !important; }
-    .bullet:hover::before { width: 60px; }
+    .bullet:hover { padding-left: 60px !important; }
+    .bullet:hover::before { width: 42px; }
     
     .bullet-dark { color: var(--grey-400) !important; }
     .bullet-dark::before { background: var(--grey-700); }
@@ -857,16 +639,16 @@ st.markdown("""
     .result-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-        margin-top: 80px;
+        gap: 30px;
+        margin-top: 60px;
     }
     
     .result-card {
         background: var(--grey-100);
-        padding: 90px 70px;
+        padding: 70px 55px;
         position: relative;
         overflow: hidden;
-        transition: all 0.8s var(--ease);
+        transition: all 0.7s var(--ease);
     }
     
     .result-card::before {
@@ -875,28 +657,28 @@ st.markdown("""
         left: 0;
         bottom: 0;
         width: 100%;
-        height: 6px;
+        height: 4px;
         background: var(--black);
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform 0.8s var(--ease);
+        transition: transform 0.7s var(--ease);
     }
     
     .result-card::after {
         content: '+';
         position: absolute;
-        top: 50px;
-        right: 50px;
+        top: 35px;
+        right: 35px;
         font-family: 'Inter', sans-serif;
-        font-size: 28px;
+        font-size: 22px;
         font-weight: 300;
         color: var(--grey-300);
-        transition: all 0.8s var(--ease);
+        transition: all 0.7s var(--ease);
     }
     
     .result-card:hover {
-        transform: translateY(-25px);
-        box-shadow: 0 60px 120px rgba(0,0,0,0.12);
+        transform: translateY(-15px);
+        box-shadow: 0 45px 90px rgba(0,0,0,0.1);
     }
     
     .result-card:hover::before { transform: scaleX(1); }
@@ -904,9 +686,9 @@ st.markdown("""
     
     .result-num {
         font-family: 'Bebas Neue', sans-serif !important;
-        font-size: 140px !important;
+        font-size: 100px !important;
         color: var(--black) !important;
-        line-height: 0.85 !important;
+        line-height: 0.9 !important;
     }
     
     .result-title {
@@ -914,30 +696,30 @@ st.markdown("""
         font-size: 10px !important;
         font-weight: 800 !important;
         color: var(--black) !important;
-        margin: 35px 0 18px 0 !important;
+        margin: 25px 0 12px 0 !important;
         text-transform: uppercase !important;
-        letter-spacing: 5px !important;
+        letter-spacing: 3px !important;
     }
     
     .result-desc {
         font-family: 'Inter', sans-serif !important;
-        font-size: 14px !important;
+        font-size: 13px !important;
         color: var(--grey-500) !important;
-        line-height: 1.8 !important;
+        line-height: 1.7 !important;
     }
     
     /* ========== INFO CARDS ========== */
     .info-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 35px;
-        margin-top: 70px;
+        gap: 25px;
+        margin-top: 55px;
     }
     
     .info-card {
         background: var(--grey-100);
-        padding: 60px;
-        transition: all 0.7s var(--ease);
+        padding: 50px;
+        transition: all 0.6s var(--ease);
         position: relative;
         overflow: hidden;
     }
@@ -948,16 +730,16 @@ st.markdown("""
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 5px;
+        height: 4px;
         background: var(--black);
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform 0.7s var(--ease);
+        transition: transform 0.6s var(--ease);
     }
     
     .info-card:hover {
-        transform: translateY(-15px);
-        box-shadow: 0 40px 80px rgba(0,0,0,0.1);
+        transform: translateY(-10px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.08);
     }
     
     .info-card:hover::after { transform: scaleX(1); }
@@ -967,29 +749,29 @@ st.markdown("""
         font-size: 10px !important;
         font-weight: 800 !important;
         color: var(--black) !important;
-        letter-spacing: 5px !important;
+        letter-spacing: 3px !important;
         text-transform: uppercase !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 15px !important;
     }
     
     .info-desc {
         font-family: 'Inter', sans-serif !important;
-        font-size: 15px !important;
+        font-size: 14px !important;
         color: var(--grey-500) !important;
-        line-height: 1.9 !important;
+        line-height: 1.75 !important;
     }
     
     /* ========== SKILLS ========== */
     .skills-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
+        gap: 22px;
     }
     
     .skill-card {
         background: var(--grey-100);
-        padding: 55px;
-        transition: all 0.7s var(--ease);
+        padding: 45px;
+        transition: all 0.6s var(--ease);
         position: relative;
         overflow: hidden;
     }
@@ -999,13 +781,13 @@ st.markdown("""
         position: absolute;
         top: 0;
         left: 0;
-        width: 5px;
+        width: 4px;
         height: 0;
         background: var(--black);
-        transition: height 0.7s var(--ease);
+        transition: height 0.6s var(--ease);
     }
     
-    .skill-card:hover { transform: translateX(20px); }
+    .skill-card:hover { transform: translateX(12px); }
     .skill-card:hover::before { height: 100%; }
     
     .skill-title {
@@ -1013,34 +795,34 @@ st.markdown("""
         font-size: 10px !important;
         font-weight: 800 !important;
         color: var(--black) !important;
-        letter-spacing: 5px !important;
+        letter-spacing: 3px !important;
         text-transform: uppercase !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 15px !important;
     }
     
     .skill-list {
         font-family: 'Inter', sans-serif !important;
-        font-size: 14px !important;
+        font-size: 13px !important;
         color: var(--grey-500) !important;
-        line-height: 2.2 !important;
+        line-height: 2 !important;
     }
     
     /* ========== CERTS ========== */
     .cert-item {
         display: grid;
-        grid-template-columns: 140px 1fr auto;
-        gap: 60px;
+        grid-template-columns: 100px 1fr auto;
+        gap: 40px;
         align-items: center;
-        padding: 55px 0;
+        padding: 45px 0;
         border-bottom: 1px solid var(--grey-200);
-        transition: all 0.6s var(--ease);
+        transition: all 0.5s var(--ease);
     }
     
-    .cert-item:hover { padding-left: 30px; }
+    .cert-item:hover { padding-left: 20px; }
     
     .cert-num {
         font-family: 'Bebas Neue', sans-serif;
-        font-size: 100px;
+        font-size: 70px;
         color: var(--grey-200);
         line-height: 0.9;
     }
@@ -1049,29 +831,30 @@ st.markdown("""
     
     .cert-title {
         font-family: 'Inter', sans-serif !important;
-        font-size: 22px !important;
+        font-size: 16px !important;
         font-weight: 600 !important;
         color: var(--black) !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 6px !important;
     }
     
     .cert-org {
         font-family: 'Inter', sans-serif !important;
-        font-size: 13px !important;
+        font-size: 12px !important;
         color: var(--grey-500) !important;
     }
     
     .cert-link {
         font-family: 'Inter', sans-serif !important;
         font-size: 10px !important;
-        font-weight: 800 !important;
+        font-weight: 700 !important;
         color: var(--black) !important;
-        letter-spacing: 3px !important;
+        letter-spacing: 2px !important;
         text-transform: uppercase !important;
         text-decoration: none !important;
-        padding: 18px 35px !important;
+        padding: 14px 26px !important;
         border: 1px solid var(--grey-300) !important;
-        transition: all 0.5s var(--ease) !important;
+        transition: all 0.4s var(--ease) !important;
+        display: inline-block !important;
     }
     
     .cert-link:hover {
@@ -1080,17 +863,24 @@ st.markdown("""
         border-color: var(--black) !important;
     }
     
+    .cert-na {
+        font-family: 'Inter', sans-serif !important;
+        font-size: 10px !important;
+        color: var(--grey-300) !important;
+        letter-spacing: 2px !important;
+    }
+    
     /* ========== CONTACT ========== */
     .contact-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 35px;
+        gap: 25px;
     }
     
     .contact-card {
         background: var(--grey-100);
-        padding: 55px 60px;
-        transition: all 0.6s var(--ease);
+        padding: 45px 50px;
+        transition: all 0.5s var(--ease);
         position: relative;
         overflow: hidden;
     }
@@ -1101,11 +891,11 @@ st.markdown("""
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 5px;
+        height: 4px;
         background: var(--black);
         transform: scaleX(0);
         transform-origin: left;
-        transition: transform 0.6s var(--ease);
+        transition: transform 0.5s var(--ease);
     }
     
     .contact-card:hover::after { transform: scaleX(1); }
@@ -1115,32 +905,43 @@ st.markdown("""
         font-size: 9px !important;
         font-weight: 800 !important;
         color: var(--grey-400) !important;
-        letter-spacing: 5px !important;
+        letter-spacing: 3px !important;
         text-transform: uppercase !important;
-        margin-bottom: 18px !important;
+        margin-bottom: 12px !important;
     }
     
     .contact-value {
         font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 24px !important;
+        font-size: 18px !important;
         font-weight: 500 !important;
         color: var(--black) !important;
+    }
+    
+    .contact-value a {
+        color: var(--black) !important;
+        text-decoration: none !important;
+        border-bottom: 1px solid var(--grey-300) !important;
+        transition: border-color 0.3s ease !important;
+    }
+    
+    .contact-value a:hover {
+        border-color: var(--black) !important;
     }
     
     /* ========== QUOTE ========== */
     .quote-section {
         background: linear-gradient(145deg, var(--cream) 0%, var(--cream-dark) 100%);
-        padding: 180px 100px;
+        padding: 130px 100px;
         position: relative;
         overflow: hidden;
     }
     
     .quote-mark {
         font-family: 'Playfair Display', serif;
-        font-size: 500px;
+        font-size: 350px;
         color: rgba(0,0,0,0.02);
         position: absolute;
-        top: -50px;
+        top: -30px;
         left: 30px;
         line-height: 1;
         pointer-events: none;
@@ -1148,12 +949,12 @@ st.markdown("""
     
     .quote-text {
         font-family: 'Playfair Display', serif !important;
-        font-size: 50px !important;
+        font-size: 38px !important;
         font-weight: 400 !important;
         font-style: italic !important;
         color: var(--black) !important;
-        line-height: 1.35 !important;
-        max-width: 800px !important;
+        line-height: 1.4 !important;
+        max-width: 650px !important;
         position: relative;
         z-index: 1;
     }
@@ -1164,33 +965,25 @@ st.markdown("""
         font-size: 9px !important;
         font-weight: 800 !important;
         color: var(--grey-400) !important;
-        letter-spacing: 5px !important;
+        letter-spacing: 3px !important;
         text-transform: uppercase !important;
-        margin-bottom: 30px !important;
+        margin-bottom: 20px !important;
     }
     
     .divider {
         width: 100%;
         height: 1px;
         background: var(--grey-200);
-        margin: 140px 0;
+        margin: 100px 0;
     }
-    
-    a {
-        color: var(--black) !important;
-        text-decoration: none !important;
-        transition: opacity 0.3s ease !important;
-    }
-    
-    a:hover { opacity: 0.6 !important; }
     
     .stImage img {
-        transition: all 0.9s var(--ease) !important;
+        transition: all 0.7s var(--ease) !important;
     }
     
     .stImage img:hover {
-        transform: scale(1.025) !important;
-        box-shadow: 0 70px 140px rgba(0,0,0,0.15) !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 50px 100px rgba(0,0,0,0.1) !important;
     }
     
     h1, h2, h3 { font-family: 'Bebas Neue', sans-serif !important; }
@@ -1205,7 +998,7 @@ def scroll_to_top():
     </script>""", height=0, width=0)
 
 with st.sidebar:
-    st.markdown('<div class="nav-brand">JC<span class="nav-year">©2025</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="nav-brand">JC</div>', unsafe_allow_html=True)
     st.markdown('<p class="nav-label">Menu</p>', unsafe_allow_html=True)
     page = st.radio("", ["Home","Engagement","Executive","Warehouse","Automation","Skills","Certs","Contact"], label_visibility="collapsed")
 
@@ -1240,19 +1033,13 @@ if page == "Home":
         <div class="hero-right">
             <div class="deco-box"></div>
             <div class="deco-grid">
-                <span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span>
-                <span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span>
-                <span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span>
-            </div>
-            <div class="deco-lines">
-                <span class="deco-line"></span>
-                <span class="deco-line"></span>
-                <span class="deco-line"></span>
+                <span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span>
+                <span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span>
+                <span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span><span class="deco-dot"></span>
             </div>
             <p class="hero-eyebrow">About Me</p>
             <p class="hero-headline">Turning <em>complex data</em> into strategic growth.</p>
-            <p class="hero-body">Revenue Growth Leader with 10+ years scaling national programs. Proficient in Snowflake, SQL, Power BI, and Python.</p>
-            <a href="#" class="hero-cta"><span>View Work</span> <span class="hero-cta-arrow">→</span></a>
+            <p class="hero-body">Revenue Growth Leader with 10+ years scaling national programs. Proficient in Snowflake, SQL, Power BI, and Python. I translate analytics into actionable insights that accelerate decisions.</p>
         </div>
     </div>
     
@@ -1264,15 +1051,15 @@ if page == "Home":
     </div>
     
     <div class="stats-wrap">
-        <div class="stat-box" data-label="01">
+        <div class="stat-box">
             <p class="stat-num">10+</p>
             <p class="stat-label">Years Experience</p>
         </div>
-        <div class="stat-box" data-label="02">
+        <div class="stat-box">
             <p class="stat-num">85%</p>
             <p class="stat-label">Efficiency Gains</p>
         </div>
-        <div class="stat-box" data-label="03">
+        <div class="stat-box">
             <p class="stat-num">21%</p>
             <p class="stat-label">Revenue Growth</p>
         </div>
@@ -1281,7 +1068,7 @@ if page == "Home":
 
 # ===================== ENGAGEMENT =====================
 elif page == "Engagement":
-    st.markdown('<div class="section-dark" data-num="01"><p class="section-tag section-tag-dark"><span>Case Study</span></p><p class="section-title section-title-dark">PLAYER<br>ENGAGEMENT</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-dark" data-num="01"><p class="section-tag section-tag-dark">Case Study</p><p class="section-title section-title-dark">PLAYER<br>ENGAGEMENT</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-dark">', unsafe_allow_html=True)
     
     st.markdown('<div class="sub-wrap"><span class="sub-num sub-num-dark">01</span><div class="sub-content"><p class="sub-title sub-title-dark">Situation</p><p class="body body-dark">Tasked with maximizing revenue and player engagement for Warcraft during two key in-game events. Challenge: understanding player segment behavior and identifying monetization opportunities.</p></div></div>', unsafe_allow_html=True)
@@ -1311,8 +1098,8 @@ elif page == "Engagement":
     fig1, ax1 = plt.subplots(figsize=(9, 5))
     fig1.patch.set_facecolor('#050505')
     ax1.set_facecolor('#050505')
-    sns.heatmap(heatmap_data, annot=True, cmap="Greys", fmt=".2f", linewidths=5, ax=ax1, annot_kws={"color": "#fafafa", "fontsize": 13, "fontweight": "bold"}, linecolor='#050505', cbar=False)
-    ax1.tick_params(colors='#fafafa', labelsize=11)
+    sns.heatmap(heatmap_data, annot=True, cmap="Greys", fmt=".2f", linewidths=4, ax=ax1, annot_kws={"color": "#fafafa", "fontsize": 11, "fontweight": "bold"}, linecolor='#050505', cbar=False)
+    ax1.tick_params(colors='#fafafa', labelsize=10)
     ax1.set_xlabel('', fontsize=0)
     ax1.set_ylabel('', fontsize=0)
     for spine in ax1.spines.values():
@@ -1360,7 +1147,7 @@ elif page == "Engagement":
 
 # ===================== EXECUTIVE =====================
 elif page == "Executive":
-    st.markdown('<div class="section-light" data-num="02"><p class="section-tag section-tag-light"><span>Case Study</span></p><p class="section-title section-title-light">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-light" data-num="02"><p class="section-tag section-tag-light">Case Study</p><p class="section-title section-title-light">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-light">', unsafe_allow_html=True)
     
     st.markdown('<div class="sub-wrap"><span class="sub-num sub-num-light">01</span><div class="sub-content"><p class="sub-title sub-title-light">Situation</p><p class="body body-light">Post-merger environment with fragmented data across systems. Finance lacked unified performance measurement.</p></div></div>', unsafe_allow_html=True)
@@ -1389,7 +1176,7 @@ elif page == "Executive":
 
 # ===================== WAREHOUSE =====================
 elif page == "Warehouse":
-    st.markdown('<div class="section-dark" data-num="03"><p class="section-tag section-tag-dark"><span>Case Study</span></p><p class="section-title section-title-dark">WAREHOUSE<br>OPTIMIZATION</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-dark" data-num="03"><p class="section-tag section-tag-dark">Case Study</p><p class="section-title section-title-dark">WAREHOUSE<br>OPTIMIZATION</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-dark">', unsafe_allow_html=True)
     
     st.markdown('<div class="sub-wrap"><span class="sub-num sub-num-dark">01</span><div class="sub-content"><p class="sub-title sub-title-dark">Situation</p><p class="body body-dark">Escalating logistics costs impacting bottom line. SKYLAB and 3PL Logistics identified as key areas for potential inefficiency.</p></div></div>', unsafe_allow_html=True)
@@ -1405,7 +1192,7 @@ elif page == "Warehouse":
 
 # ===================== AUTOMATION =====================
 elif page == "Automation":
-    st.markdown('<div class="section-light" data-num="04"><p class="section-tag section-tag-light"><span>Case Study</span></p><p class="section-title section-title-light">ROYALTY<br>AUTOMATION</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-light" data-num="04"><p class="section-tag section-tag-light">Case Study</p><p class="section-title section-title-light">ROYALTY<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-light">', unsafe_allow_html=True)
     
     st.markdown('<div class="sub-wrap"><span class="sub-num sub-num-light">01</span><div class="sub-content"><p class="sub-title sub-title-light">Situation</p><p class="body body-light">Month-long manual Excel lookups across years of unorganized data. High error risk, significant analyst burden.</p></div></div>', unsafe_allow_html=True)
@@ -1424,16 +1211,16 @@ elif page == "Automation":
 
     st.markdown('<div class="sub-wrap"><span class="sub-num sub-num-light">04</span><div class="sub-content"><p class="sub-title sub-title-light">Results</p></div></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="stats-wrap" style="margin-top:60px;">
-        <div class="stat-box" data-label="A">
+    <div class="stats-wrap" style="margin-top:45px;">
+        <div class="stat-box">
             <p class="stat-num">85%</p>
             <p class="stat-label">Time Saved</p>
         </div>
-        <div class="stat-box" data-label="B">
+        <div class="stat-box">
             <p class="stat-num">2</p>
             <p class="stat-label">FTEs Freed</p>
         </div>
-        <div class="stat-box" data-label="C">
+        <div class="stat-box">
             <p class="stat-num">↑</p>
             <p class="stat-label">Accuracy</p>
         </div>
@@ -1443,10 +1230,10 @@ elif page == "Automation":
 
 # ===================== SKILLS =====================
 elif page == "Skills":
-    st.markdown('<div class="section-dark" data-num="★"><p class="section-tag section-tag-dark"><span>Expertise</span></p><p class="section-title section-title-dark">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-dark" data-num="★"><p class="section-tag section-tag-dark">Expertise</p><p class="section-title section-title-dark">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-light">', unsafe_allow_html=True)
     
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=180)
+    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=150)
     st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
     st.markdown("""
@@ -1481,7 +1268,7 @@ elif page == "Skills":
 
 # ===================== CERTS =====================
 elif page == "Certs":
-    st.markdown('<div class="section-light" data-num="✓"><p class="section-tag section-tag-light"><span>Credentials</span></p><p class="section-title section-title-light">CERTIFICATIONS</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-light" data-num="✓"><p class="section-tag section-tag-light">Credentials</p><p class="section-title section-title-light">CERTIFICATIONS</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="content-light">', unsafe_allow_html=True)
     
     certs = [
@@ -1493,14 +1280,17 @@ elif page == "Certs":
     ]
     
     for num, title, org, img, link in certs:
-        link_html = f'<a href="{link}" target="_blank" class="cert-link">Verify</a>' if link else '<span class="cert-link" style="opacity:0.3;pointer-events:none;">—</span>'
+        if link:
+            link_html = f'<a href="{link}" target="_blank" class="cert-link">Verify</a>'
+        else:
+            link_html = '<span class="cert-na">—</span>'
         st.markdown(f'<div class="cert-item"><span class="cert-num">{num}</span><div class="cert-content"><p class="cert-title">{title}</p><p class="cert-org">{org}</p></div>{link_html}</div>', unsafe_allow_html=True)
-        st.image(img, width=360)
+        st.image(img, width=320)
     st.markdown('</div>', unsafe_allow_html=True)
 
 # ===================== CONTACT =====================
 elif page == "Contact":
-    st.markdown('<div class="section-dark" data-num="→"><p class="section-tag section-tag-dark"><span>Get in Touch</span></p><p class="section-title section-title-dark">LET\'S<br>CONNECT</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-dark" data-num="→"><p class="section-tag section-tag-dark">Get in Touch</p><p class="section-title section-title-dark">LET\'S<br>CONNECT</p></div>', unsafe_allow_html=True)
     
     st.markdown("""
     <div class="quote-section">
@@ -1522,7 +1312,7 @@ elif page == "Contact":
         </div>
         <div class="contact-card">
             <p class="contact-label">LinkedIn</p>
-            <p class="contact-value"><a href="https://linkedin.com/in/jchang0102">linkedin.com/in/jchang0102</a></p>
+            <p class="contact-value"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></p>
         </div>
         <div class="contact-card">
             <p class="contact-label">Location</p>
