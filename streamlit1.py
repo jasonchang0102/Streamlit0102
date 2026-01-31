@@ -114,7 +114,7 @@ st.markdown("""
     .hns{font-family:'Outfit',sans-serif!important;font-size:115px!important;font-weight:800!important;color:transparent!important;-webkit-text-stroke:1px rgba(255,255,255,0.08)!important;letter-spacing:-2px!important;line-height:.92!important;margin:0!important;animation:heroIn .9s cubic-bezier(.16,1,.3,1) .14s both!important}
     .hrw{display:flex;align-items:center;gap:15px;margin-top:30px}
     .hrl{width:45px;height:1px;background:var(--g6);animation:lineGrow .5s cubic-bezier(.16,1,.3,1) .35s both;transform-origin:left}
-    .hro{font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;color:var(--g5);letter-spacing:3px;text-transform:uppercase;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .4s both}
+    .hro{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#ffffff;letter-spacing:4px;text-transform:uppercase;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .4s both;text-shadow:0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25)}
     .he{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;color:var(--g5);letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .15s both}
     .hh{font-family:'Playfair Display',serif!important;font-size:40px!important;font-weight:500!important;color:var(--b)!important;line-height:1.2!important;margin-bottom:18px!important;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) .25s both!important}
     .hh em{font-style:italic;font-weight:400}
@@ -126,8 +126,8 @@ st.markdown("""
     .mw::before{left:0;background:linear-gradient(90deg,var(--b),transparent)}
     .mw::after{right:0;background:linear-gradient(-90deg,var(--b),transparent)}
     .mt{display:flex;animation:marquee 28s linear infinite;width:max-content}
-    .mi{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;color:var(--g6);letter-spacing:4px;text-transform:uppercase;white-space:nowrap;padding:0 18px;display:flex;align-items:center;gap:18px}
-    .md{width:3px;height:3px;background:var(--g7);border-radius:50%}
+    .mi{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:#ffffff;letter-spacing:5px;text-transform:uppercase;white-space:nowrap;padding:0 18px;display:flex;align-items:center;gap:18px;text-shadow:0 1px 0 #ccc,0 2px 0 #c9c9c9,0 3px 0 #bbb,0 4px 0 #b9b9b9,0 5px 0 #aaa,0 6px 1px rgba(0,0,0,.1),0 0 5px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.3),0 3px 5px rgba(0,0,0,.2),0 5px 10px rgba(0,0,0,.25)}
+    .md{width:5px;height:5px;background:#ffffff;border-radius:50%;box-shadow:0 0 8px rgba(255,255,255,0.5)}
     
     /* === STATS === */
     .sw{display:grid;grid-template-columns:repeat(3,1fr);background:var(--w)!important}
@@ -160,10 +160,10 @@ st.markdown("""
     .cd .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:rgba(255,255,255,0.2);line-height:1;min-width:55px;animation:numberPop .5s ease both}
     .cd .sc{flex:1;padding-top:6px}
     .cd .st{font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;color:var(--w);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g8);display:inline-block}
-    .cd .bt{font-family:'DM Sans',sans-serif;font-size:14px;color:var(--g4);line-height:1.75;max-width:480px}
+    .cd .bt{font-family:'DM Sans',sans-serif;font-size:14px;color:#e5e5e5;line-height:1.75;max-width:480px}
     .cd .bt strong{color:var(--w);font-weight:600}
-    .cd .bi{font-family:'DM Sans',sans-serif;font-size:13px;color:var(--g4);line-height:1.75;margin-bottom:10px;padding-left:24px;position:relative;transition:all .3s ease}
-    .cd .bi::before{content:'';position:absolute;left:0;top:9px;width:14px;height:1px;background:var(--g7);transition:all .3s ease}
+    .cd .bi{font-family:'DM Sans',sans-serif;font-size:13px;color:#e5e5e5;line-height:1.75;margin-bottom:10px;padding-left:24px;position:relative;transition:all .3s ease}
+    .cd .bi::before{content:'';position:absolute;left:0;top:9px;width:14px;height:1px;background:var(--g5);transition:all .3s ease}
     .cd .bi:hover{padding-left:32px;color:var(--w)}
     .cd .bi:hover::before{width:22px;background:var(--w)}
     .cd .bi strong{color:var(--w);font-weight:600}
@@ -274,7 +274,7 @@ st.markdown("""
 # SIDEBAR
 with st.sidebar:
     st.markdown('<div class="nb">JC</div>', unsafe_allow_html=True)
-    st.markdown('<p class="nl">Menu</p>', unsafe_allow_html=True)
+    st.markdown('<p class="nl">Navigate</p>', unsafe_allow_html=True)
     page = st.radio("", ["Home","Engagement","Executive","Warehouse","Automation","Skills","Certs","Contact"], label_visibility="collapsed")
 
 # Scroll to top on page change
