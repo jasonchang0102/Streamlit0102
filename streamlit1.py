@@ -3,6 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
+import time
 
 st.set_page_config(layout="wide", page_title="Jason Chang", page_icon="◆")
 
@@ -273,32 +274,26 @@ with st.sidebar:
     st.markdown('<p class="nl">Menu</p>', unsafe_allow_html=True)
     page = st.radio("", ["Home","Engagement","Executive","Warehouse","Automation","Skills","Certs","Contact"], label_visibility="collapsed")
 
-# SCROLL TO TOP - Must be called at START of each page content
-def scroll_to_top(key):
+# SCROLL TO TOP - Session state approach to avoid key errors
+if 'current_page' not in st.session_state:
+    st.session_state.current_page = None
+if 'scroll_key' not in st.session_state:
+    st.session_state.scroll_key = 0
+
+def scroll_to_top():
+    st.session_state.scroll_key += 1
     components.html(
         """
         <script>
-            // Multiple methods to ensure scroll works
             var main = window.parent.document.querySelector('.main');
             if(main) main.scrollTop = 0;
-            
             var container = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
             if(container) container.scrollTop = 0;
-            
-            var block = window.parent.document.querySelector('.block-container');
-            if(block) block.scrollTop = 0;
-            
-            // Also try scrollIntoView on this iframe
-            if(window.frameElement) {
-                window.frameElement.scrollIntoView({behavior:'instant', block:'start'});
-            }
-            
-            // Fallback: scroll window
             window.parent.scrollTo(0,0);
         </script>
         """,
         height=0,
-        key=f"scroll_{key}"
+        key=f"scroll_{st.session_state.scroll_key}"
     )
 
 @st.cache_data
@@ -310,7 +305,9 @@ def load_data(url):
 data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
 
 if page == "Home":
-    scroll_to_top("home")
+    if st.session_state.current_page != "Home":
+        st.session_state.current_page = "Home"
+        scroll_to_top()
     st.markdown("""
     <div class="hs">
         <div class="hl">
@@ -334,7 +331,9 @@ if page == "Home":
     """, unsafe_allow_html=True)
 
 elif page == "Engagement":
-    scroll_to_top("engagement")
+    if st.session_state.current_page != "Engagement":
+        st.session_state.current_page = "Engagement"
+        scroll_to_top()
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
     <div class="cd">
@@ -402,7 +401,9 @@ elif page == "Engagement":
     """, unsafe_allow_html=True)
 
 elif page == "Executive":
-    scroll_to_top("executive")
+    if st.session_state.current_page != "Executive":
+        st.session_state.current_page = "Executive"
+        scroll_to_top()
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Post-merger environment with 5 fragmented sales domains and inconsistent metrics. Finance and marketing leadership lacked unified performance visibility.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
@@ -418,7 +419,9 @@ elif page == "Executive":
     """, unsafe_allow_html=True)
 
 elif page == "Warehouse":
-    scroll_to_top("warehouse")
+    if st.session_state.current_page != "Warehouse":
+        st.session_state.current_page = "Warehouse"
+        scroll_to_top()
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
     <div class="cd">
@@ -435,7 +438,9 @@ elif page == "Warehouse":
     """, unsafe_allow_html=True)
 
 elif page == "Automation":
-    scroll_to_top("automation")
+    if st.session_state.current_page != "Automation":
+        st.session_state.current_page = "Automation"
+        scroll_to_top()
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">99+ vendor data sources with inconsistent formats. Manual ingestion consumed analyst bandwidth and introduced refresh errors impacting downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
@@ -455,7 +460,9 @@ elif page == "Automation":
     """, unsafe_allow_html=True)
 
 elif page == "Skills":
-    scroll_to_top("skills")
+    if st.session_state.current_page != "Skills":
+        st.session_state.current_page = "Skills"
+        scroll_to_top()
     st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
     st.markdown('<div class="cl">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
@@ -473,7 +480,9 @@ elif page == "Skills":
     """, unsafe_allow_html=True)
 
 elif page == "Certs":
-    scroll_to_top("certs")
+    if st.session_state.current_page != "Certs":
+        st.session_state.current_page = "Certs"
+        scroll_to_top()
     st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div><div class="cl">', unsafe_allow_html=True)
     certs = [
         ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
@@ -489,7 +498,9 @@ elif page == "Certs":
     st.markdown('</div>', unsafe_allow_html=True)
 
 elif page == "Contact":
-    scroll_to_top("contact")
+    if st.session_state.current_page != "Contact":
+        st.session_state.current_page = "Contact"
+        scroll_to_top()
     st.markdown("""
     <div class="sd"><p class="sdt">Get in Touch</p><p class="sdn">LET'S<br>CONNECT</p></div>
     <div class="qs"><span class="qm">"</span><p class="qt">In God we trust; for all else, we turn to the validation of data.</p></div>
