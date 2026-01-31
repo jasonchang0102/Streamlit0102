@@ -4,8 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
 
-st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆", font-size: 96px;
-        font-weight: 700)
+st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆")
 
 def scroll_to_top():
     components.html("""<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>""", height=0)
@@ -28,16 +27,17 @@ st.markdown("""
     
     /* === HERO NAME - LARGE & BOLD === */
     .hero-name {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 96px;
-        font-weight: 700;
+        font-family: 'Space Grotesk', sans-serif !important;
+        font-size: 120px !important;
+        font-weight: 700 !important;
         background: linear-gradient(135deg, #ffffff 0%, #a8b4c4 50%, #ffffff 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        letter-spacing: -2px;
+        letter-spacing: -3px;
         line-height: 1;
         margin-bottom: 8px;
+        margin-top: 0;
     }
     
     /* === PORTFOLIO SUBTITLE === */
