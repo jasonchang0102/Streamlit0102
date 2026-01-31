@@ -87,12 +87,12 @@ st.markdown("""
     /* === SIDEBAR === */
     section[data-testid="stSidebar"]{background:var(--b)!important}
     section[data-testid="stSidebar"] .stRadio>div{gap:0!important}
-    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:var(--g5)!important;font-family:'DM Sans',sans-serif!important;font-size:13px!important;font-weight:500!important;padding:16px 28px!important;transition:all .4s cubic-bezier(.16,1,.3,1)!important;border-left:2px solid transparent!important}
-    section[data-testid="stSidebar"] .stRadio>div>label:hover{color:var(--w)!important;padding-left:36px!important;background:rgba(255,255,255,0.02)!important}
-    section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:var(--w)!important;font-weight:600!important;border-left-color:var(--w)!important;background:rgba(255,255,255,0.03)!important}
+    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:#ffffff!important;font-family:'DM Sans',sans-serif!important;font-size:13px!important;font-weight:500!important;padding:16px 28px!important;transition:all .4s cubic-bezier(.16,1,.3,1)!important;border-left:2px solid transparent!important}
+    section[data-testid="stSidebar"] .stRadio>div>label:hover{color:#ffffff!important;padding-left:36px!important;background:rgba(255,255,255,0.05)!important}
+    section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:#ffffff!important;font-weight:600!important;border-left-color:#ffffff!important;background:rgba(255,255,255,0.03)!important}
     section[data-testid="stSidebar"] .stRadio>div>label span,section[data-testid="stSidebar"] .stRadio>div>label p{color:inherit!important}
-    .nb{font-family:'Outfit',sans-serif!important;font-size:28px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:2px!important;padding:36px 28px 32px!important;border-bottom:1px solid rgba(255,255,255,0.04)!important;margin-bottom:12px!important;animation:fadeIn .6s ease both}
-    .nl{font-family:'DM Sans',sans-serif!important;font-size:9px!important;font-weight:600!important;color:var(--g7)!important;letter-spacing:3px!important;text-transform:uppercase!important;padding:18px 28px 10px!important}
+    .nb{font-family:'Outfit',sans-serif!important;font-size:28px!important;font-weight:700!important;color:#ffffff!important;letter-spacing:2px!important;padding:36px 28px 32px!important;border-bottom:1px solid rgba(255,255,255,0.04)!important;margin-bottom:12px!important;animation:fadeIn .6s ease both}
+    .nl{font-family:'DM Sans',sans-serif!important;font-size:9px!important;font-weight:600!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;padding:18px 28px 10px!important}
     
     /* === HERO === */
     .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
