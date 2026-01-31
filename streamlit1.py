@@ -313,18 +313,18 @@ if page == "Home":
             <p class="hn">JASON</p>
             <p class="hn hn2">CHANG</p>
             <p class="hns">PORTFOLIO</p>
-            <div class="hrw"><div class="hrl"></div><span class="hro">Data Analytics</span></div>
+            <div class="hrw"><div class="hrl"></div><span class="hro">Revenue & Growth Analytics</span></div>
         </div>
         <div class="hr">
             <div class="db"></div>
             <div class="dg"><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span></div>
             <p class="he">About Me</p>
             <p class="hh">Turning <em>complex data</em> into strategic growth.</p>
-            <p class="hp">Revenue Growth Leader with 10+ years scaling national programs. Proficient in Snowflake, SQL, Power BI, and Python. I translate analytics into actionable insights.</p>
+            <p class="hp">Data-driven leader with 10+ years scaling national programs through market strategy, analytics, and channel expansion. I translate complex data into actionable insights to accelerate decisions and drive measurable revenue growth.</p>
         </div>
     </div>
-    <div class="mw"><div class="mt"><span class="mi">ANALYTICS <span class="md"></span> SNOWFLAKE <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> POWER BI <span class="md"></span> DATA ENGINEERING <span class="md"></span> VISUALIZATION</span><span class="mi">ANALYTICS <span class="md"></span> SNOWFLAKE <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> POWER BI <span class="md"></span> DATA ENGINEERING <span class="md"></span> VISUALIZATION</span></div></div>
-    <div class="sw"><div class="sb"><p class="sn">10+</p><p class="sl">Years Experience</p></div><div class="sb"><p class="sn">85%</p><p class="sl">Efficiency Gains</p></div><div class="sb"><p class="sn">21%</p><p class="sl">Revenue Growth</p></div></div>
+    <div class="mw"><div class="mt"><span class="mi">SNOWFLAKE <span class="md"></span> POWER BI <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> GA4 <span class="md"></span> BIGQUERY <span class="md"></span> A/B TESTING <span class="md"></span> ATTRIBUTION</span><span class="mi">SNOWFLAKE <span class="md"></span> POWER BI <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> GA4 <span class="md"></span> BIGQUERY <span class="md"></span> A/B TESTING <span class="md"></span> ATTRIBUTION</span></div></div>
+    <div class="sw"><div class="sb"><p class="sn">10+</p><p class="sl">Years Experience</p></div><div class="sb"><p class="sn">70%</p><p class="sl">Faster Data Refresh</p></div><div class="sb"><p class="sn">36%</p><p class="sl">ROAS Increase</p></div></div>
     """, unsafe_allow_html=True)
 
 elif page == "Engagement":
@@ -390,42 +390,44 @@ elif page == "Engagement":
     st.markdown("""
     <div class="cl">
         <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Results</p></div></div>
-        <div class="rg"><div class="rc"><p class="rcn">+21%</p><p class="rct">Engagement Increase</p><p class="rcd">Targeted promotions in high-value segments</p></div><div class="rc"><p class="rcn">-15%</p><p class="rct">Churn Reduction</p><p class="rcd">Strategic adjustments improved retention</p></div></div>
+        <div class="rg"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">A/B testing program across product, content, and UX</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Improved funnel visibility and budget allocation</p></div></div>
     </div>
     """, unsafe_allow_html=True)
 
 elif page == "Executive":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Post-merger environment with fragmented data across systems. Finance lacked unified performance measurement.</p></div></div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Post-merger environment with 5 fragmented sales domains and inconsistent metrics. Finance and marketing leadership lacked unified performance visibility.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Task</p><p class="bt">Design dynamic reporting solution with accurate KPIs for executive decision-making.</p></div></div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Task</p><p class="bt">Design scalable data pipelines and semantic layers translating C-suite requirements into actionable dashboards with real-time insights.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/11', use_container_width=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/44', use_container_width=True)
     st.markdown("""
     <div class="cl">
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Action</p><p class="bi"><strong>Data Engineering</strong> — SQL extraction, deduplication, normalization</p><p class="bi"><strong>Schema Design</strong> — Flexible architecture for evolving needs</p><p class="bi"><strong>Dashboard</strong> — Stakeholder collaboration on key metrics</p></div></div>
+        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Action</p><p class="bi"><strong>Schema Design</strong> — Optimized Snowflake schemas consolidating POS, field, compliance, and promo data</p><p class="bi"><strong>KPI Standardization</strong> — Unified metrics across domains, reducing conflicts 70%</p><p class="bi"><strong>ELT Automation</strong> — Automated pipelines cutting decision cycle from 5 days → 24 hrs</p></div></div>
         <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Results</p></div></div>
-        <div class="ig"><div class="ic"><p class="ict">Strategic Planning</p><p class="icd">Enhanced management decision-making with real-time insights</p></div><div class="ic"><p class="ict">Adaptive Reporting</p><p class="icd">Scalable system that evolves with business changes</p></div></div>
+        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Faster decisions enabled by real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Sales/ops staff with near-real-time performance visibility</p></div></div>
     </div>
     """, unsafe_allow_html=True)
 
 elif page == "Warehouse":
     st.markdown("""
-    <div class="sd"><p class="sdt">Case Study</p><p class="sdn">WAREHOUSE<br>OPTIMIZATION</p></div>
+    <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
     <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Escalating logistics costs impacting bottom line. SKYLAB and 3PL Logistics identified as key areas for potential inefficiency.</p></div></div>
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Task</p><p class="bt">Conduct detailed cost analysis to identify waste and optimization opportunities.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Action</p><p class="bi"><strong>Financial Analysis</strong> — Python deep dive into expenditure patterns</p><p class="bi"><strong>Inefficiency Mapping</strong> — Pinpointed cost drivers in both divisions</p><p class="bi"><strong>Strategy</strong> — Recommendations for operations and vendor contracts</p></div></div>
+        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Marketing, warehouse, purchasing, and customer service operated on disconnected data sources. Late shipments impacted customer satisfaction and promotion execution.</p></div></div>
+        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Task</p><p class="bt">Build demand forecasting dashboards to align cross-functional teams and improve fulfillment accuracy.</p></div></div>
+        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Action</p><p class="bi"><strong>Demand Modeling</strong> — Built forecasting models integrating sales velocity, promo calendars, and seasonality</p><p class="bi"><strong>Cross-Functional Alignment</strong> — Unified marketing, warehouse, purchasing data into single view</p><p class="bi"><strong>SLA Tracking</strong> — Automated alerts for inventory thresholds and fulfillment bottlenecks</p></div></div>
     </div>
     """, unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
     st.markdown("""
-    <div class="cl"><div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Results</p><p class="bi"><strong>Cost Reduction</strong> — Identified inefficiencies leading to significant savings</p><p class="bi"><strong>Streamlined Ops</strong> — Process improvements with positive P&L impact</p><p class="bi"><strong>Framework</strong> — Established ongoing optimization process</p></div></div></div>
+    <div class="cl"><div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Results</p></div></div>
+        <div class="rg"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Improved fulfillment accuracy via predictive modeling</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Promo Readiness</p><p class="rcd">Teams aligned on inventory before campaign launches</p></div></div>
+    </div>
     """, unsafe_allow_html=True)
 
 elif page == "Automation":
-    st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">ROYALTY<br>AUTOMATION</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">Month-long manual Excel lookups across years of unorganized data. High error risk, significant analyst burden.</p></div></div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Situation</p><p class="bt">99+ vendor data sources with inconsistent formats. Manual ingestion consumed analyst bandwidth and introduced refresh errors impacting downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown('<p class="cdl">PYTHON AUTOMATION</p>', unsafe_allow_html=True)
@@ -435,11 +437,11 @@ elif page == "Automation":
         st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/9999', use_container_width=True)
     st.markdown("""
     <div class="cl">
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Task</p><p class="bt">Transform month-long manual process into automated workflow while maintaining accuracy.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Action</p><p class="bi"><strong>Data Audit</strong> — Mapped historical structures and requirements</p><p class="bi"><strong>Python Pipeline</strong> — Automated consolidation and validation</p><p class="bi"><strong>VBA</strong> — Automated Excel report generation</p></div></div>
+        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Task</p><p class="bt">Automate ingestion pipelines across all vendor sources to eliminate manual work and ensure data quality.</p></div></div>
+        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Action</p><p class="bi"><strong>Python/SQL Pipeline</strong> — Built automated ingestion for 99+ vendor formats</p><p class="bi"><strong>Exception Logic</strong> — Automated audit and validation rules catching errors pre-refresh</p><p class="bi"><strong>VBA Integration</strong> — Legacy Excel report automation for stakeholder delivery</p></div></div>
         <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Results</p></div></div>
     </div>
-    <div class="sw"><div class="sb"><p class="sn">85%</p><p class="sl">Time Saved</p></div><div class="sb"><p class="sn">2</p><p class="sl">FTEs Freed</p></div><div class="sb"><p class="sn">↑</p><p class="sl">Accuracy</p></div></div>
+    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
     """, unsafe_allow_html=True)
 
 elif page == "Skills":
@@ -449,12 +451,12 @@ elif page == "Skills":
     st.markdown('<div class="dv"></div>', unsafe_allow_html=True)
     st.markdown("""
     <div class="sg">
-        <div class="skc"><p class="skt">Languages</p><p class="skl">Python<br>SQL<br>VBA</p></div>
-        <div class="skc"><p class="skt">Engineering</p><p class="skl">Snowflake<br>ETL / ELT<br>SSMS / AS400</p></div>
-        <div class="skc"><p class="skt">Analytics</p><p class="skl">Pandas / NumPy<br>Seaborn<br>Matplotlib</p></div>
-        <div class="skc"><p class="skt">Statistics</p><p class="skl">A/B Testing<br>Regression<br>Time Series</p></div>
-        <div class="skc"><p class="skt">Visualization</p><p class="skl">Power BI<br>Looker Studio<br>Google Analytics</p></div>
-        <div class="skc"><p class="skt">Modeling</p><p class="skl">Star Schema<br>DAG / ERD<br>Normalization</p></div>
+        <div class="skc"><p class="skt">BI & Visualization</p><p class="skl">Power BI / DAX<br>Looker / Qlik<br>Google Data Studio</p></div>
+        <div class="skc"><p class="skt">Languages</p><p class="skl">SQL<br>Python<br>VBA / Power Query</p></div>
+        <div class="skc"><p class="skt">Cloud & Warehousing</p><p class="skl">Snowflake<br>BigQuery<br>SQL Server (SSMS)</p></div>
+        <div class="skc"><p class="skt">SaaS & Platforms</p><p class="skl">GA4 / Meta Ads<br>Shopify / HubSpot<br>Klaviyo</p></div>
+        <div class="skc"><p class="skt">Statistical Analysis</p><p class="skl">A/B Testing<br>Regression / Cohort<br>Predictive Modeling</p></div>
+        <div class="skc"><p class="skt">Frameworks</p><p class="skl">Attribution Modeling<br>Funnel Analysis<br>Demand Forecasting</p></div>
     </div>
     </div>
     """, unsafe_allow_html=True)
@@ -484,6 +486,11 @@ elif page == "Contact":
             <div class="cc"><p class="ccl">Email</p><p class="ccv">jason.chang01022024@gmail.com</p></div>
             <div class="cc"><p class="ccl">LinkedIn</p><p class="ccv"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></p></div>
             <div class="cc"><p class="ccl">Location</p><p class="ccv">Rowland Heights, CA</p></div>
+        </div>
+        <div style="margin-top:30px;padding:35px;background:#f5f5f5;animation:fadeUp .5s ease .3s both">
+            <p style="font-family:'DM Sans',sans-serif;font-size:8px;font-weight:700;color:#a3a3a3;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px">Education</p>
+            <p style="font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;color:#080808;margin-bottom:4px">B.S. Business Administration</p>
+            <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:#737373">University of California, Riverside</p>
         </div>
     </div>
     """, unsafe_allow_html=True)
