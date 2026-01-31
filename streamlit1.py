@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
 
 # Set the page configuration
-st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="📊")
+st.set_page_config(layout="wide", page_title="Jason Chang | Analytics Leader", page_icon="📈")
 
 # Scroll to top function
 def scroll_to_top():
@@ -20,707 +20,309 @@ def scroll_to_top():
 
 # Professional CSS styling
 st.markdown("""
-    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap' rel='stylesheet'>
     <style>
-        /* Main background */
+        /* Main background & Global Font */
         .stApp {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: #0f172a;
+            font-family: 'Inter', sans-serif;
         }
         
-        /* Hide default elements */
+        /* Typography Scale */
+        .hero-name {
+            font-family: 'Lexend', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            color: #f8fafc;
+            letter-spacing: -1px;
+            margin-bottom: 0;
+            line-height: 1;
+        }
+        
+        .hero-title {
+            font-family: 'Lexend', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #3b82f6;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        .section-header {
+            font-family: 'Lexend', sans-serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 24px;
+            border-left: 5px solid #3b82f6;
+            padding-left: 15px;
+        }
+        
+        .subsection-header {
+            font-family: 'Lexend', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* Component Cards */
+        .info-card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s ease;
+        }
+        .info-card:hover {
+            border-color: #3b82f6;
+        }
+
+        .metric-value {
+            font-family: 'Lexend', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: #3b82f6;
+            line-height: 1;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* List Items */
+        .bullet-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .bullet-point::before {
+            content: "▹";
+            color: #3b82f6;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+
+        /* Navigation Sidebar */
+        section[data-testid="stSidebar"] {
+            background-color: #020617 !important;
+        }
+        
+        /* Hide Default Decorations */
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
-        
-        /* Main content */
-        .block-container {
-            padding: 3rem 5rem !important;
-            max-width: 1100px;
-        }
-        
-        /* Hero - Name */
-        .hero-name {
-            font-family: 'Poppins', sans-serif;
-            font-size: 64px;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: 2px;
-            margin-bottom: 0;
-            line-height: 1.1;
-        }
-        
-        /* Hero - Portfolio */
-        .hero-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 42px;
-            font-weight: 300;
-            color: #64748b;
-            letter-spacing: 6px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-        }
-        
-        /* Accent line */
-        .accent-line {
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #f59e0b, #d97706);
-            margin: 15px 0 20px 0;
-            border-radius: 2px;
-        }
-        
-        /* Tagline */
-        .hero-tagline {
-            font-family: 'Poppins', sans-serif;
-            font-size: 18px;
-            font-weight: 500;
-            color: #f59e0b;
-            letter-spacing: 0.5px;
-            margin-bottom: 25px;
-        }
-        
-        /* Body text */
-        .body-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
-            font-weight: 400;
-            color: #94a3b8;
-            line-height: 1.75;
-            margin-bottom: 16px;
-        }
-        
-        /* Section headers */
-        .section-header {
-            font-family: 'Poppins', sans-serif;
-            font-size: 28px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #334155;
-        }
-        
-        /* Subsection headers */
-        .subsection-header {
-            font-family: 'Poppins', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            color: #f59e0b;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* Card styling */
-        .info-card {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid #334155;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 12px 0;
-        }
-        
-        /* Metric highlight */
-        .metric-highlight {
-            font-family: 'Poppins', sans-serif;
-            font-size: 32px;
-            font-weight: 700;
-            color: #22c55e;
-        }
-        
-        /* Sidebar */
-        section[data-testid="stSidebar"] {
-            background: #0f172a;
-            border-right: 1px solid #1e293b;
-        }
-        
-        section[data-testid="stSidebar"] .stRadio > div > label {
-            background: transparent !important;
-            color: #64748b !important;
-            font-family: 'Inter', sans-serif !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-            padding: 10px 12px !important;
-            border-radius: 6px !important;
-            border-left: 2px solid transparent !important;
-            margin: 2px 0 !important;
-        }
-        
-        section[data-testid="stSidebar"] .stRadio > div > label:hover {
-            background: rgba(59, 130, 246, 0.08) !important;
-            color: #e2e8f0 !important;
-        }
-        
-        /* Nav title */
-        .nav-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            color: #475569;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-        
-        /* Quote */
-        .quote-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 20px;
-            font-weight: 400;
-            color: #94a3b8;
-            font-style: italic;
-            line-height: 1.6;
-            border-left: 3px solid #f59e0b;
-            padding-left: 20px;
-            margin: 30px 0;
-        }
-        
-        /* Cert card */
-        .cert-card {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 15px 0;
-        }
-        
-        .cert-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-        
-        .cert-org {
-            font-family: 'Inter', sans-serif;
-            font-size: 13px;
-            color: #64748b;
-        }
-        
-        /* Links */
-        a {
-            color: #3b82f6 !important;
-            text-decoration: none !important;
-        }
-        
-        a:hover {
-            color: #f59e0b !important;
-        }
-        
-        /* Override defaults */
-        h1, h2, h3 {
-            font-family: 'Poppins', sans-serif !important;
-            color: #ffffff !important;
-        }
-        
-        p, li {
-            font-family: 'Inter', sans-serif !important;
-            color: #94a3b8 !important;
-            font-size: 15px !important;
-            line-height: 1.7 !important;
-        }
-        
-        strong { color: #e2e8f0 !important; }
-        
-        /* Skills */
-        .skills-category {
-            font-family: 'Poppins', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
-            color: #f59e0b;
-            margin-bottom: 8px;
-        }
-        
-        .skills-list {
-            font-family: 'Inter', sans-serif;
-            font-size: 14px;
-            color: #94a3b8;
-            line-height: 1.5;
-        }
-        
-        /* Bullet points */
-        .bullet-item {
-            font-family: 'Inter', sans-serif;
-            font-size: 15px;
-            color: #94a3b8;
-            line-height: 1.7;
-            margin-bottom: 8px;
-            padding-left: 15px;
-            position: relative;
-        }
-        
-        .bullet-item::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #f59e0b;
-        }
     </style>
 """, unsafe_allow_html=True)
 
 # Sidebar
 with st.sidebar:
-    st.markdown('<p class="nav-title">NAVIGATION</p>', unsafe_allow_html=True)
+    st.markdown('<p style="color: #64748b; font-weight: 700; font-size: 12px; letter-spacing: 2px; margin-bottom: 20px;">NAVIGATION</p>', unsafe_allow_html=True)
     page = st.radio(
         "",
         [
-            "Welcome",
-            "Engagement & Monetization",
-            "Executive Insights",
-            "Warehouse Optimization",
-            "Process Automation",
-            "Skills",
+            "Profile Summary",
+            "Monetization Strategy",
+            "BI & Data Governance",
+            "Supply Chain Analytics",
+            "Workflow Engineering",
+            "Tech Stack",
             "Certifications",
             "Contact"
         ],
         label_visibility="collapsed"
     )
 
-# Scroll to top on every page load
 scroll_to_top()
 
 @st.cache_data
 def load_data(url):
     data = pd.read_csv(url)
     data['Date'] = pd.to_datetime(data['Date'])
-    
-    def assign_bucket(games):
-        if 1 <= games <= 3: return 'Very Low'
-        elif 4 <= games <= 5: return 'Low'
-        elif 6 <= games <= 9: return 'Medium'
-        elif 10 <= games <= 68: return 'High'
-        return 'Unknown'
-    
-    data['games_played_bucket'] = data['games_played'].apply(assign_bucket)
     return data
 
 data_url = "https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv"
 data = load_data(data_url)
 
-# ==================== WELCOME ====================
-if page == "Welcome":
+# ==================== PROFILE SUMMARY ====================
+if page == "Profile Summary":
     st.markdown('<p class="hero-name">JASON CHANG</p>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-title">PORTFOLIO</p>', unsafe_allow_html=True)
-    st.markdown('<div class="accent-line"></div>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-tagline">National Revenue Growth Leader Powered by Analytics</p>', unsafe_allow_html=True)
+    st.markdown('<p class="hero-title">Strategic Analytics Leader</p>', unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
     
     st.markdown("""
-    <p class="body-text">
-    Data-driven leader with 10+ years scaling national programs through market strategy, analytics, and channel expansion. I translate complex data into actionable insights that accelerate decisions, improve conversion, and drive measurable revenue growth.
-    </p>
-    <p class="body-text">
-    Proficient in <strong>Snowflake, SQL, Power BI, and Python</strong>. Experienced leading cross-functional programs, unifying fragmented data systems, and automating reporting pipelines.
+    <p style="color: #cbd5e1; font-size: 18px; line-height: 1.8; max-width: 850px;">
+    Business Intelligence professional with 10+ years of experience leading national revenue growth and process optimization. 
+    Expert in bridging the gap between <strong>complex data engineering (Snowflake, SQL)</strong> and <strong>executive decision-making (Power BI, Python)</strong>. 
+    Proven track record in automating legacy systems to drive 85% efficiency gains and identifying multi-million dollar revenue opportunities.
     </p>
     """, unsafe_allow_html=True)
     
-    st.markdown('<div class="accent-line" style="margin-top: 35px;"></div>', unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown("""
-        <div class="info-card" style="text-align: center;">
-            <p class="metric-highlight">10+</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Years Experience</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        st.markdown("""
-        <div class="info-card" style="text-align: center;">
-            <p class="metric-highlight">85%</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Process Efficiency Gains</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col3:
-        st.markdown("""
-        <div class="info-card" style="text-align: center;">
-            <p class="metric-highlight">21%</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Revenue Growth</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-# ==================== ENGAGEMENT & MONETIZATION ====================
-elif page == "Engagement & Monetization":
-    st.markdown('<p class="section-header">Player Engagement & Monetization Analytics</p>', unsafe_allow_html=True)
-    
-    st.markdown('<p class="subsection-header">Situation</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Tasked with maximizing revenue and player engagement for Warcraft during two key in-game events. The challenge: understanding how different player segments interacted with events and identifying monetization opportunities.
-    </p>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<p class="subsection-header">Task</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="bullet-item">Identify high-spending player segments for targeted promotions</p>
-    <p class="bullet-item">Analyze low spending trends by region and platform</p>
-    <p class="bullet-item">Conduct exploratory analysis on spending behaviors</p>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<p class="subsection-header">Action</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text"><strong>Analysis Approach:</strong></p>
-    <p class="bullet-item">Comprehensive EDA using Python for player spending behavior</p>
-    <p class="bullet-item">K-Means Clustering to segment players by engagement metrics</p>
-    <p class="bullet-item">Heatmap analysis to identify spending patterns across segments</p>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <p class="body-text"><strong>Strategic Output:</strong></p>
-    <p class="bullet-item">Prioritized Platform 3, Region 1 as high-value segment for promotions</p>
-    <p class="bullet-item">Flagged Platform 1, Region 5 for strategic intervention</p>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/333', use_container_width=True)
-    with col2:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/222', use_container_width=True)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/777', use_container_width=True)
-    with col2:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/111', use_container_width=True)
-    
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/444', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/555', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/666', use_container_width=True)
-
-    # Heatmap
-    heatmap_data = data.groupby(['region', 'platform']).dollars_spent.mean().unstack()
-    fig1, ax1 = plt.subplots(figsize=(8, 5))
-    fig1.patch.set_facecolor('#1e293b')
-    ax1.set_facecolor('#1e293b')
-    sns.heatmap(heatmap_data, annot=True, cmap="YlOrBr", fmt=".2f", linewidths=.5, ax=ax1)
-    ax1.set_title("Avg Spend by Region & Platform", color='white', fontsize=12, fontweight='600')
-    ax1.tick_params(colors='white')
-    ax1.set_xlabel('Platform', color='#94a3b8', fontsize=10)
-    ax1.set_ylabel('Region', color='#94a3b8', fontsize=10)
-    plt.tight_layout()
-    st.pyplot(fig1)
-    plt.close(fig1)
-
-    # KDE plots
-    event_1_data = data[(data['Date'] >= '2017-01-24') & (data['Date'] <= '2017-02-14')]
-    event_2_data = data[(data['Date'] >= '2017-02-28') & (data['Date'] <= '2017-03-21')]
-
-    fig, axes = plt.subplots(2, 2, figsize=(10, 7))
-    fig.patch.set_facecolor('#1e293b')
-    
-    for ax in axes.flat:
-        ax.set_facecolor('#1e293b')
-        ax.tick_params(colors='white', labelsize=8)
-        ax.xaxis.label.set_color('#94a3b8')
-        ax.yaxis.label.set_color('#94a3b8')
-        ax.title.set_color('white')
-
-    plots = [
-        ('games_played', 'Games Played'),
-        ('skill_last', 'Skill Level'),
-        ('items_crafted', 'Items Crafted'),
-        ('dollars_spent', 'Dollars Spent')
+    metrics = [
+        ("10+", "Years of Experience"),
+        ("85%", "Automation Efficiency"),
+        ("21%", "Revenue Growth Impact")
     ]
     
-    for idx, (col, title) in enumerate(plots):
-        ax = axes[idx // 2, idx % 2]
-        sns.kdeplot(event_1_data[col], fill=True, color="#3b82f6", label="Event 1", ax=ax, alpha=0.6)
-        sns.kdeplot(event_2_data[col], fill=True, color="#f59e0b", label="Event 2", ax=ax, alpha=0.6)
-        ax.set_title(title, fontsize=11, fontweight='600')
-        ax.legend(fontsize=8)
+    for col, (val, lab) in zip([col1, col2, col3], metrics):
+        with col:
+            st.markdown(f"""
+            <div class="info-card" style="text-align: center;">
+                <div class="metric-value">{val}</div>
+                <div class="metric-label">{lab}</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-    plt.tight_layout()
-    st.pyplot(fig)
-    plt.close(fig)
-
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/999', use_container_width=True)
-
-    st.markdown('<p class="subsection-header">Results</p>', unsafe_allow_html=True)
+# ==================== MONETIZATION STRATEGY ====================
+elif page == "Monetization Strategy":
+    st.markdown('<p class="section-header">Player Engagement & Monetization</p>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns(2)
-    with col1:
+    col_a, col_b = st.columns([1, 1.2])
+    with col_a:
+        st.markdown('<p class="subsection-header">Situation & Objective</p>', unsafe_allow_html=True)
         st.markdown("""
-        <div class="info-card">
-            <p class="metric-highlight">+21%</p>
-            <p style="color: #e2e8f0; font-weight: 600; font-size: 14px; margin: 5px 0;">Engagement Increase</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Targeted promotions in high-value segments</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        st.markdown("""
-        <div class="info-card">
-            <p class="metric-highlight">-15%</p>
-            <p style="color: #e2e8f0; font-weight: 600; font-size: 14px; margin: 5px 0;">Churn Reduction</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Strategic adjustments improved retention</p>
-        </div>
+        <div class="bullet-point">Analyze player behavior across two major Warcraft in-game events.</div>
+        <div class="bullet-point">Identify high-value segments for targeted monetization.</div>
+        <div class="bullet-point">Address regional and platform-specific spending friction.</div>
         """, unsafe_allow_html=True)
 
-# ==================== EXECUTIVE INSIGHTS ====================
-elif page == "Executive Insights":
-    st.markdown('<p class="section-header">Executive Business Intelligence Dashboard</p>', unsafe_allow_html=True)
-    
-    st.markdown('<p class="subsection-header">Situation</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Post-merger environment with fragmented data across multiple systems. Finance department lacked unified performance measurement and reporting capabilities.
-    </p>
-    """, unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
-    
-    st.markdown('<p class="subsection-header">Task</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Design and implement dynamic reporting solution with accurate KPIs for executive decision-making.
-    </p>
-    """, unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/11', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/44', use_container_width=True)
-
-    st.markdown('<p class="subsection-header">Action</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="bullet-item"><strong>Data Engineering:</strong> SQL-based extraction, deduplication, normalization</p>
-    <p class="bullet-item"><strong>Schema Design:</strong> Flexible architecture for evolving business needs</p>
-    <p class="bullet-item"><strong>Dashboard Development:</strong> Collaborated with stakeholders on key metrics</p>
-    """, unsafe_allow_html=True)
-    
-    st.markdown('<p class="subsection-header">Results</p>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
+    with col_b:
+        st.markdown('<p class="subsection-header">Technical Action</p>', unsafe_allow_html=True)
         st.markdown("""
-        <div class="info-card">
-            <p style="color: #f59e0b; font-weight: 600; font-size: 14px;">Strategic Planning</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Enhanced management decision-making with real-time insights</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        st.markdown("""
-        <div class="info-card">
-            <p style="color: #f59e0b; font-weight: 600; font-size: 14px;">Adaptive Reporting</p>
-            <p style="color: #64748b; font-size: 13px; margin: 0;">Scalable system that evolves with business changes</p>
-        </div>
+        <div class="bullet-point"><strong>Clustering:</strong> Applied K-Means to segment users by engagement depth.</div>
+        <div class="bullet-point"><strong>EDA:</strong> Built Python-driven heatmaps to cross-reference region vs. spend.</div>
+        <div class="bullet-point"><strong>Comparative Analysis:</strong> KDE density plots to track skill-level shifts between events.</div>
         """, unsafe_allow_html=True)
 
-# ==================== WAREHOUSE OPTIMIZATION ====================
-elif page == "Warehouse Optimization":
-    st.markdown('<p class="section-header">Warehouse & GL Account Optimization</p>', unsafe_allow_html=True)
+    st.markdown("---")
     
-    st.markdown('<p class="subsection-header">Situation</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Escalating logistics and warehouse costs impacting bottom line. SKYLAB and 3PL Logistics divisions identified as key areas for potential inefficiency.
-    </p>
-    """, unsafe_allow_html=True)
+    # Visualization Section
+    heatmap_data = data.groupby(['region', 'platform']).dollars_spent.mean().unstack()
+    fig1, ax1 = plt.subplots(figsize=(10, 4))
+    fig1.patch.set_facecolor('#0f172a')
+    ax1.set_facecolor('#0f172a')
+    sns.heatmap(heatmap_data, annot=True, cmap="Blues", fmt=".2f", ax=ax1, cbar_kws={'label': 'Avg Spend'})
+    ax1.set_title("Revenue Concentration: Region vs Platform", color='white', pad=20)
+    ax1.tick_params(colors='white')
+    st.pyplot(fig1)
 
-    st.markdown('<p class="subsection-header">Task</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Conduct detailed cost analysis to identify waste, inefficiencies, and optimization opportunities without compromising operational quality.
-    </p>
-    """, unsafe_allow_html=True)
+    st.markdown('<p class="subsection-header">Business Impact</p>', unsafe_allow_html=True)
+    res1, res2 = st.columns(2)
+    res1.success("**+21% Engagement:** Validated high-value segments for Q3 promotions.")
+    res2.info("**-15% Churn Risk:** Identified underperforming regions for retention intervention.")
 
-    st.markdown('<p class="subsection-header">Action</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="bullet-item"><strong>Financial Analysis:</strong> Python-based deep dive into expenditure patterns</p>
-    <p class="bullet-item"><strong>Inefficiency Mapping:</strong> Pinpointed specific cost drivers in both divisions</p>
-    <p class="bullet-item"><strong>Optimization Strategy:</strong> Developed actionable recommendations for operations, resource allocation, and vendor contracts</p>
-    """, unsafe_allow_html=True)
-
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
-
-    st.markdown('<p class="subsection-header">Results</p>', unsafe_allow_html=True)
+# ==================== BI & DATA GOVERNANCE ====================
+elif page == "BI & Data Governance":
+    st.markdown('<p class="section-header">Executive Dashboard & Data Infrastructure</p>', unsafe_allow_html=True)
+    
     st.markdown("""
     <div class="info-card">
-        <p class="bullet-item"><strong>Cost Reduction:</strong> Identified multiple inefficiencies leading to significant savings</p>
-        <p class="bullet-item"><strong>Streamlined Operations:</strong> Implemented process improvements with positive P&L impact</p>
-        <p class="bullet-item"><strong>Continuous Improvement:</strong> Established ongoing optimization framework</p>
+        <p style="color: #3b82f6; font-weight: 600; font-size: 18px; margin-bottom: 10px;">Post-Merger System Integration</p>
+        <p style="color: #94a3b8; line-height: 1.6;">
+        Developed a centralized reporting hub for Finance leadership to unify data from fragmented legacy systems. 
+        Engineered a SQL-based ETL pipeline to ensure <strong>single-source-of-truth</strong> accuracy across corporate KPIs.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown('<p class="subsection-header">Architecture Components</p>', unsafe_allow_html=True)
+    c1, c2, c3 = st.columns(3)
+    c1.code("EXTRACT\nSnowflake / SQL Server\nDeduplication Logic", language="sql")
+    c2.code("TRANSFORM\nNormalization\nStar Schema Design", language="sql")
+    c3.code("LOAD\nPower BI Dashboards\nAutomated Refreshes", language="sql")
+
+# ==================== SUPPLY CHAIN ANALYTICS ====================
+elif page == "Supply Chain Analytics":
+    st.markdown('<p class="section-header">Warehouse & GL Cost Optimization</p>', unsafe_allow_html=True)
+    
+    st.markdown('<p class="subsection-header">Operational Audit</p>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="bullet-point">Audited 3PL Logistics and SKYLAB divisions to reduce escalating overhead.</div>
+    <div class="bullet-point">Mapped General Ledger (GL) accounts to physical cost drivers.</div>
+    <div class="bullet-point">Resulted in streamlined vendor contracts and optimized resource allocation.</div>
+    """, unsafe_allow_html=True)
+
+# ==================== WORKFLOW ENGINEERING ====================
+elif page == "Workflow Engineering":
+    st.markdown('<p class="section-header">Quarterly Royalty Automation</p>', unsafe_allow_html=True)
+    
+    col_left, col_right = st.columns([1, 1])
+    with col_left:
+        st.markdown('<p class="subsection-header">The Problem</p>', unsafe_allow_html=True)
+        st.error("1 Month / Quarter manual Excel lookups. High risk of human error.")
+    
+    with col_right:
+        st.markdown('<p class="subsection-header">The Solution</p>', unsafe_allow_html=True)
+        st.success("8 Hours / Quarter automated Python/VBA pipeline. 100% data integrity.")
+
+    st.markdown("""
+    <div class="info-card" style="margin-top: 20px;">
+        <p style="color: #f8fafc; font-weight: 600;">Technical Stack:</p>
+        <p style="color: #94a3b8;">Python (Pandas/Openpyxl) for data consolidation + VBA for dynamic report formatting.</p>
     </div>
     """, unsafe_allow_html=True)
 
-# ==================== PROCESS AUTOMATION ====================
-elif page == "Process Automation":
-    st.markdown('<p class="section-header">Quarterly Royalty Management Automation</p>', unsafe_allow_html=True)
-    
-    st.markdown('<p class="subsection-header">Situation</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Quarterly royalty management required month-long manual Excel lookups across years of unorganized data. High error risk and significant analyst time burden.
-    </p>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown('<p style="color: #f59e0b; font-weight: 600; font-size: 13px; letter-spacing: 1px;">PYTHON AUTOMATION</p>', unsafe_allow_html=True)
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/2222', use_container_width=True)
-    with col2:
-        st.markdown('<p style="color: #f59e0b; font-weight: 600; font-size: 13px; letter-spacing: 1px;">VBA INTEGRATION</p>', unsafe_allow_html=True)
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/9999', use_container_width=True)
-
-    st.markdown('<p class="subsection-header">Task</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="body-text">
-    Transform month-long manual process into automated workflow while maintaining accuracy and audit compliance.
-    </p>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<p class="subsection-header">Action</p>', unsafe_allow_html=True)
-    st.markdown("""
-    <p class="bullet-item"><strong>Data Audit:</strong> Mapped historical data structures and reporting requirements</p>
-    <p class="bullet-item"><strong>Python Pipeline:</strong> Built automated data consolidation and validation</p>
-    <p class="bullet-item"><strong>VBA Integration:</strong> Automated Excel report generation for stakeholder delivery</p>
-    """, unsafe_allow_html=True)
-
-    st.markdown('<p class="subsection-header">Results</p>', unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown("""
-        <div class="info-card" style="text-align: center;">
-            <p class="metric-highlight">85%</p>
-            <p style="color: #e2e8f0; font-weight: 600; font-size: 13px; margin: 5px 0;">Time Saved</p>
-            <p style="color: #64748b; font-size: 12px; margin: 0;">1 month → 8 hours</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        st.markdown("""
-        <div class="info-card" style="text-align: center;">
-            <p class="metric-highlight" style="color: #3b82f6;">2</p>
-            <p style="color: #e2e8f0; font-weight: 600; font-size: 13px; margin: 5px 0;">FTEs Freed</p>
-            <p style="color: #64748b; font-size: 12px; margin: 0;">Senior analysts</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col3:
-        st.markdown("""
-        <div class="info-card" style="text-align: center;">
-            <p class="metric-highlight" style="color: #f59e0b;">↑</p>
-            <p style="color: #e2e8f0; font-weight: 600; font-size: 13px; margin: 5px 0;">Accuracy</p>
-            <p style="color: #64748b; font-size: 12px; margin: 0;">Eliminated manual errors</p>
-        </div>
-        """, unsafe_allow_html=True)
-
-# ==================== SKILLS ====================
-elif page == "Skills":
+# ==================== TECH STACK ====================
+elif page == "Tech Stack":
     st.markdown('<p class="section-header">Technical Expertise</p>', unsafe_allow_html=True)
     
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=400)
+    categories = {
+        "Data Engineering": "Snowflake, SQL (T-SQL/PostgreSQL), ETL Pipelines, SSMS, AS400",
+        "Data Science": "Python, Pandas, NumPy, Scikit-learn, TensorFlow, Statistical Modeling",
+        "Visualization": "Power BI, Looker Studio, Seaborn, Matplotlib, Streamlit",
+        "Business Systems": "VBA, Excel Expert, Google Analytics, ERP Integration"
+    }
     
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        <div class="info-card">
-            <p class="skills-category">Languages</p>
-            <p class="skills-list">Python, SQL, VBA</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="info-card">
-            <p class="skills-category">Data Engineering</p>
-            <p class="skills-list">Snowflake, ETL Pipelines, SSMS, AS400, Power Query</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="info-card">
-            <p class="skills-category">Analytics Libraries</p>
-            <p class="skills-list">Pandas, NumPy, Seaborn, Matplotlib, SciPy, TensorFlow</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="info-card">
-            <p class="skills-category">Statistical Methods</p>
-            <p class="skills-list">A/B Testing, Predictive Modeling, Regression, Time Series, Hypothesis Testing</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="info-card">
-            <p class="skills-category">BI & Visualization</p>
-            <p class="skills-list">Power BI, Looker Studio, Google Analytics</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="info-card">
-            <p class="skills-category">Data Modeling</p>
-            <p class="skills-list">Star Schema, ER Diagrams, DAG, Normalization</p>
+    for cat, tools in categories.items():
+        st.markdown(f"""
+        <div class="info-card" style="margin-bottom: 15px;">
+            <span style="color: #3b82f6; font-weight: 700; font-size: 16px;">{cat}:</span>
+            <span style="color: #cbd5e1; margin-left: 10px;">{tools}</span>
         </div>
         """, unsafe_allow_html=True)
 
 # ==================== CERTIFICATIONS ====================
 elif page == "Certifications":
-    st.markdown('<p class="section-header">Certifications</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">Professional Development</p>', unsafe_allow_html=True)
     
     certs = [
-        ("Supervised Machine Learning", "Stanford / Coursera • 2024", 
-         "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG",
-         "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
-        ("Neural Networks & Deep Learning", "DeepLearning.AI • 2024",
-         "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/DeepAI",
-         "https://www.coursera.org/account/accomplishments/verify/P3MNNDS44DLL"),
-        ("Power BI Data Visualization", "EdX • 2019",
-         "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/edx",
-         "https://courses.edx.org/certificates/c05a356504164e2babb5e6c3ee54ec79"),
-        ("AWS Cloud Practitioner", "Amazon Web Services • 2019",
-         "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/AWS1", None),
-        ("SQL Certification", "Sololearn • 2017",
-         "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/SQLsololearn",
-         "https://www.sololearn.com/en/certificates/CT-YUFRJBUH")
+        ("Machine Learning Specialization", "Stanford University / DeepLearning.AI"),
+        ("AWS Cloud Practitioner", "Amazon Web Services"),
+        ("Data Visualization Professional", "EdX / Microsoft"),
+        ("Advanced SQL Certification", "Sololearn")
     ]
     
-    for title, org, img, link in certs:
+    for title, org in certs:
         st.markdown(f"""
-        <div class="cert-card">
-            <p class="cert-title">{title}</p>
-            <p class="cert-org">{org}</p>
+        <div class="info-card" style="margin-bottom: 10px; padding: 15px;">
+            <div style="color: #f8fafc; font-weight: 600;">{title}</div>
+            <div style="color: #64748b; font-size: 13px;">{org}</div>
         </div>
         """, unsafe_allow_html=True)
-        st.image(img, width=600)
-        if link:
-            st.markdown(f"<a href='{link}' target='_blank'>Verify →</a>", unsafe_allow_html=True)
-        st.markdown("<br>", unsafe_allow_html=True)
 
 # ==================== CONTACT ====================
 elif page == "Contact":
-    st.markdown('<p class="section-header">Let\'s Connect</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">Contact & Inquiries</p>', unsafe_allow_html=True)
     
     st.markdown("""
-    <p class="quote-text">
-    "In God we trust; for all else, we turn to the validation of data."
-    </p>
+    <div class="info-card" style="max-width: 600px;">
+        <p style="color: #94a3b8; font-size: 14px; text-transform: uppercase; margin-bottom: 20px;">Irvine, CA | Open to Relocation</p>
+        <p style="font-size: 18px; color: #f8fafc; margin-bottom: 10px;">📧 jason.chang01022021@gmail.com</p>
+        <p style="font-size: 18px; color: #f8fafc; margin-bottom: 10px;">📱 (626) 203-3319</p>
+        <p style="font-size: 18px; color: #f8fafc;">🔗 <a href="https://linkedin.com/in/jchang0102" style="color: #3b82f6; text-decoration: none;">linkedin.com/in/jchang0102</a></p>
+    </div>
     """, unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.markdown("""
-        <div class="info-card">
-            <p style="color: #475569; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Phone</p>
-            <p style="color: #e2e8f0; font-size: 16px; margin: 0;">(626) 203-3319</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="info-card">
-            <p style="color: #475569; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Email</p>
-            <p style="color: #e2e8f0; font-size: 16px; margin: 0;">jason.chang01022021@gmail.com</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        st.markdown("""
-        <div class="info-card">
-            <p style="color: #475569; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">LinkedIn</p>
-            <p style="color: #e2e8f0; font-size: 16px; margin: 0;"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="info-card">
-            <p style="color: #475569; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px;">Location</p>
-            <p style="color: #e2e8f0; font-size: 16px; margin: 0;">Irvine, CA</p>
-        </div>
-        """, unsafe_allow_html=True)
