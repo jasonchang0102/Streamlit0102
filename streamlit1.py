@@ -2,8 +2,27 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆")
+
+def scroll_to_top():
+    js = '''
+    <script>
+        var body = window.parent.document.querySelector(".main");
+        body.scrollTop = 0;
+        
+        var container = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
+        if (container) container.scrollTop = 0;
+        
+        var main = window.parent.document.querySelector('section.main');
+        if (main) main.scrollTop = 0;
+        
+        window.parent.document.body.scrollTop = 0;
+        window.parent.document.documentElement.scrollTop = 0;
+    </script>
+    '''
+    components.html(js, height=0, width=0)
 
 # TRUE Nike-Inspired CSS - WHITE background, BLACK type, GIANT hero
 st.markdown("""
@@ -27,35 +46,35 @@ st.markdown("""
     
     /* === HERO NAME - NIKE GIANT BOLD === */
     .hero-name {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 140px;
-        font-weight: 400;
-        color: #111111;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        line-height: 0.9;
-        margin-bottom: 0;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 180px !important;
+        font-weight: 400 !important;
+        color: #111111 !important;
+        letter-spacing: 6px !important;
+        text-transform: uppercase !important;
+        line-height: 0.85 !important;
+        margin-bottom: 0 !important;
     }
     
     /* === PORTFOLIO SUBTITLE === */
     .hero-sub {
-        font-family: 'Inter', sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        color: #757575;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        margin-top: 20px;
-        margin-bottom: 60px;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 18px !important;
+        font-weight: 500 !important;
+        color: #757575 !important;
+        letter-spacing: 6px !important;
+        text-transform: uppercase !important;
+        margin-top: 30px !important;
+        margin-bottom: 70px !important;
     }
     
     /* === TAGLINE - NIKE STYLE === */
     .tagline {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 32px;
-        color: #111111;
-        letter-spacing: 1px;
-        margin-bottom: 30px;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 42px !important;
+        color: #111111 !important;
+        letter-spacing: 2px !important;
+        margin-bottom: 40px !important;
     }
     
     /* === BODY TEXT === */
@@ -75,13 +94,13 @@ st.markdown("""
     
     /* === SECTION HEADER - GIANT === */
     .section-header {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 72px;
-        color: #111111;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        margin-bottom: 50px;
-        line-height: 0.95;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 120px !important;
+        color: #111111 !important;
+        letter-spacing: 3px !important;
+        text-transform: uppercase !important;
+        margin-bottom: 60px !important;
+        line-height: 0.9 !important;
     }
     
     /* === SUBSECTION === */
@@ -106,10 +125,10 @@ st.markdown("""
     }
     
     .metric-number {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 72px;
-        color: #111111;
-        line-height: 1;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 96px !important;
+        color: #111111 !important;
+        line-height: 1 !important;
     }
     
     .metric-label {
@@ -130,9 +149,9 @@ st.markdown("""
     }
     
     .result-number {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 56px;
-        color: #111111;
+        font-family: 'Bebas Neue', sans-serif !important;
+        font-size: 72px !important;
+        color: #111111 !important;
     }
     
     .result-title {
@@ -346,10 +365,6 @@ st.markdown("""
         margin: 60px 0;
     }
 </style>
-
-<script>
-    window.parent.document.querySelector('[data-testid="stAppViewContainer"]').scrollTo(0, 0);
-</script>
 """, unsafe_allow_html=True)
 
 # Sidebar
@@ -365,6 +380,9 @@ with st.sidebar:
         "Certifications",
         "Contact"
     ], label_visibility="collapsed")
+
+# Scroll to top on every page load
+scroll_to_top()
 
 @st.cache_data
 def load_data(url):
