@@ -29,7 +29,7 @@ st.markdown("""
             font-family: 'Bebas Neue', sans-serif;
             font-size: 94px !important;
             font-weight: 100;
-            color: #3e4047;
+            color: #FFFFFF;
             display: inline-block;
             margin: 0 auto;
             margin-top: -40px;
@@ -38,7 +38,7 @@ st.markdown("""
             font-family: 'Bebas Neue', sans-serif;
             font-size: 60px !important;
             font-weight: 100;
-            color: #3e4047;
+            color: #FFFFFF;
             display: inline-block;
             margin-bottom: 0px;
             margin-top: 20px;
