@@ -92,7 +92,7 @@ st.markdown("""
     section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:#ffffff!important;font-weight:600!important;border-left-color:#ffffff!important;background:rgba(255,255,255,0.03)!important}
     section[data-testid="stSidebar"] .stRadio>div>label span,section[data-testid="stSidebar"] .stRadio>div>label p{color:inherit!important}
     .nb{font-family:'Outfit',sans-serif!important;font-size:28px!important;font-weight:700!important;color:#ffffff!important;letter-spacing:2px!important;padding:36px 28px 32px!important;border-bottom:1px solid rgba(255,255,255,0.04)!important;margin-bottom:12px!important;animation:fadeIn .6s ease both}
-    .nl{font-family:'DM Sans',sans-serif!important;font-size:9px!important;font-weight:600!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;padding:18px 28px 10px!important}
+    .nl{font-family:'DM Sans',sans-serif!important;font-size:14px!important;font-weight:600!important;color:#a3a3a3!important;letter-spacing:3px!important;text-transform:uppercase!important;padding:18px 28px 10px!important}
     
     /* === HERO === */
     .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
@@ -225,8 +225,8 @@ st.markdown("""
     .skc::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--b);transition:height .45s cubic-bezier(.16,1,.3,1)}
     .skc:hover{transform:translateX(8px)}
     .skc:hover::before{height:100%}
-    .skt{font-family:'DM Sans',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important}
-    .skl{font-family:'DM Sans',sans-serif!important;font-size:12px!important;color:var(--g5)!important;line-height:1.85!important}
+    .skt{font-family:'DM Sans',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important}
+    .skl{font-family:'DM Sans',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.85!important}
     
     /* === CERTS === */
     .ci{display:grid;grid-template-columns:65px 1fr auto;gap:25px;align-items:center;padding:30px 0;border-bottom:1px solid var(--g2);transition:all .35s cubic-bezier(.16,1,.3,1);animation:slideLeft .4s ease both}
