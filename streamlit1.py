@@ -4,7 +4,8 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
 
-st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆")
+st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆", font-size: 96px;
+        font-weight: 700)
 
 def scroll_to_top():
     components.html("""<script>window.parent.document.querySelector('section.main').scrollTo(0, 0);</script>""", height=0)
