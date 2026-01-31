@@ -5,403 +5,366 @@ import matplotlib.pyplot as plt
 
 st.set_page_config(layout="wide", page_title="Jason Chang | Portfolio", page_icon="◆")
 
-# Premium Designer CSS
+# TRUE Nike-Inspired CSS - WHITE background, BLACK type, GIANT hero
 st.markdown("""
-<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap' rel='stylesheet'>
 <style>
-    /* === BASE === */
+    /* === NIKE BASE - WHITE BG === */
     html, body, [data-testid="stAppViewContainer"], section.main {
         scroll-behavior: auto !important;
     }
     
     .stApp {
-        background: #0a0a0f;
+        background: #ffffff;
     }
     
     #MainMenu, footer, header {visibility: hidden;}
     
     .block-container {
-        padding: 4rem 6rem !important;
-        max-width: 1000px;
+        padding: 3rem 6rem !important;
+        max-width: 1200px;
     }
     
-    /* === HERO NAME - LARGE & BOLD === */
+    /* === HERO NAME - NIKE GIANT BOLD === */
     .hero-name {
-        font-family: 'Space Grotesk', sans-serif !important;
-        font-size: 120px !important;
-        font-weight: 700 !important;
-        background: linear-gradient(135deg, #ffffff 0%, #a8b4c4 50%, #ffffff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        letter-spacing: -3px;
-        line-height: 1;
-        margin-bottom: 8px;
-        margin-top: 0;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 140px;
+        font-weight: 400;
+        color: #111111;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        line-height: 0.9;
+        margin-bottom: 0;
     }
     
     /* === PORTFOLIO SUBTITLE === */
-    .hero-subtitle {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 16px;
+    .hero-sub {
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
         font-weight: 500;
-        color: #4a5568;
-        letter-spacing: 12px;
+        color: #757575;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        margin-bottom: 40px;
+        margin-top: 20px;
+        margin-bottom: 60px;
     }
     
-    /* === ACCENT LINE WITH GLOW === */
-    .accent-bar {
-        width: 100px;
-        height: 4px;
-        background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
-        border-radius: 2px;
-        margin: 30px 0;
-        box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-    }
-    
-    /* === TAGLINE === */
-    .hero-tagline {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 24px;
-        font-weight: 600;
-        color: #f59e0b;
+    /* === TAGLINE - NIKE STYLE === */
+    .tagline {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 32px;
+        color: #111111;
+        letter-spacing: 1px;
         margin-bottom: 30px;
-        letter-spacing: -0.5px;
     }
     
     /* === BODY TEXT === */
     .body-text {
         font-family: 'Inter', sans-serif;
-        font-size: 17px;
+        font-size: 16px;
         font-weight: 400;
-        color: #d1d5db;
+        color: #111111;
         line-height: 1.8;
         margin-bottom: 20px;
+        max-width: 650px;
     }
     
     .body-text strong {
-        color: #ffffff;
-        font-weight: 600;
+        font-weight: 700;
     }
     
-    /* === SECTION HEADER === */
+    /* === SECTION HEADER - GIANT === */
     .section-header {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 42px;
-        font-weight: 700;
-        color: #ffffff;
-        margin-bottom: 40px;
-        letter-spacing: -1px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 72px;
+        color: #111111;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 50px;
+        line-height: 0.95;
     }
     
     /* === SUBSECTION === */
     .subsection {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 13px;
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
         font-weight: 600;
-        color: #f59e0b;
-        letter-spacing: 3px;
+        color: #757575;
+        letter-spacing: 2px;
         text-transform: uppercase;
-        margin-top: 40px;
-        margin-bottom: 16px;
+        margin-top: 60px;
+        margin-bottom: 20px;
     }
     
-    /* === PREMIUM CARDS === */
+    /* === METRIC CARDS - NIKE MINIMAL === */
     .metric-card {
-        background: linear-gradient(145deg, #12121a 0%, #0d0d12 100%);
-        border: 1px solid #1f1f2e;
-        border-radius: 16px;
-        padding: 32px 24px;
+        background: #f5f5f5;
+        border: none;
+        padding: 50px 30px;
         text-align: center;
-        transition: all 0.3s ease;
-    }
-    
-    .metric-card:hover {
-        border-color: #f59e0b;
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        border-radius: 0;
     }
     
     .metric-number {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 48px;
-        font-weight: 700;
-        background: linear-gradient(135deg, #22c55e, #4ade80);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 72px;
+        color: #111111;
         line-height: 1;
     }
     
     .metric-label {
         font-family: 'Inter', sans-serif;
-        font-size: 13px;
-        color: #9ca3af;
-        margin-top: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #757575;
+        margin-top: 15px;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
     
-    /* === INFO CARDS === */
-    .info-card {
-        background: #12121a;
-        border: 1px solid #1f1f2e;
-        border-radius: 12px;
-        padding: 24px;
-        margin: 16px 0;
-        transition: border-color 0.3s ease;
-    }
-    
-    .info-card:hover {
-        border-color: #374151;
-    }
-    
     /* === RESULT CARDS === */
     .result-card {
-        background: linear-gradient(145deg, #12121a 0%, #0d0d12 100%);
-        border: 1px solid #1f1f2e;
-        border-radius: 16px;
-        padding: 28px;
-        margin: 12px 0;
+        background: #f5f5f5;
+        padding: 40px;
+        margin: 15px 0;
     }
     
     .result-number {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 40px;
-        font-weight: 700;
-        background: linear-gradient(135deg, #22c55e, #4ade80);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 56px;
+        color: #111111;
     }
     
     .result-title {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
         font-weight: 600;
-        color: #ffffff;
-        margin: 8px 0;
+        color: #111111;
+        margin: 15px 0 10px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
     
     .result-desc {
         font-family: 'Inter', sans-serif;
         font-size: 14px;
-        color: #9ca3af;
+        color: #757575;
+        line-height: 1.5;
     }
     
     /* === BULLET POINTS === */
     .bullet {
         font-family: 'Inter', sans-serif;
-        font-size: 16px;
-        color: #d1d5db;
-        line-height: 1.7;
-        margin-bottom: 12px;
-        padding-left: 24px;
-        position: relative;
-    }
-    
-    .bullet::before {
-        content: "▸";
-        position: absolute;
-        left: 0;
-        color: #f59e0b;
-        font-size: 14px;
+        font-size: 15px;
+        color: #111111;
+        line-height: 1.8;
+        margin-bottom: 14px;
+        padding-left: 0;
     }
     
     .bullet strong {
-        color: #ffffff;
+        font-weight: 600;
     }
     
-    /* === SIDEBAR === */
+    /* === INFO CARDS === */
+    .info-card {
+        background: #f5f5f5;
+        padding: 30px;
+        margin: 15px 0;
+    }
+    
+    /* === SIDEBAR - NIKE CLEAN === */
     section[data-testid="stSidebar"] {
-        background: #0a0a0f;
-        border-right: 1px solid #1a1a24;
+        background: #ffffff;
+        border-right: 1px solid #e5e5e5;
     }
     
     section[data-testid="stSidebar"] .stRadio > div > label {
         background: transparent !important;
-        color: #4b5563 !important;
+        color: #757575 !important;
         font-family: 'Inter', sans-serif !important;
-        font-size: 14px !important;
+        font-size: 13px !important;
         font-weight: 500 !important;
-        padding: 14px 16px !important;
-        border-radius: 8px !important;
-        border-left: 3px solid transparent !important;
+        padding: 14px 20px !important;
+        letter-spacing: 0.5px !important;
         transition: all 0.2s ease !important;
     }
     
     section[data-testid="stSidebar"] .stRadio > div > label:hover {
-        color: #e5e7eb !important;
-        background: rgba(255,255,255,0.03) !important;
+        color: #111111 !important;
     }
     
     section[data-testid="stSidebar"] .stRadio > div > label[data-checked="true"] {
-        color: #f59e0b !important;
-        border-left-color: #f59e0b !important;
-        background: rgba(245, 158, 11, 0.08) !important;
+        color: #111111 !important;
+        font-weight: 600 !important;
     }
     
     .nav-title {
-        font-family: 'Space Grotesk', sans-serif;
+        font-family: 'Inter', sans-serif;
         font-size: 11px;
         font-weight: 600;
-        color: #374151;
-        letter-spacing: 3px;
-        margin-bottom: 24px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid #1a1a24;
+        color: #111111;
+        letter-spacing: 2px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #111111;
+        text-transform: uppercase;
     }
     
     /* === SKILLS === */
     .skill-category {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 14px;
-        font-weight: 600;
-        color: #f59e0b;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: #111111;
+        letter-spacing: 1px;
+        text-transform: uppercase;
         margin-bottom: 8px;
-        letter-spacing: 0.5px;
     }
     
     .skill-list {
         font-family: 'Inter', sans-serif;
-        font-size: 15px;
-        color: #d1d5db;
+        font-size: 14px;
+        color: #757575;
         line-height: 1.6;
     }
     
     /* === CERTIFICATIONS === */
     .cert-card {
-        background: #12121a;
-        border: 1px solid #1f1f2e;
-        border-radius: 12px;
-        padding: 20px 24px;
-        margin: 16px 0;
-        transition: all 0.2s ease;
-    }
-    
-    .cert-card:hover {
-        border-color: #f59e0b;
+        background: #f5f5f5;
+        padding: 25px 30px;
+        margin: 20px 0;
     }
     
     .cert-title {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 18px;
-        font-weight: 600;
-        color: #ffffff;
-        margin-bottom: 4px;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        color: #111111;
+        margin-bottom: 5px;
     }
     
     .cert-org {
         font-family: 'Inter', sans-serif;
-        font-size: 14px;
-        color: #9ca3af;
+        font-size: 13px;
+        color: #757575;
     }
     
     /* === CONTACT === */
     .contact-card {
-        background: #12121a;
-        border: 1px solid #1f1f2e;
-        border-radius: 12px;
-        padding: 20px 24px;
+        background: #f5f5f5;
+        padding: 25px 30px;
         margin: 12px 0;
     }
     
     .contact-label {
         font-family: 'Inter', sans-serif;
         font-size: 11px;
-        font-weight: 500;
-        color: #9ca3af;
+        font-weight: 600;
+        color: #757575;
         letter-spacing: 2px;
         text-transform: uppercase;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
     }
     
     .contact-value {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 18px;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
         font-weight: 500;
-        color: #ffffff;
+        color: #111111;
     }
     
     /* === QUOTE === */
     .quote {
         font-family: 'Inter', sans-serif;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 400;
-        color: #d1d5db;
+        color: #111111;
         font-style: italic;
-        line-height: 1.6;
-        border-left: 3px solid #f59e0b;
-        padding-left: 24px;
-        margin: 40px 0;
+        line-height: 1.7;
+        border-left: 3px solid #111111;
+        padding-left: 30px;
+        margin: 50px 0;
+        max-width: 550px;
+    }
+    
+    /* === CODE LABEL === */
+    .code-label {
+        font-family: 'Inter', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        color: #757575;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+    
+    /* === CTA BUTTON - NIKE STYLE === */
+    .cta-btn {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        color: #ffffff;
+        background: #111111;
+        padding: 15px 30px;
+        text-decoration: none;
+        letter-spacing: 1px;
+        transition: background 0.2s ease;
+    }
+    
+    .cta-btn:hover {
+        background: #757575;
     }
     
     /* === LINKS === */
     a {
-        color: #60a5fa !important;
-        text-decoration: none !important;
-        transition: color 0.2s ease !important;
+        color: #111111 !important;
+        text-decoration: underline !important;
     }
     
     a:hover {
-        color: #f59e0b !important;
+        color: #757575 !important;
     }
     
-    /* === STREAMLIT OVERRIDES === */
+    /* === OVERRIDES === */
     h1, h2, h3 {
-        font-family: 'Space Grotesk', sans-serif !important;
-        color: #ffffff !important;
+        font-family: 'Bebas Neue', sans-serif !important;
+        color: #111111 !important;
     }
     
     p, li {
         font-family: 'Inter', sans-serif !important;
-        color: #d1d5db !important;
+        color: #111111 !important;
     }
     
-    /* === CODE LABELS === */
-    .code-label {
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 12px;
-        font-weight: 600;
-        color: #f59e0b;
-        letter-spacing: 2px;
-        margin-bottom: 12px;
+    /* === DIVIDER === */
+    .divider {
+        width: 100%;
+        height: 1px;
+        background: #e5e5e5;
+        margin: 60px 0;
     }
 </style>
 
 <script>
-    // Scroll to top on page load
-    var mainSection = window.parent.document.querySelector('section.main');
-    if (mainSection) {
-        mainSection.scrollTop = 0;
-    }
-    window.parent.document.documentElement.scrollTop = 0;
-    window.parent.document.body.scrollTop = 0;
+    window.parent.document.querySelector('[data-testid="stAppViewContainer"]').scrollTo(0, 0);
 </script>
 """, unsafe_allow_html=True)
 
 # Sidebar
 with st.sidebar:
-    st.markdown('<p class="nav-title">NAVIGATION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="nav-title">Navigation</p>', unsafe_allow_html=True)
     page = st.radio("", [
-        "Welcome",
-        "Engagement & Monetization",
-        "Executive Insights",
-        "Warehouse Optimization",
-        "Process Automation",
+        "Home",
+        "Engagement",
+        "Executive",
+        "Warehouse",
+        "Automation",
         "Skills",
         "Certifications",
         "Contact"
     ], label_visibility="collapsed")
-
-# Scroll to top on page change
-st.markdown(f'''
-    <div id="top-anchor"></div>
-    <script>
-        window.parent.document.querySelector('[data-testid="stAppViewContainer"]').scrollTo(0, 0);
-        window.scrollTo(0, 0);
-    </script>
-''', unsafe_allow_html=True)
 
 @st.cache_data
 def load_data(url):
@@ -418,23 +381,23 @@ def load_data(url):
 
 data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
 
-# ===================== WELCOME =====================
-if page == "Welcome":
-    st.markdown('<p class="hero-name">JASON CHANG</p>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-subtitle">PORTFOLIO</p>', unsafe_allow_html=True)
-    st.markdown('<div class="accent-bar"></div>', unsafe_allow_html=True)
-    st.markdown('<p class="hero-tagline">National Revenue Growth Leader<br>Powered by Analytics</p>', unsafe_allow_html=True)
+# ===================== HOME =====================
+if page == "Home":
+    st.markdown('<p class="hero-name">JASON<br>CHANG</p>', unsafe_allow_html=True)
+    st.markdown('<p class="hero-sub">Data Analytics Portfolio</p>', unsafe_allow_html=True)
+    
+    st.markdown('<p class="tagline">Revenue Growth Leader Powered by Analytics</p>', unsafe_allow_html=True)
     
     st.markdown("""
     <p class="body-text">
-    Data-driven leader with <strong>10+ years</strong> scaling national programs through market strategy, analytics, and channel expansion. I translate complex data into actionable insights that accelerate decisions, improve conversion, and drive measurable revenue growth.
+    Data-driven leader with <strong>10+ years</strong> scaling national programs through market strategy, analytics, and channel expansion. I translate complex data into actionable insights that drive measurable revenue growth.
     </p>
     <p class="body-text">
-    Proficient in <strong>Snowflake, SQL, Power BI, and Python</strong>. Experienced leading cross-functional programs, unifying fragmented data systems, and automating reporting pipelines.
+    Proficient in <strong>Snowflake, SQL, Power BI, and Python</strong>. Experienced leading cross-functional programs and automating reporting pipelines.
     </p>
     """, unsafe_allow_html=True)
     
-    st.markdown('<div class="accent-bar"></div>', unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     with col1:
@@ -460,28 +423,28 @@ if page == "Welcome":
         """, unsafe_allow_html=True)
 
 # ===================== ENGAGEMENT =====================
-elif page == "Engagement & Monetization":
-    st.markdown('<p class="section-header">Player Engagement &<br>Monetization Analytics</p>', unsafe_allow_html=True)
+elif page == "Engagement":
+    st.markdown('<p class="section-header">PLAYER<br>ENGAGEMENT &<br>MONETIZATION</p>', unsafe_allow_html=True)
     
-    st.markdown('<p class="subsection">SITUATION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Situation</p>', unsafe_allow_html=True)
     st.markdown("""
     <p class="body-text">
     Tasked with maximizing revenue and player engagement for Warcraft during two key in-game events. Challenge: understanding player segment behavior and identifying monetization opportunities.
     </p>
     """, unsafe_allow_html=True)
 
-    st.markdown('<p class="subsection">TASK</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Task</p>', unsafe_allow_html=True)
     st.markdown("""
-    <p class="bullet">Identify high-spending player segments for targeted promotions</p>
-    <p class="bullet">Analyze low spending trends by region and platform</p>
-    <p class="bullet">Conduct exploratory analysis on spending behaviors</p>
+    <p class="bullet">• Identify high-spending player segments for targeted promotions</p>
+    <p class="bullet">• Analyze low spending trends by region and platform</p>
+    <p class="bullet">• Conduct exploratory analysis on spending behaviors</p>
     """, unsafe_allow_html=True)
 
-    st.markdown('<p class="subsection">ACTION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Action</p>', unsafe_allow_html=True)
     st.markdown("""
-    <p class="bullet"><strong>EDA & Clustering:</strong> Python-based analysis with K-Means segmentation</p>
-    <p class="bullet"><strong>Heatmap Analysis:</strong> Identified spending patterns across segments</p>
-    <p class="bullet"><strong>Strategic Output:</strong> Prioritized Platform 3, Region 1 for promotions</p>
+    <p class="bullet">• <strong>EDA & Clustering</strong> — Python-based analysis with K-Means segmentation</p>
+    <p class="bullet">• <strong>Heatmap Analysis</strong> — Identified spending patterns across segments</p>
+    <p class="bullet">• <strong>Strategic Output</strong> — Prioritized Platform 3, Region 1 for promotions</p>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
@@ -500,44 +463,49 @@ elif page == "Engagement & Monetization":
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/555', use_container_width=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/666', use_container_width=True)
 
-    # Heatmap
+    # Heatmap - White theme
     heatmap_data = data.groupby(['region', 'platform']).dollars_spent.mean().unstack()
     fig1, ax1 = plt.subplots(figsize=(8, 5))
-    fig1.patch.set_facecolor('#0a0a0f')
-    ax1.set_facecolor('#0a0a0f')
-    sns.heatmap(heatmap_data, annot=True, cmap="YlOrBr", fmt=".2f", linewidths=.5, ax=ax1)
-    ax1.set_title("Avg Spend by Region & Platform", color='white', fontsize=12, fontweight='600')
-    ax1.tick_params(colors='white')
-    ax1.set_xlabel('Platform', color='#6b7280')
-    ax1.set_ylabel('Region', color='#6b7280')
+    fig1.patch.set_facecolor('#ffffff')
+    ax1.set_facecolor('#ffffff')
+    sns.heatmap(heatmap_data, annot=True, cmap="Greys", fmt=".2f", linewidths=1, ax=ax1,
+                annot_kws={"color": "#111111", "fontsize": 10})
+    ax1.set_title("Avg Spend by Region & Platform", color='#111111', fontsize=14, fontweight='600', pad=20)
+    ax1.tick_params(colors='#111111')
+    ax1.set_xlabel('Platform', color='#757575', fontsize=11)
+    ax1.set_ylabel('Region', color='#757575', fontsize=11)
+    for spine in ax1.spines.values():
+        spine.set_color('#e5e5e5')
     st.pyplot(fig1)
     plt.close(fig1)
 
-    # KDE
+    # KDE - White theme
     e1 = data[(data['Date'] >= '2017-01-24') & (data['Date'] <= '2017-02-14')]
     e2 = data[(data['Date'] >= '2017-02-28') & (data['Date'] <= '2017-03-21')]
     fig, axes = plt.subplots(2, 2, figsize=(10, 7))
-    fig.patch.set_facecolor('#0a0a0f')
+    fig.patch.set_facecolor('#ffffff')
     for ax in axes.flat:
-        ax.set_facecolor('#0a0a0f')
-        ax.tick_params(colors='white', labelsize=8)
-        ax.xaxis.label.set_color('#6b7280')
-        ax.yaxis.label.set_color('#6b7280')
-        ax.title.set_color('white')
+        ax.set_facecolor('#ffffff')
+        ax.tick_params(colors='#111111', labelsize=9)
+        ax.xaxis.label.set_color('#757575')
+        ax.yaxis.label.set_color('#757575')
+        ax.title.set_color('#111111')
+        for spine in ax.spines.values():
+            spine.set_color('#e5e5e5')
     
     for idx, (col, title) in enumerate([('games_played', 'Games Played'), ('skill_last', 'Skill Level'), ('items_crafted', 'Items Crafted'), ('dollars_spent', 'Dollars Spent')]):
         ax = axes[idx // 2, idx % 2]
-        sns.kdeplot(e1[col], fill=True, color="#3b82f6", label="Event 1", ax=ax, alpha=0.6)
-        sns.kdeplot(e2[col], fill=True, color="#f59e0b", label="Event 2", ax=ax, alpha=0.6)
-        ax.set_title(title, fontsize=11, fontweight='600')
-        ax.legend(fontsize=8)
+        sns.kdeplot(e1[col], fill=True, color="#111111", label="Event 1", ax=ax, alpha=0.3)
+        sns.kdeplot(e2[col], fill=True, color="#757575", label="Event 2", ax=ax, alpha=0.4)
+        ax.set_title(title, fontsize=12, fontweight='600')
+        ax.legend(fontsize=9, frameon=False)
     plt.tight_layout()
     st.pyplot(fig)
     plt.close(fig)
 
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/999', use_container_width=True)
 
-    st.markdown('<p class="subsection">RESULTS</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Results</p>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
@@ -557,26 +525,26 @@ elif page == "Engagement & Monetization":
         """, unsafe_allow_html=True)
 
 # ===================== EXECUTIVE =====================
-elif page == "Executive Insights":
-    st.markdown('<p class="section-header">Executive Business<br>Intelligence Dashboard</p>', unsafe_allow_html=True)
+elif page == "Executive":
+    st.markdown('<p class="section-header">EXECUTIVE<br>BUSINESS<br>INTELLIGENCE</p>', unsafe_allow_html=True)
     
-    st.markdown('<p class="subsection">SITUATION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Situation</p>', unsafe_allow_html=True)
     st.markdown('<p class="body-text">Post-merger environment with fragmented data across systems. Finance lacked unified performance measurement.</p>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
     
-    st.markdown('<p class="subsection">TASK</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Task</p>', unsafe_allow_html=True)
     st.markdown('<p class="body-text">Design dynamic reporting solution with accurate KPIs for executive decision-making.</p>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/11', use_container_width=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/44', use_container_width=True)
 
-    st.markdown('<p class="subsection">ACTION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Action</p>', unsafe_allow_html=True)
     st.markdown("""
-    <p class="bullet"><strong>Data Engineering:</strong> SQL extraction, deduplication, normalization</p>
-    <p class="bullet"><strong>Schema Design:</strong> Flexible architecture for evolving needs</p>
-    <p class="bullet"><strong>Dashboard:</strong> Stakeholder collaboration on key metrics</p>
+    <p class="bullet">• <strong>Data Engineering</strong> — SQL extraction, deduplication, normalization</p>
+    <p class="bullet">• <strong>Schema Design</strong> — Flexible architecture for evolving needs</p>
+    <p class="bullet">• <strong>Dashboard</strong> — Stakeholder collaboration on key metrics</p>
     """, unsafe_allow_html=True)
     
-    st.markdown('<p class="subsection">RESULTS</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Results</p>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("""
@@ -594,59 +562,59 @@ elif page == "Executive Insights":
         """, unsafe_allow_html=True)
 
 # ===================== WAREHOUSE =====================
-elif page == "Warehouse Optimization":
-    st.markdown('<p class="section-header">Warehouse & GL<br>Account Optimization</p>', unsafe_allow_html=True)
+elif page == "Warehouse":
+    st.markdown('<p class="section-header">WAREHOUSE<br>& GL<br>OPTIMIZATION</p>', unsafe_allow_html=True)
     
-    st.markdown('<p class="subsection">SITUATION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Situation</p>', unsafe_allow_html=True)
     st.markdown('<p class="body-text">Escalating logistics costs impacting bottom line. SKYLAB and 3PL Logistics identified as key areas for potential inefficiency.</p>', unsafe_allow_html=True)
 
-    st.markdown('<p class="subsection">TASK</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Task</p>', unsafe_allow_html=True)
     st.markdown('<p class="body-text">Conduct detailed cost analysis to identify waste and optimization opportunities.</p>', unsafe_allow_html=True)
 
-    st.markdown('<p class="subsection">ACTION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Action</p>', unsafe_allow_html=True)
     st.markdown("""
-    <p class="bullet"><strong>Financial Analysis:</strong> Python deep dive into expenditure patterns</p>
-    <p class="bullet"><strong>Inefficiency Mapping:</strong> Pinpointed cost drivers in both divisions</p>
-    <p class="bullet"><strong>Strategy:</strong> Recommendations for operations and vendor contracts</p>
+    <p class="bullet">• <strong>Financial Analysis</strong> — Python deep dive into expenditure patterns</p>
+    <p class="bullet">• <strong>Inefficiency Mapping</strong> — Pinpointed cost drivers in both divisions</p>
+    <p class="bullet">• <strong>Strategy</strong> — Recommendations for operations and vendor contracts</p>
     """, unsafe_allow_html=True)
 
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
 
-    st.markdown('<p class="subsection">RESULTS</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Results</p>', unsafe_allow_html=True)
     st.markdown("""
     <div class="info-card">
-        <p class="bullet"><strong>Cost Reduction:</strong> Identified inefficiencies leading to significant savings</p>
-        <p class="bullet"><strong>Streamlined Ops:</strong> Process improvements with positive P&L impact</p>
-        <p class="bullet"><strong>Framework:</strong> Established ongoing optimization process</p>
+        <p class="bullet">• <strong>Cost Reduction</strong> — Identified inefficiencies leading to significant savings</p>
+        <p class="bullet">• <strong>Streamlined Ops</strong> — Process improvements with positive P&L impact</p>
+        <p class="bullet">• <strong>Framework</strong> — Established ongoing optimization process</p>
     </div>
     """, unsafe_allow_html=True)
 
 # ===================== AUTOMATION =====================
-elif page == "Process Automation":
-    st.markdown('<p class="section-header">Quarterly Royalty<br>Management Automation</p>', unsafe_allow_html=True)
+elif page == "Automation":
+    st.markdown('<p class="section-header">QUARTERLY<br>ROYALTY<br>AUTOMATION</p>', unsafe_allow_html=True)
     
-    st.markdown('<p class="subsection">SITUATION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Situation</p>', unsafe_allow_html=True)
     st.markdown('<p class="body-text">Month-long manual Excel lookups across years of unorganized data. High error risk, significant analyst burden.</p>', unsafe_allow_html=True)
 
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown('<p class="code-label">PYTHON AUTOMATION</p>', unsafe_allow_html=True)
+        st.markdown('<p class="code-label">Python Automation</p>', unsafe_allow_html=True)
         st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/2222', use_container_width=True)
     with col2:
-        st.markdown('<p class="code-label">VBA INTEGRATION</p>', unsafe_allow_html=True)
+        st.markdown('<p class="code-label">VBA Integration</p>', unsafe_allow_html=True)
         st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/9999', use_container_width=True)
 
-    st.markdown('<p class="subsection">TASK</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Task</p>', unsafe_allow_html=True)
     st.markdown('<p class="body-text">Transform month-long manual process into automated workflow while maintaining accuracy.</p>', unsafe_allow_html=True)
 
-    st.markdown('<p class="subsection">ACTION</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Action</p>', unsafe_allow_html=True)
     st.markdown("""
-    <p class="bullet"><strong>Data Audit:</strong> Mapped historical structures and requirements</p>
-    <p class="bullet"><strong>Python Pipeline:</strong> Automated consolidation and validation</p>
-    <p class="bullet"><strong>VBA:</strong> Automated Excel report generation</p>
+    <p class="bullet">• <strong>Data Audit</strong> — Mapped historical structures and requirements</p>
+    <p class="bullet">• <strong>Python Pipeline</strong> — Automated consolidation and validation</p>
+    <p class="bullet">• <strong>VBA</strong> — Automated Excel report generation</p>
     """, unsafe_allow_html=True)
 
-    st.markdown('<p class="subsection">RESULTS</p>', unsafe_allow_html=True)
+    st.markdown('<p class="subsection">Results</p>', unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown("""
@@ -658,23 +626,25 @@ elif page == "Process Automation":
     with col2:
         st.markdown("""
         <div class="metric-card">
-            <p class="metric-number" style="background: linear-gradient(135deg, #3b82f6, #60a5fa); -webkit-background-clip: text;">2</p>
+            <p class="metric-number">2</p>
             <p class="metric-label">FTEs Freed</p>
         </div>
         """, unsafe_allow_html=True)
     with col3:
         st.markdown("""
         <div class="metric-card">
-            <p class="metric-number" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text;">↑</p>
+            <p class="metric-number">↑</p>
             <p class="metric-label">Accuracy</p>
         </div>
         """, unsafe_allow_html=True)
 
 # ===================== SKILLS =====================
 elif page == "Skills":
-    st.markdown('<p class="section-header">Technical Expertise</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">TECHNICAL<br>EXPERTISE</p>', unsafe_allow_html=True)
     
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=350)
+    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=280)
+    
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     with col1:
@@ -689,7 +659,7 @@ elif page == "Skills":
         </div>
         <div class="info-card">
             <p class="skill-category">Analytics</p>
-            <p class="skill-list">Pandas, NumPy, Seaborn, Matplotlib, SciPy, TensorFlow</p>
+            <p class="skill-list">Pandas, NumPy, Seaborn, Matplotlib, SciPy</p>
         </div>
         """, unsafe_allow_html=True)
     with col2:
@@ -710,28 +680,30 @@ elif page == "Skills":
 
 # ===================== CERTIFICATIONS =====================
 elif page == "Certifications":
-    st.markdown('<p class="section-header">Certifications</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">CERTIFICATIONS</p>', unsafe_allow_html=True)
     
     certs = [
-        ("Supervised Machine Learning", "Stanford / Coursera • 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
-        ("Neural Networks & Deep Learning", "DeepLearning.AI • 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/DeepAI", "https://www.coursera.org/account/accomplishments/verify/P3MNNDS44DLL"),
-        ("Power BI Data Visualization", "EdX • 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/edx", "https://courses.edx.org/certificates/c05a356504164e2babb5e6c3ee54ec79"),
-        ("AWS Cloud Practitioner", "Amazon Web Services • 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/AWS1", None),
-        ("SQL Certification", "Sololearn • 2017", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/SQLsololearn", "https://www.sololearn.com/en/certificates/CT-YUFRJBUH")
+        ("Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
+        ("Neural Networks & Deep Learning", "DeepLearning.AI · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/DeepAI", "https://www.coursera.org/account/accomplishments/verify/P3MNNDS44DLL"),
+        ("Power BI Data Visualization", "EdX · 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/edx", "https://courses.edx.org/certificates/c05a356504164e2babb5e6c3ee54ec79"),
+        ("AWS Cloud Practitioner", "Amazon Web Services · 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/AWS1", None),
+        ("SQL Certification", "Sololearn · 2017", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/SQLsololearn", "https://www.sololearn.com/en/certificates/CT-YUFRJBUH")
     ]
     
     for title, org, img, link in certs:
         st.markdown(f'<div class="cert-card"><p class="cert-title">{title}</p><p class="cert-org">{org}</p></div>', unsafe_allow_html=True)
-        st.image(img, width=550)
+        st.image(img, width=480)
         if link:
-            st.markdown(f"<a href='{link}' target='_blank'>Verify →</a>", unsafe_allow_html=True)
+            st.markdown(f"<a href='{link}' target='_blank'>Verify Certificate</a>", unsafe_allow_html=True)
         st.markdown("<br>", unsafe_allow_html=True)
 
 # ===================== CONTACT =====================
 elif page == "Contact":
-    st.markdown('<p class="section-header">Let\'s Connect</p>', unsafe_allow_html=True)
+    st.markdown('<p class="section-header">LET\'S<br>CONNECT</p>', unsafe_allow_html=True)
     
     st.markdown('<p class="quote">"In God we trust; for all else, we turn to the validation of data."</p>', unsafe_allow_html=True)
+    
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     with col1:
