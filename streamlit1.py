@@ -142,6 +142,16 @@ st.markdown("""
     .sb:nth-child(3) .sn{animation-delay:.3s}
     .sl{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:600!important;color:var(--g5)!important;margin-top:14px!important;text-transform:uppercase!important;letter-spacing:3px!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1)}
     
+    /* === STAT BOXES DARK === */
+    .sw-dark{display:grid;grid-template-columns:repeat(3,1fr);background:var(--b)!important}
+    .sw-dark .sb{padding:60px 35px;text-align:center;border-right:1px solid var(--g8);position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);background:var(--b)!important}
+    .sw-dark .sb:last-child{border-right:none}
+    .sw-dark .sb::before{content:'';position:absolute;inset:0;background:var(--w);transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+    .sw-dark .sb:hover::before{transform:translateY(0)}
+    .sw-dark .sb:hover .sn,.sw-dark .sb:hover .sl{color:var(--b)!important}
+    .sw-dark .sn{font-family:'Outfit',sans-serif!important;font-size:85px!important;font-weight:700!important;color:var(--w)!important;line-height:1!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1);animation:numberPop .6s ease both}
+    .sw-dark .sl{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:600!important;color:var(--g5)!important;margin-top:14px!important;text-transform:uppercase!important;letter-spacing:3px!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1)}
+    
     /* === SECTION HEADERS === */
     .sd{background:var(--b)!important;padding:55px 70px 40px!important}
     .sdt{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-bottom:18px!important;animation:slideLeft .5s ease both}
@@ -159,7 +169,7 @@ st.markdown("""
     .cd .sr:nth-child(3){animation-delay:.3s}
     .cd .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:rgba(255,255,255,0.2);line-height:1;min-width:55px;animation:numberPop .5s ease both}
     .cd .sc{flex:1;padding-top:6px}
-    .cd .st{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:var(--w);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g8);display:inline-block}
+    .cd .st{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--w);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g8);display:inline-block}
     .cd .bt{font-family:'Inter',sans-serif;font-size:14px;color:#e5e5e5;line-height:1.75;max-width:480px}
     .cd .bt strong{color:var(--w);font-weight:600}
     .cd .bi{font-family:'Inter',sans-serif;font-size:13px;color:#e5e5e5;line-height:1.75;margin-bottom:10px;padding-left:24px;position:relative;transition:all .3s ease}
@@ -176,7 +186,7 @@ st.markdown("""
     .cl .sr:nth-child(3){animation-delay:.3s}
     .cl .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:var(--g3);line-height:1;min-width:55px;animation:numberPop .5s ease both}
     .cl .sc{flex:1;padding-top:6px}
-    .cl .st{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:var(--b);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g2);display:inline-block}
+    .cl .st{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--b);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g2);display:inline-block}
     .cl .bt{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);line-height:1.75;max-width:480px}
     .cl .bt strong{color:var(--b);font-weight:600}
     .cl .bi{font-family:'Inter',sans-serif;font-size:13px;color:var(--g6);line-height:1.75;margin-bottom:10px;padding-left:24px;position:relative;transition:all .3s ease}
@@ -199,7 +209,7 @@ st.markdown("""
     .rc:hover{transform:translateY(-10px);box-shadow:0 28px 55px rgba(0,0,0,0.06)}
     .rc:hover::before{transform:scaleX(1)}
     .rcn{font-family:'Outfit',sans-serif!important;font-size:60px!important;font-weight:700!important;color:var(--b)!important;line-height:1!important}
-    .rct{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--b)!important;margin:16px 0 8px!important;text-transform:uppercase!important;letter-spacing:2px!important}
+    .rct{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;margin:16px 0 8px!important;text-transform:uppercase!important;letter-spacing:2px!important}
     .rcd{font-family:'Inter',sans-serif!important;font-size:12px!important;color:var(--g5)!important;line-height:1.55!important}
     
     /* === INFO CARDS === */
@@ -210,8 +220,19 @@ st.markdown("""
     .ic::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--b);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
     .ic:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(0,0,0,0.05)}
     .ic:hover::after{transform:scaleX(1)}
-    .ict{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important}
+    .ict{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important}
     .icd{font-family:'Inter',sans-serif!important;font-size:12px!important;color:var(--g5)!important;line-height:1.65!important}
+    
+    /* === INFO CARDS DARK === */
+    .ig-dark{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:25px}
+    .ig-dark .ic{background:var(--b);padding:35px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:slideRight .5s ease both}
+    .ig-dark .ic:nth-child(1){animation-delay:.1s}
+    .ig-dark .ic:nth-child(2){animation-delay:.2s}
+    .ig-dark .ic::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--w);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+    .ig-dark .ic:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(0,0,0,0.3)}
+    .ig-dark .ic:hover::after{transform:scaleX(1)}
+    .ig-dark .ict{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important}
+    .ig-dark .icd{font-family:'Inter',sans-serif!important;font-size:12px!important;color:var(--g5)!important;line-height:1.65!important}
     
     /* === SKILLS === */
     .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -386,9 +407,9 @@ elif page == "Revenue Growth":
 elif page == "Strategic BI":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cl">
+    <div class="cd">
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
+        <div class="ig-dark"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
     </div>
     """, unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
@@ -419,10 +440,10 @@ elif page == "Operations":
 elif page == "Efficiency":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cl">
+    <div class="cd">
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
     </div>
-    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
+    <div class="sw-dark"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
     """, unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
