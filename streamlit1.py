@@ -88,22 +88,40 @@ st.markdown("""
     section[data-testid="stSidebar"]{background:var(--b)!important;border-right:none!important}
     section[data-testid="stSidebar"]>div:first-child{padding-top:0!important}
     section[data-testid="stSidebar"] .stRadio>div{gap:0!important}
-    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:rgba(255,255,255,0.45)!important;font-family:'Inter',sans-serif!important;font-size:13px!important;font-weight:400!important;padding:11px 32px!important;transition:color .25s ease!important;border:none!important;letter-spacing:0.2px!important}
+    
+    /* HIDE radio circles - multiple selectors for compatibility */
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child,
+    section[data-testid="stSidebar"] .stRadio label[data-baseweb="radio"]>div:first-child,
+    section[data-testid="stSidebar"] [data-baseweb="radio"]>div:first-child,
+    section[data-testid="stSidebar"] .stRadio>div>label>div:first-child,
+    section[data-testid="stSidebar"] .stRadio input[type="radio"],
+    section[data-testid="stSidebar"] .stRadio input[type="radio"]+div,
+    section[data-testid="stSidebar"] .stRadio svg,
+    div.row-widget.stRadio>div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child{
+        display:none!important;
+        visibility:hidden!important;
+        width:0!important;
+        height:0!important;
+        opacity:0!important;
+        position:absolute!important
+    }
+    
+    /* Menu items styling */
+    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:rgba(255,255,255,0.4)!important;font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:400!important;padding:10px 32px!important;transition:color .2s ease!important;border:none!important;letter-spacing:0!important;cursor:pointer!important;gap:0!important}
     section[data-testid="stSidebar"] .stRadio>div>label:hover{color:#ffffff!important;background:transparent!important}
     section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:#ffffff!important;font-weight:600!important;background:transparent!important}
     section[data-testid="stSidebar"] .stRadio>div>label span,section[data-testid="stSidebar"] .stRadio>div>label p{color:inherit!important}
     
-    /* Section spacing and labels via nth-child */
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(2){margin-top:24px}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(2)::before{content:'WORK';position:absolute;top:-20px;left:32px;font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);letter-spacing:2px}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(6){margin-top:24px}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(6)::before{content:'EXPERTISE';position:absolute;top:-20px;left:32px;font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);letter-spacing:2px}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(8){margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+    /* Section dividers */
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(1){margin-top:12px}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(2){margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(6){margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(8){margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
     
     /* Sidebar branding */
-    .sb-name{font-family:'Outfit',sans-serif!important;font-size:14px!important;font-weight:700!important;color:#ffffff!important;letter-spacing:2.5px!important;text-transform:uppercase!important;padding:48px 32px 6px!important;margin:0!important}
-    .sb-title{font-family:'Inter',sans-serif!important;font-size:11px!important;font-weight:400!important;color:rgba(255,255,255,0.35)!important;letter-spacing:0.3px!important;padding:0 32px 32px!important;margin:0!important}
-    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.2)!important;padding:0 32px!important;margin-top:auto!important}
+    .sb-name{font-family:'Outfit',sans-serif!important;font-size:13px!important;font-weight:600!important;color:#ffffff!important;letter-spacing:2px!important;text-transform:uppercase!important;padding:48px 32px 4px!important;margin:0!important}
+    .sb-title{font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:rgba(255,255,255,0.35)!important;letter-spacing:0!important;padding:0 32px 20px!important;margin:0!important;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.2)!important;padding:24px 32px!important}
     
     /* === HERO === */
     .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
