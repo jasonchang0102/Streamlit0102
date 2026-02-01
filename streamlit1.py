@@ -85,21 +85,25 @@ st.markdown("""
     }
     
     /* === SIDEBAR === */
-    section[data-testid="stSidebar"]{background:var(--b)!important;border-right:1px solid rgba(255,255,255,0.03)!important}
+    section[data-testid="stSidebar"]{background:var(--b)!important;border-right:none!important}
     section[data-testid="stSidebar"]>div:first-child{padding-top:0!important}
-    section[data-testid="stSidebar"] .stRadio>div{gap:2px!important}
-    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:rgba(255,255,255,0.6)!important;font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:500!important;padding:14px 28px!important;transition:all .35s cubic-bezier(.16,1,.3,1)!important;border-left:3px solid transparent!important;letter-spacing:0.5px!important;position:relative!important}
-    section[data-testid="stSidebar"] .stRadio>div>label::after{content:'';position:absolute;right:28px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid rgba(255,255,255,0.3);opacity:0;transition:all .35s ease}
-    section[data-testid="stSidebar"] .stRadio>div>label:hover{color:#ffffff!important;padding-left:35px!important;background:rgba(255,255,255,0.04)!important}
-    section[data-testid="stSidebar"] .stRadio>div>label:hover::after{opacity:1;transform:translateY(-50%) rotate(-90deg)}
-    section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:#ffffff!important;font-weight:600!important;border-left-color:#ffffff!important;background:rgba(255,255,255,0.06)!important;padding-left:35px!important}
-    section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]::after{opacity:1;transform:translateY(-50%) rotate(-90deg);border-top-color:#ffffff}
+    section[data-testid="stSidebar"] .stRadio>div{gap:0!important}
+    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:rgba(255,255,255,0.45)!important;font-family:'Inter',sans-serif!important;font-size:13px!important;font-weight:400!important;padding:11px 32px!important;transition:color .25s ease!important;border:none!important;letter-spacing:0.2px!important}
+    section[data-testid="stSidebar"] .stRadio>div>label:hover{color:#ffffff!important;background:transparent!important}
+    section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:#ffffff!important;font-weight:600!important;background:transparent!important}
     section[data-testid="stSidebar"] .stRadio>div>label span,section[data-testid="stSidebar"] .stRadio>div>label p{color:inherit!important}
-    .nb{font-family:'Outfit',sans-serif!important;font-size:32px!important;font-weight:800!important;color:#ffffff!important;letter-spacing:3px!important;padding:45px 28px 20px!important;margin-bottom:0!important;animation:fadeIn .6s ease both;position:relative}
-    .nb::after{content:'';position:absolute;bottom:0;left:28px;width:40px;height:3px;background:#ffffff}
-    .nl{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:rgba(255,255,255,0.35)!important;letter-spacing:3px!important;text-transform:uppercase!important;padding:35px 28px 15px!important}
-    .sidebar-footer{position:absolute;bottom:30px;left:28px;right:28px}
-    .sidebar-divider{height:1px;background:rgba(255,255,255,0.05);margin:25px 0}
+    
+    /* Section spacing and labels via nth-child */
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(2){margin-top:24px}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(2)::before{content:'WORK';position:absolute;top:-20px;left:32px;font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);letter-spacing:2px}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(6){margin-top:24px}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(6)::before{content:'EXPERTISE';position:absolute;top:-20px;left:32px;font-family:'Inter',sans-serif;font-size:9px;font-weight:600;color:rgba(255,255,255,0.2);letter-spacing:2px}
+    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(8){margin-top:32px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+    
+    /* Sidebar branding */
+    .sb-name{font-family:'Outfit',sans-serif!important;font-size:14px!important;font-weight:700!important;color:#ffffff!important;letter-spacing:2.5px!important;text-transform:uppercase!important;padding:48px 32px 6px!important;margin:0!important}
+    .sb-title{font-family:'Inter',sans-serif!important;font-size:11px!important;font-weight:400!important;color:rgba(255,255,255,0.35)!important;letter-spacing:0.3px!important;padding:0 32px 32px!important;margin:0!important}
+    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.2)!important;padding:0 32px!important;margin-top:auto!important}
     
     /* === HERO === */
     .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
@@ -335,32 +339,28 @@ st.markdown("""
     .ccv a:hover{border-color:var(--b)!important}
     
     /* === QUOTE === */
-    .qs{background:linear-gradient(155deg,var(--c1) 0%,var(--c2) 100%)!important;padding:75px 70px;position:relative;animation:fadeIn .5s ease both}
-    .qm{font-family:'Playfair Display',serif;font-size:220px;color:rgba(0,0,0,0.015);position:absolute;top:-15px;left:15px;line-height:1;pointer-events:none}
+    .qs{background:var(--g1)!important;padding:75px 70px;position:relative;animation:fadeIn .5s ease both}
+    .qm{font-family:'Playfair Display',serif;font-size:220px;color:rgba(0,0,0,0.02);position:absolute;top:-15px;left:15px;line-height:1;pointer-events:none}
     .qt{font-family:'Playfair Display',serif!important;font-size:28px!important;font-weight:400!important;font-style:italic!important;color:var(--b)!important;line-height:1.5!important;max-width:520px!important;position:relative;z-index:1}
     
     /* === TESTIMONIALS === */
-    .tms{background:var(--b)!important;padding:60px 70px 70px}
-    .tms-title{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--g5);letter-spacing:3px;text-transform:uppercase;margin-bottom:35px;animation:fadeUp .5s ease both}
-    .tmg{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-    .tmc{background:rgba(255,255,255,0.03);padding:40px 35px;border:1px solid rgba(255,255,255,0.08);position:relative;transition:all .45s cubic-bezier(.16,1,.3,1);animation:fadeUp .5s ease both;cursor:pointer}
+    .tms{background:var(--w)!important;padding:70px}
+    .tmg{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+    .tmc{background:var(--w);padding:0;border:none;position:relative;transition:all .45s cubic-bezier(.16,1,.3,1);animation:fadeUp .5s ease both}
     .tmc:nth-child(1){animation-delay:.1s}
     .tmc:nth-child(2){animation-delay:.2s}
     .tmc:nth-child(3){animation-delay:.3s}
-    .tmc::before{content:'"';font-family:'Playfair Display',serif;font-size:80px;color:rgba(255,255,255,0.05);position:absolute;top:10px;left:25px;line-height:1}
-    .tmc::after{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--w);transform:scaleY(0);transform-origin:top;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-    .tmc:hover{transform:translateY(-8px);border-color:rgba(255,255,255,0.2)}
-    .tmc:hover::after{transform:scaleY(1)}
-    .tmq{font-family:'Inter',sans-serif;font-size:14px;color:var(--g5);line-height:1.8;margin-bottom:25px;position:relative;z-index:1}
-    .tma{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--w);margin-bottom:4px}
-    .tmr{font-family:'Inter',sans-serif;font-size:11px;color:var(--g6)}
+    .tmq{font-family:'Playfair Display',serif!important;font-size:16px!important;font-style:italic!important;color:var(--g6)!important;line-height:1.9!important;margin-bottom:28px!important;position:relative}
+    .tmq::before{content:'"';font-family:'Playfair Display',serif;font-size:48px;color:var(--g3);position:absolute;top:-10px;left:-5px;line-height:1}
+    .tma{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--b);margin-bottom:3px}
+    .tmr{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5)}
     
     /* === FOOTER === */
-    .footer{background:var(--b);padding:40px 70px;border-top:1px solid rgba(255,255,255,0.05);display:flex;justify-content:space-between;align-items:center}
-    .footer-text{font-family:'Inter',sans-serif;font-size:11px;color:var(--g6)}
-    .footer-links{display:flex;gap:20px}
+    .footer{background:var(--g1);padding:50px 70px;border-top:1px solid var(--g2);display:flex;justify-content:space-between;align-items:center}
+    .footer-text{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5)}
+    .footer-links{display:flex;gap:24px}
     .footer-links a{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5);text-decoration:none;transition:color .3s ease}
-    .footer-links a:hover{color:var(--w)}
+    .footer-links a:hover{color:var(--b)}
     
     /* === MISC === */
     .cdl{font-family:'Inter',sans-serif!important;font-size:8px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;padding-left:2rem!important}
@@ -380,9 +380,10 @@ st.markdown("""
 
 # SIDEBAR
 with st.sidebar:
-    st.markdown('<div class="nb">JC</div>', unsafe_allow_html=True)
-    st.markdown('<p class="nl">Navigate</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sb-name">Jason Chang</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sb-title">BI Manager</p>', unsafe_allow_html=True)
     page = st.radio("", ["About","Revenue Growth","Strategic BI","Operations","Efficiency","Capabilities","Credentials","Connect"], label_visibility="collapsed")
+    st.markdown('<p class="sb-footer">© 2025</p>', unsafe_allow_html=True)
 
 # Scroll to top on page change
 if st.session_state.prev_page != page:
@@ -619,7 +620,7 @@ elif page == "Credentials":
 
 elif page == "Connect":
     st.markdown("""
-    <div class="sd"><p class="sdt">Get in Touch</p><p class="sdn">LET'S<br>CONNECT</p></div>
+    <div class="sl2"><p class="slt">Get in Touch</p><p class="sln">LET'S<br>CONNECT</p></div>
     <div class="qs"><span class="qm">"</span><p class="qt">Great decisions start with the right questions—and the right data brings actionable insight and measurable growth.</p></div>
     <div class="cl">
         <div class="cg">
@@ -628,14 +629,13 @@ elif page == "Connect":
             <div class="cc"><p class="ccl">LinkedIn</p><p class="ccv"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></p></div>
             <div class="cc"><p class="ccl">Location</p><p class="ccv">Rowland Heights, CA</p></div>
         </div>
-        <div style="margin-top:30px;padding:40px;background:#f5f5f5;animation:fadeUp .5s ease .3s both;border:1px solid #e5e5e5">
+        <div style="margin-top:30px;padding:40px;background:#fafafa;animation:fadeUp .5s ease .3s both">
             <p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:#a3a3a3;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Education</p>
             <p style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#111111;margin-bottom:4px">B.S. Business Administration</p>
             <p style="font-family:'Inter',sans-serif;font-size:13px;color:#737373">University of California, Riverside</p>
         </div>
     </div>
     <div class="tms">
-        <p class="tms-title">What Colleagues Say</p>
         <div class="tmg">
             <div class="tmc">
                 <p class="tmq">Jason is a masterful practitioner of data tools and management. His attitude equally matches his aptitude—a positive influence with the ability to shine in the toughest situations. His out-of-the-box thinking provided solutions others simply would not conceive.</p>
@@ -655,7 +655,7 @@ elif page == "Connect":
         </div>
     </div>
     <div class="footer">
-        <p class="footer-text">© 2025 Jason Chang. All rights reserved.</p>
+        <p class="footer-text">© 2025 Jason Chang</p>
         <div class="footer-links">
             <a href="https://linkedin.com/in/jchang0102" target="_blank">LinkedIn</a>
             <a href="https://github.com/jasonchang0102" target="_blank">GitHub</a>
