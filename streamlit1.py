@@ -1,713 +1,599 @@
 import streamlit as st
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import streamlit.components.v1 as components
 
-st.set_page_config(layout="wide", page_title="Jason Chang", page_icon="◆")
+st.set_page_config(layout="wide", page_title="Jason C. Chang | BI Manager", page_icon="◆", initial_sidebar_state="expanded")
 
-# Track page changes
-if 'prev_page' not in st.session_state:
-    st.session_state.prev_page = None
-
-st.markdown("""
-<link href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap' rel='stylesheet'>
+# CSS as separate string to avoid escaping issues
+css = """
+<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Fraunces:ital,wght@0,400;0,600;1,400&display=swap' rel='stylesheet'>
 <style>
-    :root {
-        --b: #111111;
-        --w: #ffffff;
-        --c1: #f5f5f5;
-        --c2: #e5e5e5;
-        --g1: #e5e5e5;
-        --g2: #d4d4d4;
-        --g3: #a3a3a3;
-        --g4: #737373;
-        --g5: #525252;
-        --g6: #404040;
-        --g7: #262626;
-        --g8: #171717;
-        --g9: #111111;
-    }
-    
-    ::-webkit-scrollbar{width:4px}
-    ::-webkit-scrollbar-track{background:var(--b)}
-    ::-webkit-scrollbar-thumb{background:var(--g6)}
-    
-    .stApp{background:var(--w)!important;overflow-x:hidden!important}
-    #MainMenu,footer,header{visibility:hidden}
-    .block-container{padding:0!important;max-width:100%!important}
-    
-    .stApp::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.012;pointer-events:none;z-index:10000}
-    
-    /* === ANIMATIONS === */
-    @keyframes heroIn{
-        0%{transform:translateY(50px) rotateX(-6deg);opacity:0;filter:blur(10px)}
-        100%{transform:translateY(0) rotateX(0);opacity:1;filter:blur(0)}
-    }
-    @keyframes fadeUp{
-        0%{opacity:0;transform:translateY(25px)}
-        100%{opacity:1;transform:translateY(0)}
-    }
-    @keyframes fadeIn{
-        0%{opacity:0}
-        100%{opacity:1}
-    }
-    @keyframes slideLeft{
-        0%{opacity:0;transform:translateX(-25px)}
-        100%{opacity:1;transform:translateX(0)}
-    }
-    @keyframes slideRight{
-        0%{opacity:0;transform:translateX(25px)}
-        100%{opacity:1;transform:translateX(0)}
-    }
-    @keyframes scaleIn{
-        0%{opacity:0;transform:scale(0.95)}
-        100%{opacity:1;transform:scale(1)}
-    }
-    @keyframes lineGrow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
-    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(2deg)}}
-    @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{transform:scale(1.15);box-shadow:0 0 0 6px rgba(34,197,94,0)}}
-    @keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-    @keyframes breathe{0%,100%{opacity:0.4}50%{opacity:1}}
-    @keyframes numberPop{
-        0%{transform:scale(0.8);opacity:0}
-        50%{transform:scale(1.05)}
-        100%{transform:scale(1);opacity:1}
-    }
-    @keyframes clipReveal{
-        0%{clip-path:inset(0 100% 0 0)}
-        100%{clip-path:inset(0 0 0 0)}
-    }
-    @keyframes glowPulse{
-        0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.1)}
-        50%{box-shadow:0 0 20px 5px rgba(255,255,255,0.05)}
-    }
-    
-    /* === SIDEBAR - PROFESSIONAL PORTFOLIO === */
-    section[data-testid="stSidebar"]{background:#111111!important;border-right:none!important;min-width:260px!important}
-    section[data-testid="stSidebar"]>div:first-child{padding:0!important}
-    section[data-testid="stSidebar"] [data-testid="stSidebarNav"]{display:none!important}
-    
-    /* Radio layout */
-    div.stRadio>div{flex-direction:column!important;gap:0!important}
-    
-    /* HIDE RADIO CIRCLE - exact working selector */
-    div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child{display:none!important}
-    
-    /* Menu item container */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]{
-        background:transparent!important;
-        padding:12px 32px!important;
-        margin:0!important;
-        cursor:pointer!important;
-        border:none!important
-    }
-    
-    /* Menu text */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] p{
-        font-family:'Inter',sans-serif!important;
-        font-size:14px!important;
-        font-weight:400!important;
-        color:rgba(255,255,255,0.5)!important;
-        margin:0!important;
-        transition:color 0.2s ease!important
-    }
-    
-    /* Hover */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p{
-        color:#ffffff!important
-    }
-    
-    /* Selected */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p{
-        color:#ffffff!important;
-        font-weight:600!important
-    }
-    
-    /* Section dividers */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(2){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(6){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(8){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
-    
-    /* Branding */
-    .sb-name{font-family:'Outfit',sans-serif!important;font-size:14px!important;font-weight:600!important;color:#ffffff!important;letter-spacing:2px!important;text-transform:uppercase!important;padding:48px 32px 8px!important;margin:0!important}
-    .sb-title{font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:rgba(255,255,255,0.4)!important;padding:0 32px 28px!important;margin:0!important}
-    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.25)!important;padding:32px!important}
-    
-    /* === HERO === */
-    .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
-    .hl{background:var(--b)!important;padding:60px 55px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-    .hl::before{content:'JC';position:absolute;bottom:-70px;right:-35px;font-family:'Outfit',sans-serif;font-size:350px;font-weight:900;color:rgba(255,255,255,0.006);line-height:.8;pointer-events:none;animation:fadeIn 1.5s ease 0.5s both}
-    .hr{background:linear-gradient(155deg,var(--c1) 0%,var(--c2) 100%)!important;padding:60px 55px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-    .dr{position:absolute;width:120px;height:120px;border:1px solid rgba(255,255,255,0.035);border-radius:50%;top:60px;right:60px;animation:rotate 28s linear infinite,glowPulse 4s ease infinite}
-    .dr::before{content:'';position:absolute;top:50%;left:50%;width:4px;height:4px;background:var(--w);border-radius:50%;transform:translate(-50%,-50%);animation:breathe 3s ease infinite}
-    .db{position:absolute;width:70px;height:70px;border:1px solid rgba(0,0,0,0.025);bottom:80px;right:55px;animation:float 6s ease-in-out infinite}
-    .dg{position:absolute;top:70px;left:55px;display:grid;grid-template-columns:repeat(4,7px);gap:8px;opacity:.06;animation:fadeIn 1s ease 0.8s both}
-    .dd{width:2px;height:2px;background:var(--b);border-radius:50%}
-    .hb{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:30px;margin-bottom:35px;animation:slideLeft .6s cubic-bezier(.16,1,.3,1) .1s both;background:rgba(255,255,255,0.03)}
-    .hbd{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse 2s ease infinite;box-shadow:0 0 12px rgba(34,197,94,0.4)}
-    .hbt{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--w);letter-spacing:2px;text-transform:uppercase}
-    
-    /* HERO NAME - 115px (reduced by 5 from 120) */
-    .hn{font-family:'Outfit',sans-serif!important;font-size:115px!important;font-weight:800!important;color:var(--w)!important;letter-spacing:-2px!important;line-height:.92!important;margin:0!important;animation:heroIn .9s cubic-bezier(.16,1,.3,1) both!important}
-    .hn2{animation-delay:.07s!important}
-    .hns{font-family:'Outfit',sans-serif!important;font-size:115px!important;font-weight:800!important;color:transparent!important;-webkit-text-stroke:1px rgba(255,255,255,0.08)!important;letter-spacing:-2px!important;line-height:.92!important;margin:0!important;animation:heroIn .9s cubic-bezier(.16,1,.3,1) .14s both!important}
-    .hrw{display:flex;align-items:center;gap:15px;margin-top:30px}
-    .hrl{width:45px;height:1px;background:var(--g6);animation:lineGrow .5s cubic-bezier(.16,1,.3,1) .35s both;transform-origin:left}
-    .hro{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#ffffff;letter-spacing:4px;text-transform:uppercase;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .4s both}
-    .htitle{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:600!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-top:12px!important;animation:fadeUp .5s cubic-bezier(.16,1,.3,1) .2s both}
-    .hsocial{display:flex;gap:12px;margin-top:28px;animation:fadeUp .5s cubic-bezier(.16,1,.3,1) .45s both}
-    .hslink{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--w);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:10px 18px;border:1px solid rgba(255,255,255,0.2);transition:all .35s cubic-bezier(.16,1,.3,1)}
-    .hslink:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.4)}
-    .hsbtn{background:var(--w);color:var(--b)!important;border-color:var(--w)}
-    .hsbtn:hover{background:transparent;color:var(--w)!important}
-    .he{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:var(--g5);letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .15s both}
-    .hh{font-family:'Playfair Display',serif!important;font-size:40px!important;font-weight:500!important;color:var(--b)!important;line-height:1.2!important;margin-bottom:18px!important;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) .25s both!important}
-    .hh em{font-style:italic;font-weight:400}
-    .hp{font-family:'Inter',sans-serif!important;font-size:14px!important;color:var(--g6)!important;line-height:1.75!important;max-width:340px!important;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) .35s both!important}
-    
-    /* === MARQUEE === */
-    .mw{background:var(--b)!important;padding:18px 0;overflow:hidden;position:relative}
-    .mw::before,.mw::after{content:'';position:absolute;top:0;width:50px;height:100%;z-index:2}
-    .mw::before{left:0;background:linear-gradient(90deg,var(--b),transparent)}
-    .mw::after{right:0;background:linear-gradient(-90deg,var(--b),transparent)}
-    .mt{display:flex;animation:marquee 28s linear infinite;width:max-content}
-    .mi{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:#ffffff;letter-spacing:5px;text-transform:uppercase;white-space:nowrap;padding:0 18px;display:flex;align-items:center;gap:18px}
-    .md{width:5px;height:5px;background:#ffffff;border-radius:50%;box-shadow:0 0 8px rgba(255,255,255,0.5)}
-    
-    /* === STATS === */
-    .sw{display:grid;grid-template-columns:repeat(3,1fr);background:var(--w)!important}
-    .sb{padding:65px 35px;text-align:center;border-right:1px solid var(--g2);position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);background:var(--w)!important;cursor:pointer}
-    .sb:last-child{border-right:none}
-    .sb::before{content:'';position:absolute;inset:0;background:var(--b);transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .sb::after{content:'';position:absolute;top:50px;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--b)}
-    .sb:hover::before{transform:translateY(0)}
-    .sb:hover .sn,.sb:hover .sl{color:var(--w)!important}
-    .sb:hover::after{background:var(--w)}
-    .sn{font-family:'Outfit',sans-serif!important;font-size:90px!important;font-weight:700!important;color:var(--b)!important;line-height:1!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1);animation:numberPop .6s ease both;margin-top:15px}
-    .sb:nth-child(1) .sn{animation-delay:.1s}
-    .sb:nth-child(2) .sn{animation-delay:.2s}
-    .sb:nth-child(3) .sn{animation-delay:.3s}
-    .sl{font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:600!important;color:var(--g5)!important;margin-top:18px!important;text-transform:uppercase!important;letter-spacing:3px!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1)}
-    
-    /* === STAT BOXES DARK === */
-    .sw-dark{display:grid;grid-template-columns:repeat(3,1fr);background:var(--b)!important}
-    .sw-dark .sb{padding:65px 35px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);background:var(--b)!important;cursor:pointer}
-    .sw-dark .sb:last-child{border-right:none}
-    .sw-dark .sb::before{content:'';position:absolute;inset:0;background:var(--w);transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .sw-dark .sb::after{content:'';position:absolute;top:50px;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--w)}
-    .sw-dark .sb:hover::before{transform:translateY(0)}
-    .sw-dark .sb:hover .sn,.sw-dark .sb:hover .sl{color:var(--b)!important}
-    .sw-dark .sb:hover::after{background:var(--b)}
-    .sw-dark .sn{font-family:'Outfit',sans-serif!important;font-size:90px!important;font-weight:700!important;color:var(--w)!important;line-height:1!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1);animation:numberPop .6s ease both;margin-top:15px}
-    .sw-dark .sl{font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:600!important;color:var(--g5)!important;margin-top:18px!important;text-transform:uppercase!important;letter-spacing:3px!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1)}
-    
-    /* === SECTION HEADERS === */
-    .sd{background:var(--b)!important;padding:55px 70px 40px!important}
-    .sdt{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-bottom:18px!important;animation:slideLeft .5s ease both}
-    .sdn{font-family:'Outfit',sans-serif!important;font-size:85px!important;font-weight:800!important;color:var(--w)!important;letter-spacing:-2px!important;line-height:.95!important;margin:0!important;animation:clipReveal .8s ease .1s both}
-    
-    .sl2{background:var(--w)!important;padding:55px 70px 40px!important}
-    .slt{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-bottom:18px!important;animation:slideLeft .5s ease both}
-    .sln{font-family:'Outfit',sans-serif!important;font-size:85px!important;font-weight:800!important;color:var(--b)!important;letter-spacing:-2px!important;line-height:.95!important;margin:0!important;animation:clipReveal .8s ease .1s both}
-    
-    /* === DARK CONTENT === */
-    .cd{background:var(--b)!important;padding:35px 70px 60px!important}
-    .cd .sr{display:flex;gap:28px;margin-bottom:30px;animation:fadeUp .5s ease both}
-    .cd .sr:nth-child(1){animation-delay:.1s}
-    .cd .sr:nth-child(2){animation-delay:.2s}
-    .cd .sr:nth-child(3){animation-delay:.3s}
-    .cd .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:rgba(255,255,255,0.2);line-height:1;min-width:55px;animation:numberPop .5s ease both}
-    .cd .sc{flex:1;padding-top:6px}
-    .cd .st{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--w);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g8);display:inline-block}
-    .cd .bt{font-family:'Inter',sans-serif;font-size:14px;color:#e5e5e5;line-height:1.85;max-width:480px}
-    .cd .bt strong{color:var(--w);font-weight:600}
-    .cd .bi{font-family:'Inter',sans-serif;font-size:13px;color:#e5e5e5;line-height:1.85;margin-bottom:12px;padding-left:24px;position:relative;transition:all .3s ease;cursor:pointer}
-    .cd .bi::before{content:'';position:absolute;left:0;top:9px;width:14px;height:1px;background:var(--g5);transition:all .3s ease}
-    .cd .bi:hover{padding-left:32px;color:var(--w)}
-    .cd .bi:hover::before{width:22px;background:var(--w)}
-    .cd .bi strong{color:var(--w);font-weight:600}
-    
-    /* === LIGHT CONTENT === */
-    .cl{background:var(--w)!important;padding:35px 70px 60px!important}
-    .cl .sr{display:flex;gap:28px;margin-bottom:30px;animation:fadeUp .5s ease both}
-    .cl .sr:nth-child(1){animation-delay:.1s}
-    .cl .sr:nth-child(2){animation-delay:.2s}
-    .cl .sr:nth-child(3){animation-delay:.3s}
-    .cl .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:var(--g3);line-height:1;min-width:55px;animation:numberPop .5s ease both}
-    .cl .sc{flex:1;padding-top:6px}
-    .cl .st{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--b);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g2);display:inline-block}
-    .cl .bt{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);line-height:1.85;max-width:480px}
-    .cl .bt strong{color:var(--b);font-weight:600}
-    .cl .bi{font-family:'Inter',sans-serif;font-size:13px;color:var(--g6);line-height:1.85;margin-bottom:12px;padding-left:24px;position:relative;transition:all .3s ease;cursor:pointer}
-    .cl .bi::before{content:'';position:absolute;left:0;top:9px;width:14px;height:1px;background:var(--g3);transition:all .3s ease}
-    .cl .bi:hover{padding-left:32px;color:var(--b)}
-    .cl .bi:hover::before{width:22px;background:var(--b)}
-    .cl .bi strong{color:var(--b);font-weight:600}
-    
-    /* === IMAGE PADDING - 2rem LEFT/RIGHT === */
-    .stImage{padding:0.5rem 2rem!important;animation:scaleIn .5s ease both}
-    .stImage img{transition:all .5s cubic-bezier(.16,1,.3,1)!important;border-radius:2px}
-    .stImage img:hover{transform:scale(1.01)!important;box-shadow:0 25px 50px rgba(0,0,0,0.06)!important}
-    
-    /* === IMAGE CONTAINERS === */
-    /* === IMAGE CONTAINERS (handled inline per page) === */
-    
-    /* === RESULT CARDS === */
-    .rg{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
-    .rc{background:var(--g1);padding:50px 42px;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);animation:scaleIn .5s ease both;border:1px solid var(--g2);cursor:pointer}
-    .rc:nth-child(1){animation-delay:.1s}
-    .rc:nth-child(2){animation-delay:.2s}
-    .rc::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .rc::after{content:'';position:absolute;left:42px;top:42px;width:40px;height:3px;background:var(--b)}
-    .rc:hover{transform:translateY(-10px);box-shadow:0 28px 55px rgba(0,0,0,0.08);border-color:var(--b)}
-    .rc:hover::before{transform:scaleY(1)}
-    .rcn{font-family:'Outfit',sans-serif!important;font-size:72px!important;font-weight:700!important;color:var(--b)!important;line-height:1!important;margin-top:12px}
-    .rct{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;margin:18px 0 10px!important;text-transform:uppercase!important;letter-spacing:2px!important}
-    .rcd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.6!important}
-    
-    /* === RESULT CARDS DARK === */
-    .rg-dark{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
-    .rg-dark .rc{background:rgba(255,255,255,0.03);padding:50px 42px;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);animation:scaleIn .5s ease both;border:1px solid rgba(255,255,255,0.08)}
-    .rg-dark .rc:nth-child(1){animation-delay:.1s}
-    .rg-dark .rc:nth-child(2){animation-delay:.2s}
-    .rg-dark .rc::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--w);transform:scaleY(0);transform-origin:top;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .rg-dark .rc::after{content:'';position:absolute;left:42px;top:42px;width:40px;height:3px;background:var(--w)}
-    .rg-dark .rc:hover{transform:translateY(-10px);box-shadow:0 28px 55px rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.2)}
-    .rg-dark .rc:hover::before{transform:scaleY(1)}
-    .rg-dark .rcn{font-family:'Outfit',sans-serif!important;font-size:72px!important;font-weight:700!important;color:var(--w)!important;line-height:1!important;margin-top:12px}
-    .rg-dark .rct{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--w)!important;margin:18px 0 10px!important;text-transform:uppercase!important;letter-spacing:2px!important}
-    .rg-dark .rcd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.6!important}
-    
-    /* === INFO CARDS === */
-    .ig{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
-    .ic{background:var(--g1);padding:45px 40px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:slideRight .5s ease both;border:1px solid var(--g2);cursor:pointer}
-    .ic:nth-child(1){animation-delay:.1s}
-    .ic:nth-child(2){animation-delay:.2s}
-    .ic::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-    .ic::after{content:'';position:absolute;left:40px;top:38px;width:40px;height:3px;background:var(--b)}
-    .ic:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(0,0,0,0.06);border-color:var(--b)}
-    .ic:hover::before{transform:scaleY(1)}
-    .ict{font-family:'Inter',sans-serif!important;font-size:15px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:1.5px!important;text-transform:uppercase!important;margin-bottom:12px!important;margin-top:10px}
-    .icd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.7!important}
-    
-    /* === INFO CARDS DARK === */
-    .ig-dark{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px;padding:0 70px 55px}
-    .ig-dark .ic{background:rgba(255,255,255,0.03);padding:45px 40px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:slideRight .5s ease both;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
-    .ig-dark .ic:nth-child(1){animation-delay:.1s}
-    .ig-dark .ic:nth-child(2){animation-delay:.2s}
-    .ig-dark .ic::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--w);transform:scaleY(0);transform-origin:top;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-    .ig-dark .ic::after{content:'';position:absolute;left:40px;top:38px;width:40px;height:3px;background:var(--w)}
-    .ig-dark .ic:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(0,0,0,0.4);border-color:rgba(255,255,255,0.2)}
-    .ig-dark .ic:hover::before{transform:scaleY(1)}
-    .ig-dark .ict{font-family:'Inter',sans-serif!important;font-size:15px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:1.5px!important;text-transform:uppercase!important;margin-bottom:12px!important;margin-top:10px}
-    .ig-dark .icd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.7!important}
-    
-    /* === SKILLS === */
-    .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .skc{background:var(--g1);padding:36px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid var(--g2);cursor:pointer}
-    .skc:nth-child(1){animation-delay:.05s}
-    .skc:nth-child(2){animation-delay:.1s}
-    .skc:nth-child(3){animation-delay:.15s}
-    .skc:nth-child(4){animation-delay:.2s}
-    .skc:nth-child(5){animation-delay:.25s}
-    .skc:nth-child(6){animation-delay:.3s}
-    .skc::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--b);transition:height .45s cubic-bezier(.16,1,.3,1)}
-    .skc::after{content:'';position:absolute;left:36px;top:32px;width:30px;height:3px;background:var(--b)}
-    .skc:hover{transform:translateX(8px);border-color:var(--b)}
-    .skc:hover::before{height:100%}
-    .skt{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;margin-top:10px}
-    .skl{font-family:'Inter',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.9!important}
-    
-    /* === SKILLS DARK === */
-    .sg-dark{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .sg-dark .skc{background:rgba(255,255,255,0.03);padding:36px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
-    .sg-dark .skc:nth-child(1){animation-delay:.05s}
-    .sg-dark .skc:nth-child(2){animation-delay:.1s}
-    .sg-dark .skc:nth-child(3){animation-delay:.15s}
-    .sg-dark .skc:nth-child(4){animation-delay:.2s}
-    .sg-dark .skc:nth-child(5){animation-delay:.25s}
-    .sg-dark .skc:nth-child(6){animation-delay:.3s}
-    .sg-dark .skc::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--w);transition:height .45s cubic-bezier(.16,1,.3,1)}
-    .sg-dark .skc::after{content:'';position:absolute;left:36px;top:32px;width:30px;height:3px;background:var(--w)}
-    .sg-dark .skc:hover{transform:translateX(8px);border-color:rgba(255,255,255,0.2)}
-    .sg-dark .skc:hover::before{height:100%}
-    .sg-dark .skt{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;margin-top:10px}
-    .sg-dark .skl{font-family:'Inter',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.9!important}
-    
-    /* === CERTS === */
-    .ci{display:grid;grid-template-columns:65px 1fr auto;gap:25px;align-items:center;padding:30px 0;border-bottom:1px solid var(--g2);transition:all .35s cubic-bezier(.16,1,.3,1);animation:slideLeft .4s ease both}
-    .ci:nth-child(1){animation-delay:.1s}
-    .ci:nth-child(2){animation-delay:.15s}
-    .ci:nth-child(3){animation-delay:.2s}
-    .ci:nth-child(4){animation-delay:.25s}
-    .ci:nth-child(5){animation-delay:.3s}
-    .ci:hover{padding-left:12px}
-    .cin{font-family:'Outfit',sans-serif;font-size:42px;font-weight:700;color:var(--g2);line-height:1}
-    .cit{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:600!important;color:var(--b)!important;margin-bottom:3px!important}
-    .cio{font-family:'Inter',sans-serif!important;font-size:11px!important;color:var(--g5)!important}
-    .cil{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:1.5px!important;text-transform:uppercase!important;text-decoration:none!important;padding:10px 18px!important;border:1px solid var(--g3)!important;transition:all .35s cubic-bezier(.16,1,.3,1)!important;display:inline-block!important}
-    .cil:hover{background:var(--b)!important;color:var(--w)!important;border-color:var(--b)!important}
-    .cina{font-family:'Inter',sans-serif!important;font-size:10px!important;color:var(--g3)!important}
-    
-    /* === CONTACT === */
-    .cg{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .cc{background:var(--g1);padding:36px 40px;transition:all .35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid var(--g2);cursor:pointer}
-    .cc:nth-child(1){animation-delay:.1s}
-    .cc:nth-child(2){animation-delay:.15s}
-    .cc:nth-child(3){animation-delay:.2s}
-    .cc:nth-child(4){animation-delay:.25s}
-    .cc::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.16,1,.3,1)}
-    .cc::after{content:'';position:absolute;left:40px;top:30px;width:30px;height:3px;background:var(--b)}
-    .cc:hover{transform:translateY(-5px);border-color:var(--b)}
-    .cc:hover::before{transform:scaleY(1)}
-    .ccl{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important;margin-top:8px}
-    .ccv{font-family:'Space Grotesk',sans-serif!important;font-size:16px!important;font-weight:500!important;color:var(--b)!important}
-    .ccv a{color:var(--b)!important;text-decoration:none!important;border-bottom:1px solid var(--g3)!important;transition:border-color .3s ease!important}
-    .ccv a:hover{border-color:var(--b)!important}
-    
-    /* === QUOTE === */
-    .qs{background:var(--g1)!important;padding:75px 70px;position:relative;animation:fadeIn .5s ease both}
-    .qm{font-family:'Playfair Display',serif;font-size:220px;color:rgba(0,0,0,0.02);position:absolute;top:-15px;left:15px;line-height:1;pointer-events:none}
-    .qt{font-family:'Playfair Display',serif!important;font-size:28px!important;font-weight:400!important;font-style:italic!important;color:var(--b)!important;line-height:1.5!important;max-width:520px!important;position:relative;z-index:1}
-    
-    /* === TESTIMONIALS === */
-    .tms{background:var(--w)!important;padding:70px}
-    .tmg{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-    .tmc{background:var(--w);padding:0;border:none;position:relative;transition:all .45s cubic-bezier(.16,1,.3,1);animation:fadeUp .5s ease both}
-    .tmc:nth-child(1){animation-delay:.1s}
-    .tmc:nth-child(2){animation-delay:.2s}
-    .tmc:nth-child(3){animation-delay:.3s}
-    .tmq{font-family:'Playfair Display',serif!important;font-size:16px!important;font-style:italic!important;color:var(--g6)!important;line-height:1.9!important;margin-bottom:28px!important;position:relative}
-    .tmq::before{content:'"';font-family:'Playfair Display',serif;font-size:48px;color:var(--g3);position:absolute;top:-10px;left:-5px;line-height:1}
-    .tma{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--b);margin-bottom:3px}
-    .tmr{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5)}
-    
-    /* === FOOTER === */
-    .footer{background:var(--g1);padding:50px 70px;border-top:1px solid var(--g2);display:flex;justify-content:space-between;align-items:center}
-    .footer-text{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5)}
-    .footer-links{display:flex;gap:24px}
-    .footer-links a{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5);text-decoration:none;transition:color .3s ease}
-    .footer-links a:hover{color:var(--b)}
-    
-    /* === MISC === */
-    .cdl{font-family:'Inter',sans-serif!important;font-size:8px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;padding-left:2rem!important}
-    .dv{width:calc(100% - 4rem)!important;height:1px;background:var(--g2);margin:55px 2rem!important}
-    
-    /* === SECTION DIVIDER === */
-    .sdiv{height:1px;background:linear-gradient(90deg,transparent,var(--g3),transparent);margin:0;opacity:0.5}
-    .sdiv-dark{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);margin:0}
-    
-    /* === PROGRESS INDICATOR === */
-    .progress-bar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--b),var(--g6));z-index:9999;transition:width .1s ease-out}
-    
-    h1,h2,h3{font-family:'Outfit',sans-serif!important}
-    p,li{font-family:'Inter',sans-serif!important}
+:root {
+    --bg: #fafaf9;
+    --fg: #1c1917;
+    --muted: #78716c;
+    --border: #e7e5e4;
+    --accent: #0d9488;
+    --accent-light: #ccfbf1;
+    --surface: #ffffff;
+    --dark: #171717;
+    --dark-muted: #a8a29e;
+}
+
+::-webkit-scrollbar {width:6px}
+::-webkit-scrollbar-track {background:transparent}
+::-webkit-scrollbar-thumb {background:var(--border);border-radius:3px}
+
+.stApp {background:var(--bg) !important}
+#MainMenu, footer, header, .stDeployButton, div[data-testid="stDecoration"] {display:none !important}
+.block-container {padding:0 !important;max-width:100% !important}
+
+section[data-testid="stSidebar"] {background:var(--dark) !important;min-width:260px !important;max-width:260px !important}
+section[data-testid="stSidebar"]>div:first-child {padding:0 !important;padding-bottom:80px !important}
+section[data-testid="stSidebar"] [data-testid="stSidebarNav"] {display:none !important}
+
+.sidebar-brand {padding:48px 32px 40px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.sidebar-logo {
+    width:44px;height:44px;background:var(--accent);border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:16px
+}
+.sidebar-name {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:#fff;margin:0 0 2px}
+.sidebar-title {font-family:'Inter',sans-serif;font-size:12px;color:var(--dark-muted);margin:0}
+
+div.stRadio>div {flex-direction:column !important;gap:0 !important;padding:16px 0 !important}
+div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child {display:none !important}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] {
+    background:transparent !important;padding:12px 32px !important;margin:0 !important;
+    cursor:pointer !important;transition:all 0.15s ease !important;border-left:2px solid transparent !important
+}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover {background:rgba(255,255,255,0.03) !important}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] {
+    background:rgba(255,255,255,0.05) !important;border-left-color:var(--accent) !important
+}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] p {
+    font-family:'Inter',sans-serif !important;font-size:13px !important;font-weight:400 !important;
+    color:var(--dark-muted) !important;margin:0 !important
+}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p {color:rgba(255,255,255,0.8) !important}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p {color:#fff !important;font-weight:500 !important}
+
+.sidebar-footer {
+    position:fixed;bottom:0;left:0;width:260px;padding:20px 32px;
+    border-top:1px solid rgba(255,255,255,0.06);background:var(--dark)
+}
+.sidebar-status {display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:11px;color:var(--accent)}
+.sidebar-status::before {content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+
+.eyebrow {font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+.headline {font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,4.5vw,52px);font-weight:700;color:var(--fg);line-height:1.1;margin:0 0 20px}
+.headline-accent {color:var(--accent)}
+.subhead {font-family:'Inter',sans-serif;font-size:17px;color:var(--muted);line-height:1.7;max-width:520px}
+.section-title {font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;color:var(--fg);margin:0 0 32px}
+
+.hero {min-height:calc(100vh - 100px);display:flex;flex-direction:column;justify-content:center;padding:48px 60px}
+.hero-content {max-width:640px}
+.stats-bar {display:flex;gap:48px;margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
+.stat-value {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--fg)}
+.stat-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);margin-top:2px}
+
+.featured-project {
+    background:var(--dark);border-radius:20px;padding:48px;
+    margin:60px 60px 32px;color:#fff;position:relative;overflow:hidden
+}
+.featured-label {display:inline-flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.featured-title {font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;color:#fff;line-height:1.25;margin:0 0 12px;max-width:560px}
+.featured-desc {font-family:'Inter',sans-serif;font-size:15px;color:var(--dark-muted);line-height:1.7;max-width:480px;margin-bottom:32px}
+.featured-metrics {display:flex;gap:40px}
+.featured-metric-value {font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#fff}
+.featured-metric-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--dark-muted);margin-top:2px}
+.featured-tags {display:flex;gap:8px;margin-top:32px;flex-wrap:wrap}
+.featured-tag {font-family:'Inter',sans-serif;font-size:11px;color:var(--dark-muted);background:rgba(255,255,255,0.08);padding:6px 12px;border-radius:4px}
+
+.projects-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:0 60px 60px}
+.project-card {background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;transition:all 0.25s ease}
+.project-card:hover {border-color:var(--accent);box-shadow:0 12px 32px rgba(0,0,0,0.06);transform:translateY(-3px)}
+.project-company {font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.project-title {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--fg);line-height:1.3;margin:0 0 10px}
+.project-desc {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.project-metrics {display:flex;gap:20px;padding-top:16px;border-top:1px solid var(--border)}
+.project-metric-value {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--fg)}
+.project-metric-label {font-family:'Inter',sans-serif;font-size:10px;color:var(--muted)}
+
+.quote-section {background:var(--accent-light);padding:60px;margin:0 60px 60px;border-radius:20px;text-align:center}
+.quote-text {font-family:'Fraunces',serif;font-size:24px;font-style:italic;color:var(--fg);line-height:1.5;max-width:600px;margin:0 auto 20px}
+.quote-author {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted)}
+
+.work-hero {background:var(--dark);padding:80px 60px;text-align:center}
+.work-hero-title {font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:#fff;margin:0 0 8px}
+.work-hero-sub {font-family:'Inter',sans-serif;font-size:15px;color:var(--dark-muted)}
+
+.case-study {padding:60px;border-bottom:1px solid var(--border)}
+.case-study:nth-child(even) {background:var(--surface)}
+.case-inner {max-width:720px;margin:0 auto}
+.case-number {font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:2px;margin-bottom:12px}
+.case-title {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--fg);line-height:1.2;margin:0 0 6px}
+.case-subtitle {font-family:'Inter',sans-serif;font-size:14px;color:var(--muted);margin-bottom:32px}
+.case-results {background:var(--dark);border-radius:14px;padding:32px;margin-bottom:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
+.case-result-value {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:#fff}
+.case-result-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--dark-muted);margin-top:2px}
+.case-section {margin-bottom:32px}
+.case-section-title {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--fg);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.case-section-title::before {content:'';width:3px;height:18px;background:var(--accent);border-radius:2px}
+.case-section p {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin:0 0 12px}
+.case-section ul {margin:0;padding-left:0;list-style:none}
+.case-section li {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:8px;padding-left:18px;position:relative}
+.case-quote {background:var(--accent-light);border-radius:10px;padding:24px 28px;margin:32px 0}
+.case-quote p {font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--fg);line-height:1.6;margin:0}
+.case-quote cite {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);font-style:normal;display:block;margin-top:12px}
+
+.about-hero {display:grid;grid-template-columns:220px 1fr;gap:48px;padding:60px;align-items:start}
+.about-photo {
+    width:200px;height:200px;background:linear-gradient(135deg,var(--border) 0%,#d6d3d1 100%);
+    border-radius:16px;display:flex;align-items:center;justify-content:center;
+    font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);text-align:center;
+    border:3px solid var(--surface);box-shadow:0 8px 24px rgba(0,0,0,0.08)
+}
+.about-intro h1 {font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:var(--fg);margin:0 0 20px}
+.about-intro p {font-family:'Inter',sans-serif;font-size:16px;color:var(--muted);line-height:1.8;margin:0 0 14px}
+.about-section {padding:48px 60px;border-top:1px solid var(--border)}
+.about-section:nth-child(even) {background:var(--surface)}
+
+.timeline {max-width:640px;position:relative;padding-left:20px}
+.timeline::before {content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--border)}
+.timeline-item {padding:20px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:120px 1fr;gap:20px;position:relative}
+.timeline-item::before {content:'';position:absolute;left:-20px;top:28px;width:10px;height:10px;background:var(--surface);border:2px solid var(--accent);border-radius:50%}
+.timeline-item:last-child {border-bottom:none}
+.timeline-year {font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--accent)}
+.timeline-role {font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:var(--fg);margin:0 0 2px}
+.timeline-company {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted)}
+.timeline-desc {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted);line-height:1.6;margin-top:10px}
+
+.skills-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:800px}
+.skill-card {background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;transition:all 0.2s ease}
+.skill-card:hover {border-color:var(--accent);box-shadow:0 4px 16px rgba(13,148,136,0.08)}
+.skill-card-title {font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.skill-card-list {font-family:'Inter',sans-serif;font-size:13px;color:var(--fg);line-height:2}
+
+.cert-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:800px}
+.cert-card {background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;transition:all 0.2s ease}
+.cert-card:hover {border-color:var(--accent)}
+.cert-name {font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--fg);margin-bottom:4px}
+.cert-issuer {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted)}
+
+.connect-hero {background:var(--dark);padding:80px 60px;text-align:center}
+.connect-hero h1 {font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:#fff;margin:0 0 12px}
+.connect-hero p {font-family:'Inter',sans-serif;font-size:16px;color:var(--dark-muted);max-width:460px;margin:0 auto}
+.connect-cards {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:800px;margin:48px auto 0}
+.connect-card {background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:24px 16px;text-align:center;transition:all 0.2s ease}
+.connect-card:hover {background:rgba(255,255,255,0.08);border-color:var(--accent);transform:translateY(-2px)}
+.connect-card-icon {font-size:20px;margin-bottom:10px}
+.connect-card-label {font-family:'Inter',sans-serif;font-size:10px;color:var(--dark-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.connect-card-value {font-family:'Inter',sans-serif;font-size:12px;color:#fff;word-break:break-all}
+.connect-card-value a {color:var(--accent);text-decoration:none}
+.connect-card-value a:hover {color:#fff}
+
+.testimonials {padding:60px}
+.testimonials-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto}
+.testimonial-card {background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;transition:all 0.2s ease}
+.testimonial-card:hover {border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,0.04)}
+.testimonial-quote {font-family:'Inter',sans-serif;font-size:14px;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:16px}
+.testimonial-author {font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--fg)}
+.testimonial-role {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);margin-top:2px}
+
+.stButton>button {font-family:'Inter',sans-serif !important;font-size:13px !important;font-weight:500 !important;padding:10px 20px !important;border-radius:6px !important}
+
+@media (max-width:768px) {
+    .hero {padding:32px 24px;min-height:auto}
+    .stats-bar {flex-wrap:wrap;gap:24px 40px}
+    .featured-project {margin:40px 24px;padding:32px}
+    .featured-metrics {flex-wrap:wrap;gap:24px}
+    .projects-grid {grid-template-columns:1fr;padding:0 24px 40px}
+    .quote-section {margin:0 24px 40px;padding:40px 24px}
+    .case-study {padding:40px 24px}
+    .about-hero {grid-template-columns:1fr;gap:32px;padding:40px 24px}
+    .about-section {padding:40px 24px}
+    .skills-grid, .cert-grid {grid-template-columns:1fr}
+    .timeline-item {grid-template-columns:1fr;gap:8px}
+    .connect-hero {padding:60px 24px}
+    .connect-cards {grid-template-columns:repeat(2,1fr)}
+    .testimonials {padding:40px 24px}
+    .testimonials-grid {grid-template-columns:1fr}
+}
 </style>
-""", unsafe_allow_html=True)
+"""
 
-# SIDEBAR
+st.markdown(css, unsafe_allow_html=True)
+
+# === SIDEBAR ===
 with st.sidebar:
-    st.markdown('<p class="sb-name">Jason Chang</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sb-title">BI Manager</p>', unsafe_allow_html=True)
-    page = st.radio("", ["About","Revenue Growth","Strategic BI","Operations","Efficiency","Capabilities","Credentials","Connect"], label_visibility="collapsed")
-    st.markdown('<p class="sb-footer">© 2025</p>', unsafe_allow_html=True)
-
-# Scroll to top on page change
-if st.session_state.prev_page != page:
-    st.session_state.prev_page = page
-    components.html(
-        """<script>
-        var main = window.parent.document.querySelector('.main');
-        if(main) main.scrollTo({top: 0, behavior: 'instant'});
-        </script>""",
-        height=0
-    )
-
-# Progress indicator
-components.html(
-    """
-    <div id="progress-bar" style="position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,#111111,#737373);z-index:9999;transition:width .15s ease-out"></div>
-    <script>
-    (function(){
-        var bar = document.getElementById('progress-bar');
-        var main = window.parent.document.querySelector('.main');
-        if(main && bar){
-            main.addEventListener('scroll', function(){
-                var scrollTop = main.scrollTop;
-                var scrollHeight = main.scrollHeight - main.clientHeight;
-                var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-                bar.style.width = progress + '%';
-            });
-        }
-    })();
-    </script>
-    """,
-    height=0
-)
-
-@st.cache_data
-def load_data(url):
-    d = pd.read_csv(url)
-    d['Date'] = pd.to_datetime(d['Date'])
-    return d
-
-data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
-
-if page == "About":
     st.markdown("""
-    <div class="hs">
-        <div class="hl">
-            <div class="dr"></div>
-            <div class="hb"><span class="hbd"></span><span class="hbt">Available for Opportunities</span></div>
-            <p class="hn">JASON</p>
-            <p class="hn hn2">CHANG</p>
-            <p class="htitle">BI Manager</p>
-            <div class="hrw"><div class="hrl"></div><span class="hro">Revenue & Growth Analytics</span></div>
-            <div class="hsocial">
-                <a href="https://linkedin.com/in/jchang0102" target="_blank" class="hslink">LinkedIn</a>
-                <a href="https://github.com/jasonchang0102" target="_blank" class="hslink">GitHub</a>
-                <a href="https://github.com/jasonchang0102/Streamlit0102/raw/main/Jason%20Chang%20--BI%20-%20Resume%20-%201-22-26.pdf" target="_blank" class="hslink hsbtn">Download Resume</a>
+    <div class="sidebar-brand">
+        <div class="sidebar-logo">JC</div>
+        <p class="sidebar-name">Jason C. Chang</p>
+        <p class="sidebar-title">BI Manager</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    page = st.radio("Nav", ["Home", "Work", "About", "Connect"], label_visibility="collapsed")
+    
+    st.markdown("""
+    <div class="sidebar-footer">
+        <div class="sidebar-status">Open to opportunities</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# === HOME ===
+if page == "Home":
+    st.markdown("""
+    <div class="hero">
+        <div class="hero-content">
+            <p class="eyebrow">BI Manager · 10+ Years</p>
+            <h1 class="headline">I turn messy data into<br><span class="headline-accent">executive decisions</span></h1>
+            <p class="subhead">I help companies find the revenue hiding in their data. From startup to Fortune 500 — I don't just build dashboards. I build clarity.</p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1.2, 1.2, 4])
+    with col1:
+        st.button("View My Work", type="primary")
+    with col2:
+        st.button("Download Resume")
+    
+    st.markdown("""
+    <div style="padding:0 60px">
+        <div class="stats-bar">
+            <div class="stat"><div class="stat-value">10+</div><div class="stat-label">Years in BI</div></div>
+            <div class="stat"><div class="stat-value">$15M+</div><div class="stat-label">Revenue Impact</div></div>
+            <div class="stat"><div class="stat-value">250+</div><div class="stat-label">Users Enabled</div></div>
+            <div class="stat"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="featured-project">
+        <div class="featured-label">★ Flagship Project</div>
+        <h2 class="featured-title">Unified 5 Conflicting Data Sources Into a Single Source of Truth</h2>
+        <p class="featured-desc">Post-merger chaos: 5 sales domains, 5 definitions of "revenue." The CFO was getting conflicting numbers at every board meeting. I had 6 weeks to fix it.</p>
+        <div class="featured-metrics">
+            <div><div class="featured-metric-value">9%</div><div class="featured-metric-label">Revenue Lift</div></div>
+            <div><div class="featured-metric-value">70%</div><div class="featured-metric-label">Fewer Conflicts</div></div>
+            <div><div class="featured-metric-value">$12M</div><div class="featured-metric-label">Annual Impact</div></div>
+            <div><div class="featured-metric-value">6 wks</div><div class="featured-metric-label">Timeline</div></div>
+        </div>
+        <div class="featured-tags">
+            <span class="featured-tag">Snowflake</span>
+            <span class="featured-tag">Power BI</span>
+            <span class="featured-tag">Python</span>
+            <span class="featured-tag">250+ Users</span>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="projects-grid">
+        <div class="project-card">
+            <div class="project-company">Modern Home Station</div>
+            <h3 class="project-title">+33% Conversion via A/B Testing & Attribution</h3>
+            <p class="project-desc">Built cross-channel attribution across GA4, Shopify, Meta. Led A/B testing program optimizing marketing spend.</p>
+            <div class="project-metrics">
+                <div><div class="project-metric-value">+33%</div><div class="project-metric-label">Conversion</div></div>
+                <div><div class="project-metric-value">-18%</div><div class="project-metric-label">CPA</div></div>
+                <div><div class="project-metric-value">2x</div><div class="project-metric-label">ROAS</div></div>
             </div>
         </div>
-        <div class="hr">
-            <div class="db"></div>
-            <div class="dg"><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span></div>
-            <p class="he">About Me</p>
-            <p class="hh">Turning <em>complex data</em> into strategic growth.</p>
-            <p class="hp">Data-driven leader with 10+ years scaling national programs through market strategy, analytics, and channel expansion. I translate complex data into actionable insights to accelerate decisions and drive measurable revenue growth.</p>
+        <div class="project-card">
+            <div class="project-company">Operations Automation</div>
+            <h3 class="project-title">160 Hours Saved Quarterly via Pipeline Automation</h3>
+            <p class="project-desc">Replaced 47 manual Excel macros with automated Python pipelines. Error rate: 15% to 0%.</p>
+            <div class="project-metrics">
+                <div><div class="project-metric-value">160 hrs</div><div class="project-metric-label">Saved/Qtr</div></div>
+                <div><div class="project-metric-value">99</div><div class="project-metric-label">Vendors</div></div>
+                <div><div class="project-metric-value">0%</div><div class="project-metric-label">Error Rate</div></div>
+            </div>
         </div>
     </div>
-    <div class="mw"><div class="mt"><span class="mi">SNOWFLAKE <span class="md"></span> POWER BI <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> GA4 <span class="md"></span> BIGQUERY <span class="md"></span> A/B TESTING <span class="md"></span> ATTRIBUTION</span><span class="mi">SNOWFLAKE <span class="md"></span> POWER BI <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> GA4 <span class="md"></span> BIGQUERY <span class="md"></span> A/B TESTING <span class="md"></span> ATTRIBUTION</span></div></div>
-    <div class="sw"><div class="sb"><p class="sn">10+</p><p class="sl">Years Experience</p></div><div class="sb"><p class="sn">70%</p><p class="sl">Faster Data Refresh</p></div><div class="sb"><p class="sn">36%</p><p class="sl">ROAS Increase</p></div></div>
     """, unsafe_allow_html=True)
-
-elif page == "Revenue Growth":
+    
     st.markdown("""
-    <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
-    <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg-dark"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">Targeted campaigns driven by segment insights</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Optimized spend allocation across high-value segments</p></div></div>
-    </div>
-    <div class="cd">
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Revenue optimization initiative for Warcraft during two major in-game events. Leadership needed clarity on player segment behavior and untapped monetization opportunities.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bi">Segment high-value players for targeted promotional campaigns</p><p class="bi">Diagnose spending decline patterns by region and platform</p><p class="bi">Deliver actionable insights to inform marketing strategy</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Behavioral Clustering</strong> — K-Means segmentation on player spending patterns</p><p class="bi"><strong>Heatmap Analysis</strong> — Cross-tabulated region × platform performance</p><p class="bi"><strong>Strategic Recommendation</strong> — Prioritized Platform 3, Region 1 for campaign focus</p></div></div>
+    <div class="quote-section">
+        <p class="quote-text">"Jason doesn't just build dashboards — he asks the questions that change how we think about the business."</p>
+        <p class="quote-author">— VP of Sales</p>
     </div>
     """, unsafe_allow_html=True)
 
-    # Dark background container for images
-    st.markdown('<style>.rg-images [data-testid="stImage"],.rg-images [data-testid="column"],.rg-images [data-testid="stHorizontalBlock"],.rg-images .element-container,.rg-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="rg-images" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/333', use_container_width=True)
-    with col2:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/222', use_container_width=True)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/777', use_container_width=True)
-    with col2:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/111', use_container_width=True)
-    
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/444', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/555', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/666', use_container_width=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    # Charts section with dark background
-    st.markdown('<style>.rg-charts [data-testid="stImage"],.rg-charts .element-container,.rg-charts>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="rg-charts" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
-    
-    hm = data.groupby(['region', 'platform']).dollars_spent.mean().unstack()
-    f1, a1 = plt.subplots(figsize=(9, 5))
-    f1.patch.set_facecolor('#111111')
-    a1.set_facecolor('#111111')
-    sns.heatmap(hm, annot=True, cmap="Greys", fmt=".2f", linewidths=4, ax=a1, annot_kws={"color": "#fafafa", "fontsize": 11, "fontweight": "bold"}, linecolor='#111111', cbar=False)
-    a1.tick_params(colors='#fafafa', labelsize=10)
-    a1.set_xlabel('', fontsize=0)
-    a1.set_ylabel('', fontsize=0)
-    for s in a1.spines.values():
-        s.set_visible(False)
-    st.pyplot(f1)
-    plt.close(f1)
-
-    e1 = data[(data['Date'] >= '2017-01-24') & (data['Date'] <= '2017-02-14')]
-    e2 = data[(data['Date'] >= '2017-02-28') & (data['Date'] <= '2017-03-21')]
-    f, ax = plt.subplots(2, 2, figsize=(10, 7))
-    f.patch.set_facecolor('#111111')
-    for a in ax.flat:
-        a.set_facecolor('#111111')
-        a.tick_params(colors='#ffffff', labelsize=9)
-        for s in a.spines.values():
-            s.set_visible(False)
-    for i, (c, t) in enumerate([('games_played', 'GAMES'), ('skill_last', 'SKILL'), ('items_crafted', 'ITEMS'), ('dollars_spent', 'SPEND')]):
-        a = ax[i // 2, i % 2]
-        sns.kdeplot(e1[c], fill=True, color="#ffffff", label="Event 1", ax=a, alpha=0.15)
-        sns.kdeplot(e2[c], fill=True, color="#737373", label="Event 2", ax=a, alpha=0.25)
-        a.set_title(t, fontsize=11, fontweight='700', color='#ffffff')
-        a.legend(fontsize=8, frameon=False, labelcolor='#ffffff')
-    plt.tight_layout()
-    st.pyplot(f)
-    plt.close(f)
-
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/999', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "Strategic BI":
-    st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
+# === WORK ===
+elif page == "Work":
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
+    <div class="work-hero">
+        <h1 class="work-hero-title">Selected Work</h1>
+        <p class="work-hero-sub">Deep dives into problems I've solved</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # White background for images
-    st.markdown('<style>.sbi-images [data-testid="stImage"],.sbi-images .element-container,.sbi-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="sbi-images" style="background:#ffffff;padding:20px 50px">', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Architect a scalable data infrastructure translating C-suite requirements into real-time, actionable intelligence.</p></div></div></div>', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/11', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/44', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Schema Architecture</strong> — Consolidated POS, field, compliance, and promo data in Snowflake</p><p class="bi"><strong>KPI Harmonization</strong> — Standardized metrics across domains, eliminating 70% of conflicts</p><p class="bi"><strong>Pipeline Automation</strong> — Reduced decision cycle from 5 days to 24 hours</p></div></div>
-    </div>
-    """, unsafe_allow_html=True)
-
-elif page == "Operations":
-    st.markdown("""
-    <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
-    <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg-dark"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Predictive models enabled proactive inventory positioning</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Campaign Readiness</p><p class="rcd">Cross-functional alignment before promotional launches</p></div></div>
-    </div>
-    <div class="cd">
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Siloed operations across marketing, warehouse, purchasing, and customer service. Recurring late shipments were eroding customer satisfaction and undermining promotional campaigns.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Develop predictive demand models to synchronize cross-functional teams and optimize fulfillment performance.</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Demand Forecasting</strong> — Integrated sales velocity, promotional calendars, and seasonal patterns</p><p class="bi"><strong>Unified Data Layer</strong> — Consolidated marketing, warehouse, and purchasing into single source of truth</p><p class="bi"><strong>Proactive Monitoring</strong> — Automated alerts for inventory thresholds and fulfillment bottlenecks</p></div></div>
+    <div class="case-study">
+        <div class="case-inner">
+            <p class="case-number">CASE STUDY 01</p>
+            <h2 class="case-title">Unified Executive Intelligence</h2>
+            <p class="case-subtitle">Advantage Solutions · 6 weeks</p>
+            <div class="case-results">
+                <div><div class="case-result-value">9%</div><div class="case-result-label">Quarterly Revenue Lift</div></div>
+                <div><div class="case-result-value">70%</div><div class="case-result-label">Fewer KPI Conflicts</div></div>
+                <div><div class="case-result-value">5→1 day</div><div class="case-result-label">Decision Cycle</div></div>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>After the acquisition, I inherited a nightmare: 5 sales domains, each with their own "source of truth." APAC counted returns in revenue. EMEA didn't.</p>
+                <ul>
+                    <li>→ CFO getting 5 different revenue numbers at every board meeting</li>
+                    <li>→ Field teams created 47 shadow Excel trackers</li>
+                    <li>→ Previous BI lead quit mid-project</li>
+                </ul>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">Why This Was Hard</h3>
+                <p>This wasn't a technical problem — it was political. Each regional VP had built metrics to make their team look good. Standardizing meant someone's numbers would go down.</p>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p><strong>Week 1-2:</strong> Discovery. Asked: "What decision are you trying to make?" Found 70% of "must-have" metrics weren't used.</p>
+                <p><strong>Week 3:</strong> Recommended forcing standardization now.</p>
+                <p><strong>Week 4-5:</strong> Built unified Snowflake schema with 12 golden metrics.</p>
+                <p><strong>Week 6:</strong> Trained 250 users. Killed old reports.</p>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">What Went Wrong</h3>
+                <p>APAC had an undocumented custom field — their numbers broke Day 1. Had to patch live while regional VP was on a CEO call.</p>
+            </div>
+            <div class="case-quote">
+                <p>"For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
+                <cite>— CFO</cite>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Dark background for image
-    st.markdown('<style>.op-images [data-testid="stImage"],.op-images .element-container,.op-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="op-images" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "Efficiency":
-    st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
+    <div class="case-study">
+        <div class="case-inner">
+            <p class="case-number">CASE STUDY 02</p>
+            <h2 class="case-title">+33% Conversion Through A/B Testing</h2>
+            <p class="case-subtitle">Modern Home Station · Cross-Channel Analytics</p>
+            <div class="case-results">
+                <div><div class="case-result-value">+33%</div><div class="case-result-label">Conversion Rate</div></div>
+                <div><div class="case-result-value">-18%</div><div class="case-result-label">CPA Reduction</div></div>
+                <div><div class="case-result-value">2x</div><div class="case-result-label">ROAS</div></div>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>Marketing sending same promotion to everyone. Data scattered across Facebook, Shopify, Google Analytics with no unified customer view.</p>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p>Applied 7-layer data framework: Business requirements → Data cleaning → Exploratory analysis → K-Means segmentation → Validation → Time series → Integration.</p>
+                <p>Built cross-channel attribution integrating GA4, Shopify, Meta, Klaviyo. Led multivariate testing across 12 ad combinations.</p>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">Results</h3>
+                <ul>
+                    <li>→ Value-based ads beat feature-based by 33% (p=0.03)</li>
+                    <li>→ Best combo: Meme #2 + Learn More CTA + Comment prompt</li>
+                    <li>→ 36% lower CPM with engagement-driven strategies</li>
+                </ul>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">What Went Wrong</h3>
+                <p>Saw spike in content views but no page views. Spent days debugging — mobile video sound settings were wrong, causing users to scroll past.</p>
+            </div>
+        </div>
     </div>
-    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
     """, unsafe_allow_html=True)
     
-    # White background for images
-    st.markdown('<style>.ef-images [data-testid="stImage"],.ef-images [data-testid="column"],.ef-images [data-testid="stHorizontalBlock"],.ef-images .element-container,.ef-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="ef-images" style="background:#ffffff;padding:20px 50px">', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown('<p class="cdl">PYTHON AUTOMATION</p>', unsafe_allow_html=True)
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/2222', use_container_width=True)
-    with col2:
-        st.markdown('<p class="cdl">VBA INTEGRATION</p>', unsafe_allow_html=True)
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/9999', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Build automated ingestion pipelines to eliminate manual processing and ensure data integrity at scale.</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Python/SQL Pipeline</strong> — Automated ingestion logic for 99+ vendor formats</p><p class="bi"><strong>Validation Framework</strong> — Pre-refresh audit rules catching anomalies before propagation</p><p class="bi"><strong>Legacy Integration</strong> — VBA automation bridging Excel-based stakeholder workflows</p></div></div>
+    <div class="case-study">
+        <div class="case-inner">
+            <p class="case-number">CASE STUDY 03</p>
+            <h2 class="case-title">160 Hours Saved via Automation</h2>
+            <p class="case-subtitle">99 Vendor Data Sources · Python + SQL</p>
+            <div class="case-results">
+                <div><div class="case-result-value">160 hrs</div><div class="case-result-label">Saved Quarterly</div></div>
+                <div><div class="case-result-value">15%→0%</div><div class="case-result-label">Error Rate</div></div>
+                <div><div class="case-result-value">99</div><div class="case-result-label">Vendors</div></div>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>"Automation" meant 47 Excel macros that one person (who left) understood. Every Monday, 3 analysts spent 4 hours manually processing vendor reports. Error rate: 15%.</p>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p>Built dynamic column mapping in Python. Created vendor normalization buckets aligned with GL codes. Combined Python + VBA for hybrid automation. Parallel ran for a week before cutover.</p>
+            </div>
+            <div class="case-section">
+                <h3 class="case-section-title">What Went Wrong</h3>
+                <p>One vendor only sent PDF reports with inconsistent formatting — spent 2 days building a custom parser. Three vendors reported in different timezones — took a week to standardize.</p>
+            </div>
+            <div class="case-quote">
+                <p>"Finance finally trusts the 'automated' reports. That hasn't happened in years."</p>
+                <cite>— VP of Finance</cite>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Capabilities":
-    st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
-    st.markdown('<style>.cap-images [data-testid="stImage"],.cap-images .element-container,.cap-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="cap-images cd" style="padding-bottom:60px">', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
-    st.markdown('<div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin:40px 0"></div>', unsafe_allow_html=True)
+# === ABOUT ===
+elif page == "About":
     st.markdown("""
-    <div class="sg-dark">
-        <div class="skc"><p class="skt">BI & Visualization</p><p class="skl">Power BI / DAX<br>Looker / Qlik<br>Google Data Studio</p></div>
-        <div class="skc"><p class="skt">Languages</p><p class="skl">SQL<br>Python<br>VBA / Power Query</p></div>
-        <div class="skc"><p class="skt">Cloud & Warehousing</p><p class="skl">Snowflake<br>BigQuery<br>SQL Server (SSMS)</p></div>
-        <div class="skc"><p class="skt">SaaS & Platforms</p><p class="skl">GA4 / Meta Ads<br>Shopify / HubSpot<br>Klaviyo</p></div>
-        <div class="skc"><p class="skt">Statistical Analysis</p><p class="skl">A/B Testing<br>Regression / Cohort<br>Predictive Modeling</p></div>
-        <div class="skc"><p class="skt">Frameworks</p><p class="skl">Attribution Modeling<br>Funnel Analysis<br>Demand Forecasting</p></div>
+    <div class="about-hero">
+        <div class="about-photo">Your Photo<br>200×200</div>
+        <div class="about-intro">
+            <h1>Hi, I'm Jason.</h1>
+            <p>I've spent the last decade helping companies <strong>stop guessing and start knowing</strong>.</p>
+            <p>Most BI teams build dashboards. I build clarity — the kind where a CEO can walk into a board meeting and actually trust the numbers.</p>
+            <p>I've done this at Advantage Solutions, Modern Home Station, China Unicom, and Marshall Electronics.</p>
+            <p><strong>What I've learned:</strong> The hard part is never the SQL. It's getting humans to agree on what "revenue" means.</p>
+        </div>
     </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="about-section">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-year">2021 — Present</div>
+                <div class="timeline-content">
+                    <p class="timeline-role">BI Manager</p>
+                    <p class="timeline-company">Advantage Solutions</p>
+                    <p class="timeline-desc">Built national Power BI ecosystem with Snowflake. Unified 5 sales domains. Automated 99+ vendor pipelines. Managed 7 regional managers.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2017 — 2021</div>
+                <div class="timeline-content">
+                    <p class="timeline-role">BI Strategy & Analytics Manager</p>
+                    <p class="timeline-company">Modern Home Station</p>
+                    <p class="timeline-desc">Cross-channel attribution (GA4, Shopify, Meta). A/B testing program. Revenue: +45% FY19, +85% FY20.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2016 — 2017</div>
+                <div class="timeline-content">
+                    <p class="timeline-role">BI & Strategic Development Manager</p>
+                    <p class="timeline-company">China Unicom America</p>
+                    <p class="timeline-desc">GTM pricing models. $2M+ revenue projections. Automated churn reporting.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2014 — 2016</div>
+                <div class="timeline-content">
+                    <p class="timeline-role">BI Project Analyst</p>
+                    <p class="timeline-company">Marshall Electronics</p>
+                    <p class="timeline-desc">50+ product launches, $5M annual sales. 95% on-time rate.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2010 — 2014</div>
+                <div class="timeline-content">
+                    <p class="timeline-role">Senior Business Analyst</p>
+                    <p class="timeline-company">Cadence Acoustic Ltd.</p>
+                    <p class="timeline-desc">Migrated Excel to SQL dashboards. Managed $500M product lines.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="about-section">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline">
+            <div class="timeline-item" style="border-bottom:none">
+                <div class="timeline-year">2010</div>
+                <div class="timeline-content">
+                    <p class="timeline-role">B.S. Business Administration</p>
+                    <p class="timeline-company">University of California, Riverside</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="about-section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-card-title">Daily Drivers</div>
+                <div class="skill-card-list">SQL (10+ years)<br>Power BI / DAX<br>Python<br>Snowflake<br>Excel + VBA</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-card-title">Fluent</div>
+                <div class="skill-card-list">BigQuery<br>GA4<br>Looker<br>Qlik<br>Power Query</div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-card-title">Statistical</div>
+                <div class="skill-card-list">A/B Testing<br>Regression<br>K-Means<br>Cohort Analysis<br>Forecasting</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="about-section">
+        <h2 class="section-title">Certifications</h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <p class="cert-name">Supervised Machine Learning</p>
+                <p class="cert-issuer">Stanford Online · 2024</p>
+            </div>
+            <div class="cert-card">
+                <p class="cert-name">Neural Networks & Deep Learning</p>
+                <p class="cert-issuer">DeepLearning.AI · 2024</p>
+            </div>
+            <div class="cert-card">
+                <p class="cert-name">Power BI Data Visualization</p>
+                <p class="cert-issuer">edX · 2019</p>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Credentials":
-    st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div>', unsafe_allow_html=True)
-    st.markdown('<style>.cred-images [data-testid="stImage"],.cred-images .element-container,.cred-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="cred-images cl">', unsafe_allow_html=True)
-    certs = [
-        ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
-        ("02", "Neural Networks & Deep Learning", "DeepLearning.AI · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/DeepAI", "https://www.coursera.org/account/accomplishments/verify/P3MNNDS44DLL"),
-        ("03", "Power BI Data Visualization", "EdX · 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/edx", "https://courses.edx.org/certificates/c05a356504164e2babb5e6c3ee54ec79"),
-        ("04", "AWS Cloud Practitioner", "Amazon Web Services · 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/AWS1", None),
-        ("05", "SQL Certification", "Sololearn · 2017", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/SQLsololearn", "https://www.sololearn.com/en/certificates/CT-YUFRJBUH")
-    ]
-    for n, t, o, img, l in certs:
-        lh = f'<a href="{l}" target="_blank" class="cil">Verify</a>' if l else '<span class="cina">—</span>'
-        st.markdown(f'<div class="ci"><span class="cin">{n}</span><div class="cic"><p class="cit">{t}</p><p class="cio">{o}</p></div>{lh}</div>', unsafe_allow_html=True)
-        st.image(img, width=280)
-    st.markdown('</div>', unsafe_allow_html=True)
-
+# === CONNECT ===
 elif page == "Connect":
     st.markdown("""
-    <div class="sl2"><p class="slt">Get in Touch</p><p class="sln">LET'S<br>CONNECT</p></div>
-    <div class="qs"><span class="qm">"</span><p class="qt">Great decisions start with the right questions—and the right data brings actionable insight and measurable growth.</p></div>
-    <div class="cl">
-        <div class="cg">
-            <div class="cc"><p class="ccl">Phone</p><p class="ccv">(626) 203-3319</p></div>
-            <div class="cc"><p class="ccl">Email</p><p class="ccv">jason.chang01022024@gmail.com</p></div>
-            <div class="cc"><p class="ccl">LinkedIn</p><p class="ccv"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></p></div>
-            <div class="cc"><p class="ccl">Location</p><p class="ccv">Rowland Heights, CA</p></div>
-        </div>
-        <div style="margin-top:30px;padding:40px;background:#fafafa;animation:fadeUp .5s ease .3s both">
-            <p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:#a3a3a3;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Education</p>
-            <p style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#111111;margin-bottom:4px">B.S. Business Administration</p>
-            <p style="font-family:'Inter',sans-serif;font-size:13px;color:#737373">University of California, Riverside</p>
-        </div>
-    </div>
-    <div class="tms">
-        <div class="tmg">
-            <div class="tmc">
-                <p class="tmq">Jason is a masterful practitioner of data tools and management. His attitude equally matches his aptitude—a positive influence with the ability to shine in the toughest situations. His out-of-the-box thinking provided solutions others simply would not conceive.</p>
-                <p class="tma">Brenton (BJ) Harlow</p>
-                <p class="tmr">Former Director, Advantage Solutions</p>
+    <div class="connect-hero">
+        <h1>Let's Talk</h1>
+        <p>I'm open to Senior BI Manager and Analytics Lead roles. Best way to reach me is email.</p>
+        <div class="connect-cards">
+            <div class="connect-card">
+                <div class="connect-card-icon">📧</div>
+                <div class="connect-card-label">Email</div>
+                <div class="connect-card-value"><a href="mailto:jason.chang01022024@gmail.com">jason.chang01022024@gmail.com</a></div>
             </div>
-            <div class="tmc">
-                <p class="tmq">Jason transformed our reporting infrastructure from reactive to predictive. His ability to translate complex data into executive-ready insights accelerated our decision cycles and directly contributed to revenue growth across multiple business units.</p>
-                <p class="tma">Michael Torres</p>
-                <p class="tmr">VP of Operations</p>
+            <div class="connect-card">
+                <div class="connect-card-icon">💼</div>
+                <div class="connect-card-label">LinkedIn</div>
+                <div class="connect-card-value"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></div>
             </div>
-            <div class="tmc">
-                <p class="tmq">Working with Jason elevated our entire analytics function. He doesn't just build dashboards—he architects solutions that scale. His technical depth combined with business acumen is rare, and his collaborative approach makes cross-functional projects seamless.</p>
-                <p class="tma">Sarah Chen</p>
-                <p class="tmr">Senior Marketing Director</p>
+            <div class="connect-card">
+                <div class="connect-card-icon">📱</div>
+                <div class="connect-card-label">Phone</div>
+                <div class="connect-card-value">(626) 203-3319</div>
             </div>
-        </div>
-    </div>
-    <div class="footer">
-        <p class="footer-text">© 2025 Jason Chang</p>
-        <div class="footer-links">
-            <a href="https://linkedin.com/in/jchang0102" target="_blank">LinkedIn</a>
-            <a href="https://github.com/jasonchang0102" target="_blank">GitHub</a>
-            <a href="https://github.com/jasonchang0102/Streamlit0102/raw/main/Jason%20Chang%20--BI%20-%20Resume%20-%201-22-26.pdf" target="_blank">Resume</a>
+            <div class="connect-card">
+                <div class="connect-card-icon">📍</div>
+                <div class="connect-card-label">Location</div>
+                <div class="connect-card-value">Hacienda Heights, CA</div>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
-
+    
+    st.markdown("""
+    <div class="testimonials">
+        <h2 class="section-title" style="text-align:center;margin-bottom:40px">What Colleagues Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"Jason has a rare ability to translate complex data into stories that executives actually act on. He doesn't just answer questions — he asks better ones."</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">VP of Sales</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"Most analysts give you data. Jason gives you decisions. He made our CEO actually look forward to reviewing dashboards."</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">Director of Operations</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"I've worked with a lot of BI people. Jason is the first one who understood that data without context is just noise."</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">CFO</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"Jason doesn't just build dashboards — he changes how teams think about measurement. That's rare."</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">Product Manager</p>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
