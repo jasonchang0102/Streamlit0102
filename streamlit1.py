@@ -322,10 +322,14 @@ if page == "About":
 elif page == "Revenue Growth":
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
+    <div class="cl">
+        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
+        <div class="rg"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">Targeted campaigns driven by segment insights</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Optimized spend allocation across high-value segments</p></div></div>
+    </div>
     <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Context</p><p class="bt">Revenue optimization initiative for Warcraft during two major in-game events. Leadership needed clarity on player segment behavior and untapped monetization opportunities.</p></div></div>
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Objective</p><p class="bi">Segment high-value players for targeted promotional campaigns</p><p class="bi">Diagnose spending decline patterns by region and platform</p><p class="bi">Deliver actionable insights to inform marketing strategy</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Behavioral Clustering</strong> — K-Means segmentation on player spending patterns</p><p class="bi"><strong>Heatmap Analysis</strong> — Cross-tabulated region × platform performance</p><p class="bi"><strong>Strategic Recommendation</strong> — Prioritized Platform 3, Region 1 for campaign focus</p></div></div>
+        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Revenue optimization initiative for Warcraft during two major in-game events. Leadership needed clarity on player segment behavior and untapped monetization opportunities.</p></div></div>
+        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bi">Segment high-value players for targeted promotional campaigns</p><p class="bi">Diagnose spending decline patterns by region and platform</p><p class="bi">Deliver actionable insights to inform marketing strategy</p></div></div>
+        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Behavioral Clustering</strong> — K-Means segmentation on player spending patterns</p><p class="bi"><strong>Heatmap Analysis</strong> — Cross-tabulated region × platform performance</p><p class="bi"><strong>Strategic Recommendation</strong> — Prioritized Platform 3, Region 1 for campaign focus</p></div></div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -379,47 +383,48 @@ elif page == "Revenue Growth":
 
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/999', use_container_width=True)
 
-    st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">Targeted campaigns driven by segment insights</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Optimized spend allocation across high-value segments</p></div></div>
-    </div>
-    """, unsafe_allow_html=True)
-
 elif page == "Strategic BI":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="cl">
+        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
+        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Objective</p><p class="bt">Architect a scalable data infrastructure translating C-suite requirements into real-time, actionable intelligence.</p></div></div></div>', unsafe_allow_html=True)
+    st.markdown('<div class="cl"><div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Architect a scalable data infrastructure translating C-suite requirements into real-time, actionable intelligence.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/11', use_container_width=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/44', use_container_width=True)
     st.markdown("""
     <div class="cl">
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Schema Architecture</strong> — Consolidated POS, field, compliance, and promo data in Snowflake</p><p class="bi"><strong>KPI Harmonization</strong> — Standardized metrics across domains, eliminating 70% of conflicts</p><p class="bi"><strong>Pipeline Automation</strong> — Reduced decision cycle from 5 days to 24 hours</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
+        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Schema Architecture</strong> — Consolidated POS, field, compliance, and promo data in Snowflake</p><p class="bi"><strong>KPI Harmonization</strong> — Standardized metrics across domains, eliminating 70% of conflicts</p><p class="bi"><strong>Pipeline Automation</strong> — Reduced decision cycle from 5 days to 24 hours</p></div></div>
     </div>
     """, unsafe_allow_html=True)
 
 elif page == "Operations":
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
+    <div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
+        <div class="rg"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Predictive models enabled proactive inventory positioning</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Campaign Readiness</p><p class="rcd">Cross-functional alignment before promotional launches</p></div></div>
+    </div>
     <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Context</p><p class="bt">Siloed operations across marketing, warehouse, purchasing, and customer service. Recurring late shipments were eroding customer satisfaction and undermining promotional campaigns.</p></div></div>
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Objective</p><p class="bt">Develop predictive demand models to synchronize cross-functional teams and optimize fulfillment performance.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Demand Forecasting</strong> — Integrated sales velocity, promotional calendars, and seasonal patterns</p><p class="bi"><strong>Unified Data Layer</strong> — Consolidated marketing, warehouse, and purchasing into single source of truth</p><p class="bi"><strong>Proactive Monitoring</strong> — Automated alerts for inventory thresholds and fulfillment bottlenecks</p></div></div>
+        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Siloed operations across marketing, warehouse, purchasing, and customer service. Recurring late shipments were eroding customer satisfaction and undermining promotional campaigns.</p></div></div>
+        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Develop predictive demand models to synchronize cross-functional teams and optimize fulfillment performance.</p></div></div>
+        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Demand Forecasting</strong> — Integrated sales velocity, promotional calendars, and seasonal patterns</p><p class="bi"><strong>Unified Data Layer</strong> — Consolidated marketing, warehouse, and purchasing into single source of truth</p><p class="bi"><strong>Proactive Monitoring</strong> — Automated alerts for inventory thresholds and fulfillment bottlenecks</p></div></div>
     </div>
     """, unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
-    st.markdown("""
-    <div class="cl"><div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Predictive models enabled proactive inventory positioning</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Campaign Readiness</p><p class="rcd">Cross-functional alignment before promotional launches</p></div></div>
-    </div>
-    """, unsafe_allow_html=True)
 
 elif page == "Efficiency":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
+    st.markdown("""
+    <div class="cl">
+        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
+    </div>
+    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
+    """, unsafe_allow_html=True)
+    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown('<p class="cdl">PYTHON AUTOMATION</p>', unsafe_allow_html=True)
@@ -429,11 +434,9 @@ elif page == "Efficiency":
         st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/9999', use_container_width=True)
     st.markdown("""
     <div class="cl">
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Objective</p><p class="bt">Build automated ingestion pipelines to eliminate manual processing and ensure data integrity at scale.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Python/SQL Pipeline</strong> — Automated ingestion logic for 99+ vendor formats</p><p class="bi"><strong>Validation Framework</strong> — Pre-refresh audit rules catching anomalies before propagation</p><p class="bi"><strong>Legacy Integration</strong> — VBA automation bridging Excel-based stakeholder workflows</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Impact</p></div></div>
+        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Build automated ingestion pipelines to eliminate manual processing and ensure data integrity at scale.</p></div></div>
+        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Python/SQL Pipeline</strong> — Automated ingestion logic for 99+ vendor formats</p><p class="bi"><strong>Validation Framework</strong> — Pre-refresh audit rules catching anomalies before propagation</p><p class="bi"><strong>Legacy Integration</strong> — VBA automation bridging Excel-based stakeholder workflows</p></div></div>
     </div>
-    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
     """, unsafe_allow_html=True)
 
 elif page == "Capabilities":
