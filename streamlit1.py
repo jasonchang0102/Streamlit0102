@@ -84,44 +84,56 @@ st.markdown("""
         50%{box-shadow:0 0 20px 5px rgba(255,255,255,0.05)}
     }
     
-    /* === SIDEBAR === */
-    section[data-testid="stSidebar"]{background:var(--b)!important;border-right:none!important}
-    section[data-testid="stSidebar"]>div:first-child{padding-top:0!important}
-    section[data-testid="stSidebar"] .stRadio>div{gap:0!important}
+    /* === SIDEBAR - PROFESSIONAL PORTFOLIO === */
+    section[data-testid="stSidebar"]{background:#111111!important;border-right:none!important;min-width:260px!important}
+    section[data-testid="stSidebar"]>div:first-child{padding:0!important}
+    section[data-testid="stSidebar"] [data-testid="stSidebarNav"]{display:none!important}
     
-    /* HIDE radio circles - multiple selectors for compatibility */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child,
-    section[data-testid="stSidebar"] .stRadio label[data-baseweb="radio"]>div:first-child,
-    section[data-testid="stSidebar"] [data-baseweb="radio"]>div:first-child,
-    section[data-testid="stSidebar"] .stRadio>div>label>div:first-child,
-    section[data-testid="stSidebar"] .stRadio input[type="radio"],
-    section[data-testid="stSidebar"] .stRadio input[type="radio"]+div,
-    section[data-testid="stSidebar"] .stRadio svg,
-    div.row-widget.stRadio>div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child{
-        display:none!important;
-        visibility:hidden!important;
-        width:0!important;
-        height:0!important;
-        opacity:0!important;
-        position:absolute!important
+    /* Radio layout */
+    div.stRadio>div{flex-direction:column!important;gap:0!important}
+    
+    /* HIDE RADIO CIRCLE - exact working selector */
+    div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child{display:none!important}
+    
+    /* Menu item container */
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]{
+        background:transparent!important;
+        padding:12px 32px!important;
+        margin:0!important;
+        cursor:pointer!important;
+        border:none!important
     }
     
-    /* Menu items styling */
-    section[data-testid="stSidebar"] .stRadio>div>label{background:transparent!important;color:rgba(255,255,255,0.4)!important;font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:400!important;padding:10px 32px!important;transition:color .2s ease!important;border:none!important;letter-spacing:0!important;cursor:pointer!important;gap:0!important}
-    section[data-testid="stSidebar"] .stRadio>div>label:hover{color:#ffffff!important;background:transparent!important}
-    section[data-testid="stSidebar"] .stRadio>div>label[data-checked="true"]{color:#ffffff!important;font-weight:600!important;background:transparent!important}
-    section[data-testid="stSidebar"] .stRadio>div>label span,section[data-testid="stSidebar"] .stRadio>div>label p{color:inherit!important}
+    /* Menu text */
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] p{
+        font-family:'Inter',sans-serif!important;
+        font-size:14px!important;
+        font-weight:400!important;
+        color:rgba(255,255,255,0.5)!important;
+        margin:0!important;
+        transition:color 0.2s ease!important
+    }
+    
+    /* Hover */
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p{
+        color:#ffffff!important
+    }
+    
+    /* Selected */
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p{
+        color:#ffffff!important;
+        font-weight:600!important
+    }
     
     /* Section dividers */
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(1){margin-top:12px}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(2){margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(6){margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
-    section[data-testid="stSidebar"] .stRadio>div>label:nth-child(8){margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.06)}
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(2){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(6){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(8){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
     
-    /* Sidebar branding */
-    .sb-name{font-family:'Outfit',sans-serif!important;font-size:13px!important;font-weight:600!important;color:#ffffff!important;letter-spacing:2px!important;text-transform:uppercase!important;padding:48px 32px 4px!important;margin:0!important}
-    .sb-title{font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:rgba(255,255,255,0.35)!important;letter-spacing:0!important;padding:0 32px 20px!important;margin:0!important;border-bottom:1px solid rgba(255,255,255,0.06)}
-    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.2)!important;padding:24px 32px!important}
+    /* Branding */
+    .sb-name{font-family:'Outfit',sans-serif!important;font-size:14px!important;font-weight:600!important;color:#ffffff!important;letter-spacing:2px!important;text-transform:uppercase!important;padding:48px 32px 8px!important;margin:0!important}
+    .sb-title{font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:rgba(255,255,255,0.4)!important;padding:0 32px 28px!important;margin:0!important}
+    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.25)!important;padding:32px!important}
     
     /* === HERO === */
     .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
@@ -240,8 +252,7 @@ st.markdown("""
     .stImage img:hover{transform:scale(1.01)!important;box-shadow:0 25px 50px rgba(0,0,0,0.06)!important}
     
     /* === IMAGE CONTAINERS === */
-    .img-dark{background:var(--b)!important;padding:20px 50px!important}
-    .img-light{background:var(--w)!important;padding:20px 50px!important}
+    /* === IMAGE CONTAINERS (handled inline per page) === */
     
     /* === RESULT CARDS === */
     .rg{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
@@ -484,9 +495,12 @@ elif page == "Revenue Growth":
         <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bi">Segment high-value players for targeted promotional campaigns</p><p class="bi">Diagnose spending decline patterns by region and platform</p><p class="bi">Deliver actionable insights to inform marketing strategy</p></div></div>
         <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Behavioral Clustering</strong> — K-Means segmentation on player spending patterns</p><p class="bi"><strong>Heatmap Analysis</strong> — Cross-tabulated region × platform performance</p><p class="bi"><strong>Strategic Recommendation</strong> — Prioritized Platform 3, Region 1 for campaign focus</p></div></div>
     </div>
-    <div class="img-dark">
     """, unsafe_allow_html=True)
 
+    # Dark background container for images
+    st.markdown('<style>.rg-images [data-testid="stImage"],.rg-images [data-testid="column"],.rg-images [data-testid="stHorizontalBlock"],.rg-images .element-container,.rg-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="rg-images" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
+    
     col1, col2 = st.columns(2)
     with col1:
         st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/333', use_container_width=True)
@@ -505,7 +519,10 @@ elif page == "Revenue Growth":
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="img-dark">', unsafe_allow_html=True)
+    # Charts section with dark background
+    st.markdown('<style>.rg-charts [data-testid="stImage"],.rg-charts .element-container,.rg-charts>div{background:#111111!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="rg-charts" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
+    
     hm = data.groupby(['region', 'platform']).dollars_spent.mean().unstack()
     f1, a1 = plt.subplots(figsize=(9, 5))
     f1.patch.set_facecolor('#111111')
@@ -548,8 +565,11 @@ elif page == "Strategic BI":
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
         <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
     </div>
-    <div class="img-light">
     """, unsafe_allow_html=True)
+    
+    # White background for images
+    st.markdown('<style>.sbi-images [data-testid="stImage"],.sbi-images .element-container,.sbi-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="sbi-images" style="background:#ffffff;padding:20px 50px">', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Architect a scalable data infrastructure translating C-suite requirements into real-time, actionable intelligence.</p></div></div></div>', unsafe_allow_html=True)
@@ -574,8 +594,11 @@ elif page == "Operations":
         <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Develop predictive demand models to synchronize cross-functional teams and optimize fulfillment performance.</p></div></div>
         <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Demand Forecasting</strong> — Integrated sales velocity, promotional calendars, and seasonal patterns</p><p class="bi"><strong>Unified Data Layer</strong> — Consolidated marketing, warehouse, and purchasing into single source of truth</p><p class="bi"><strong>Proactive Monitoring</strong> — Automated alerts for inventory thresholds and fulfillment bottlenecks</p></div></div>
     </div>
-    <div class="img-dark">
     """, unsafe_allow_html=True)
+    
+    # Dark background for image
+    st.markdown('<style>.op-images [data-testid="stImage"],.op-images .element-container,.op-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="op-images" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -586,8 +609,11 @@ elif page == "Efficiency":
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
     </div>
     <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
-    <div class="img-light">
     """, unsafe_allow_html=True)
+    
+    # White background for images
+    st.markdown('<style>.ef-images [data-testid="stImage"],.ef-images [data-testid="column"],.ef-images [data-testid="stHorizontalBlock"],.ef-images .element-container,.ef-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="ef-images" style="background:#ffffff;padding:20px 50px">', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
@@ -606,7 +632,8 @@ elif page == "Efficiency":
 
 elif page == "Capabilities":
     st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="cd" style="padding-bottom:60px">', unsafe_allow_html=True)
+    st.markdown('<style>.cap-images [data-testid="stImage"],.cap-images .element-container,.cap-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="cap-images cd" style="padding-bottom:60px">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
     st.markdown('<div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin:40px 0"></div>', unsafe_allow_html=True)
     st.markdown("""
@@ -622,7 +649,9 @@ elif page == "Capabilities":
     """, unsafe_allow_html=True)
 
 elif page == "Credentials":
-    st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div><div class="cl">', unsafe_allow_html=True)
+    st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div>', unsafe_allow_html=True)
+    st.markdown('<style>.cred-images [data-testid="stImage"],.cred-images .element-container,.cred-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
+    st.markdown('<div class="cred-images cl">', unsafe_allow_html=True)
     certs = [
         ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
         ("02", "Neural Networks & Deep Learning", "DeepLearning.AI · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/DeepAI", "https://www.coursera.org/account/accomplishments/verify/P3MNNDS44DLL"),
