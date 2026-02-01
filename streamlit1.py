@@ -46,7 +46,7 @@ section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radi
     cursor:pointer !important;transition:all 0.15s ease !important;border-left:2px solid transparent !important
 }
 section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover {background:rgba(255,255,255,0.03) !important}
-section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][aria-checked="true"] {
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] {
     background:rgba(255,255,255,0.05) !important;border-left-color:var(--accent) !important
 }
 section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] p {
@@ -54,11 +54,11 @@ section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radi
     color:var(--dark-muted) !important;margin:0 !important
 }
 section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p {color:rgba(255,255,255,0.8) !important}
-section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][aria-checked="true"] p {color:#fff !important;font-weight:500 !important}
+section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p {color:#fff !important;font-weight:500 !important}
 
 .sidebar-footer {
     position:fixed;bottom:0;left:0;width:260px;padding:20px 32px;
-    border-top:1px solid rgba(255,255,255,0.06);background:var(--dark);z-index:100
+    border-top:1px solid rgba(255,255,255,0.06);background:var(--dark)
 }
 .sidebar-status {display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:11px;color:var(--accent)}
 .sidebar-status::before {content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
@@ -71,15 +71,6 @@ section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radi
 
 .hero {min-height:calc(100vh - 100px);display:flex;flex-direction:column;justify-content:center;padding:48px 60px}
 .hero-content {max-width:640px}
-.hero-buttons {display:flex;gap:12px;margin-top:32px}
-.hero-btn {
-    font-family:'Inter',sans-serif;font-size:13px;font-weight:500;padding:12px 24px;border-radius:8px;
-    text-decoration:none;display:inline-block;cursor:pointer;transition:all 0.2s ease
-}
-.hero-btn-primary {background:var(--accent);color:#fff;border:none}
-.hero-btn-primary:hover {background:#0f766e}
-.hero-btn-secondary {background:transparent;color:var(--fg);border:1px solid var(--border)}
-.hero-btn-secondary:hover {border-color:var(--accent);color:var(--accent)}
 .stats-bar {display:flex;gap:48px;margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
 .stat-value {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--fg)}
 .stat-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);margin-top:2px}
@@ -129,17 +120,16 @@ section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radi
 .case-section-title::before {content:'';width:3px;height:18px;background:var(--accent);border-radius:2px}
 .case-section p {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin:0 0 12px}
 .case-section ul {margin:0;padding-left:0;list-style:none}
-.case-section li {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:8px;padding-left:24px;position:relative}
-.case-section li::before {content:'→';position:absolute;left:0;color:var(--accent)}
+.case-section li {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:8px;padding-left:18px;position:relative}
 .case-quote {background:var(--accent-light);border-radius:10px;padding:24px 28px;margin:32px 0}
 .case-quote p {font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--fg);line-height:1.6;margin:0}
 .case-quote cite {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);font-style:normal;display:block;margin-top:12px}
 
 .about-hero {display:grid;grid-template-columns:220px 1fr;gap:48px;padding:60px;align-items:start}
 .about-photo {
-    width:200px;height:200px;background:linear-gradient(135deg,var(--accent) 0%,#0f766e 100%);
+    width:200px;height:200px;background:linear-gradient(135deg,var(--border) 0%,#d6d3d1 100%);
     border-radius:16px;display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;color:#fff;
+    font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);text-align:center;
     border:3px solid var(--surface);box-shadow:0 8px 24px rgba(0,0,0,0.08)
 }
 .about-intro h1 {font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:var(--fg);margin:0 0 20px}
@@ -207,17 +197,11 @@ section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radi
     .connect-cards {grid-template-columns:repeat(2,1fr)}
     .testimonials {padding:40px 24px}
     .testimonials-grid {grid-template-columns:1fr}
-    .hero-buttons {flex-direction:column;gap:8px}
-    .hero-btn {text-align:center}
 }
 </style>
 """
 
 st.markdown(css, unsafe_allow_html=True)
-
-# Initialize session state for navigation
-if 'page' not in st.session_state:
-    st.session_state.page = "Home"
 
 # === SIDEBAR ===
 with st.sidebar:
@@ -229,7 +213,7 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
-    page = st.radio("Nav", ["Home", "Work", "About", "Connect"], label_visibility="collapsed", key="nav_radio")
+    page = st.radio("Nav", ["Home", "Work", "About", "Connect"], label_visibility="collapsed")
     
     st.markdown("""
     <div class="sidebar-footer">
@@ -245,12 +229,23 @@ if page == "Home":
             <p class="eyebrow">BI Manager · 10+ Years</p>
             <h1 class="headline">I turn messy data into<br><span class="headline-accent">executive decisions</span></h1>
             <p class="subhead">I help companies find the revenue hiding in their data. From startup to Fortune 500 — I don't just build dashboards. I build clarity.</p>
-            <div class="stats-bar">
-                <div class="stat"><div class="stat-value">10+</div><div class="stat-label">Years in BI</div></div>
-                <div class="stat"><div class="stat-value">$15M+</div><div class="stat-label">Revenue Impact</div></div>
-                <div class="stat"><div class="stat-value">250+</div><div class="stat-label">Users Enabled</div></div>
-                <div class="stat"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
-            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1.2, 1.2, 4])
+    with col1:
+        st.button("View My Work", type="primary")
+    with col2:
+        st.button("Download Resume")
+    
+    st.markdown("""
+    <div style="padding:0 60px">
+        <div class="stats-bar">
+            <div class="stat"><div class="stat-value">10+</div><div class="stat-label">Years in BI</div></div>
+            <div class="stat"><div class="stat-value">$15M+</div><div class="stat-label">Revenue Impact</div></div>
+            <div class="stat"><div class="stat-value">250+</div><div class="stat-label">Users Enabled</div></div>
+            <div class="stat"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -303,7 +298,7 @@ if page == "Home":
     st.markdown("""
     <div class="quote-section">
         <p class="quote-text">"Jason doesn't just build dashboards — he asks the questions that change how we think about the business."</p>
-        <p class="quote-author">— VP of Sales, Advantage Solutions</p>
+        <p class="quote-author">— VP of Sales</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -331,9 +326,9 @@ elif page == "Work":
                 <h3 class="case-section-title">The Mess</h3>
                 <p>After the acquisition, I inherited a nightmare: 5 sales domains, each with their own "source of truth." APAC counted returns in revenue. EMEA didn't.</p>
                 <ul>
-                    <li>CFO getting 5 different revenue numbers at every board meeting</li>
-                    <li>Field teams created 47 shadow Excel trackers</li>
-                    <li>Previous BI lead quit mid-project</li>
+                    <li>→ CFO getting 5 different revenue numbers at every board meeting</li>
+                    <li>→ Field teams created 47 shadow Excel trackers</li>
+                    <li>→ Previous BI lead quit mid-project</li>
                 </ul>
             </div>
             <div class="case-section">
@@ -353,7 +348,7 @@ elif page == "Work":
             </div>
             <div class="case-quote">
                 <p>"For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
-                <cite>— CFO, Advantage Solutions</cite>
+                <cite>— CFO</cite>
             </div>
         </div>
     </div>
@@ -382,9 +377,9 @@ elif page == "Work":
             <div class="case-section">
                 <h3 class="case-section-title">Results</h3>
                 <ul>
-                    <li>Value-based ads beat feature-based by 33% (p=0.03)</li>
-                    <li>Best combo: Meme #2 + Learn More CTA + Comment prompt</li>
-                    <li>36% lower CPM with engagement-driven strategies</li>
+                    <li>→ Value-based ads beat feature-based by 33% (p=0.03)</li>
+                    <li>→ Best combo: Meme #2 + Learn More CTA + Comment prompt</li>
+                    <li>→ 36% lower CPM with engagement-driven strategies</li>
                 </ul>
             </div>
             <div class="case-section">
@@ -420,7 +415,7 @@ elif page == "Work":
             </div>
             <div class="case-quote">
                 <p>"Finance finally trusts the 'automated' reports. That hasn't happened in years."</p>
-                <cite>— VP of Finance, Advantage Solutions</cite>
+                <cite>— VP of Finance</cite>
             </div>
         </div>
     </div>
@@ -430,7 +425,7 @@ elif page == "Work":
 elif page == "About":
     st.markdown("""
     <div class="about-hero">
-        <div class="about-photo">JC</div>
+        <div class="about-photo">Your Photo<br>200×200</div>
         <div class="about-intro">
             <h1>Hi, I'm Jason.</h1>
             <p>I've spent the last decade helping companies <strong>stop guessing and start knowing</strong>.</p>
@@ -581,23 +576,23 @@ elif page == "Connect":
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <p class="testimonial-quote">"Jason has a rare ability to translate complex data into stories that executives actually act on. He doesn't just answer questions — he asks better ones."</p>
-                <p class="testimonial-author">Former VP of Sales</p>
-                <p class="testimonial-role">Advantage Solutions</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">VP of Sales</p>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-quote">"Most analysts give you data. Jason gives you decisions. He made our CEO actually look forward to reviewing dashboards."</p>
-                <p class="testimonial-author">Former Director of Operations</p>
-                <p class="testimonial-role">Modern Home Station</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">Director of Operations</p>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-quote">"I've worked with a lot of BI people. Jason is the first one who understood that data without context is just noise."</p>
-                <p class="testimonial-author">Former CFO</p>
-                <p class="testimonial-role">China Unicom America</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">CFO</p>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-quote">"Jason doesn't just build dashboards — he changes how teams think about measurement. That's rare."</p>
-                <p class="testimonial-author">Senior Product Manager</p>
-                <p class="testimonial-role">Advantage Solutions</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">Product Manager</p>
             </div>
         </div>
     </div>
