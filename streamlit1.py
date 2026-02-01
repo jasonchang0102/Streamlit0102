@@ -2,9 +2,8 @@ import streamlit as st
 
 st.set_page_config(layout="wide", page_title="Jason C. Chang | BI Manager", page_icon="◆", initial_sidebar_state="expanded")
 
-# CSS - using robust selectors for modern Streamlit
+# CSS with fixed selectors for Streamlit 1.42+
 css = """
-<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Fraunces:ital,wght@0,400;0,600;1,400&display=swap' rel='stylesheet'>
 <style>
 :root {
     --bg: #fafaf9;
@@ -18,290 +17,805 @@ css = """
     --dark-muted: #a8a29e;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {width:6px}
-::-webkit-scrollbar-track {background:transparent}
-::-webkit-scrollbar-thumb {background:var(--border);border-radius:3px}
-
-/* Main app background */
-.stApp, [data-testid="stAppViewContainer"] {background:var(--bg) !important}
-
-/* Hide default Streamlit elements */
-#MainMenu, footer, header, .stDeployButton, 
-div[data-testid="stDecoration"],
-[data-testid="stToolbar"],
-[data-testid="stStatusWidget"] {display:none !important}
-
-/* Main container */
-.block-container, [data-testid="stMainBlockContainer"] {
-    padding:0 !important;
-    max-width:100% !important
+/* === APP BACKGROUND === */
+.stApp, [data-testid="stAppViewContainer"], .main {
+    background: var(--bg) !important;
 }
 
-/* Sidebar styling */
+/* === HIDE STREAMLIT ELEMENTS === */
+#MainMenu, footer, header, .stDeployButton, 
+div[data-testid="stDecoration"], 
+[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.block-container {
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+
+/* === SIDEBAR === */
 section[data-testid="stSidebar"],
 [data-testid="stSidebar"] {
-    background:var(--dark) !important;
-    min-width:260px !important;
-    max-width:260px !important
+    background: var(--dark) !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
+    width: 260px !important;
 }
 
-section[data-testid="stSidebar"]>div:first-child,
-[data-testid="stSidebar"]>div:first-child {
-    padding:0 !important;
-    padding-bottom:80px !important
+section[data-testid="stSidebar"] > div:first-child,
+[data-testid="stSidebar"] > div:first-child {
+    padding: 0 !important;
+    padding-bottom: 80px !important;
+    background: var(--dark) !important;
 }
 
 [data-testid="stSidebarNav"],
-[data-testid="stSidebarNavItems"] {display:none !important}
+.stSidebarNav {
+    display: none !important;
+}
 
-/* Sidebar brand */
-.sidebar-brand {padding:48px 32px 40px;border-bottom:1px solid rgba(255,255,255,0.06)}
+/* === SIDEBAR BRAND === */
+.sidebar-brand {
+    padding: 48px 32px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+}
 .sidebar-logo {
-    width:44px;height:44px;background:var(--accent);border-radius:10px;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;margin-bottom:16px
+    width: 44px;
+    height: 44px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
 }
-.sidebar-name {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:#fff;margin:0 0 2px}
-.sidebar-title {font-family:'Inter',sans-serif;font-size:12px;color:var(--dark-muted);margin:0}
-
-/* Radio button container - using data-testid */
-[data-testid="stSidebar"] [data-testid="stRadio"] > div {
-    flex-direction:column !important;
-    gap:0 !important;
-    padding:16px 0 !important
+.sidebar-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 2px;
 }
-
-/* Hide radio circles */
-[data-testid="stSidebar"] [data-testid="stRadio"] [data-baseweb="radio"] > div:first-child,
-[data-testid="stSidebar"] div[role="radiogroup"] label > div:first-child {
-    display:none !important
-}
-
-/* Radio labels base style */
-[data-testid="stSidebar"] [data-testid="stRadio"] label,
-[data-testid="stSidebar"] div[role="radiogroup"] label {
-    background:transparent !important;
-    padding:12px 32px !important;
-    margin:0 !important;
-    cursor:pointer !important;
-    transition:all 0.15s ease !important;
-    border-left:2px solid transparent !important;
-    border-radius:0 !important
+.sidebar-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--dark-muted);
+    margin: 0;
 }
 
-/* Radio labels hover */
-[data-testid="stSidebar"] [data-testid="stRadio"] label:hover,
-[data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-    background:rgba(255,255,255,0.03) !important
+/* === RADIO BUTTONS - FIXED SELECTORS === */
+/* Hide radio button circles */
+[data-testid="stSidebar"] .stRadio > div {
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 16px 0 !important;
 }
 
-/* Radio labels checked - using aria-checked */
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked),
-[data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"],
-[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) {
-    background:rgba(255,255,255,0.05) !important;
-    border-left-color:var(--accent) !important
+[data-testid="stSidebar"] .stRadio label > div:first-child,
+[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child {
+    display: none !important;
 }
 
-/* Radio label text */
-[data-testid="stSidebar"] [data-testid="stRadio"] label p,
-[data-testid="stSidebar"] div[role="radiogroup"] label p,
-[data-testid="stSidebar"] [data-testid="stRadio"] label span {
-    font-family:'Inter',sans-serif !important;
-    font-size:13px !important;
-    font-weight:400 !important;
-    color:var(--dark-muted) !important;
-    margin:0 !important
+/* Radio label styling */
+[data-testid="stSidebar"] .stRadio label,
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    background: transparent !important;
+    padding: 12px 32px !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    border-left: 2px solid transparent !important;
+    border-radius: 0 !important;
 }
 
-/* Radio label text hover */
-[data-testid="stSidebar"] [data-testid="stRadio"] label:hover p,
-[data-testid="stSidebar"] div[role="radiogroup"] label:hover p {
-    color:rgba(255,255,255,0.8) !important
+/* Hover state */
+[data-testid="stSidebar"] .stRadio label:hover,
+[data-testid="stSidebar"] [role="radiogroup"] label:hover {
+    background: rgba(255,255,255,0.03) !important;
 }
 
-/* Radio label text checked */
-[data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) p,
-[data-testid="stSidebar"] div[role="radiogroup"] label[aria-checked="true"] p,
-[data-testid="stSidebar"] div[role="radiogroup"] label:has(input:checked) p {
-    color:#fff !important;
-    font-weight:500 !important
+/* Selected state - using aria-checked */
+[data-testid="stSidebar"] .stRadio label:has(input:checked),
+[data-testid="stSidebar"] [role="radiogroup"] label[aria-checked="true"],
+[data-testid="stSidebar"] [role="radio"][aria-checked="true"] {
+    background: rgba(255,255,255,0.05) !important;
+    border-left-color: var(--accent) !important;
 }
 
-/* Hide radio widget label */
-[data-testid="stSidebar"] [data-testid="stRadio"] > label,
-[data-testid="stSidebar"] [data-testid="stWidgetLabel"] {
-    display:none !important
+/* Radio text styling */
+[data-testid="stSidebar"] .stRadio label p,
+[data-testid="stSidebar"] .stRadio label span,
+[data-testid="stSidebar"] [role="radiogroup"] label p,
+[data-testid="stSidebar"] [role="radiogroup"] label span {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: var(--dark-muted) !important;
+    margin: 0 !important;
 }
 
-/* Sidebar footer */
+[data-testid="stSidebar"] .stRadio label:hover p,
+[data-testid="stSidebar"] .stRadio label:hover span {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+[data-testid="stSidebar"] .stRadio label:has(input:checked) p,
+[data-testid="stSidebar"] .stRadio label:has(input:checked) span,
+[data-testid="stSidebar"] [role="radio"][aria-checked="true"] p,
+[data-testid="stSidebar"] [role="radio"][aria-checked="true"] span {
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+/* === SIDEBAR FOOTER === */
 .sidebar-footer {
-    position:fixed;bottom:0;left:0;width:260px;padding:20px 32px;
-    border-top:1px solid rgba(255,255,255,0.06);background:var(--dark);z-index:100
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    padding: 20px 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    background: var(--dark);
+    z-index: 100;
 }
-.sidebar-status {display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:11px;color:var(--accent)}
-.sidebar-status::before {content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+.sidebar-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--accent);
+}
+.sidebar-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+}
 
-/* Typography */
-.eyebrow {font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
-.headline {font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,4.5vw,52px);font-weight:700;color:var(--fg);line-height:1.1;margin:0 0 20px}
-.headline-accent {color:var(--accent)}
-.subhead {font-family:'Inter',sans-serif;font-size:17px;color:var(--muted);line-height:1.7;max-width:520px}
-.section-title {font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;color:var(--fg);margin:0 0 32px}
+/* === TYPOGRAPHY === */
+.eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.headline {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.1;
+    margin: 0 0 20px;
+}
+.headline-accent { color: var(--accent); }
+.subhead {
+    font-family: 'Inter', sans-serif;
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 520px;
+}
+.section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 32px;
+}
 
-/* Hero section */
-.hero {min-height:calc(100vh - 100px);display:flex;flex-direction:column;justify-content:center;padding:48px 60px}
-.hero-content {max-width:640px}
-.stats-bar {display:flex;gap:48px;margin-top:48px;padding-top:32px;border-top:1px solid var(--border)}
-.stat-value {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--fg)}
-.stat-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--muted);margin-top:2px}
+/* === HERO === */
+.hero {
+    min-height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 60px;
+}
+.hero-content { max-width: 640px; }
+.stats-bar {
+    display: flex;
+    gap: 48px;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+.stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--fg);
+}
+.stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+}
 
-/* Featured project */
+/* === FEATURED PROJECT === */
 .featured-project {
-    background:var(--dark);border-radius:20px;padding:48px;
-    margin:60px 60px 32px;color:#fff;position:relative;overflow:hidden
+    background: var(--dark);
+    border-radius: 20px;
+    padding: 48px;
+    margin: 60px 60px 32px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
 }
-.featured-label {display:inline-flex;align-items:center;gap:6px;font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
-.featured-title {font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;color:#fff;line-height:1.25;margin:0 0 12px;max-width:560px}
-.featured-desc {font-family:'Inter',sans-serif;font-size:15px;color:var(--dark-muted);line-height:1.7;max-width:480px;margin-bottom:32px}
-.featured-metrics {display:flex;gap:40px}
-.featured-metric-value {font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#fff}
-.featured-metric-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--dark-muted);margin-top:2px}
-.featured-tags {display:flex;gap:8px;margin-top:32px;flex-wrap:wrap}
-.featured-tag {font-family:'Inter',sans-serif;font-size:11px;color:var(--dark-muted);background:rgba(255,255,255,0.08);padding:6px 12px;border-radius:4px}
+.featured-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+.featured-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.25;
+    margin: 0 0 12px;
+    max-width: 560px;
+}
+.featured-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--dark-muted);
+    line-height: 1.7;
+    max-width: 480px;
+    margin-bottom: 32px;
+}
+.featured-metrics { display: flex; gap: 40px; }
+.featured-metric-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+}
+.featured-metric-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--dark-muted);
+    margin-top: 2px;
+}
+.featured-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+.featured-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--dark-muted);
+    background: rgba(255,255,255,0.08);
+    padding: 6px 12px;
+    border-radius: 4px;
+}
 
-/* Projects grid */
-.projects-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:0 60px 60px}
-.project-card {background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;transition:all 0.25s ease}
-.project-card:hover {border-color:var(--accent);box-shadow:0 12px 32px rgba(0,0,0,0.06);transform:translateY(-3px)}
-.project-company {font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
-.project-title {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--fg);line-height:1.3;margin:0 0 10px}
-.project-desc {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
-.project-metrics {display:flex;gap:20px;padding-top:16px;border-top:1px solid var(--border)}
-.project-metric-value {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--fg)}
-.project-metric-label {font-family:'Inter',sans-serif;font-size:10px;color:var(--muted)}
+/* === PROJECT CARDS === */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 0 60px 60px;
+}
+.project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    transition: all 0.25s ease;
+}
+.project-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+}
+.project-company {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.project-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+    line-height: 1.3;
+    margin: 0 0 10px;
+}
+.project-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.project-metrics {
+    display: flex;
+    gap: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+.project-metric-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--fg);
+}
+.project-metric-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--muted);
+}
 
-/* Quote section */
-.quote-section {background:var(--accent-light);padding:60px;margin:0 60px 60px;border-radius:20px;text-align:center}
-.quote-text {font-family:'Fraunces',serif;font-size:24px;font-style:italic;color:var(--fg);line-height:1.5;max-width:600px;margin:0 auto 20px}
-.quote-author {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted)}
+/* === QUOTE === */
+.quote-section {
+    background: var(--accent-light);
+    padding: 60px;
+    margin: 0 60px 60px;
+    border-radius: 20px;
+    text-align: center;
+}
+.quote-text {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-style: italic;
+    color: var(--fg);
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto 20px;
+}
+.quote-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+}
 
-/* Work page */
-.work-hero {background:var(--dark);padding:80px 60px;text-align:center}
-.work-hero-title {font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:#fff;margin:0 0 8px}
-.work-hero-sub {font-family:'Inter',sans-serif;font-size:15px;color:var(--dark-muted)}
+/* === WORK PAGE === */
+.work-hero {
+    background: var(--dark);
+    padding: 80px 60px;
+    text-align: center;
+}
+.work-hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 8px;
+}
+.work-hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--dark-muted);
+}
 
-/* Case studies */
-.case-study {padding:60px;border-bottom:1px solid var(--border)}
-.case-study:nth-child(even) {background:var(--surface)}
-.case-inner {max-width:720px;margin:0 auto}
-.case-number {font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--accent);letter-spacing:2px;margin-bottom:12px}
-.case-title {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--fg);line-height:1.2;margin:0 0 6px}
-.case-subtitle {font-family:'Inter',sans-serif;font-size:14px;color:var(--muted);margin-bottom:32px}
-.case-results {background:var(--dark);border-radius:14px;padding:32px;margin-bottom:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;text-align:center}
-.case-result-value {font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:#fff}
-.case-result-label {font-family:'Inter',sans-serif;font-size:11px;color:var(--dark-muted);margin-top:2px}
-.case-section {margin-bottom:32px}
-.case-section-title {font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--fg);margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.case-section-title::before {content:'';width:3px;height:18px;background:var(--accent);border-radius:2px}
-.case-section p {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin:0 0 12px}
-.case-section ul {margin:0;padding-left:0;list-style:none}
-.case-section li {font-family:'Inter',sans-serif;font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:8px;padding-left:24px;position:relative}
-.case-section li::before {content:'→';position:absolute;left:0;color:var(--accent)}
-.case-quote {background:var(--accent-light);border-radius:10px;padding:24px 28px;margin:32px 0}
-.case-quote p {font-family:'Fraunces',serif;font-size:16px;font-style:italic;color:var(--fg);line-height:1.6;margin:0}
-.case-quote cite {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);font-style:normal;display:block;margin-top:12px}
+.case-study {
+    padding: 60px;
+    border-bottom: 1px solid var(--border);
+}
+.case-study:nth-child(even) { background: var(--surface); }
+.case-inner { max-width: 720px; margin: 0 auto; }
+.case-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+.case-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--fg);
+    line-height: 1.2;
+    margin: 0 0 6px;
+}
+.case-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 32px;
+}
+.case-results {
+    background: var(--dark);
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: center;
+}
+.case-result-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+}
+.case-result-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--dark-muted);
+    margin-top: 2px;
+}
+.case-section { margin-bottom: 32px; }
+.case-section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.case-section-title::before {
+    content: '';
+    width: 3px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+}
+.case-section p {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin: 0 0 12px;
+}
+.case-section ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+.case-section li {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 8px;
+    padding-left: 18px;
+    position: relative;
+}
+.case-quote {
+    background: var(--accent-light);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 32px 0;
+}
+.case-quote p {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--fg);
+    line-height: 1.6;
+    margin: 0;
+}
+.case-quote cite {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    font-style: normal;
+    display: block;
+    margin-top: 12px;
+}
 
-/* About page */
-.about-hero {display:grid;grid-template-columns:220px 1fr;gap:48px;padding:60px;align-items:start}
+/* === ABOUT PAGE === */
+.about-hero {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 48px;
+    padding: 60px;
+    align-items: start;
+}
 .about-photo {
-    width:200px;height:200px;background:linear-gradient(135deg,var(--accent) 0%,#0f766e 100%);
-    border-radius:16px;display:flex;align-items:center;justify-content:center;
-    font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;color:#fff;
-    border:3px solid var(--surface);box-shadow:0 8px 24px rgba(0,0,0,0.08)
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, var(--border) 0%, #d6d3d1 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    border: 3px solid var(--surface);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
-.about-intro h1 {font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;color:var(--fg);margin:0 0 20px}
-.about-intro p {font-family:'Inter',sans-serif;font-size:16px;color:var(--muted);line-height:1.8;margin:0 0 14px}
-.about-section {padding:48px 60px;border-top:1px solid var(--border)}
-.about-section:nth-child(even) {background:var(--surface)}
+.about-intro h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--fg);
+    margin: 0 0 20px;
+}
+.about-intro p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin: 0 0 14px;
+}
+.about-section {
+    padding: 48px 60px;
+    border-top: 1px solid var(--border);
+}
+.about-section:nth-child(even) { background: var(--surface); }
 
-/* Timeline */
-.timeline {max-width:640px;position:relative;padding-left:20px}
-.timeline::before {content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--border)}
-.timeline-item {padding:20px 0;border-bottom:1px solid var(--border);display:grid;grid-template-columns:120px 1fr;gap:20px;position:relative}
-.timeline-item::before {content:'';position:absolute;left:-20px;top:28px;width:10px;height:10px;background:var(--surface);border:2px solid var(--accent);border-radius:50%}
-.timeline-item:last-child {border-bottom:none}
-.timeline-year {font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:var(--accent)}
-.timeline-role {font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:var(--fg);margin:0 0 2px}
-.timeline-company {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted)}
-.timeline-desc {font-family:'Inter',sans-serif;font-size:13px;color:var(--muted);line-height:1.6;margin-top:10px}
-
-/* Skills */
-.skills-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:800px}
-.skill-card {background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;transition:all 0.2s ease}
-.skill-card:hover {border-color:var(--accent);box-shadow:0 4px 16px rgba(13,148,136,0.08)}
-.skill-card-title {font-family:'Inter',sans-serif;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
-.skill-card-list {font-family:'Inter',sans-serif;font-size:13px;color:var(--fg);line-height:2}
-
-/* Certifications */
-.cert-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:800px}
-.cert-card {background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;transition:all 0.2s ease}
-.cert-card:hover {border-color:var(--accent)}
-.cert-name {font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--fg);margin-bottom:4px}
-.cert-issuer {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted)}
-
-/* Connect page */
-.connect-hero {background:var(--dark);padding:80px 60px;text-align:center}
-.connect-hero h1 {font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;color:#fff;margin:0 0 12px}
-.connect-hero p {font-family:'Inter',sans-serif;font-size:16px;color:var(--dark-muted);max-width:460px;margin:0 auto}
-.connect-cards {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:800px;margin:48px auto 0}
-.connect-card {background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:24px 16px;text-align:center;transition:all 0.2s ease}
-.connect-card:hover {background:rgba(255,255,255,0.08);border-color:var(--accent);transform:translateY(-2px)}
-.connect-card-icon {font-size:20px;margin-bottom:10px}
-.connect-card-label {font-family:'Inter',sans-serif;font-size:10px;color:var(--dark-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.connect-card-value {font-family:'Inter',sans-serif;font-size:12px;color:#fff;word-break:break-all}
-.connect-card-value a {color:var(--accent);text-decoration:none}
-.connect-card-value a:hover {color:#fff}
-
-/* Testimonials */
-.testimonials {padding:60px}
-.testimonials-grid {display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:900px;margin:0 auto}
-.testimonial-card {background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px;transition:all 0.2s ease}
-.testimonial-card:hover {border-color:var(--accent);box-shadow:0 8px 24px rgba(0,0,0,0.04)}
-.testimonial-quote {font-family:'Inter',sans-serif;font-size:14px;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:16px}
-.testimonial-author {font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--fg)}
-.testimonial-role {font-family:'Inter',sans-serif;font-size:12px;color:var(--muted);margin-top:2px}
-
-/* Streamlit button override */
-.stButton>button {
-    font-family:'Inter',sans-serif !important;
-    font-size:13px !important;
-    font-weight:500 !important;
-    padding:10px 20px !important;
-    border-radius:6px !important
+.timeline {
+    max-width: 640px;
+    position: relative;
+    padding-left: 20px;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+}
+.timeline-item {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    position: relative;
+}
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 28px;
+    width: 10px;
+    height: 10px;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-year {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+}
+.timeline-role {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fg);
+    margin: 0 0 2px;
+}
+.timeline-company {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+}
+.timeline-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 10px;
 }
 
-/* Responsive */
-@media (max-width:768px) {
-    .hero {padding:32px 24px;min-height:auto}
-    .stats-bar {flex-wrap:wrap;gap:24px 40px}
-    .featured-project {margin:40px 24px;padding:32px}
-    .featured-metrics {flex-wrap:wrap;gap:24px}
-    .projects-grid {grid-template-columns:1fr;padding:0 24px 40px}
-    .quote-section {margin:0 24px 40px;padding:40px 24px}
-    .case-study {padding:40px 24px}
-    .case-results {grid-template-columns:1fr;gap:16px}
-    .about-hero {grid-template-columns:1fr;gap:32px;padding:40px 24px}
-    .about-section {padding:40px 24px}
-    .skills-grid, .cert-grid {grid-template-columns:1fr}
-    .timeline-item {grid-template-columns:1fr;gap:8px}
-    .connect-hero {padding:60px 24px}
-    .connect-cards {grid-template-columns:repeat(2,1fr)}
-    .testimonials {padding:40px 24px}
-    .testimonials-grid {grid-template-columns:1fr}
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 800px;
+}
+.skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    transition: all 0.2s ease;
+}
+.skill-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(13,148,136,0.08);
+}
+.skill-card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+.skill-card-list {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--fg);
+    line-height: 2;
+}
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 800px;
+}
+.cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.2s ease;
+}
+.cert-card:hover { border-color: var(--accent); }
+.cert-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--fg);
+    margin-bottom: 4px;
+}
+.cert-issuer {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* === CONNECT PAGE === */
+.connect-hero {
+    background: var(--dark);
+    padding: 80px 60px;
+    text-align: center;
+}
+.connect-hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 12px;
+}
+.connect-hero p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    color: var(--dark-muted);
+    max-width: 460px;
+    margin: 0 auto;
+}
+.connect-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 800px;
+    margin: 48px auto 0;
+}
+.connect-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 24px 16px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+.connect-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+.connect-card-icon { font-size: 20px; margin-bottom: 10px; }
+.connect-card-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--dark-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+}
+.connect-card-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    word-break: break-all;
+}
+.connect-card-value a { color: var(--accent); text-decoration: none; }
+.connect-card-value a:hover { color: #fff; }
+
+.testimonials { padding: 60px; }
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.testimonial-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    transition: all 0.2s ease;
+}
+.testimonial-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+.testimonial-quote {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: 16px;
+}
+.testimonial-author {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--fg);
+}
+.testimonial-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+/* === BUTTON OVERRIDES === */
+.stButton > button {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    padding: 10px 20px !important;
+    border-radius: 6px !important;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+    .hero { padding: 32px 24px; min-height: auto; }
+    .stats-bar { flex-wrap: wrap; gap: 24px 40px; }
+    .featured-project { margin: 40px 24px; padding: 32px; }
+    .featured-metrics { flex-wrap: wrap; gap: 24px; }
+    .projects-grid { grid-template-columns: 1fr; padding: 0 24px 40px; }
+    .quote-section { margin: 0 24px 40px; padding: 40px 24px; }
+    .case-study { padding: 40px 24px; }
+    .about-hero { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; }
+    .about-section { padding: 40px 24px; }
+    .skills-grid, .cert-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 8px; }
+    .connect-hero { padding: 60px 24px; }
+    .connect-cards { grid-template-columns: repeat(2, 1fr); }
+    .testimonials { padding: 40px 24px; }
+    .testimonials-grid { grid-template-columns: 1fr; }
 }
 </style>
+<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Fraunces:ital,wght@0,400;0,600;1,400&display=swap' rel='stylesheet'>
 """
 
 st.markdown(css, unsafe_allow_html=True)
@@ -316,7 +830,7 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
     
-    page = st.radio("Nav", ["Home", "Work", "About", "Connect"], label_visibility="collapsed", key="nav_radio")
+    page = st.radio("Nav", ["Home", "Work", "About", "Connect"], label_visibility="collapsed")
     
     st.markdown("""
     <div class="sidebar-footer">
@@ -332,12 +846,23 @@ if page == "Home":
             <p class="eyebrow">BI Manager · 10+ Years</p>
             <h1 class="headline">I turn messy data into<br><span class="headline-accent">executive decisions</span></h1>
             <p class="subhead">I help companies find the revenue hiding in their data. From startup to Fortune 500 — I don't just build dashboards. I build clarity.</p>
-            <div class="stats-bar">
-                <div class="stat"><div class="stat-value">10+</div><div class="stat-label">Years in BI</div></div>
-                <div class="stat"><div class="stat-value">$15M+</div><div class="stat-label">Revenue Impact</div></div>
-                <div class="stat"><div class="stat-value">250+</div><div class="stat-label">Users Enabled</div></div>
-                <div class="stat"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
-            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1.2, 1.2, 4])
+    with col1:
+        st.button("View My Work", type="primary")
+    with col2:
+        st.button("Download Resume")
+    
+    st.markdown("""
+    <div style="padding:0 60px">
+        <div class="stats-bar">
+            <div class="stat"><div class="stat-value">10+</div><div class="stat-label">Years in BI</div></div>
+            <div class="stat"><div class="stat-value">$15M+</div><div class="stat-label">Revenue Impact</div></div>
+            <div class="stat"><div class="stat-value">250+</div><div class="stat-label">Users Enabled</div></div>
+            <div class="stat"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -390,7 +915,7 @@ if page == "Home":
     st.markdown("""
     <div class="quote-section">
         <p class="quote-text">"Jason doesn't just build dashboards — he asks the questions that change how we think about the business."</p>
-        <p class="quote-author">— VP of Sales, Advantage Solutions</p>
+        <p class="quote-author">— VP of Sales</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -418,9 +943,9 @@ elif page == "Work":
                 <h3 class="case-section-title">The Mess</h3>
                 <p>After the acquisition, I inherited a nightmare: 5 sales domains, each with their own "source of truth." APAC counted returns in revenue. EMEA didn't.</p>
                 <ul>
-                    <li>CFO getting 5 different revenue numbers at every board meeting</li>
-                    <li>Field teams created 47 shadow Excel trackers</li>
-                    <li>Previous BI lead quit mid-project</li>
+                    <li>→ CFO getting 5 different revenue numbers at every board meeting</li>
+                    <li>→ Field teams created 47 shadow Excel trackers</li>
+                    <li>→ Previous BI lead quit mid-project</li>
                 </ul>
             </div>
             <div class="case-section">
@@ -440,7 +965,7 @@ elif page == "Work":
             </div>
             <div class="case-quote">
                 <p>"For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
-                <cite>— CFO, Advantage Solutions</cite>
+                <cite>— CFO</cite>
             </div>
         </div>
     </div>
@@ -469,9 +994,9 @@ elif page == "Work":
             <div class="case-section">
                 <h3 class="case-section-title">Results</h3>
                 <ul>
-                    <li>Value-based ads beat feature-based by 33% (p=0.03)</li>
-                    <li>Best combo: Meme #2 + Learn More CTA + Comment prompt</li>
-                    <li>36% lower CPM with engagement-driven strategies</li>
+                    <li>→ Value-based ads beat feature-based by 33% (p=0.03)</li>
+                    <li>→ Best combo: Meme #2 + Learn More CTA + Comment prompt</li>
+                    <li>→ 36% lower CPM with engagement-driven strategies</li>
                 </ul>
             </div>
             <div class="case-section">
@@ -507,7 +1032,7 @@ elif page == "Work":
             </div>
             <div class="case-quote">
                 <p>"Finance finally trusts the 'automated' reports. That hasn't happened in years."</p>
-                <cite>— VP of Finance, Advantage Solutions</cite>
+                <cite>— VP of Finance</cite>
             </div>
         </div>
     </div>
@@ -517,7 +1042,7 @@ elif page == "Work":
 elif page == "About":
     st.markdown("""
     <div class="about-hero">
-        <div class="about-photo">JC</div>
+        <div class="about-photo">Your Photo<br>200×200</div>
         <div class="about-intro">
             <h1>Hi, I'm Jason.</h1>
             <p>I've spent the last decade helping companies <strong>stop guessing and start knowing</strong>.</p>
@@ -668,23 +1193,23 @@ elif page == "Connect":
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <p class="testimonial-quote">"Jason has a rare ability to translate complex data into stories that executives actually act on. He doesn't just answer questions — he asks better ones."</p>
-                <p class="testimonial-author">Former VP of Sales</p>
-                <p class="testimonial-role">Advantage Solutions</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">VP of Sales</p>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-quote">"Most analysts give you data. Jason gives you decisions. He made our CEO actually look forward to reviewing dashboards."</p>
-                <p class="testimonial-author">Former Director of Operations</p>
-                <p class="testimonial-role">Modern Home Station</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">Director of Operations</p>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-quote">"I've worked with a lot of BI people. Jason is the first one who understood that data without context is just noise."</p>
-                <p class="testimonial-author">Former CFO</p>
-                <p class="testimonial-role">China Unicom America</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">CFO</p>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-quote">"Jason doesn't just build dashboards — he changes how teams think about measurement. That's rare."</p>
-                <p class="testimonial-author">Senior Product Manager</p>
-                <p class="testimonial-role">Advantage Solutions</p>
+                <p class="testimonial-author">[Name]</p>
+                <p class="testimonial-role">Product Manager</p>
             </div>
         </div>
     </div>
