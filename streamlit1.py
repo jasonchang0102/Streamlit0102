@@ -3,35 +3,47 @@ import streamlit.components.v1 as components
 
 st.set_page_config(layout="wide", page_title="Jason Chang | BI Manager", page_icon="◆")
 
-# Track page changes
+# Session state
 if 'prev_page' not in st.session_state:
     st.session_state.prev_page = None
 
 st.markdown("""
-<link href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap' rel='stylesheet'>
 <style>
-    :root{--b:#111111;--w:#ffffff;--g1:#f5f5f5;--g2:#e5e5e5;--g3:#d4d4d4;--g4:#a3a3a3;--g5:#737373;--g6:#525252;--g7:#404040;--g8:#262626;--g9:#171717;--accent:#2563eb}
+    :root{
+        --b:#0a0a0a;--w:#ffffff;
+        --g1:#fafafa;--g2:#f5f5f5;--g3:#e5e5e5;--g4:#d4d4d4;--g5:#a3a3a3;--g6:#737373;--g7:#525252;--g8:#262626;--g9:#171717;
+        --accent:#3b82f6;--accent2:#8b5cf6;--accent3:#06b6d4;
+        --gradient:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+    }
     
-    ::-webkit-scrollbar{width:4px}
-    ::-webkit-scrollbar-track{background:var(--b)}
-    ::-webkit-scrollbar-thumb{background:var(--g6)}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:var(--g5);border-radius:3px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--g6)}
     
     .stApp{background:var(--w)!important;overflow-x:hidden!important}
     #MainMenu,footer,header{visibility:hidden}
     .block-container{padding:0!important;max-width:100%!important}
     
-    /* Subtle texture */
-    .stApp::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.012;pointer-events:none;z-index:10000}
+    /* Subtle grain texture */
+    .stApp::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.015;pointer-events:none;z-index:10000}
     
-    /* Animations */
-    @keyframes fadeUp{0%{opacity:0;transform:translateY(25px)}100%{opacity:1;transform:translateY(0)}}
+    /* === ANIMATIONS === */
+    @keyframes fadeUp{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
     @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
-    @keyframes slideLeft{0%{opacity:0;transform:translateX(-20px)}100%{opacity:1;transform:translateX(0)}}
+    @keyframes slideIn{0%{opacity:0;transform:translateX(-20px)}100%{opacity:1;transform:translateX(0)}}
     @keyframes scaleIn{0%{opacity:0;transform:scale(0.95)}100%{opacity:1;transform:scale(1)}}
-    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+    @keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes borderGlow{0%,100%{border-color:rgba(59,130,246,0.3)}50%{border-color:rgba(59,130,246,0.6)}}
+    @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    @keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
     
     /* === SIDEBAR === */
-    section[data-testid="stSidebar"]{background:#111111!important;border-right:none!important;min-width:240px!important}
+    section[data-testid="stSidebar"]{background:var(--b)!important;border-right:none!important;min-width:260px!important}
     section[data-testid="stSidebar"]>div:first-child{padding:0!important}
     section[data-testid="stSidebar"] [data-testid="stSidebarNav"]{display:none!important}
     
@@ -39,287 +51,605 @@ st.markdown("""
     div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child{display:none!important}
     
     section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]{
-        background:transparent!important;padding:14px 32px!important;margin:0!important;cursor:pointer!important;border:none!important
+        background:transparent!important;padding:16px 32px!important;margin:0!important;cursor:pointer!important;
+        border:none!important;position:relative;transition:all 0.3s cubic-bezier(0.4,0,0.2,1)!important
     }
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]::before{
+        content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:0;height:2px;
+        background:var(--gradient);transition:width 0.3s ease
+    }
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover::before{width:16px}
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"]::before{width:24px}
+    
     section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] p{
         font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:400!important;
-        color:rgba(255,255,255,0.5)!important;margin:0!important;transition:color 0.2s ease!important
+        color:rgba(255,255,255,0.4)!important;margin:0!important;transition:all 0.3s ease!important;
+        padding-left:8px!important
     }
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p{color:#ffffff!important}
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p{color:#ffffff!important;font-weight:600!important}
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p{
+        color:rgba(255,255,255,0.8)!important;padding-left:16px!important
+    }
+    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p{
+        color:#ffffff!important;font-weight:500!important;padding-left:20px!important
+    }
     
-    .sb-name{font-family:'Outfit',sans-serif!important;font-size:14px!important;font-weight:600!important;color:#ffffff!important;letter-spacing:2px!important;text-transform:uppercase!important;padding:48px 32px 8px!important;margin:0!important}
-    .sb-title{font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:rgba(255,255,255,0.4)!important;padding:0 32px 32px!important;margin:0!important}
-    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.25)!important;padding:32px!important}
+    .sb-brand{padding:48px 32px 40px;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .sb-name{font-family:'Outfit',sans-serif;font-size:18px;font-weight:600;color:#fff;letter-spacing:1px;margin:0 0 6px}
+    .sb-title{font-family:'Inter',sans-serif;font-size:12px;font-weight:400;color:rgba(255,255,255,0.4);margin:0}
+    .sb-status{display:flex;align-items:center;gap:8px;margin-top:16px;font-family:'Inter',sans-serif;font-size:11px;color:#22c55e}
+    .sb-status::before{content:'';width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite}
+    .sb-footer{position:absolute;bottom:0;left:0;right:0;padding:24px 32px;font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,0.2);border-top:1px solid rgba(255,255,255,0.04)}
     
-    /* === HOME PAGE === */
-    .home-hero{background:linear-gradient(180deg,#f8f9fa 0%,#ffffff 100%);padding:80px 60px;min-height:70vh;display:flex;align-items:center}
-    .hero-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;max-width:1200px;margin:0 auto;align-items:center}
-    .hero-photo{width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,#e5e7eb 0%,#d1d5db 100%);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:14px;color:#6b7280;border:4px solid #ffffff;box-shadow:0 20px 60px rgba(0,0,0,0.1);animation:scaleIn 0.8s ease}
+    /* === HOME HERO === */
+    .home-hero{
+        min-height:90vh;padding:80px;display:flex;align-items:center;
+        background:linear-gradient(135deg,#fafafa 0%,#f0f0f0 50%,#fafafa 100%);
+        position:relative;overflow:hidden
+    }
+    .home-hero::before{
+        content:'';position:absolute;top:-50%;right:-20%;width:80%;height:200%;
+        background:radial-gradient(ellipse,rgba(59,130,246,0.03) 0%,transparent 70%);
+        pointer-events:none
+    }
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1400px;margin:0 auto;align-items:center}
+    
     .hero-content{animation:fadeUp 0.8s ease}
-    .hero-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:#2563eb;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px}
-    .hero-name{font-family:'Outfit',sans-serif;font-size:56px;font-weight:700;color:#111111;line-height:1.1;margin-bottom:20px}
-    .hero-tagline{font-family:'Inter',sans-serif;font-size:20px;font-weight:400;color:#4b5563;line-height:1.6;margin-bottom:32px}
-    .hero-cta{display:flex;gap:16px;flex-wrap:wrap}
-    .btn-primary{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#ffffff;background:#111111;padding:14px 28px;border-radius:6px;text-decoration:none;transition:all 0.2s ease;display:inline-block}
-    .btn-primary:hover{background:#2563eb;transform:translateY(-2px)}
-    .btn-secondary{font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#111111;background:transparent;padding:14px 28px;border:1.5px solid #d1d5db;border-radius:6px;text-decoration:none;transition:all 0.2s ease;display:inline-block}
-    .btn-secondary:hover{border-color:#111111}
-    .hero-status{display:flex;align-items:center;gap:8px;margin-top:24px;font-family:'Inter',sans-serif;font-size:13px;color:#059669}
-    .status-dot{width:8px;height:8px;background:#059669;border-radius:50%;animation:pulse 2s infinite}
+    .hero-eyebrow{
+        display:inline-flex;align-items:center;gap:8px;
+        font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+        color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;
+        padding:8px 16px;background:rgba(59,130,246,0.08);border-radius:100px
+    }
+    .hero-eyebrow::before{content:'◆';font-size:8px}
     
-    /* Featured Work Section */
-    .featured-section{padding:80px 60px;background:#ffffff}
-    .section-header{max-width:1200px;margin:0 auto 48px}
-    .section-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:#6b7280;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
-    .section-title{font-family:'Outfit',sans-serif;font-size:36px;font-weight:600;color:#111111}
-    .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:1200px;margin:0 auto}
-    .work-card{background:#f9fafb;border-radius:12px;overflow:hidden;transition:all 0.3s ease;border:1px solid #e5e7eb}
-    .work-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.08)}
-    .work-card.flagship{grid-column:span 2;display:grid;grid-template-columns:1.2fr 1fr;background:linear-gradient(135deg,#111111 0%,#1f2937 100%)}
-    .work-card.flagship .card-content{color:#ffffff;padding:48px}
-    .work-card.flagship .card-label{color:#60a5fa}
-    .work-card.flagship .card-title{color:#ffffff}
-    .work-card.flagship .card-desc{color:rgba(255,255,255,0.7)}
-    .work-card.flagship .card-metrics{border-color:rgba(255,255,255,0.1)}
-    .work-card.flagship .metric-value{color:#ffffff}
-    .work-card.flagship .metric-label{color:rgba(255,255,255,0.5)}
-    .work-card.flagship .card-tags span{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8)}
-    .card-thumb{height:200px;background:linear-gradient(135deg,#e5e7eb 0%,#d1d5db 100%);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:13px;color:#6b7280}
-    .work-card.flagship .card-thumb{height:100%;min-height:300px;background:linear-gradient(135deg,#1e3a5f 0%,#0f172a 100%)}
+    .hero-title{
+        font-family:'Outfit',sans-serif;font-size:clamp(40px,5vw,64px);font-weight:700;
+        color:var(--b);line-height:1.1;margin-bottom:24px;
+        background:linear-gradient(135deg,var(--b) 0%,var(--g7) 100%);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+    }
+    .hero-title span{
+        background:var(--gradient);-webkit-background-clip:text;background-clip:text;
+        -webkit-text-fill-color:transparent
+    }
+    
+    .hero-subtitle{
+        font-family:'Inter',sans-serif;font-size:18px;font-weight:400;
+        color:var(--g6);line-height:1.7;margin-bottom:40px;max-width:500px
+    }
+    
+    .hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+    .btn{
+        font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+        padding:14px 28px;border-radius:8px;text-decoration:none;
+        transition:all 0.3s cubic-bezier(0.4,0,0.2,1);display:inline-flex;align-items:center;gap:8px;
+        position:relative;overflow:hidden
+    }
+    .btn-primary{
+        color:#fff;background:var(--b);border:none;
+        box-shadow:0 4px 14px rgba(0,0,0,0.1)
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.15)}
+    .btn-primary::after{
+        content:'→';transition:transform 0.3s ease;display:inline-block
+    }
+    .btn-primary:hover::after{transform:translateX(4px)}
+    
+    .btn-secondary{
+        color:var(--b);background:transparent;border:1.5px solid var(--g4)
+    }
+    .btn-secondary:hover{border-color:var(--b);background:rgba(0,0,0,0.02)}
+    
+    .hero-stats{display:flex;gap:40px;padding-top:32px;border-top:1px solid var(--g3)}
+    .hero-stat{text-align:left}
+    .hero-stat-value{
+        font-family:'Outfit',sans-serif;font-size:32px;font-weight:700;color:var(--b);
+        background:var(--gradient);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent
+    }
+    .hero-stat-label{font-family:'Inter',sans-serif;font-size:12px;color:var(--g6);margin-top:4px}
+    
+    /* Hero Visual */
+    .hero-visual{animation:fadeUp 0.8s ease 0.2s both;position:relative}
+    .hero-card{
+        background:#fff;border-radius:20px;padding:40px;
+        box-shadow:0 25px 80px rgba(0,0,0,0.08),0 10px 30px rgba(0,0,0,0.04);
+        position:relative;overflow:hidden;
+        border:1px solid rgba(0,0,0,0.04)
+    }
+    .hero-card::before{
+        content:'';position:absolute;top:0;left:0;right:0;height:4px;
+        background:var(--gradient)
+    }
+    .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+    .card-dots{display:flex;gap:6px}
+    .card-dot{width:10px;height:10px;border-radius:50%;background:var(--g3)}
+    .card-dot:first-child{background:#ef4444}
+    .card-dot:nth-child(2){background:#f59e0b}
+    .card-dot:last-child{background:#22c55e}
+    .card-title{font-family:'Inter',sans-serif;font-size:12px;color:var(--g5);font-weight:500}
+    
+    .metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px}
+    .metric-card{
+        background:var(--g1);border-radius:12px;padding:20px;text-align:center;
+        transition:all 0.3s ease;cursor:default
+    }
+    .metric-card:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,0.06)}
+    .metric-card-value{font-family:'Outfit',sans-serif;font-size:28px;font-weight:700;color:var(--b)}
+    .metric-card-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--g6);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+    
+    .chart-placeholder{
+        height:120px;background:linear-gradient(90deg,var(--g1) 0%,var(--g2) 50%,var(--g1) 100%);
+        background-size:200% 100%;animation:shimmer 2s infinite;border-radius:12px;
+        display:flex;align-items:center;justify-content:center;
+        font-family:'Inter',sans-serif;font-size:12px;color:var(--g5)
+    }
+    
+    /* Floating elements */
+    .float-badge{
+        position:absolute;padding:12px 16px;background:#fff;border-radius:12px;
+        box-shadow:0 8px 30px rgba(0,0,0,0.1);font-family:'Inter',sans-serif;font-size:12px;
+        display:flex;align-items:center;gap:8px;animation:float 4s ease-in-out infinite
+    }
+    .float-badge.top-left{top:-20px;left:-20px;animation-delay:0s}
+    .float-badge.bottom-right{bottom:-20px;right:-20px;animation-delay:1s}
+    .float-badge-icon{font-size:16px}
+    .float-badge-text{color:var(--g7);font-weight:500}
+    .float-badge-value{color:var(--accent);font-weight:600}
+    
+    /* === FEATURED WORK === */
+    .section{padding:100px 80px}
+    .section-dark{background:var(--b);color:#fff}
+    .section-alt{background:var(--g1)}
+    
+    .section-header{max-width:1400px;margin:0 auto 60px;display:flex;justify-content:space-between;align-items:end}
+    .section-header-left{}
+    .section-label{
+        font-family:'Inter',sans-serif;font-size:12px;font-weight:500;
+        color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px
+    }
+    .section-dark .section-label{color:var(--accent3)}
+    .section-title{font-family:'Outfit',sans-serif;font-size:42px;font-weight:600;color:var(--b)}
+    .section-dark .section-title{color:#fff}
+    .section-subtitle{font-family:'Inter',sans-serif;font-size:16px;color:var(--g6);margin-top:12px;max-width:500px}
+    .section-dark .section-subtitle{color:rgba(255,255,255,0.5)}
+    
+    /* Work Cards */
+    .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:1400px;margin:0 auto}
+    
+    .work-card{
+        background:#fff;border-radius:16px;overflow:hidden;
+        transition:all 0.4s cubic-bezier(0.4,0,0.2,1);
+        border:1px solid var(--g3);position:relative;cursor:pointer
+    }
+    .work-card:hover{transform:translateY(-8px);box-shadow:0 25px 60px rgba(0,0,0,0.12)}
+    .work-card:hover .card-thumb{transform:scale(1.05)}
+    .work-card:hover .card-arrow{transform:translate(4px,-4px)}
+    
+    .work-card.featured{
+        grid-column:span 2;display:grid;grid-template-columns:1.1fr 1fr;
+        background:linear-gradient(135deg,var(--b) 0%,#1a1a2e 100%);border:none
+    }
+    .work-card.featured .card-content{color:#fff;padding:48px}
+    .work-card.featured .card-label{color:var(--accent3)}
+    .work-card.featured .card-title{color:#fff}
+    .work-card.featured .card-desc{color:rgba(255,255,255,0.6)}
+    .work-card.featured .card-meta{border-color:rgba(255,255,255,0.1)}
+    .work-card.featured .card-meta span{color:rgba(255,255,255,0.5)}
+    .work-card.featured .card-meta strong{color:#fff}
+    .work-card.featured .card-arrow{color:#fff}
+    .work-card.featured:hover{transform:translateY(-8px);box-shadow:0 30px 80px rgba(0,0,0,0.3)}
+    
+    .card-thumb-wrap{overflow:hidden;height:220px}
+    .work-card.featured .card-thumb-wrap{height:100%;min-height:350px}
+    .card-thumb{
+        height:100%;background:linear-gradient(135deg,var(--g2) 0%,var(--g3) 100%);
+        display:flex;align-items:center;justify-content:center;
+        transition:transform 0.6s cubic-bezier(0.4,0,0.2,1)
+    }
+    .work-card.featured .card-thumb{background:linear-gradient(135deg,#1e3a5f 0%,#0f172a 100%)}
+    .card-thumb-text{font-family:'Inter',sans-serif;font-size:13px;color:var(--g5)}
+    .work-card.featured .card-thumb-text{color:rgba(255,255,255,0.3)}
+    
     .card-content{padding:32px}
-    .card-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:#2563eb;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
-    .card-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:600;color:#111111;line-height:1.3;margin-bottom:12px}
-    .card-desc{font-family:'Inter',sans-serif;font-size:14px;color:#6b7280;line-height:1.6;margin-bottom:20px}
-    .card-metrics{display:flex;gap:24px;padding-top:20px;border-top:1px solid #e5e7eb}
-    .metric{text-align:left}
-    .metric-value{font-family:'Outfit',sans-serif;font-size:24px;font-weight:700;color:#111111}
-    .metric-label{font-family:'Inter',sans-serif;font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px}
-    .card-tags{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-    .card-tags span{font-family:'Inter',sans-serif;font-size:11px;color:#6b7280;background:#f3f4f6;padding:4px 10px;border-radius:4px}
+    .card-label{
+        font-family:'Inter',sans-serif;font-size:11px;font-weight:600;
+        color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;
+        display:flex;align-items:center;gap:8px
+    }
+    .card-label-badge{
+        padding:4px 8px;background:rgba(59,130,246,0.1);border-radius:4px;font-size:10px
+    }
+    .work-card.featured .card-label-badge{background:rgba(6,182,212,0.2)}
     
-    /* Stats Section */
-    .stats-section{padding:60px;background:#111111}
-    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:1000px;margin:0 auto;text-align:center}
-    .stat-item .stat-value{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:#ffffff}
-    .stat-item .stat-label{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:8px}
+    .card-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:600;color:var(--b);line-height:1.3;margin-bottom:12px}
+    .card-desc{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);line-height:1.6;margin-bottom:20px}
     
-    /* Testimonial Section */
-    .testimonial-section{padding:80px 60px;background:#f9fafb}
-    .testimonial-card{max-width:800px;margin:0 auto;text-align:center}
-    .testimonial-quote{font-family:'Playfair Display',serif;font-size:28px;font-style:italic;color:#111111;line-height:1.5;margin-bottom:32px}
-    .testimonial-author{font-family:'Inter',sans-serif;font-size:14px;color:#6b7280}
-    .testimonial-author strong{color:#111111;font-weight:600}
+    .card-meta{
+        display:flex;gap:24px;padding-top:20px;border-top:1px solid var(--g3);
+        font-family:'Inter',sans-serif;font-size:12px
+    }
+    .card-meta span{color:var(--g5)}
+    .card-meta strong{color:var(--b);font-weight:600}
+    
+    .card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+    .card-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .card-tag{
+        font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--g6);
+        background:var(--g1);padding:6px 10px;border-radius:6px
+    }
+    .work-card.featured .card-tag{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7)}
+    
+    .card-arrow{
+        width:40px;height:40px;border-radius:50%;background:var(--g1);
+        display:flex;align-items:center;justify-content:center;
+        font-size:18px;color:var(--b);transition:all 0.3s ease
+    }
+    .work-card.featured .card-arrow{background:rgba(255,255,255,0.1)}
+    
+    /* === STATS SECTION === */
+    .stats-section{padding:80px;background:var(--b)}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;max-width:1200px;margin:0 auto}
+    .stat-item{text-align:center;padding:40px;position:relative}
+    .stat-item::after{
+        content:'';position:absolute;right:0;top:20%;height:60%;width:1px;
+        background:linear-gradient(180deg,transparent,rgba(255,255,255,0.1),transparent)
+    }
+    .stat-item:last-child::after{display:none}
+    .stat-value{
+        font-family:'Outfit',sans-serif;font-size:56px;font-weight:700;
+        background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,0.7) 100%);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+    }
+    .stat-label{font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,0.4);margin-top:8px}
+    
+    /* === TESTIMONIAL === */
+    .testimonial-section{padding:100px 80px;background:var(--g1)}
+    .testimonial-card{
+        max-width:900px;margin:0 auto;text-align:center;
+        background:#fff;border-radius:24px;padding:60px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.05);position:relative
+    }
+    .testimonial-card::before{
+        content:'"';position:absolute;top:30px;left:50px;
+        font-family:'Playfair Display',serif;font-size:120px;color:var(--g2);line-height:1
+    }
+    .testimonial-quote{
+        font-family:'Playfair Display',serif;font-size:28px;font-style:italic;
+        color:var(--b);line-height:1.6;margin-bottom:40px;position:relative;z-index:1
+    }
+    .testimonial-author{display:flex;align-items:center;justify-content:center;gap:16px}
+    .testimonial-avatar{
+        width:56px;height:56px;border-radius:50%;background:var(--gradient);
+        display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600
+    }
+    .testimonial-info{text-align:left}
+    .testimonial-name{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--b)}
+    .testimonial-role{font-family:'Inter',sans-serif;font-size:13px;color:var(--g6)}
     
     /* === WORK PAGE === */
-    .work-page{background:#ffffff}
-    .work-hero{background:#111111;padding:80px 60px;text-align:center}
-    .work-hero-title{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:#ffffff;margin-bottom:16px}
-    .work-hero-sub{font-family:'Inter',sans-serif;font-size:16px;color:rgba(255,255,255,0.6)}
+    .page-hero{padding:80px;background:var(--b);text-align:center}
+    .page-hero-title{font-family:'Outfit',sans-serif;font-size:56px;font-weight:700;color:#fff;margin-bottom:16px}
+    .page-hero-sub{font-family:'Inter',sans-serif;font-size:18px;color:rgba(255,255,255,0.5)}
     
-    .case-study{padding:80px 60px;border-bottom:1px solid #e5e7eb}
-    .case-study:nth-child(even){background:#f9fafb}
-    .case-container{max-width:900px;margin:0 auto}
-    .case-number{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:#2563eb;letter-spacing:2px;margin-bottom:16px}
-    .case-title{font-family:'Outfit',sans-serif;font-size:36px;font-weight:700;color:#111111;line-height:1.2;margin-bottom:12px}
-    .case-subtitle{font-family:'Inter',sans-serif;font-size:16px;color:#6b7280;margin-bottom:32px}
+    .case-study{padding:100px 80px;border-bottom:1px solid var(--g3)}
+    .case-study:nth-child(even){background:var(--g1)}
+    .case-container{max-width:1000px;margin:0 auto}
     
-    .case-results{background:#111111;border-radius:12px;padding:40px;margin-bottom:48px}
-    .results-title{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
-    .results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-    .result-item .result-value{font-family:'Outfit',sans-serif;font-size:36px;font-weight:700;color:#ffffff}
-    .result-item .result-label{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px}
-    .results-meta{display:flex;gap:32px;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1)}
-    .meta-item{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.6)}
-    .meta-item strong{color:#ffffff}
+    .case-header{margin-bottom:48px}
+    .case-number{
+        font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;
+        color:var(--accent);letter-spacing:2px;margin-bottom:16px
+    }
+    .case-title{font-family:'Outfit',sans-serif;font-size:42px;font-weight:700;color:var(--b);line-height:1.2;margin-bottom:12px}
+    .case-subtitle{font-family:'Inter',sans-serif;font-size:18px;color:var(--g6)}
     
-    .case-section{margin-bottom:40px}
-    .case-section-title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:600;color:#111111;margin-bottom:16px;display:flex;align-items:center;gap:12px}
-    .case-section-title::before{content:'';width:4px;height:20px;background:#2563eb;border-radius:2px}
-    .case-section p,.case-section li{font-family:'Inter',sans-serif;font-size:15px;color:#4b5563;line-height:1.8}
-    .case-section ul{margin:0;padding-left:20px}
-    .case-section li{margin-bottom:8px}
+    .case-results{
+        background:var(--b);border-radius:20px;padding:48px;margin-bottom:60px;
+        display:grid;grid-template-columns:repeat(3,1fr);gap:32px
+    }
+    .case-result{text-align:center;padding:20px}
+    .case-result-value{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:#fff}
+    .case-result-label{font-family:'Inter',sans-serif;font-size:13px;color:rgba(255,255,255,0.5);margin-top:8px}
+    .case-results-meta{
+        grid-column:span 3;display:flex;justify-content:center;gap:40px;
+        padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);
+        font-family:'Inter',sans-serif;font-size:14px;color:rgba(255,255,255,0.6)
+    }
+    .case-results-meta strong{color:#fff}
     
-    .case-quote{background:#f0f9ff;border-left:4px solid #2563eb;padding:24px 32px;margin:32px 0;border-radius:0 8px 8px 0}
-    .case-quote p{font-family:'Inter',sans-serif;font-size:16px;font-style:italic;color:#1e40af;margin:0}
-    .case-quote cite{font-family:'Inter',sans-serif;font-size:13px;color:#6b7280;font-style:normal;display:block;margin-top:12px}
+    .case-section{margin-bottom:48px}
+    .case-section-title{
+        font-family:'Outfit',sans-serif;font-size:24px;font-weight:600;color:var(--b);
+        margin-bottom:20px;display:flex;align-items:center;gap:12px
+    }
+    .case-section-title::before{
+        content:'';width:4px;height:24px;background:var(--gradient);border-radius:2px
+    }
+    .case-section p{font-family:'Inter',sans-serif;font-size:16px;color:var(--g7);line-height:1.8;margin-bottom:16px}
+    .case-section ul{margin:0 0 16px;padding-left:0;list-style:none}
+    .case-section li{
+        font-family:'Inter',sans-serif;font-size:16px;color:var(--g7);line-height:1.8;
+        margin-bottom:12px;padding-left:24px;position:relative
+    }
+    .case-section li::before{
+        content:'';position:absolute;left:0;top:10px;width:8px;height:8px;
+        background:var(--gradient);border-radius:50%
+    }
+    
+    .case-quote{
+        background:linear-gradient(135deg,rgba(59,130,246,0.05) 0%,rgba(139,92,246,0.05) 100%);
+        border-left:4px solid var(--accent);padding:32px 40px;margin:40px 0;border-radius:0 16px 16px 0
+    }
+    .case-quote p{font-family:'Inter',sans-serif;font-size:18px;font-style:italic;color:var(--accent);margin:0!important}
+    .case-quote cite{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);font-style:normal;display:block;margin-top:16px}
     
     /* === ABOUT PAGE === */
-    .about-hero{background:linear-gradient(180deg,#f8f9fa 0%,#ffffff 100%);padding:80px 60px}
-    .about-grid{display:grid;grid-template-columns:300px 1fr;gap:60px;max-width:1100px;margin:0 auto;align-items:start}
-    .about-photo{width:280px;height:280px;border-radius:16px;background:linear-gradient(135deg,#e5e7eb 0%,#d1d5db 100%);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:13px;color:#6b7280;box-shadow:0 20px 60px rgba(0,0,0,0.1)}
-    .about-content h1{font-family:'Outfit',sans-serif;font-size:42px;font-weight:700;color:#111111;margin-bottom:24px}
-    .about-content p{font-family:'Inter',sans-serif;font-size:16px;color:#4b5563;line-height:1.8;margin-bottom:16px}
+    .about-hero{padding:80px;background:linear-gradient(180deg,var(--g1) 0%,#fff 100%)}
+    .about-grid{display:grid;grid-template-columns:320px 1fr;gap:80px;max-width:1200px;margin:0 auto;align-items:start}
     
-    .about-section{padding:60px;border-top:1px solid #e5e7eb}
-    .about-section:nth-child(even){background:#f9fafb}
-    .about-section-inner{max-width:900px;margin:0 auto}
-    .about-section h2{font-family:'Outfit',sans-serif;font-size:28px;font-weight:600;color:#111111;margin-bottom:32px}
+    .about-photo-wrap{position:sticky;top:100px}
+    .about-photo{
+        width:280px;height:280px;border-radius:20px;
+        background:linear-gradient(135deg,var(--g2) 0%,var(--g3) 100%);
+        display:flex;align-items:center;justify-content:center;
+        font-family:'Inter',sans-serif;font-size:13px;color:var(--g5);
+        box-shadow:0 25px 80px rgba(0,0,0,0.1);position:relative;overflow:hidden
+    }
+    .about-photo::before{
+        content:'';position:absolute;inset:0;background:var(--gradient);opacity:0.1
+    }
     
-    .timeline{position:relative;padding-left:32px}
-    .timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:#e5e7eb}
-    .timeline-item{position:relative;margin-bottom:32px}
-    .timeline-item::before{content:'';position:absolute;left:-32px;top:8px;width:16px;height:16px;background:#ffffff;border:3px solid #2563eb;border-radius:50%}
-    .timeline-year{font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;color:#2563eb;margin-bottom:4px}
-    .timeline-role{font-family:'Outfit',sans-serif;font-size:18px;font-weight:600;color:#111111}
-    .timeline-company{font-family:'Inter',sans-serif;font-size:14px;color:#6b7280;margin-top:4px}
-    .timeline-desc{font-family:'Inter',sans-serif;font-size:14px;color:#6b7280;margin-top:8px}
+    .about-content h1{
+        font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;
+        color:var(--b);margin-bottom:32px;line-height:1.2
+    }
+    .about-content p{font-family:'Inter',sans-serif;font-size:17px;color:var(--g7);line-height:1.8;margin-bottom:20px}
     
-    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-    .skill-category h3{font-family:'Inter',sans-serif;font-size:12px;font-weight:600;color:#6b7280;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px}
-    .skill-category p{font-family:'Inter',sans-serif;font-size:15px;color:#111111;line-height:1.8}
+    .about-section{padding:80px;border-top:1px solid var(--g3)}
+    .about-section:nth-child(even){background:var(--g1)}
+    .about-section-inner{max-width:1000px;margin:0 auto}
+    .about-section h2{font-family:'Outfit',sans-serif;font-size:32px;font-weight:600;color:var(--b);margin-bottom:40px}
     
+    /* Timeline */
+    .timeline{position:relative;padding-left:40px}
+    .timeline::before{content:'';position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:var(--g3)}
+    .timeline-item{position:relative;margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid var(--g3)}
+    .timeline-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+    .timeline-item::before{
+        content:'';position:absolute;left:-40px;top:6px;width:24px;height:24px;
+        background:#fff;border:3px solid var(--accent);border-radius:50%;z-index:1
+    }
+    .timeline-year{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;color:var(--accent);margin-bottom:8px}
+    .timeline-role{font-family:'Outfit',sans-serif;font-size:20px;font-weight:600;color:var(--b)}
+    .timeline-company{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);margin-top:4px}
+    .timeline-desc{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);margin-top:12px;line-height:1.6}
+    
+    /* Skills */
+    .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+    .skill-category{
+        background:#fff;border-radius:16px;padding:32px;
+        border:1px solid var(--g3);transition:all 0.3s ease
+    }
+    .skill-category:hover{border-color:var(--accent);box-shadow:0 10px 40px rgba(59,130,246,0.1)}
+    .skill-category h3{
+        font-family:'Inter',sans-serif;font-size:12px;font-weight:600;
+        color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px
+    }
+    .skill-category p{font-family:'Inter',sans-serif;font-size:15px;color:var(--b);line-height:1.8}
+    
+    /* Certifications */
     .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-    .cert-card{display:flex;gap:16px;padding:24px;background:#ffffff;border:1px solid #e5e7eb;border-radius:8px}
-    .cert-icon{width:48px;height:48px;background:#f3f4f6;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px}
-    .cert-info h4{font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:#111111;margin-bottom:4px}
-    .cert-info p{font-family:'Inter',sans-serif;font-size:13px;color:#6b7280}
+    .cert-card{
+        display:flex;gap:20px;padding:28px;background:#fff;
+        border:1px solid var(--g3);border-radius:16px;transition:all 0.3s ease
+    }
+    .cert-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 15px 40px rgba(0,0,0,0.08)}
+    .cert-icon{
+        width:56px;height:56px;background:linear-gradient(135deg,var(--g1) 0%,var(--g2) 100%);
+        border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0
+    }
+    .cert-info h4{font-family:'Outfit',sans-serif;font-size:16px;font-weight:600;color:var(--b);margin-bottom:6px}
+    .cert-info p{font-family:'Inter',sans-serif;font-size:13px;color:var(--g6)}
     
-    .resume-btn{display:inline-flex;align-items:center;gap:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#ffffff;background:#111111;padding:16px 32px;border-radius:8px;text-decoration:none;transition:all 0.2s ease;margin-top:24px}
-    .resume-btn:hover{background:#2563eb}
+    .resume-btn{
+        display:inline-flex;align-items:center;gap:10px;
+        font-family:'Inter',sans-serif;font-size:14px;font-weight:600;
+        color:#fff;background:var(--b);padding:18px 36px;border-radius:12px;
+        text-decoration:none;transition:all 0.3s ease;margin-top:32px
+    }
+    .resume-btn:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 10px 30px rgba(59,130,246,0.3)}
     
     /* === CONNECT PAGE === */
-    .connect-hero{background:#111111;padding:80px 60px;text-align:center}
-    .connect-hero h1{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:#ffffff;margin-bottom:16px}
-    .connect-hero p{font-family:'Inter',sans-serif;font-size:18px;color:rgba(255,255,255,0.6);max-width:600px;margin:0 auto}
+    .connect-hero{padding:100px 80px;background:var(--b);text-align:center}
+    .connect-hero h1{font-family:'Outfit',sans-serif;font-size:56px;font-weight:700;color:#fff;margin-bottom:20px}
+    .connect-hero p{font-family:'Inter',sans-serif;font-size:18px;color:rgba(255,255,255,0.5);max-width:600px;margin:0 auto}
     
-    .connect-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:800px;margin:48px auto 0;padding:0 60px}
-    .connect-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:32px;text-align:left;transition:all 0.2s ease}
-    .connect-card:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2)}
-    .connect-card-icon{font-size:24px;margin-bottom:16px}
-    .connect-card-label{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
-    .connect-card-value{font-family:'Inter',sans-serif;font-size:16px;color:#ffffff;word-break:break-all}
-    .connect-card a{color:#60a5fa;text-decoration:none}
-    .connect-card a:hover{text-decoration:underline}
+    .connect-grid{
+        display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+        max-width:1000px;margin:60px auto 0
+    }
+    .connect-card{
+        background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);
+        border-radius:16px;padding:32px;text-align:center;transition:all 0.3s ease
+    }
+    .connect-card:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);transform:translateY(-4px)}
+    .connect-card-icon{font-size:28px;margin-bottom:16px}
+    .connect-card-label{font-family:'Inter',sans-serif;font-size:11px;font-weight:500;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .connect-card-value{font-family:'Inter',sans-serif;font-size:14px;color:#fff;word-break:break-all}
+    .connect-card a{color:var(--accent3);text-decoration:none;transition:color 0.3s}
+    .connect-card a:hover{color:#fff}
     
-    .testimonials-section{padding:80px 60px;background:#ffffff}
-    .testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:1000px;margin:0 auto}
-    .test-card{background:#f9fafb;border-radius:12px;padding:32px;border:1px solid #e5e7eb}
-    .test-quote{font-family:'Inter',sans-serif;font-size:15px;color:#4b5563;line-height:1.7;margin-bottom:20px;font-style:italic}
-    .test-author{font-family:'Inter',sans-serif;font-size:14px;color:#111111;font-weight:600}
-    .test-role{font-family:'Inter',sans-serif;font-size:13px;color:#6b7280}
+    .testimonials-section{padding:100px 80px;background:#fff}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;max-width:1100px;margin:0 auto}
+    .test-card{
+        background:var(--g1);border-radius:20px;padding:40px;
+        border:1px solid var(--g3);transition:all 0.3s ease;position:relative
+    }
+    .test-card:hover{border-color:var(--accent);box-shadow:0 15px 50px rgba(59,130,246,0.08)}
+    .test-card::before{
+        content:'"';position:absolute;top:20px;right:30px;
+        font-family:'Playfair Display',serif;font-size:80px;color:var(--g3);line-height:1
+    }
+    .test-quote{font-family:'Inter',sans-serif;font-size:15px;color:var(--g7);line-height:1.7;margin-bottom:24px;font-style:italic;position:relative;z-index:1}
+    .test-author{font-family:'Inter',sans-serif;font-size:14px;color:var(--b);font-weight:600}
+    .test-role{font-family:'Inter',sans-serif;font-size:13px;color:var(--g6);margin-top:4px}
 </style>
 """, unsafe_allow_html=True)
 
 # === SIDEBAR ===
 with st.sidebar:
-    st.markdown('<p class="sb-name">Jason Chang</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sb-title">BI Manager</p>', unsafe_allow_html=True)
+    st.markdown('''
+    <div class="sb-brand">
+        <p class="sb-name">Jason Chang</p>
+        <p class="sb-title">BI Manager</p>
+        <div class="sb-status">Open to opportunities</div>
+    </div>
+    ''', unsafe_allow_html=True)
     page = st.radio("", ["Home", "Work", "About", "Connect"], label_visibility="collapsed")
-    st.markdown('<p class="sb-footer">© 2025</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sb-footer">© 2025 · Built with passion</p>', unsafe_allow_html=True)
 
 # === HOME PAGE ===
 if page == "Home":
-    # Hero Section
     st.markdown("""
     <div class="home-hero">
         <div class="hero-grid">
-            <div class="hero-photo">
-                Your Photo Here<br>(280×280px)
-            </div>
             <div class="hero-content">
-                <div class="hero-label">BI Manager · 10+ Years Experience</div>
-                <h1 class="hero-name">I turn messy data into executive decisions.</h1>
-                <p class="hero-tagline">From Blizzard to Fortune 500 — I help companies find the revenue hiding in their data. I don't just build dashboards. I build clarity.</p>
+                <div class="hero-eyebrow">BI Manager · 10+ Years</div>
+                <h1 class="hero-title">I turn messy data into <span>executive decisions</span></h1>
+                <p class="hero-subtitle">From Blizzard to Fortune 500 — I help companies find the revenue hiding in their data. I don't just build dashboards. I build clarity.</p>
                 <div class="hero-cta">
-                    <a href="#work" class="btn-primary">View My Work</a>
-                    <a href="#" class="btn-secondary">Download Resume</a>
+                    <a href="#" class="btn btn-primary">View My Work</a>
+                    <a href="#" class="btn btn-secondary">Download Resume</a>
                 </div>
-                <div class="hero-status">
-                    <span class="status-dot"></span>
-                    Open to Senior BI / Analytics Manager roles
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">10+</div>
+                        <div class="hero-stat-label">Years Experience</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">$15M+</div>
+                        <div class="hero-stat-label">Revenue Impact</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">250+</div>
+                        <div class="hero-stat-label">Users Enabled</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="card-header">
+                        <div class="card-dots"><span class="card-dot"></span><span class="card-dot"></span><span class="card-dot"></span></div>
+                        <span class="card-title">Executive Dashboard</span>
+                    </div>
+                    <div class="metric-row">
+                        <div class="metric-card">
+                            <div class="metric-card-value">9%</div>
+                            <div class="metric-card-label">Revenue Lift</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card-value">70%</div>
+                            <div class="metric-card-label">Fewer Conflicts</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-card-value">5→1</div>
+                            <div class="metric-card-label">Day Decision</div>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">📊 Interactive Chart Preview</div>
+                </div>
+                <div class="float-badge top-left">
+                    <span class="float-badge-icon">⚡</span>
+                    <span class="float-badge-text">Query Time</span>
+                    <span class="float-badge-value">-70%</span>
+                </div>
+                <div class="float-badge bottom-right">
+                    <span class="float-badge-icon">📈</span>
+                    <span class="float-badge-text">ROAS</span>
+                    <span class="float-badge-value">+36%</span>
                 </div>
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Featured Work Section
+    # Featured Work
     st.markdown("""
-    <div class="featured-section" id="work">
+    <div class="section">
         <div class="section-header">
-            <div class="section-label">Featured Work</div>
-            <h2 class="section-title">Case Studies</h2>
+            <div class="section-header-left">
+                <div class="section-label">Featured Work</div>
+                <h2 class="section-title">Case Studies</h2>
+                <p class="section-subtitle">Deep dives into problems I've solved and the business impact delivered.</p>
+            </div>
         </div>
         <div class="work-grid">
-            <!-- Flagship Project -->
-            <div class="work-card flagship">
-                <div class="card-thumb">
-                    [Dashboard Preview]
+            <div class="work-card featured">
+                <div class="card-thumb-wrap">
+                    <div class="card-thumb"><span class="card-thumb-text">[Dashboard Preview]</span></div>
                 </div>
                 <div class="card-content">
-                    <div class="card-label">★ Flagship Project</div>
+                    <div class="card-label"><span class="card-label-badge">★ FLAGSHIP</span> Advantage Solutions</div>
                     <h3 class="card-title">Unified 5 Conflicting Data Sources Into Single Source of Truth</h3>
-                    <p class="card-desc">Post-merger chaos: 5 systems, 5 definitions of "revenue." CFO getting conflicting numbers. I had 6 weeks to fix it.</p>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value">9%</div>
-                            <div class="metric-label">Revenue Lift</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">70%</div>
-                            <div class="metric-label">Fewer Conflicts</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">5→1 day</div>
-                            <div class="metric-label">Decision Cycle</div>
-                        </div>
+                    <p class="card-desc">Post-merger chaos: 5 sales domains, 5 definitions of "revenue." CFO getting conflicting numbers every board meeting. I had 6 weeks to fix it.</p>
+                    <div class="card-meta">
+                        <span><strong>9%</strong> Revenue Lift</span>
+                        <span><strong>70%</strong> Fewer Conflicts</span>
+                        <span><strong>6 weeks</strong> Timeline</span>
                     </div>
-                    <div class="card-tags">
-                        <span>Snowflake</span>
-                        <span>Power BI</span>
-                        <span>6 Weeks</span>
-                        <span>$12M Impact</span>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag">Snowflake</span>
+                            <span class="card-tag">Power BI</span>
+                            <span class="card-tag">Python</span>
+                        </div>
+                        <div class="card-arrow">↗</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Project 2 -->
             <div class="work-card">
-                <div class="card-thumb">[Segmentation Visual]</div>
+                <div class="card-thumb-wrap">
+                    <div class="card-thumb"><span class="card-thumb-text">[A/B Test Visual]</span></div>
+                </div>
                 <div class="card-content">
-                    <div class="card-label">Blizzard Entertainment</div>
-                    <h3 class="card-title">+33% Conversion Through Player Segmentation</h3>
-                    <p class="card-desc">Transformed one-size-fits-all marketing into precision targeting using K-Means clustering on player behavior.</p>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value">+33%</div>
-                            <div class="metric-label">Conversion</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">2M+</div>
-                            <div class="metric-label">Players</div>
-                        </div>
+                    <div class="card-label">Modern Home Station</div>
+                    <h3 class="card-title">+33% Conversion via A/B Testing & Attribution Modeling</h3>
+                    <p class="card-desc">Built cross-channel attribution framework and led A/B testing program that optimized marketing spend and increased site conversion.</p>
+                    <div class="card-meta">
+                        <span><strong>+33%</strong> Conversion</span>
+                        <span><strong>-18%</strong> CPA</span>
                     </div>
-                    <div class="card-tags">
-                        <span>Python</span>
-                        <span>K-Means</span>
-                        <span>Warcraft</span>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag">GA4</span>
+                            <span class="card-tag">Python</span>
+                            <span class="card-tag">K-Means</span>
+                        </div>
+                        <div class="card-arrow">↗</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Project 3 -->
             <div class="work-card">
-                <div class="card-thumb">[Pipeline Diagram]</div>
+                <div class="card-thumb-wrap">
+                    <div class="card-thumb"><span class="card-thumb-text">[Pipeline Diagram]</span></div>
+                </div>
                 <div class="card-content">
-                    <div class="card-label">Operations</div>
-                    <h3 class="card-title">160 Hours Saved Quarterly Via Pipeline Automation</h3>
-                    <p class="card-desc">Replaced 47 manual Excel macros with automated Python pipelines. Error rate: 15% → near zero.</p>
-                    <div class="card-metrics">
-                        <div class="metric">
-                            <div class="metric-value">160hrs</div>
-                            <div class="metric-label">Saved/Quarter</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">99</div>
-                            <div class="metric-label">Vendors</div>
-                        </div>
+                    <div class="card-label">Operations Automation</div>
+                    <h3 class="card-title">160 Hours Saved Quarterly via Pipeline Automation</h3>
+                    <p class="card-desc">Replaced 47 manual Excel macros with automated Python pipelines. Error rate dropped from 15% to near zero.</p>
+                    <div class="card-meta">
+                        <span><strong>160 hrs</strong> Saved/Qtr</span>
+                        <span><strong>99</strong> Vendors</span>
                     </div>
-                    <div class="card-tags">
-                        <span>Python</span>
-                        <span>SQL</span>
-                        <span>Automation</span>
+                    <div class="card-footer">
+                        <div class="card-tags">
+                            <span class="card-tag">Python</span>
+                            <span class="card-tag">SQL</span>
+                            <span class="card-tag">VBA</span>
+                        </div>
+                        <div class="card-arrow">↗</div>
                     </div>
                 </div>
             </div>
@@ -327,13 +657,13 @@ if page == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    # Stats Section
+    # Stats
     st.markdown("""
     <div class="stats-section">
         <div class="stats-grid">
             <div class="stat-item">
                 <div class="stat-value">10+</div>
-                <div class="stat-label">Years in BI</div>
+                <div class="stat-label">Years in BI & Analytics</div>
             </div>
             <div class="stat-item">
                 <div class="stat-value">$15M+</div>
@@ -351,12 +681,18 @@ if page == "Home":
     </div>
     """, unsafe_allow_html=True)
     
-    # Testimonial Section
+    # Testimonial
     st.markdown("""
     <div class="testimonial-section">
         <div class="testimonial-card">
-            <p class="testimonial-quote">"Jason doesn't just build dashboards — he asks the questions that change how we think about the business. For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
-            <p class="testimonial-author"><strong>[Name]</strong>, VP of Sales · [Company]</p>
+            <p class="testimonial-quote">Jason doesn't just build dashboards — he asks the questions that change how we think about the business. For the first time in two years, I walked into a board meeting with confidence in our numbers.</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">VP</div>
+                <div class="testimonial-info">
+                    <p class="testimonial-name">[Name]</p>
+                    <p class="testimonial-role">VP of Sales · [Company]</p>
+                </div>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -364,271 +700,162 @@ if page == "Home":
 # === WORK PAGE ===
 elif page == "Work":
     st.markdown("""
-    <div class="work-page">
-        <div class="work-hero">
-            <h1 class="work-hero-title">Selected Work</h1>
-            <p class="work-hero-sub">Deep dives into problems I've solved</p>
-        </div>
+    <div class="page-hero">
+        <h1 class="page-hero-title">Selected Work</h1>
+        <p class="page-hero-sub">Deep dives into problems I've solved</p>
+    </div>
     """, unsafe_allow_html=True)
     
-    # Case Study 1: Executive BI
+    # Case Study 1
     st.markdown("""
-        <div class="case-study">
-            <div class="case-container">
-                <div class="case-number">CASE STUDY 01</div>
+    <div class="case-study">
+        <div class="case-container">
+            <div class="case-header">
+                <div class="case-number">// CASE STUDY 01</div>
                 <h2 class="case-title">Unified Executive Intelligence</h2>
                 <p class="case-subtitle">How I turned 5 conflicting data sources into a single source of truth</p>
-                
-                <div class="case-results">
-                    <div class="results-title">The Results</div>
-                    <div class="results-grid">
-                        <div class="result-item">
-                            <div class="result-value">9%</div>
-                            <div class="result-label">Quarterly Revenue Lift</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">70%</div>
-                            <div class="result-label">Fewer KPI Conflicts</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">5 → 1 day</div>
-                            <div class="result-label">Decision Cycle</div>
-                        </div>
-                    </div>
-                    <div class="results-meta">
-                        <div class="meta-item"><strong>Timeline:</strong> 6 weeks</div>
-                        <div class="meta-item"><strong>Impact:</strong> ~$12M annually</div>
-                        <div class="meta-item"><strong>Users:</strong> 250+</div>
-                    </div>
+            </div>
+            
+            <div class="case-results">
+                <div class="case-result">
+                    <div class="case-result-value">9%</div>
+                    <div class="case-result-label">Quarterly Revenue Lift</div>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">The Mess</h3>
-                    <p>After the acquisition, I inherited a nightmare:</p>
-                    <ul>
-                        <li><strong>5 sales domains</strong>, each with their own "source of truth"</li>
-                        <li>APAC counted returns in revenue. EMEA didn't. Nobody knew which was "right"</li>
-                        <li>The CFO was getting <strong>5 different revenue numbers</strong> at every board meeting — and losing trust in all of them</li>
-                        <li>Field teams had created <strong>47 shadow Excel trackers</strong> because they didn't trust official reports</li>
-                        <li>The previous BI lead had quit mid-project</li>
-                    </ul>
-                    <p>The CEO gave me 6 weeks before Q3 close. No pressure.</p>
+                <div class="case-result">
+                    <div class="case-result-value">70%</div>
+                    <div class="case-result-label">Fewer KPI Conflicts</div>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">Why This Was Hard</h3>
-                    <p>This wasn't a technical problem. It was a political one.</p>
-                    <p>Each regional VP had built their metrics to make their team look good. Standardizing meant someone's numbers would go down — and they knew it.</p>
-                    <p>I also had:</p>
-                    <ul>
-                        <li>No dedicated engineering support (just me and one junior analyst)</li>
-                        <li>A Snowflake instance already at 80% capacity</li>
-                        <li>Legacy POS systems that hadn't been documented since 2019</li>
-                    </ul>
+                <div class="case-result">
+                    <div class="case-result-value">5→1</div>
+                    <div class="case-result-label">Day Decision Cycle</div>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">My Approach</h3>
-                    <p><strong>Week 1-2: Discovery</strong></p>
-                    <p>I didn't touch any code. I spent two weeks in meetings with each regional VP, asking one question: "What decision are you trying to make with this data?"</p>
-                    <p>What I found: 70% of their "must-have" metrics weren't being used. They'd been cargo-culted from previous roles.</p>
-                    
-                    <p><strong>Week 3: The Hard Conversation</strong></p>
-                    <p>I presented the CFO with two options:</p>
-                    <ul>
-                        <li><strong>Option A:</strong> Build a "dashboard of dashboards" that showed all 5 versions (fast, but kicks the can)</li>
-                        <li><strong>Option B:</strong> Force standardization now, accept that Q3 numbers would look different than Q2 (painful, but correct)</li>
-                    </ul>
-                    <p>I recommended Option B. The CFO agreed.</p>
-                    
-                    <p><strong>Week 4-5: Build</strong></p>
-                    <ul>
-                        <li>Consolidated POS, field, compliance, and promo data into unified Snowflake schema</li>
-                        <li>Created 12 "golden metrics" with documented definitions</li>
-                        <li>Built Power BI dashboard with row-level security per region</li>
-                    </ul>
-                    
-                    <p><strong>Week 6: Rollout</strong></p>
-                    <ul>
-                        <li>Trained 250 users in 3 sessions</li>
-                        <li>Created self-service documentation</li>
-                        <li>Killed access to the old reports (this was controversial)</li>
-                    </ul>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">What Went Wrong</h3>
-                    <p>Two things I didn't anticipate:</p>
-                    <ul>
-                        <li><strong>The APAC surprise:</strong> The APAC team had been using a custom field that wasn't in any documentation. Their numbers broke on Day 1. I had to patch it live while the regional VP was on a call with the CEO.</li>
-                        <li><strong>The holdout:</strong> One senior director refused to use the new system and continued sending his own Excel reports. I had to escalate to the CFO to get organizational buy-in to enforce the change.</li>
-                    </ul>
-                    <p><em>Lesson: Technical migrations are easy. Cultural migrations are hard.</em></p>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">What I'd Do Differently</h3>
-                    <ul>
-                        <li>Get <strong>written sign-off</strong> from each VP on metric definitions BEFORE building</li>
-                        <li>Build a "comparison mode" showing old vs new numbers side-by-side for the first month</li>
-                        <li>Push back harder on the 6-week timeline — we made it, but documentation suffered</li>
-                    </ul>
-                </div>
-                
-                <div class="case-quote">
-                    <p>"For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
-                    <cite>— CFO, [Company]</cite>
+                <div class="case-results-meta">
+                    <span><strong>Timeline:</strong> 6 weeks</span>
+                    <span><strong>Impact:</strong> ~$12M annually</span>
+                    <span><strong>Users:</strong> 250+</span>
                 </div>
             </div>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Case Study 2: Player Segmentation
-    st.markdown("""
-        <div class="case-study">
-            <div class="case-container">
-                <div class="case-number">CASE STUDY 02</div>
-                <h2 class="case-title">+33% Conversion Through Player Segmentation</h2>
-                <p class="case-subtitle">Blizzard Entertainment · Warcraft</p>
-                
-                <div class="case-results">
-                    <div class="results-title">The Results</div>
-                    <div class="results-grid">
-                        <div class="result-item">
-                            <div class="result-value">+33%</div>
-                            <div class="result-label">Conversion Rate</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">2M+</div>
-                            <div class="result-label">Players Analyzed</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">6</div>
-                            <div class="result-label">Distinct Segments</div>
-                        </div>
-                    </div>
-                    <div class="results-meta">
-                        <div class="meta-item"><strong>Timeline:</strong> 3 weeks</div>
-                        <div class="meta-item"><strong>Tools:</strong> Python, K-Means, SQL</div>
-                    </div>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">The Mess</h3>
-                    <p>When I joined the project, marketing was sending the same promotion to every player — the whale spending $500/month and the casual who logs in twice a year.</p>
-                    <p>The data existed to segment them. But it was scattered across 6 different game event tables, player profiles hadn't been updated since the last expansion, and nobody could agree on what "active player" even meant.</p>
-                    <p>Marketing was burning budget. Leadership was asking why. And I had 3 weeks before the next major in-game event.</p>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">Why This Was Hard</h3>
-                    <ul>
-                        <li><strong>Scale:</strong> 2M+ player records with 50+ behavioral features each</li>
-                        <li><strong>Politics:</strong> Marketing had their own "segments" based on intuition. Showing data-driven segments meant telling them they were wrong.</li>
-                        <li><strong>Timing:</strong> The in-game event was locked. No time for iteration.</li>
-                    </ul>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">My Approach</h3>
-                    <p><strong>Feature Engineering:</strong> Distilled 50+ raw features into 12 meaningful behavioral metrics: login frequency, session duration, purchase recency, guild participation, PvP vs PvE preference, etc.</p>
-                    <p><strong>Clustering:</strong> Applied K-Means with elbow method validation. Tested 4-10 clusters. 6 emerged as optimal balance of distinctiveness and actionability.</p>
-                    <p><strong>Validation:</strong> Named each segment based on behavior patterns. Presented to marketing with specific promotion recommendations per segment.</p>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">The Segments</h3>
-                    <ul>
-                        <li><strong>Whales:</strong> High spend, high engagement — offer early access, not discounts</li>
-                        <li><strong>Social Butterflies:</strong> Guild-focused, moderate spend — promote group content</li>
-                        <li><strong>Lapsed Veterans:</strong> Previously active, now dormant — winback campaigns</li>
-                        <li><strong>Casuals:</strong> Low frequency, impulse buyers — limited-time offers work best</li>
-                        <li><strong>Grinders:</strong> High playtime, low spend — cosmetic rewards, not pay-to-win</li>
-                        <li><strong>New Blood:</strong> Recent joiners — onboarding focus, not monetization</li>
-                    </ul>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">What I'd Do Differently</h3>
-                    <ul>
-                        <li>Build a <strong>real-time segmentation pipeline</strong> instead of batch — player behavior shifts fast</li>
-                        <li>Include <strong>A/B testing framework</strong> from the start to measure segment-specific lift</li>
-                    </ul>
-                </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>After the acquisition, I inherited a nightmare: 5 sales domains, each with their own "source of truth." APAC counted returns in revenue. EMEA didn't. Nobody knew which was right.</p>
+                <ul>
+                    <li>The CFO was getting 5 different revenue numbers at every board meeting</li>
+                    <li>Field teams had created 47 shadow Excel trackers</li>
+                    <li>The previous BI lead had quit mid-project</li>
+                </ul>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">Why This Was Hard</h3>
+                <p>This wasn't a technical problem. It was a political one. Each regional VP had built metrics to make their team look good. Standardizing meant someone's numbers would go down.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p><strong>Week 1-2: Discovery</strong> — Spent two weeks asking one question: "What decision are you trying to make with this data?"</p>
+                <p><strong>Week 3: The Hard Conversation</strong> — Presented CFO with options and recommended forcing standardization now.</p>
+                <p><strong>Week 4-5: Build</strong> — Consolidated into unified Snowflake schema, created 12 golden metrics.</p>
+                <p><strong>Week 6: Rollout</strong> — Trained 250 users, killed access to old reports.</p>
+            </div>
+            
+            <div class="case-quote">
+                <p>"For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
+                <cite>— CFO, [Company]</cite>
             </div>
         </div>
+    </div>
     """, unsafe_allow_html=True)
     
-    # Case Study 3: Pipeline Automation
+    # Case Study 2
     st.markdown("""
-        <div class="case-study">
-            <div class="case-container">
-                <div class="case-number">CASE STUDY 03</div>
-                <h2 class="case-title">160 Hours Saved Quarterly Via Pipeline Automation</h2>
+    <div class="case-study">
+        <div class="case-container">
+            <div class="case-header">
+                <div class="case-number">// CASE STUDY 02</div>
+                <h2 class="case-title">+33% Conversion Through A/B Testing & Attribution</h2>
+                <p class="case-subtitle">Modern Home Station · Cross-Channel Analytics</p>
+            </div>
+            
+            <div class="case-results">
+                <div class="case-result">
+                    <div class="case-result-value">+33%</div>
+                    <div class="case-result-label">Conversion Rate</div>
+                </div>
+                <div class="case-result">
+                    <div class="case-result-value">-18%</div>
+                    <div class="case-result-label">CPA Reduction</div>
+                </div>
+                <div class="case-result">
+                    <div class="case-result-value">2x</div>
+                    <div class="case-result-label">ROAS Improvement</div>
+                </div>
+                <div class="case-results-meta">
+                    <span><strong>Timeline:</strong> Ongoing</span>
+                    <span><strong>Revenue:</strong> +45% (FY19), +85% (FY20)</span>
+                </div>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>Marketing was sending the same ads to everyone. Data existed but was scattered across Facebook, Shopify, and Google Analytics with no unified view of the customer journey.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p>Applied a 7-layer data framework: Business requirements → Data cleaning → Exploratory analysis → Customer segmentation (K-Means) → Validation → Time series → Integration.</p>
+                <p>Built cross-channel attribution framework integrating GA4, Shopify, Meta, and Klaviyo. Led A/B testing program testing meme formats, CTAs, and interaction prompts.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">A/B Test Results</h3>
+                <ul>
+                    <li>Value-based ads outperformed feature-based by 33% (p-value 0.03)</li>
+                    <li>Best combination: Meme #2 + Learn More CTA + Comment prompt</li>
+                    <li>36% lower CPM with engagement-driven strategies</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Case Study 3
+    st.markdown("""
+    <div class="case-study">
+        <div class="case-container">
+            <div class="case-header">
+                <div class="case-number">// CASE STUDY 03</div>
+                <h2 class="case-title">160 Hours Saved via Pipeline Automation</h2>
                 <p class="case-subtitle">99 Vendor Data Sources · Python + SQL</p>
-                
-                <div class="case-results">
-                    <div class="results-title">The Results</div>
-                    <div class="results-grid">
-                        <div class="result-item">
-                            <div class="result-value">160 hrs</div>
-                            <div class="result-label">Saved Quarterly</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">15% → 0%</div>
-                            <div class="result-label">Error Rate</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">99</div>
-                            <div class="result-label">Vendors Automated</div>
-                        </div>
-                    </div>
-                    <div class="results-meta">
-                        <div class="meta-item"><strong>Timeline:</strong> 8 weeks</div>
-                        <div class="meta-item"><strong>Tools:</strong> Python, SQL, Airflow</div>
-                    </div>
+            </div>
+            
+            <div class="case-results">
+                <div class="case-result">
+                    <div class="case-result-value">160 hrs</div>
+                    <div class="case-result-label">Saved Quarterly</div>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">The Mess</h3>
-                    <p>When I inherited the data pipeline, "automation" meant a shared folder of 47 Excel macros that one person (who had left) understood.</p>
-                    <p>Every Monday, three analysts spent 4 hours manually downloading vendor reports, reformatting them, and uploading to the database. If someone was sick, the weekly report didn't go out.</p>
-                    <p>The error rate was 15%. We'd caught wrong numbers in board decks twice in the past quarter. The VP of Finance had stopped trusting anything with "automated" in the name.</p>
+                <div class="case-result">
+                    <div class="case-result-value">15%→0%</div>
+                    <div class="case-result-label">Error Rate</div>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">Why This Was Hard</h3>
-                    <ul>
-                        <li><strong>99 vendors</strong>, each with their own report format (CSV, Excel, PDF, API)</li>
-                        <li><strong>No documentation</strong> on the existing macros</li>
-                        <li><strong>Trust deficit:</strong> Finance had been burned before and was skeptical of any "new system"</li>
-                        <li><strong>Zero downtime:</strong> Reports had to keep flowing while I rebuilt</li>
-                    </ul>
+                <div class="case-result">
+                    <div class="case-result-value">99</div>
+                    <div class="case-result-label">Vendors Automated</div>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">My Approach</h3>
-                    <p><strong>Phase 1 - Audit (Week 1-2):</strong> Mapped every data source, format, frequency, and downstream dependency. Found 12 sources that were never actually used.</p>
-                    <p><strong>Phase 2 - Build (Week 3-6):</strong> Created Python ingestion framework with standardized parsers. Each vendor got a config file, not custom code. Implemented validation rules that catch anomalies before they hit the database.</p>
-                    <p><strong>Phase 3 - Parallel Run (Week 7):</strong> Ran old and new systems side-by-side. Flagged every discrepancy. Fixed edge cases.</p>
-                    <p><strong>Phase 4 - Cutover (Week 8):</strong> Killed the macros. Trained the team on monitoring.</p>
+                <div class="case-results-meta">
+                    <span><strong>Timeline:</strong> 8 weeks</span>
+                    <span><strong>Tools:</strong> Python, SQL, VBA</span>
                 </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">What Went Wrong</h3>
-                    <ul>
-                        <li><strong>The PDF vendor:</strong> One vendor only sent PDF reports with no consistent formatting. Spent 2 days building a custom parser.</li>
-                        <li><strong>Timezone bugs:</strong> Three vendors reported in different timezones. Took a week to standardize.</li>
-                    </ul>
-                </div>
-                
-                <div class="case-section">
-                    <h3 class="case-section-title">What I'd Do Differently</h3>
-                    <ul>
-                        <li>Push vendors to use APIs or standardized formats — some of the manual work was self-inflicted</li>
-                        <li>Build monitoring dashboards earlier — we caught issues reactively for the first month</li>
-                    </ul>
-                </div>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>"Automation" meant 47 Excel macros that one person (who left) understood. Every Monday, 3 analysts spent 4 hours manually downloading vendor reports. Error rate: 15%.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p>Built dynamic column mapping in Python to handle non-standardized headers. Created vendor normalization buckets aligned with GL codes. Combined Python and VBA for hybrid automation.</p>
             </div>
         </div>
     </div>
@@ -639,52 +866,54 @@ elif page == "About":
     st.markdown("""
     <div class="about-hero">
         <div class="about-grid">
-            <div class="about-photo">Your Photo Here<br>(280×280px)</div>
+            <div class="about-photo-wrap">
+                <div class="about-photo">Your Photo Here<br>(280×280px)</div>
+            </div>
             <div class="about-content">
                 <h1>Hi, I'm Jason.</h1>
-                <p>I've spent the last decade helping companies stop guessing and start knowing.</p>
-                <p>Most BI teams build dashboards. I build clarity. The kind where a CEO can walk into a board meeting and actually trust the numbers on the screen.</p>
-                <p>I've done this at Blizzard (Warcraft player analytics), at a Fortune 500 post-merger chaos, and at startups where I was the entire data team.</p>
+                <p>I've spent the last decade helping companies stop guessing and start knowing. Most BI teams build dashboards. I build clarity — the kind where a CEO can walk into a board meeting and actually trust the numbers.</p>
+                <p>I've done this at Advantage Solutions (250+ users, $6B+ sales impact), Modern Home Station (2x ROAS, 45-85% revenue growth), and earlier at China Unicom and Marshall Electronics.</p>
                 <p><strong>What I've learned:</strong> The hard part is never the SQL. It's getting humans to agree on what "revenue" means.</p>
             </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Career Timeline
+    # Timeline
     st.markdown("""
     <div class="about-section">
         <div class="about-section-inner">
             <h2>Career Timeline</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-year">2024 — Present</div>
+                    <div class="timeline-year">2021 — Present</div>
                     <div class="timeline-role">BI Manager</div>
-                    <div class="timeline-company">[Company Name]</div>
-                    <div class="timeline-desc">Leading analytics for $XXM business unit. Built executive reporting suite. Unified 5 data sources post-merger.</div>
+                    <div class="timeline-company">Advantage Solutions</div>
+                    <div class="timeline-desc">Built national Power BI ecosystem with Snowflake. Unified 5 fragmented sales domains. Automated ingestion across 99+ vendors. Managed 7 regional managers.</div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">2021 — 2024</div>
-                    <div class="timeline-role">Senior Data Analyst</div>
-                    <div class="timeline-company">[Company Name]</div>
-                    <div class="timeline-desc">Automated 99 vendor pipelines. Saved 160 hours quarterly. Reduced error rate from 15% to near-zero.</div>
+                    <div class="timeline-year">2017 — 2021</div>
+                    <div class="timeline-role">BI Strategy & Analytics Manager</div>
+                    <div class="timeline-company">Modern Home Station</div>
+                    <div class="timeline-desc">Deployed cross-channel attribution (GA4, Shopify, Meta). Led A/B testing program. Built lead-scoring and intent models. Revenue growth: 45% (FY19), 85% (FY20).</div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">2018 — 2021</div>
-                    <div class="timeline-role">Data Analyst</div>
-                    <div class="timeline-company">Blizzard Entertainment</div>
-                    <div class="timeline-desc">Player behavior analytics for Warcraft. Built segmentation model that drove 33% conversion lift.</div>
+                    <div class="timeline-year">2016 — 2017</div>
+                    <div class="timeline-role">BI & Strategic Development Manager</div>
+                    <div class="timeline-company">China Unicom America</div>
+                    <div class="timeline-desc">Built GTM pricing and demand forecast models. $2M+ revenue projections. Automated churn and usage reporting.</div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">2015 — 2018</div>
-                    <div class="timeline-role">Business Analyst</div>
-                    <div class="timeline-company">[Company Name]</div>
-                    <div class="timeline-desc">Started in Excel, discovered SQL. Built first automated reports.</div>
+                    <div class="timeline-year">2014 — 2016</div>
+                    <div class="timeline-role">BI Project Analyst</div>
+                    <div class="timeline-company">Marshall Electronics</div>
+                    <div class="timeline-desc">50+ international product launches, $5M annual sales. 95% on-time launch rate.</div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-year">2014</div>
-                    <div class="timeline-role">B.S. Business Administration</div>
-                    <div class="timeline-company">UC Riverside</div>
+                    <div class="timeline-year">2010 — 2014</div>
+                    <div class="timeline-role">Senior Business Analyst</div>
+                    <div class="timeline-company">Cadence Acoustic Ltd.</div>
+                    <div class="timeline-desc">Migrated forecasting from Excel to SQL dashboards. Managed BI systems tracking $500M in product lines.</div>
                 </div>
             </div>
         </div>
@@ -699,15 +928,15 @@ elif page == "About":
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3>Daily Drivers</h3>
-                    <p>SQL (10+ years), Power BI / DAX, Python, Snowflake</p>
+                    <p>SQL (10+ years), Power BI / DAX, Python, Snowflake, Excel (Advanced + VBA)</p>
                 </div>
                 <div class="skill-category">
                     <h3>Fluent</h3>
-                    <p>BigQuery, GA4, Looker, dbt, Tableau</p>
+                    <p>BigQuery, GA4, Looker, Qlik, Google Data Studio, Power Query</p>
                 </div>
                 <div class="skill-category">
-                    <h3>Working Knowledge</h3>
-                    <p>Airflow, AWS, Azure, R, Spark</p>
+                    <h3>Statistical & ML</h3>
+                    <p>A/B Testing, Regression, K-Means Clustering, Cohort Analysis, Forecasting, Causal Inference</p>
                 </div>
             </div>
         </div>
@@ -724,28 +953,21 @@ elif page == "About":
                     <div class="cert-icon">🎓</div>
                     <div class="cert-info">
                         <h4>Supervised Machine Learning</h4>
-                        <p>Stanford · 2024</p>
+                        <p>Stanford Online · June 2024</p>
                     </div>
                 </div>
                 <div class="cert-card">
                     <div class="cert-icon">🧠</div>
                     <div class="cert-info">
                         <h4>Neural Networks & Deep Learning</h4>
-                        <p>DeepLearning.AI · 2024</p>
-                    </div>
-                </div>
-                <div class="cert-card">
-                    <div class="cert-icon">☁️</div>
-                    <div class="cert-info">
-                        <h4>AWS Cloud Practitioner</h4>
-                        <p>Amazon · 2019</p>
+                        <p>DeepLearning.AI · April 2024</p>
                     </div>
                 </div>
                 <div class="cert-card">
                     <div class="cert-icon">📊</div>
                     <div class="cert-info">
-                        <h4>Google Analytics Certified</h4>
-                        <p>Google · 2023</p>
+                        <h4>Analyzing & Visualizing Data with Power BI</h4>
+                        <p>edX · July 2019</p>
                     </div>
                 </div>
             </div>
@@ -779,7 +1001,7 @@ elif page == "Connect":
             <div class="connect-card">
                 <div class="connect-card-icon">📍</div>
                 <div class="connect-card-label">Location</div>
-                <div class="connect-card-value">Rowland Heights, CA</div>
+                <div class="connect-card-value">Hacienda Heights, CA</div>
             </div>
         </div>
     </div>
@@ -788,9 +1010,11 @@ elif page == "Connect":
     # Testimonials
     st.markdown("""
     <div class="testimonials-section">
-        <div class="section-header" style="max-width:1000px;margin:0 auto 48px">
-            <div class="section-label">What Colleagues Say</div>
-            <h2 class="section-title">Testimonials</h2>
+        <div class="section-header" style="max-width:1100px;margin:0 auto 48px">
+            <div class="section-header-left">
+                <div class="section-label">What Colleagues Say</div>
+                <h2 class="section-title">Testimonials</h2>
+            </div>
         </div>
         <div class="testimonials-grid">
             <div class="test-card">
@@ -811,7 +1035,7 @@ elif page == "Connect":
             <div class="test-card">
                 <p class="test-quote">"Jason doesn't just build dashboards — he changes how teams think about measurement. That's rare."</p>
                 <p class="test-author">[Name]</p>
-                <p class="test-role">Product Manager · Blizzard Entertainment</p>
+                <p class="test-role">Product Manager · [Company]</p>
             </div>
         </div>
     </div>
