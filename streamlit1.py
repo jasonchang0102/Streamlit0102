@@ -287,6 +287,22 @@ st.markdown("""
     .skt{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;margin-top:10px}
     .skl{font-family:'Inter',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.9!important}
     
+    /* === SKILLS DARK === */
+    .sg-dark{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .sg-dark .skc{background:rgba(255,255,255,0.03);padding:36px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
+    .sg-dark .skc:nth-child(1){animation-delay:.05s}
+    .sg-dark .skc:nth-child(2){animation-delay:.1s}
+    .sg-dark .skc:nth-child(3){animation-delay:.15s}
+    .sg-dark .skc:nth-child(4){animation-delay:.2s}
+    .sg-dark .skc:nth-child(5){animation-delay:.25s}
+    .sg-dark .skc:nth-child(6){animation-delay:.3s}
+    .sg-dark .skc::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--w);transition:height .45s cubic-bezier(.16,1,.3,1)}
+    .sg-dark .skc::after{content:'';position:absolute;left:36px;top:32px;width:30px;height:3px;background:var(--w)}
+    .sg-dark .skc:hover{transform:translateX(8px);border-color:rgba(255,255,255,0.2)}
+    .sg-dark .skc:hover::before{height:100%}
+    .sg-dark .skt{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;margin-top:10px}
+    .sg-dark .skl{font-family:'Inter',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.9!important}
+    
     /* === CERTS === */
     .ci{display:grid;grid-template-columns:65px 1fr auto;gap:25px;align-items:center;padding:30px 0;border-bottom:1px solid var(--g2);transition:all .35s cubic-bezier(.16,1,.3,1);animation:slideLeft .4s ease both}
     .ci:nth-child(1){animation-delay:.1s}
@@ -440,9 +456,9 @@ if page == "About":
 elif page == "Revenue Growth":
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
-    <div class="cl">
+    <div class="cd">
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">Targeted campaigns driven by segment insights</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Optimized spend allocation across high-value segments</p></div></div>
+        <div class="rg-dark"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">Targeted campaigns driven by segment insights</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Optimized spend allocation across high-value segments</p></div></div>
     </div>
     <div class="cd">
         <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Revenue optimization initiative for Warcraft during two major in-game events. Leadership needed clarity on player segment behavior and untapped monetization opportunities.</p></div></div>
@@ -509,12 +525,12 @@ elif page == "Revenue Growth":
 elif page == "Strategic BI":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cd">
+    <div class="cl">
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="ig-dark"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
+        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
     </div>
+    <div class="img-light">
     """, unsafe_allow_html=True)
-    st.markdown('<div class="img-light">', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Architect a scalable data infrastructure translating C-suite requirements into real-time, actionable intelligence.</p></div></div></div>', unsafe_allow_html=True)
@@ -530,9 +546,9 @@ elif page == "Strategic BI":
 elif page == "Operations":
     st.markdown("""
     <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
-    <div class="cl">
+    <div class="cd">
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Predictive models enabled proactive inventory positioning</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Campaign Readiness</p><p class="rcd">Cross-functional alignment before promotional launches</p></div></div>
+        <div class="rg-dark"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Predictive models enabled proactive inventory positioning</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Campaign Readiness</p><p class="rcd">Cross-functional alignment before promotional launches</p></div></div>
     </div>
     <div class="cd">
         <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Siloed operations across marketing, warehouse, purchasing, and customer service. Recurring late shipments were eroding customer satisfaction and undermining promotional campaigns.</p></div></div>
@@ -547,12 +563,12 @@ elif page == "Operations":
 elif page == "Efficiency":
     st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="cd">
+    <div class="cl">
         <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
     </div>
-    <div class="sw-dark"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
+    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
+    <div class="img-light">
     """, unsafe_allow_html=True)
-    st.markdown('<div class="img-light">', unsafe_allow_html=True)
     st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
@@ -571,11 +587,11 @@ elif page == "Efficiency":
 
 elif page == "Capabilities":
     st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
-    st.markdown('<div class="cl">', unsafe_allow_html=True)
+    st.markdown('<div class="cd" style="padding-bottom:60px">', unsafe_allow_html=True)
     st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
-    st.markdown('<div class="dv"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin:40px 0"></div>', unsafe_allow_html=True)
     st.markdown("""
-    <div class="sg">
+    <div class="sg-dark">
         <div class="skc"><p class="skt">BI & Visualization</p><p class="skl">Power BI / DAX<br>Looker / Qlik<br>Google Data Studio</p></div>
         <div class="skc"><p class="skt">Languages</p><p class="skl">SQL<br>Python<br>VBA / Power Query</p></div>
         <div class="skc"><p class="skt">Cloud & Warehousing</p><p class="skl">Snowflake<br>BigQuery<br>SQL Server (SSMS)</p></div>
