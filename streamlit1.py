@@ -1,712 +1,1863 @@
+"""
+Jason C. Chang | BI Manager Portfolio
+======================================
+Rebuilt based on portfolio audit:
+- Clear value proposition
+- Photo + human connection
+- "The Mess" storytelling
+- Keywords visible
+- Testimonials on first scroll
+- 1 flagship project
+- Resume download
+- Nike-inspired B/W aesthetic
+"""
+
 import streamlit as st
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import streamlit.components.v1 as components
+from dataclasses import dataclass
+from typing import Optional
 
-st.set_page_config(layout="wide", page_title="Jason Chang", page_icon="◆")
+# =============================================================================
+# CONFIGURATION
+# =============================================================================
 
-# Track page changes
-if 'prev_page' not in st.session_state:
-    st.session_state.prev_page = None
+@dataclass(frozen=True)
+class Config:
+    PAGE_TITLE: str = "Jason C. Chang | BI Manager"
+    PAGE_ICON: str = "◆"
+    
+    NAME: str = "Jason C. Chang"
+    INITIALS: str = "JC"
+    TITLE: str = "BI Manager"
+    TAGLINE: str = "I turn data chaos into executive clarity"
+    
+    # Clear value prop answering "Why hire Jason?"
+    VALUE_PROP: str = "I help executives stop arguing about numbers and start making decisions."
+    
+    EMAIL: str = "jason.chang01022024@gmail.com"
+    PHONE: str = "(626) 203-3319"
+    LINKEDIN: str = "linkedin.com/in/jchang0102"
+    LINKEDIN_URL: str = "https://linkedin.com/in/jchang0102"
+    LOCATION: str = "Hacienda Heights, CA"
+    
+    # Keywords recruiters scan for (visible in hero)
+    KEYWORDS: tuple = ("SQL", "Python", "Power BI", "Snowflake", "DAX")
+    
+    PAGES: tuple = ("Home", "Work", "About", "Connect")
 
-st.markdown("""
-<link href='https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap' rel='stylesheet'>
+CONFIG = Config()
+
+# =============================================================================
+# STYLES - NIKE B/W + AUDIT FIXES
+# =============================================================================
+
+def get_css() -> str:
+    return """
 <style>
-    :root {
-        --b: #111111;
-        --w: #ffffff;
-        --c1: #f5f5f5;
-        --c2: #e5e5e5;
-        --g1: #e5e5e5;
-        --g2: #d4d4d4;
-        --g3: #a3a3a3;
-        --g4: #737373;
-        --g5: #525252;
-        --g6: #404040;
-        --g7: #262626;
-        --g8: #171717;
-        --g9: #111111;
-    }
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-300: #d4d4d4;
+    --gray-400: #a3a3a3;
+    --gray-500: #737373;
+    --gray-600: #525252;
+    --gray-700: #404040;
+    --gray-800: #262626;
+    --gray-900: #171717;
     
-    ::-webkit-scrollbar{width:4px}
-    ::-webkit-scrollbar-track{background:var(--b)}
-    ::-webkit-scrollbar-thumb{background:var(--g6)}
+    --bg: var(--white);
+    --fg: var(--black);
+    --muted: var(--gray-500);
+    --border: var(--gray-200);
     
-    .stApp{background:var(--w)!important;overflow-x:hidden!important}
-    #MainMenu,footer,header{visibility:hidden}
-    .block-container{padding:0!important;max-width:100%!important}
+    --font-display: 'Bebas Neue', 'Impact', sans-serif;
+    --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
     
-    .stApp::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.012;pointer-events:none;z-index:10000}
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
+    --space-3xl: 96px;
     
-    /* === ANIMATIONS === */
-    @keyframes heroIn{
-        0%{transform:translateY(50px) rotateX(-6deg);opacity:0;filter:blur(10px)}
-        100%{transform:translateY(0) rotateX(0);opacity:1;filter:blur(0)}
-    }
-    @keyframes fadeUp{
-        0%{opacity:0;transform:translateY(25px)}
-        100%{opacity:1;transform:translateY(0)}
-    }
-    @keyframes fadeIn{
-        0%{opacity:0}
-        100%{opacity:1}
-    }
-    @keyframes slideLeft{
-        0%{opacity:0;transform:translateX(-25px)}
-        100%{opacity:1;transform:translateX(0)}
-    }
-    @keyframes slideRight{
-        0%{opacity:0;transform:translateX(25px)}
-        100%{opacity:1;transform:translateX(0)}
-    }
-    @keyframes scaleIn{
-        0%{opacity:0;transform:scale(0.95)}
-        100%{opacity:1;transform:scale(1)}
-    }
-    @keyframes lineGrow{0%{transform:scaleX(0)}100%{transform:scaleX(1)}}
-    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(2deg)}}
-    @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,197,94,0.4)}50%{transform:scale(1.15);box-shadow:0 0 0 6px rgba(34,197,94,0)}}
-    @keyframes rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
-    @keyframes breathe{0%,100%{opacity:0.4}50%{opacity:1}}
-    @keyframes numberPop{
-        0%{transform:scale(0.8);opacity:0}
-        50%{transform:scale(1.05)}
-        100%{transform:scale(1);opacity:1}
-    }
-    @keyframes clipReveal{
-        0%{clip-path:inset(0 100% 0 0)}
-        100%{clip-path:inset(0 0 0 0)}
-    }
-    @keyframes glowPulse{
-        0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.1)}
-        50%{box-shadow:0 0 20px 5px rgba(255,255,255,0.05)}
-    }
-    
-    /* === SIDEBAR - PROFESSIONAL PORTFOLIO === */
-    section[data-testid="stSidebar"]{background:#111111!important;border-right:none!important;min-width:260px!important}
-    section[data-testid="stSidebar"]>div:first-child{padding:0!important}
-    section[data-testid="stSidebar"] [data-testid="stSidebarNav"]{display:none!important}
-    
-    /* Radio layout */
-    div.stRadio>div{flex-direction:column!important;gap:0!important}
-    
-    /* HIDE RADIO CIRCLE - exact working selector */
-    div[role="radiogroup"]>label[data-baseweb="radio"]>div:first-child{display:none!important}
-    
-    /* Menu item container */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]{
-        background:transparent!important;
-        padding:12px 32px!important;
-        margin:0!important;
-        cursor:pointer!important;
-        border:none!important
-    }
-    
-    /* Menu text */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"] p{
-        font-family:'Inter',sans-serif!important;
-        font-size:14px!important;
-        font-weight:400!important;
-        color:rgba(255,255,255,0.5)!important;
-        margin:0!important;
-        transition:color 0.2s ease!important
-    }
-    
-    /* Hover */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"]:hover p{
-        color:#ffffff!important
-    }
-    
-    /* Selected */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label[data-baseweb="radio"][data-checked="true"] p{
-        color:#ffffff!important;
-        font-weight:600!important
-    }
-    
-    /* Section dividers */
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(2){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(6){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
-    section[data-testid="stSidebar"] div[role="radiogroup"]>label:nth-of-type(8){margin-top:16px!important;padding-top:16px!important;border-top:1px solid rgba(255,255,255,0.08)!important}
-    
-    /* Branding */
-    .sb-name{font-family:'Outfit',sans-serif!important;font-size:14px!important;font-weight:600!important;color:#ffffff!important;letter-spacing:2px!important;text-transform:uppercase!important;padding:48px 32px 8px!important;margin:0!important}
-    .sb-title{font-family:'Inter',sans-serif!important;font-size:12px!important;font-weight:400!important;color:rgba(255,255,255,0.4)!important;padding:0 32px 28px!important;margin:0!important}
-    .sb-footer{font-family:'Inter',sans-serif!important;font-size:10px!important;color:rgba(255,255,255,0.25)!important;padding:32px!important}
-    
-    /* === HERO === */
-    .hs{display:grid;grid-template-columns:54% 46%;min-height:100vh}
-    .hl{background:var(--b)!important;padding:60px 55px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-    .hl::before{content:'JC';position:absolute;bottom:-70px;right:-35px;font-family:'Outfit',sans-serif;font-size:350px;font-weight:900;color:rgba(255,255,255,0.006);line-height:.8;pointer-events:none;animation:fadeIn 1.5s ease 0.5s both}
-    .hr{background:linear-gradient(155deg,var(--c1) 0%,var(--c2) 100%)!important;padding:60px 55px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-    .dr{position:absolute;width:120px;height:120px;border:1px solid rgba(255,255,255,0.035);border-radius:50%;top:60px;right:60px;animation:rotate 28s linear infinite,glowPulse 4s ease infinite}
-    .dr::before{content:'';position:absolute;top:50%;left:50%;width:4px;height:4px;background:var(--w);border-radius:50%;transform:translate(-50%,-50%);animation:breathe 3s ease infinite}
-    .db{position:absolute;width:70px;height:70px;border:1px solid rgba(0,0,0,0.025);bottom:80px;right:55px;animation:float 6s ease-in-out infinite}
-    .dg{position:absolute;top:70px;left:55px;display:grid;grid-template-columns:repeat(4,7px);gap:8px;opacity:.06;animation:fadeIn 1s ease 0.8s both}
-    .dd{width:2px;height:2px;background:var(--b);border-radius:50%}
-    .hb{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:30px;margin-bottom:35px;animation:slideLeft .6s cubic-bezier(.16,1,.3,1) .1s both;background:rgba(255,255,255,0.03)}
-    .hbd{width:8px;height:8px;background:#22c55e;border-radius:50%;animation:pulse 2s ease infinite;box-shadow:0 0 12px rgba(34,197,94,0.4)}
-    .hbt{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--w);letter-spacing:2px;text-transform:uppercase}
-    
-    /* HERO NAME - 115px (reduced by 5 from 120) */
-    .hn{font-family:'Outfit',sans-serif!important;font-size:115px!important;font-weight:800!important;color:var(--w)!important;letter-spacing:-2px!important;line-height:.92!important;margin:0!important;animation:heroIn .9s cubic-bezier(.16,1,.3,1) both!important}
-    .hn2{animation-delay:.07s!important}
-    .hns{font-family:'Outfit',sans-serif!important;font-size:115px!important;font-weight:800!important;color:transparent!important;-webkit-text-stroke:1px rgba(255,255,255,0.08)!important;letter-spacing:-2px!important;line-height:.92!important;margin:0!important;animation:heroIn .9s cubic-bezier(.16,1,.3,1) .14s both!important}
-    .hrw{display:flex;align-items:center;gap:15px;margin-top:30px}
-    .hrl{width:45px;height:1px;background:var(--g6);animation:lineGrow .5s cubic-bezier(.16,1,.3,1) .35s both;transform-origin:left}
-    .hro{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:#ffffff;letter-spacing:4px;text-transform:uppercase;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .4s both}
-    .htitle{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:600!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-top:12px!important;animation:fadeUp .5s cubic-bezier(.16,1,.3,1) .2s both}
-    .hsocial{display:flex;gap:12px;margin-top:28px;animation:fadeUp .5s cubic-bezier(.16,1,.3,1) .45s both}
-    .hslink{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;color:var(--w);letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:10px 18px;border:1px solid rgba(255,255,255,0.2);transition:all .35s cubic-bezier(.16,1,.3,1)}
-    .hslink:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.4)}
-    .hsbtn{background:var(--w);color:var(--b)!important;border-color:var(--w)}
-    .hsbtn:hover{background:transparent;color:var(--w)!important}
-    .he{font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:var(--g5);letter-spacing:3px;text-transform:uppercase;margin-bottom:22px;animation:slideLeft .5s cubic-bezier(.16,1,.3,1) .15s both}
-    .hh{font-family:'Playfair Display',serif!important;font-size:40px!important;font-weight:500!important;color:var(--b)!important;line-height:1.2!important;margin-bottom:18px!important;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) .25s both!important}
-    .hh em{font-style:italic;font-weight:400}
-    .hp{font-family:'Inter',sans-serif!important;font-size:14px!important;color:var(--g6)!important;line-height:1.75!important;max-width:340px!important;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) .35s both!important}
-    
-    /* === MARQUEE === */
-    .mw{background:var(--b)!important;padding:18px 0;overflow:hidden;position:relative}
-    .mw::before,.mw::after{content:'';position:absolute;top:0;width:50px;height:100%;z-index:2}
-    .mw::before{left:0;background:linear-gradient(90deg,var(--b),transparent)}
-    .mw::after{right:0;background:linear-gradient(-90deg,var(--b),transparent)}
-    .mt{display:flex;animation:marquee 28s linear infinite;width:max-content}
-    .mi{font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;color:#ffffff;letter-spacing:5px;text-transform:uppercase;white-space:nowrap;padding:0 18px;display:flex;align-items:center;gap:18px}
-    .md{width:5px;height:5px;background:#ffffff;border-radius:50%;box-shadow:0 0 8px rgba(255,255,255,0.5)}
-    
-    /* === STATS === */
-    .sw{display:grid;grid-template-columns:repeat(3,1fr);background:var(--w)!important}
-    .sb{padding:65px 35px;text-align:center;border-right:1px solid var(--g2);position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);background:var(--w)!important;cursor:pointer}
-    .sb:last-child{border-right:none}
-    .sb::before{content:'';position:absolute;inset:0;background:var(--b);transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .sb::after{content:'';position:absolute;top:50px;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--b)}
-    .sb:hover::before{transform:translateY(0)}
-    .sb:hover .sn,.sb:hover .sl{color:var(--w)!important}
-    .sb:hover::after{background:var(--w)}
-    .sn{font-family:'Outfit',sans-serif!important;font-size:90px!important;font-weight:700!important;color:var(--b)!important;line-height:1!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1);animation:numberPop .6s ease both;margin-top:15px}
-    .sb:nth-child(1) .sn{animation-delay:.1s}
-    .sb:nth-child(2) .sn{animation-delay:.2s}
-    .sb:nth-child(3) .sn{animation-delay:.3s}
-    .sl{font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:600!important;color:var(--g5)!important;margin-top:18px!important;text-transform:uppercase!important;letter-spacing:3px!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1)}
-    
-    /* === STAT BOXES DARK === */
-    .sw-dark{display:grid;grid-template-columns:repeat(3,1fr);background:var(--b)!important}
-    .sw-dark .sb{padding:65px 35px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);background:var(--b)!important;cursor:pointer}
-    .sw-dark .sb:last-child{border-right:none}
-    .sw-dark .sb::before{content:'';position:absolute;inset:0;background:var(--w);transform:translateY(100%);transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .sw-dark .sb::after{content:'';position:absolute;top:50px;left:50%;transform:translateX(-50%);width:40px;height:3px;background:var(--w)}
-    .sw-dark .sb:hover::before{transform:translateY(0)}
-    .sw-dark .sb:hover .sn,.sw-dark .sb:hover .sl{color:var(--b)!important}
-    .sw-dark .sb:hover::after{background:var(--b)}
-    .sw-dark .sn{font-family:'Outfit',sans-serif!important;font-size:90px!important;font-weight:700!important;color:var(--w)!important;line-height:1!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1);animation:numberPop .6s ease both;margin-top:15px}
-    .sw-dark .sl{font-family:'Inter',sans-serif!important;font-size:10px!important;font-weight:600!important;color:var(--g5)!important;margin-top:18px!important;text-transform:uppercase!important;letter-spacing:3px!important;position:relative;z-index:1;transition:color .5s cubic-bezier(.16,1,.3,1)}
-    
-    /* === SECTION HEADERS === */
-    .sd{background:var(--b)!important;padding:55px 70px 40px!important}
-    .sdt{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g5)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-bottom:18px!important;animation:slideLeft .5s ease both}
-    .sdn{font-family:'Outfit',sans-serif!important;font-size:85px!important;font-weight:800!important;color:var(--w)!important;letter-spacing:-2px!important;line-height:.95!important;margin:0!important;animation:clipReveal .8s ease .1s both}
-    
-    .sl2{background:var(--w)!important;padding:55px 70px 40px!important}
-    .slt{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:3px!important;text-transform:uppercase!important;margin-bottom:18px!important;animation:slideLeft .5s ease both}
-    .sln{font-family:'Outfit',sans-serif!important;font-size:85px!important;font-weight:800!important;color:var(--b)!important;letter-spacing:-2px!important;line-height:.95!important;margin:0!important;animation:clipReveal .8s ease .1s both}
-    
-    /* === DARK CONTENT === */
-    .cd{background:var(--b)!important;padding:35px 70px 60px!important}
-    .cd .sr{display:flex;gap:28px;margin-bottom:30px;animation:fadeUp .5s ease both}
-    .cd .sr:nth-child(1){animation-delay:.1s}
-    .cd .sr:nth-child(2){animation-delay:.2s}
-    .cd .sr:nth-child(3){animation-delay:.3s}
-    .cd .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:rgba(255,255,255,0.2);line-height:1;min-width:55px;animation:numberPop .5s ease both}
-    .cd .sc{flex:1;padding-top:6px}
-    .cd .st{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--w);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g8);display:inline-block}
-    .cd .bt{font-family:'Inter',sans-serif;font-size:14px;color:#e5e5e5;line-height:1.85;max-width:480px}
-    .cd .bt strong{color:var(--w);font-weight:600}
-    .cd .bi{font-family:'Inter',sans-serif;font-size:13px;color:#e5e5e5;line-height:1.85;margin-bottom:12px;padding-left:24px;position:relative;transition:all .3s ease;cursor:pointer}
-    .cd .bi::before{content:'';position:absolute;left:0;top:9px;width:14px;height:1px;background:var(--g5);transition:all .3s ease}
-    .cd .bi:hover{padding-left:32px;color:var(--w)}
-    .cd .bi:hover::before{width:22px;background:var(--w)}
-    .cd .bi strong{color:var(--w);font-weight:600}
-    
-    /* === LIGHT CONTENT === */
-    .cl{background:var(--w)!important;padding:35px 70px 60px!important}
-    .cl .sr{display:flex;gap:28px;margin-bottom:30px;animation:fadeUp .5s ease both}
-    .cl .sr:nth-child(1){animation-delay:.1s}
-    .cl .sr:nth-child(2){animation-delay:.2s}
-    .cl .sr:nth-child(3){animation-delay:.3s}
-    .cl .snum{font-family:'Outfit',sans-serif;font-size:48px;font-weight:700;color:var(--g3);line-height:1;min-width:55px;animation:numberPop .5s ease both}
-    .cl .sc{flex:1;padding-top:6px}
-    .cl .st{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--b);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--g2);display:inline-block}
-    .cl .bt{font-family:'Inter',sans-serif;font-size:14px;color:var(--g6);line-height:1.85;max-width:480px}
-    .cl .bt strong{color:var(--b);font-weight:600}
-    .cl .bi{font-family:'Inter',sans-serif;font-size:13px;color:var(--g6);line-height:1.85;margin-bottom:12px;padding-left:24px;position:relative;transition:all .3s ease;cursor:pointer}
-    .cl .bi::before{content:'';position:absolute;left:0;top:9px;width:14px;height:1px;background:var(--g3);transition:all .3s ease}
-    .cl .bi:hover{padding-left:32px;color:var(--b)}
-    .cl .bi:hover::before{width:22px;background:var(--b)}
-    .cl .bi strong{color:var(--b);font-weight:600}
-    
-    /* === IMAGE PADDING - 2rem LEFT/RIGHT === */
-    .stImage{padding:0.5rem 2rem!important;animation:scaleIn .5s ease both}
-    .stImage img{transition:all .5s cubic-bezier(.16,1,.3,1)!important;border-radius:2px}
-    .stImage img:hover{transform:scale(1.01)!important;box-shadow:0 25px 50px rgba(0,0,0,0.06)!important}
-    
-    /* === IMAGE CONTAINERS === */
-    /* === IMAGE CONTAINERS (handled inline per page) === */
-    
-    /* === RESULT CARDS === */
-    .rg{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
-    .rc{background:var(--g1);padding:50px 42px;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);animation:scaleIn .5s ease both;border:1px solid var(--g2);cursor:pointer}
-    .rc:nth-child(1){animation-delay:.1s}
-    .rc:nth-child(2){animation-delay:.2s}
-    .rc::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .rc::after{content:'';position:absolute;left:42px;top:42px;width:40px;height:3px;background:var(--b)}
-    .rc:hover{transform:translateY(-10px);box-shadow:0 28px 55px rgba(0,0,0,0.08);border-color:var(--b)}
-    .rc:hover::before{transform:scaleY(1)}
-    .rcn{font-family:'Outfit',sans-serif!important;font-size:72px!important;font-weight:700!important;color:var(--b)!important;line-height:1!important;margin-top:12px}
-    .rct{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;margin:18px 0 10px!important;text-transform:uppercase!important;letter-spacing:2px!important}
-    .rcd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.6!important}
-    
-    /* === RESULT CARDS DARK === */
-    .rg-dark{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
-    .rg-dark .rc{background:rgba(255,255,255,0.03);padding:50px 42px;position:relative;overflow:hidden;transition:all .5s cubic-bezier(.16,1,.3,1);animation:scaleIn .5s ease both;border:1px solid rgba(255,255,255,0.08)}
-    .rg-dark .rc:nth-child(1){animation-delay:.1s}
-    .rg-dark .rc:nth-child(2){animation-delay:.2s}
-    .rg-dark .rc::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--w);transform:scaleY(0);transform-origin:top;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-    .rg-dark .rc::after{content:'';position:absolute;left:42px;top:42px;width:40px;height:3px;background:var(--w)}
-    .rg-dark .rc:hover{transform:translateY(-10px);box-shadow:0 28px 55px rgba(0,0,0,0.3);border-color:rgba(255,255,255,0.2)}
-    .rg-dark .rc:hover::before{transform:scaleY(1)}
-    .rg-dark .rcn{font-family:'Outfit',sans-serif!important;font-size:72px!important;font-weight:700!important;color:var(--w)!important;line-height:1!important;margin-top:12px}
-    .rg-dark .rct{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--w)!important;margin:18px 0 10px!important;text-transform:uppercase!important;letter-spacing:2px!important}
-    .rg-dark .rcd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.6!important}
-    
-    /* === INFO CARDS === */
-    .ig{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px}
-    .ic{background:var(--g1);padding:45px 40px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:slideRight .5s ease both;border:1px solid var(--g2);cursor:pointer}
-    .ic:nth-child(1){animation-delay:.1s}
-    .ic:nth-child(2){animation-delay:.2s}
-    .ic::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-    .ic::after{content:'';position:absolute;left:40px;top:38px;width:40px;height:3px;background:var(--b)}
-    .ic:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(0,0,0,0.06);border-color:var(--b)}
-    .ic:hover::before{transform:scaleY(1)}
-    .ict{font-family:'Inter',sans-serif!important;font-size:15px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:1.5px!important;text-transform:uppercase!important;margin-bottom:12px!important;margin-top:10px}
-    .icd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.7!important}
-    
-    /* === INFO CARDS DARK === */
-    .ig-dark{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:35px;padding:0 70px 55px}
-    .ig-dark .ic{background:rgba(255,255,255,0.03);padding:45px 40px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:slideRight .5s ease both;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
-    .ig-dark .ic:nth-child(1){animation-delay:.1s}
-    .ig-dark .ic:nth-child(2){animation-delay:.2s}
-    .ig-dark .ic::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--w);transform:scaleY(0);transform-origin:top;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-    .ig-dark .ic::after{content:'';position:absolute;left:40px;top:38px;width:40px;height:3px;background:var(--w)}
-    .ig-dark .ic:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(0,0,0,0.4);border-color:rgba(255,255,255,0.2)}
-    .ig-dark .ic:hover::before{transform:scaleY(1)}
-    .ig-dark .ict{font-family:'Inter',sans-serif!important;font-size:15px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:1.5px!important;text-transform:uppercase!important;margin-bottom:12px!important;margin-top:10px}
-    .ig-dark .icd{font-family:'Inter',sans-serif!important;font-size:13px!important;color:var(--g5)!important;line-height:1.7!important}
-    
-    /* === SKILLS === */
-    .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .skc{background:var(--g1);padding:36px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid var(--g2);cursor:pointer}
-    .skc:nth-child(1){animation-delay:.05s}
-    .skc:nth-child(2){animation-delay:.1s}
-    .skc:nth-child(3){animation-delay:.15s}
-    .skc:nth-child(4){animation-delay:.2s}
-    .skc:nth-child(5){animation-delay:.25s}
-    .skc:nth-child(6){animation-delay:.3s}
-    .skc::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--b);transition:height .45s cubic-bezier(.16,1,.3,1)}
-    .skc::after{content:'';position:absolute;left:36px;top:32px;width:30px;height:3px;background:var(--b)}
-    .skc:hover{transform:translateX(8px);border-color:var(--b)}
-    .skc:hover::before{height:100%}
-    .skt{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;margin-top:10px}
-    .skl{font-family:'Inter',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.9!important}
-    
-    /* === SKILLS DARK === */
-    .sg-dark{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .sg-dark .skc{background:rgba(255,255,255,0.03);padding:36px;transition:all .45s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
-    .sg-dark .skc:nth-child(1){animation-delay:.05s}
-    .sg-dark .skc:nth-child(2){animation-delay:.1s}
-    .sg-dark .skc:nth-child(3){animation-delay:.15s}
-    .sg-dark .skc:nth-child(4){animation-delay:.2s}
-    .sg-dark .skc:nth-child(5){animation-delay:.25s}
-    .sg-dark .skc:nth-child(6){animation-delay:.3s}
-    .sg-dark .skc::before{content:'';position:absolute;top:0;left:0;width:4px;height:0;background:var(--w);transition:height .45s cubic-bezier(.16,1,.3,1)}
-    .sg-dark .skc::after{content:'';position:absolute;left:36px;top:32px;width:30px;height:3px;background:var(--w)}
-    .sg-dark .skc:hover{transform:translateX(8px);border-color:rgba(255,255,255,0.2)}
-    .sg-dark .skc:hover::before{height:100%}
-    .sg-dark .skt{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:700!important;color:var(--w)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;margin-top:10px}
-    .sg-dark .skl{font-family:'Inter',sans-serif!important;font-size:17px!important;color:var(--g5)!important;line-height:1.9!important}
-    
-    /* === CERTS === */
-    .ci{display:grid;grid-template-columns:65px 1fr auto;gap:25px;align-items:center;padding:30px 0;border-bottom:1px solid var(--g2);transition:all .35s cubic-bezier(.16,1,.3,1);animation:slideLeft .4s ease both}
-    .ci:nth-child(1){animation-delay:.1s}
-    .ci:nth-child(2){animation-delay:.15s}
-    .ci:nth-child(3){animation-delay:.2s}
-    .ci:nth-child(4){animation-delay:.25s}
-    .ci:nth-child(5){animation-delay:.3s}
-    .ci:hover{padding-left:12px}
-    .cin{font-family:'Outfit',sans-serif;font-size:42px;font-weight:700;color:var(--g2);line-height:1}
-    .cit{font-family:'Inter',sans-serif!important;font-size:14px!important;font-weight:600!important;color:var(--b)!important;margin-bottom:3px!important}
-    .cio{font-family:'Inter',sans-serif!important;font-size:11px!important;color:var(--g5)!important}
-    .cil{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--b)!important;letter-spacing:1.5px!important;text-transform:uppercase!important;text-decoration:none!important;padding:10px 18px!important;border:1px solid var(--g3)!important;transition:all .35s cubic-bezier(.16,1,.3,1)!important;display:inline-block!important}
-    .cil:hover{background:var(--b)!important;color:var(--w)!important;border-color:var(--b)!important}
-    .cina{font-family:'Inter',sans-serif!important;font-size:10px!important;color:var(--g3)!important}
-    
-    /* === CONTACT === */
-    .cg{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .cc{background:var(--g1);padding:36px 40px;transition:all .35s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;animation:fadeUp .4s ease both;border:1px solid var(--g2);cursor:pointer}
-    .cc:nth-child(1){animation-delay:.1s}
-    .cc:nth-child(2){animation-delay:.15s}
-    .cc:nth-child(3){animation-delay:.2s}
-    .cc:nth-child(4){animation-delay:.25s}
-    .cc::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;background:var(--b);transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.16,1,.3,1)}
-    .cc::after{content:'';position:absolute;left:40px;top:30px;width:30px;height:3px;background:var(--b)}
-    .cc:hover{transform:translateY(-5px);border-color:var(--b)}
-    .cc:hover::before{transform:scaleY(1)}
-    .ccl{font-family:'Inter',sans-serif!important;font-size:9px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:10px!important;margin-top:8px}
-    .ccv{font-family:'Space Grotesk',sans-serif!important;font-size:16px!important;font-weight:500!important;color:var(--b)!important}
-    .ccv a{color:var(--b)!important;text-decoration:none!important;border-bottom:1px solid var(--g3)!important;transition:border-color .3s ease!important}
-    .ccv a:hover{border-color:var(--b)!important}
-    
-    /* === QUOTE === */
-    .qs{background:var(--g1)!important;padding:75px 70px;position:relative;animation:fadeIn .5s ease both}
-    .qm{font-family:'Playfair Display',serif;font-size:220px;color:rgba(0,0,0,0.02);position:absolute;top:-15px;left:15px;line-height:1;pointer-events:none}
-    .qt{font-family:'Playfair Display',serif!important;font-size:28px!important;font-weight:400!important;font-style:italic!important;color:var(--b)!important;line-height:1.5!important;max-width:520px!important;position:relative;z-index:1}
-    
-    /* === TESTIMONIALS === */
-    .tms{background:var(--w)!important;padding:70px}
-    .tmg{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-    .tmc{background:var(--w);padding:0;border:none;position:relative;transition:all .45s cubic-bezier(.16,1,.3,1);animation:fadeUp .5s ease both}
-    .tmc:nth-child(1){animation-delay:.1s}
-    .tmc:nth-child(2){animation-delay:.2s}
-    .tmc:nth-child(3){animation-delay:.3s}
-    .tmq{font-family:'Playfair Display',serif!important;font-size:16px!important;font-style:italic!important;color:var(--g6)!important;line-height:1.9!important;margin-bottom:28px!important;position:relative}
-    .tmq::before{content:'"';font-family:'Playfair Display',serif;font-size:48px;color:var(--g3);position:absolute;top:-10px;left:-5px;line-height:1}
-    .tma{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:var(--b);margin-bottom:3px}
-    .tmr{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5)}
-    
-    /* === FOOTER === */
-    .footer{background:var(--g1);padding:50px 70px;border-top:1px solid var(--g2);display:flex;justify-content:space-between;align-items:center}
-    .footer-text{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5)}
-    .footer-links{display:flex;gap:24px}
-    .footer-links a{font-family:'Inter',sans-serif;font-size:11px;color:var(--g5);text-decoration:none;transition:color .3s ease}
-    .footer-links a:hover{color:var(--b)}
-    
-    /* === MISC === */
-    .cdl{font-family:'Inter',sans-serif!important;font-size:8px!important;font-weight:700!important;color:var(--g4)!important;letter-spacing:2px!important;text-transform:uppercase!important;margin-bottom:14px!important;padding-left:2rem!important}
-    .dv{width:calc(100% - 4rem)!important;height:1px;background:var(--g2);margin:55px 2rem!important}
-    
-    /* === SECTION DIVIDER === */
-    .sdiv{height:1px;background:linear-gradient(90deg,transparent,var(--g3),transparent);margin:0;opacity:0.5}
-    .sdiv-dark{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);margin:0}
-    
-    /* === PROGRESS INDICATOR === */
-    .progress-bar{position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,var(--b),var(--g6));z-index:9999;transition:width .1s ease-out}
-    
-    h1,h2,h3{font-family:'Outfit',sans-serif!important}
-    p,li{font-family:'Inter',sans-serif!important}
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: 300ms var(--ease);
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === RESET === */
+.stApp, [data-testid="stAppViewContainer"], .main {
+    background: var(--bg) !important;
+}
+
+#MainMenu, footer, header, .stDeployButton, 
+div[data-testid="stDecoration"], 
+[data-testid="stHeader"],
+[data-testid="stToolbar"] {
+    display: none !important;
+}
+
+.block-container {
+    padding: 0 !important;
+    max-width: 100% !important;
+}
+
+/* === SIDEBAR === */
+section[data-testid="stSidebar"],
+[data-testid="stSidebar"] {
+    background: var(--black) !important;
+    min-width: 300px !important;
+    max-width: 300px !important;
+    width: 300px !important;
+}
+
+section[data-testid="stSidebar"] > div:first-child,
+[data-testid="stSidebar"] > div:first-child {
+    padding: 0 !important;
+    padding-bottom: 100px !important;
+    background: var(--black) !important;
+}
+
+[data-testid="stSidebarNav"], .stSidebarNav {
+    display: none !important;
+}
+
+.sidebar-brand {
+    padding: var(--space-2xl) var(--space-xl) var(--space-xl);
+    border-bottom: 1px solid var(--gray-800);
+    text-align: center;
+}
+
+/* Sidebar photo placeholder */
+.sidebar-photo {
+    width: 100px;
+    height: 100px;
+    background: var(--gray-700);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    margin: 0 auto var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: var(--gray-400);
+    transition: var(--transition);
+}
+
+.sidebar-photo:hover {
+    transform: scale(1.05);
+    border-color: var(--gray-300);
+}
+
+.sidebar-name {
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: var(--white);
+    margin: 0 0 4px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.sidebar-title {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--gray-400);
+    margin: 0 0 var(--space-md);
+    letter-spacing: 1px;
+}
+
+/* Status badge - "Open to opportunities" */
+.sidebar-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gray-800);
+    padding: 8px 16px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    color: #4ade80;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-status-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* === NAVIGATION === */
+[data-testid="stSidebar"] .stRadio > div {
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: var(--space-lg) 0 !important;
+}
+
+[data-testid="stSidebar"] .stRadio label > div:first-child,
+[data-testid="stSidebar"] [role="radiogroup"] label > div:first-child {
+    display: none !important;
+}
+
+[data-testid="stSidebar"] .stRadio label,
+[data-testid="stSidebar"] [role="radiogroup"] label {
+    background: transparent !important;
+    padding: 16px var(--space-xl) !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    transition: var(--transition) !important;
+    border-left: 3px solid transparent !important;
+}
+
+[data-testid="stSidebar"] .stRadio label:hover {
+    background: var(--gray-900) !important;
+    border-left-color: var(--gray-600) !important;
+}
+
+[data-testid="stSidebar"] .stRadio label:has(input:checked),
+[data-testid="stSidebar"] [role="radio"][aria-checked="true"] {
+    background: var(--gray-900) !important;
+    border-left-color: var(--white) !important;
+}
+
+[data-testid="stSidebar"] .stRadio label p,
+[data-testid="stSidebar"] .stRadio label span {
+    font-family: var(--font-display) !important;
+    font-size: 18px !important;
+    color: var(--gray-500) !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+    transition: var(--transition) !important;
+}
+
+[data-testid="stSidebar"] .stRadio label:hover p,
+[data-testid="stSidebar"] .stRadio label:hover span {
+    color: var(--gray-300) !important;
+}
+
+[data-testid="stSidebar"] .stRadio label:has(input:checked) p,
+[data-testid="stSidebar"] .stRadio label:has(input:checked) span,
+[data-testid="stSidebar"] [role="radio"][aria-checked="true"] p,
+[data-testid="stSidebar"] [role="radio"][aria-checked="true"] span {
+    color: var(--white) !important;
+}
+
+/* === SIDEBAR FOOTER === */
+.sidebar-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 300px;
+    padding: var(--space-lg) var(--space-xl);
+    border-top: 1px solid var(--gray-800);
+    background: var(--black);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.sidebar-download {
+    display: block;
+    background: var(--white);
+    color: var(--black);
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px;
+    transition: var(--transition);
+}
+
+.sidebar-download:hover {
+    background: var(--gray-200);
+}
+
+/* === HERO - WITH PHOTO + VALUE PROP + KEYWORDS === */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: var(--space-3xl);
+    padding: var(--space-3xl) 80px;
+    min-height: calc(100vh - 200px);
+    align-items: center;
+}
+
+.hero-content {
+    animation: fadeInUp 800ms var(--ease);
+}
+
+.hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--gray-500);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-lg);
+}
+
+.hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6vw, 72px);
+    font-weight: 400;
+    color: var(--black);
+    line-height: 0.95;
+    margin: 0 0 var(--space-lg);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Value proposition - answers "Why hire Jason?" */
+.hero-value-prop {
+    font-family: var(--font-body);
+    font-size: 22px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    max-width: 560px;
+    margin-bottom: var(--space-xl);
+}
+
+/* Keywords visible (recruiter scan) */
+.hero-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: var(--space-xl);
+}
+
+.hero-keyword {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--black);
+    background: var(--gray-100);
+    padding: 10px 18px;
+    border: 2px solid var(--gray-200);
+    transition: var(--transition);
+}
+
+.hero-keyword:hover {
+    border-color: var(--black);
+    background: var(--white);
+}
+
+/* Hero photo */
+.hero-photo-container {
+    animation: fadeInUp 800ms var(--ease) 200ms both;
+}
+
+.hero-photo {
+    width: 260px;
+    height: 260px;
+    background: var(--gray-200);
+    border: 4px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--gray-500);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.hero-photo:hover {
+    transform: scale(1.02);
+}
+
+.hero-photo-hint {
+    font-size: 12px;
+    color: var(--gray-400);
+}
+
+/* === STATS === */
+.stats-section {
+    padding: 0 80px var(--space-2xl);
+    animation: fadeInUp 800ms var(--ease) 400ms both;
+}
+
+.stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-xl);
+    padding: var(--space-xl) 0;
+    border-top: 2px solid var(--black);
+    border-bottom: 2px solid var(--black);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--black);
+    letter-spacing: 2px;
+    line-height: 1;
+}
+
+.stat-label {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* === FLAGSHIP PROJECT (DEEP DIVE) === */
+.flagship {
+    background: var(--black);
+    padding: var(--space-3xl) 80px;
+    color: var(--white);
+}
+
+.flagship-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-400);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--white);
+    display: inline-block;
+}
+
+.flagship-title {
+    font-family: var(--font-display);
+    font-size: 44px;
+    color: var(--white);
+    line-height: 1.1;
+    margin: 0 0 var(--space-md);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    max-width: 700px;
+}
+
+/* Timeline/Scope - audit requirement */
+.flagship-meta {
+    display: flex;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--gray-400);
+}
+
+.flagship-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.flagship-meta-item::before {
+    content: '→';
+    color: var(--white);
+}
+
+/* THE MESS - storytelling format */
+.flagship-mess {
+    background: var(--gray-900);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border-left: 4px solid var(--white);
+}
+
+.flagship-mess-label {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--white);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+}
+
+.flagship-mess-text {
+    font-family: var(--font-body);
+    font-size: 18px;
+    color: var(--gray-300);
+    line-height: 1.8;
+}
+
+/* Results grid */
+.flagship-results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.flagship-result {
+    border-left: 3px solid var(--white);
+    padding-left: var(--space-lg);
+}
+
+.flagship-result-value {
+    font-family: var(--font-display);
+    font-size: 44px;
+    color: var(--white);
+    letter-spacing: 1px;
+}
+
+.flagship-result-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Tags */
+.flagship-tags {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.flagship-tag {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--gray-400);
+    background: var(--gray-800);
+    padding: 10px 16px;
+    transition: var(--transition);
+}
+
+.flagship-tag:hover {
+    background: var(--gray-700);
+    color: var(--white);
+}
+
+/* === HOME TESTIMONIAL (first scroll) === */
+.home-testimonial {
+    background: var(--gray-100);
+    padding: var(--space-2xl) 80px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.testimonial-content {
+    max-width: 700px;
+}
+
+.testimonial-quote {
+    font-family: var(--font-body);
+    font-size: 26px;
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.5;
+    margin: 0 0 var(--space-lg);
+    position: relative;
+    padding-left: var(--space-xl);
+}
+
+.testimonial-quote::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-family: var(--font-display);
+    font-size: 80px;
+    color: var(--gray-300);
+    line-height: 1;
+}
+
+.testimonial-author {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.testimonial-role {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-top: 2px;
+}
+
+.testimonial-cta {
+    text-align: right;
+}
+
+.testimonial-cta-text {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: var(--space-sm);
+}
+
+.testimonial-cta-link {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--black);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 2px solid var(--black);
+    padding-bottom: 4px;
+    transition: var(--transition);
+}
+
+.testimonial-cta-link:hover {
+    color: var(--gray-600);
+    border-color: var(--gray-600);
+}
+
+/* === SECONDARY PROJECTS === */
+.projects-section {
+    padding: var(--space-2xl) 80px var(--space-3xl);
+}
+
+.projects-header {
+    margin-bottom: var(--space-xl);
+}
+
+.projects-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    color: var(--black);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.project-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    padding: var(--space-xl);
+    transition: var(--transition);
+    position: relative;
+}
+
+.project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--black);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    border-color: var(--black);
+}
+
+.project-card:hover::after {
+    transform: scaleX(1);
+}
+
+.project-company {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-500);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+}
+
+.project-title {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--black);
+    line-height: 1.2;
+    margin: 0 0 var(--space-sm);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Timeline on project cards */
+.project-meta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-bottom: var(--space-md);
+}
+
+.project-desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+}
+
+.project-metrics {
+    display: flex;
+    gap: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--gray-200);
+}
+
+.project-metric-value {
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--black);
+    letter-spacing: 1px;
+}
+
+.project-metric-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* === WORK PAGE === */
+.work-hero {
+    background: var(--black);
+    padding: 100px 80px;
+    text-align: center;
+}
+
+.work-hero-title {
+    font-family: var(--font-display);
+    font-size: 56px;
+    color: var(--white);
+    margin: 0 0 var(--space-md);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.work-hero-sub {
+    font-family: var(--font-body);
+    font-size: 18px;
+    color: var(--gray-400);
+}
+
+/* Case study - THE MESS format */
+.case-study {
+    padding: var(--space-3xl) 80px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.case-study:nth-child(even) {
+    background: var(--gray-50);
+}
+
+.case-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.case-label {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--black);
+    padding: 8px 16px;
+    letter-spacing: 2px;
+    margin-bottom: var(--space-lg);
+}
+
+.case-title {
+    font-family: var(--font-display);
+    font-size: 44px;
+    color: var(--black);
+    line-height: 1.1;
+    margin: 0 0 var(--space-sm);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.case-subtitle {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--gray-500);
+    margin-bottom: var(--space-xl);
+}
+
+/* Results box */
+.case-results {
+    background: var(--black);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    text-align: center;
+}
+
+.case-result-value {
+    font-family: var(--font-display);
+    font-size: 44px;
+    color: var(--white);
+    letter-spacing: 1px;
+}
+
+.case-result-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Story sections */
+.case-section {
+    margin-bottom: var(--space-xl);
+}
+
+.case-section-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--black);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-md);
+    border-left: 4px solid var(--black);
+}
+
+.case-section p {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-md);
+}
+
+.case-section ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.case-section li {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+}
+
+.case-section li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--black);
+    font-weight: 700;
+}
+
+/* Stakeholder quote */
+.case-quote {
+    background: var(--gray-100);
+    padding: var(--space-xl);
+    margin: var(--space-xl) 0;
+    border-left: 4px solid var(--black);
+}
+
+.case-quote p {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.case-quote cite {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-500);
+    font-style: normal;
+    display: block;
+    margin-top: var(--space-md);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* === ABOUT PAGE === */
+.about-hero {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--space-3xl);
+    padding: var(--space-3xl) 80px;
+    align-items: start;
+}
+
+.about-photo {
+    width: 280px;
+    height: 280px;
+    background: var(--gray-200);
+    border: 4px solid var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--gray-500);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.about-photo:hover {
+    transform: scale(1.02);
+}
+
+.about-intro h1 {
+    font-family: var(--font-display);
+    font-size: 52px;
+    color: var(--black);
+    margin: 0 0 var(--space-lg);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.about-intro p {
+    font-family: var(--font-body);
+    font-size: 19px;
+    color: var(--gray-600);
+    line-height: 1.8;
+    margin: 0 0 var(--space-md);
+}
+
+.about-section {
+    padding: var(--space-2xl) 80px;
+    border-top: 1px solid var(--gray-200);
+}
+
+.about-section:nth-child(even) {
+    background: var(--gray-50);
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 32px;
+    color: var(--black);
+    margin: 0 0 var(--space-xl);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* Timeline */
+.timeline {
+    max-width: 720px;
+    position: relative;
+    padding-left: var(--space-xl);
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--black);
+}
+
+.timeline-item {
+    padding: var(--space-lg) 0;
+    border-bottom: 1px solid var(--gray-200);
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: var(--space-xl);
+    position: relative;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 32px;
+    width: 16px;
+    height: 16px;
+    background: var(--white);
+    border: 3px solid var(--black);
+    transition: var(--transition);
+}
+
+.timeline-item:hover::before {
+    background: var(--black);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-year {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--gray-500);
+}
+
+.timeline-role {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--black);
+    margin: 0 0 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.timeline-company {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--gray-500);
+}
+
+.timeline-desc {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 1.6;
+    margin-top: var(--space-sm);
+}
+
+/* Skills */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    max-width: 900px;
+}
+
+.skill-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    padding: var(--space-xl);
+    transition: var(--transition);
+}
+
+.skill-card:hover {
+    border-color: var(--black);
+}
+
+.skill-card-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--black);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+}
+
+.skill-card-list {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--gray-600);
+    line-height: 2.2;
+}
+
+/* Certifications */
+.cert-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+    max-width: 900px;
+}
+
+.cert-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    padding: var(--space-lg);
+    transition: var(--transition);
+}
+
+.cert-card:hover {
+    border-color: var(--black);
+}
+
+.cert-name {
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 4px;
+}
+
+.cert-issuer {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--gray-500);
+}
+
+/* === CONNECT PAGE === */
+.connect-hero {
+    background: var(--black);
+    padding: 100px 80px;
+    text-align: center;
+}
+
+.connect-hero h1 {
+    font-family: var(--font-display);
+    font-size: 56px;
+    color: var(--white);
+    margin: 0 0 var(--space-lg);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.connect-hero p {
+    font-family: var(--font-body);
+    font-size: 19px;
+    color: var(--gray-400);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.connect-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    max-width: 960px;
+    margin: var(--space-2xl) auto 0;
+}
+
+.connect-card {
+    background: var(--gray-900);
+    border: 1px solid var(--gray-800);
+    padding: var(--space-xl) var(--space-lg);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.connect-card:hover {
+    background: var(--gray-800);
+    border-color: var(--white);
+    transform: translateY(-4px);
+}
+
+.connect-card-icon {
+    font-size: 28px;
+    margin-bottom: var(--space-sm);
+}
+
+.connect-card-label {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.connect-card-value {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--white);
+    word-break: break-all;
+}
+
+.connect-card-value a {
+    color: var(--gray-300);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.connect-card-value a:hover {
+    color: var(--white);
+}
+
+/* Testimonials grid */
+.testimonials {
+    padding: var(--space-3xl) 80px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    padding: var(--space-xl);
+    transition: var(--transition);
+    position: relative;
+}
+
+.testimonial-card::before {
+    content: '"';
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-lg);
+    font-family: var(--font-display);
+    font-size: 72px;
+    color: var(--gray-200);
+    line-height: 1;
+}
+
+.testimonial-card:hover {
+    border-color: var(--black);
+}
+
+.testimonial-card-quote {
+    font-family: var(--font-body);
+    font-size: 17px;
+    color: var(--gray-600);
+    line-height: 1.7;
+    font-style: italic;
+    margin-bottom: var(--space-md);
+    position: relative;
+}
+
+.testimonial-card-author {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.testimonial-card-role {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-top: 2px;
+}
+
+/* === BUTTONS === */
+.stButton > button {
+    font-family: var(--font-display) !important;
+    font-size: 16px !important;
+    padding: 14px 28px !important;
+    border-radius: 0 !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+    transition: var(--transition) !important;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px) !important;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; padding: var(--space-2xl) var(--space-xl); }
+    .hero-photo-container { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .flagship { padding: var(--space-2xl) var(--space-xl); }
+    .flagship-results { grid-template-columns: repeat(2, 1fr); }
+    .home-testimonial { grid-template-columns: 1fr; padding: var(--space-xl); }
+    .projects-section { padding: var(--space-xl); }
+    .projects-grid { grid-template-columns: 1fr; }
+    .case-study { padding: var(--space-2xl) var(--space-xl); }
+    .about-hero { grid-template-columns: 1fr; padding: var(--space-xl); }
+    .about-section { padding: var(--space-xl); }
+    .work-hero, .connect-hero { padding: var(--space-2xl) var(--space-xl); }
+    .testimonials { padding: var(--space-xl); }
+}
+
+@media (max-width: 768px) {
+    .stats-bar { grid-template-columns: 1fr 1fr; gap: var(--space-lg); }
+    .flagship-results { grid-template-columns: 1fr; }
+    .case-results { grid-template-columns: 1fr; }
+    .skills-grid, .cert-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: var(--space-sm); }
+    .connect-cards { grid-template-columns: repeat(2, 1fr); }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .work-hero-title, .connect-hero h1 { font-size: 40px; }
+}
 </style>
-""", unsafe_allow_html=True)
+<link href='https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap' rel='stylesheet'>
+"""
 
-# SIDEBAR
-with st.sidebar:
-    st.markdown('<p class="sb-name">Jason Chang</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sb-title">BI Manager</p>', unsafe_allow_html=True)
-    page = st.radio("", ["About","Revenue Growth","Strategic BI","Operations","Efficiency","Capabilities","Credentials","Connect"], label_visibility="collapsed")
-    st.markdown('<p class="sb-footer">© 2025</p>', unsafe_allow_html=True)
+# =============================================================================
+# HELPERS
+# =============================================================================
 
-# Scroll to top on page change
-if st.session_state.prev_page != page:
-    st.session_state.prev_page = page
-    components.html(
-        """<script>
-        var main = window.parent.document.querySelector('.main');
-        if(main) main.scrollTo({top: 0, behavior: 'instant'});
-        </script>""",
-        height=0
-    )
+def render_timeline_item(years: str, role: str, company: str, desc: str = None, last: bool = False) -> str:
+    style = ' style="border-bottom:none"' if last else ''
+    desc_html = f'<p class="timeline-desc">{desc}</p>' if desc else ''
+    return f'''
+    <div class="timeline-item"{style}>
+        <div class="timeline-year">{years}</div>
+        <div class="timeline-content">
+            <p class="timeline-role">{role}</p>
+            <p class="timeline-company">{company}</p>
+            {desc_html}
+        </div>
+    </div>'''
 
-# Progress indicator
-components.html(
-    """
-    <div id="progress-bar" style="position:fixed;top:0;left:0;width:0%;height:3px;background:linear-gradient(90deg,#111111,#737373);z-index:9999;transition:width .15s ease-out"></div>
-    <script>
-    (function(){
-        var bar = document.getElementById('progress-bar');
-        var main = window.parent.document.querySelector('.main');
-        if(main && bar){
-            main.addEventListener('scroll', function(){
-                var scrollTop = main.scrollTop;
-                var scrollHeight = main.scrollHeight - main.clientHeight;
-                var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-                bar.style.width = progress + '%';
-            });
-        }
-    })();
-    </script>
-    """,
-    height=0
-)
+def render_skill_card(title: str, skills: list) -> str:
+    return f'''
+    <div class="skill-card">
+        <div class="skill-card-title">{title}</div>
+        <div class="skill-card-list">{'<br>'.join(skills)}</div>
+    </div>'''
 
-@st.cache_data
-def load_data(url):
-    d = pd.read_csv(url)
-    d['Date'] = pd.to_datetime(d['Date'])
-    return d
+def render_cert_card(name: str, issuer: str) -> str:
+    return f'''
+    <div class="cert-card">
+        <p class="cert-name">{name}</p>
+        <p class="cert-issuer">{issuer}</p>
+    </div>'''
 
-data = load_data("https://raw.githubusercontent.com/jasonchang0102/Streamlit0102/main/RAWBliz.csv")
+def render_testimonial_card(quote: str, author: str, role: str) -> str:
+    return f'''
+    <div class="testimonial-card">
+        <p class="testimonial-card-quote">"{quote}"</p>
+        <p class="testimonial-card-author">{author}</p>
+        <p class="testimonial-card-role">{role}</p>
+    </div>'''
 
-if page == "About":
-    st.markdown("""
-    <div class="hs">
-        <div class="hl">
-            <div class="dr"></div>
-            <div class="hb"><span class="hbd"></span><span class="hbt">Available for Opportunities</span></div>
-            <p class="hn">JASON</p>
-            <p class="hn hn2">CHANG</p>
-            <p class="htitle">BI Manager</p>
-            <div class="hrw"><div class="hrl"></div><span class="hro">Revenue & Growth Analytics</span></div>
-            <div class="hsocial">
-                <a href="https://linkedin.com/in/jchang0102" target="_blank" class="hslink">LinkedIn</a>
-                <a href="https://github.com/jasonchang0102" target="_blank" class="hslink">GitHub</a>
-                <a href="https://github.com/jasonchang0102/Streamlit0102/raw/main/Jason%20Chang%20--BI%20-%20Resume%20-%201-22-26.pdf" target="_blank" class="hslink hsbtn">Download Resume</a>
+# =============================================================================
+# PAGES
+# =============================================================================
+
+def render_home():
+    # Hero with photo + value prop + keywords
+    keywords_html = ''.join(f'<span class="hero-keyword">{k}</span>' for k in CONFIG.KEYWORDS)
+    
+    st.markdown(f"""
+    <div class="hero">
+        <div class="hero-content">
+            <p class="hero-eyebrow">{CONFIG.TITLE} · 10+ Years · Currently at Advantage Solutions</p>
+            <h1 class="hero-headline">I turn data chaos into<br>executive clarity</h1>
+            <p class="hero-value-prop">{CONFIG.VALUE_PROP}</p>
+            <div class="hero-keywords">{keywords_html}</div>
+        </div>
+        <div class="hero-photo-container">
+            <div class="hero-photo">
+                Your Photo<br>260×260
+                <span class="hero-photo-hint">Add professional headshot</span>
             </div>
         </div>
-        <div class="hr">
-            <div class="db"></div>
-            <div class="dg"><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span><span class="dd"></span></div>
-            <p class="he">About Me</p>
-            <p class="hh">Turning <em>complex data</em> into strategic growth.</p>
-            <p class="hp">Data-driven leader with 10+ years scaling national programs through market strategy, analytics, and channel expansion. I translate complex data into actionable insights to accelerate decisions and drive measurable revenue growth.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Stats with context
+    st.markdown("""
+    <div class="stats-section">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-value">10+</div>
+                <div class="stat-label">Years in BI</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">$15M</div>
+                <div class="stat-label">Revenue Impact</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">250+</div>
+                <div class="stat-label">Users Enabled</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">70%</div>
+                <div class="stat-label">Faster Decisions</div>
+            </div>
         </div>
     </div>
-    <div class="mw"><div class="mt"><span class="mi">SNOWFLAKE <span class="md"></span> POWER BI <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> GA4 <span class="md"></span> BIGQUERY <span class="md"></span> A/B TESTING <span class="md"></span> ATTRIBUTION</span><span class="mi">SNOWFLAKE <span class="md"></span> POWER BI <span class="md"></span> PYTHON <span class="md"></span> SQL <span class="md"></span> GA4 <span class="md"></span> BIGQUERY <span class="md"></span> A/B TESTING <span class="md"></span> ATTRIBUTION</span></div></div>
-    <div class="sw"><div class="sb"><p class="sn">10+</p><p class="sl">Years Experience</p></div><div class="sb"><p class="sn">70%</p><p class="sl">Faster Data Refresh</p></div><div class="sb"><p class="sn">36%</p><p class="sl">ROAS Increase</p></div></div>
     """, unsafe_allow_html=True)
-
-elif page == "Revenue Growth":
+    
+    # Flagship project with "THE MESS" storytelling
     st.markdown("""
-    <div class="sd"><p class="sdt">Case Study</p><p class="sdn">PLAYER<br>ENGAGEMENT</p></div>
-    <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg-dark"><div class="rc"><p class="rcn">+33%</p><p class="rct">Conversion Lift</p><p class="rcd">Targeted campaigns driven by segment insights</p></div><div class="rc"><p class="rcn">-18%</p><p class="rct">CPA Reduction</p><p class="rcd">Optimized spend allocation across high-value segments</p></div></div>
-    </div>
-    <div class="cd">
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Revenue optimization initiative for Warcraft during two major in-game events. Leadership needed clarity on player segment behavior and untapped monetization opportunities.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bi">Segment high-value players for targeted promotional campaigns</p><p class="bi">Diagnose spending decline patterns by region and platform</p><p class="bi">Deliver actionable insights to inform marketing strategy</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Behavioral Clustering</strong> — K-Means segmentation on player spending patterns</p><p class="bi"><strong>Heatmap Analysis</strong> — Cross-tabulated region × platform performance</p><p class="bi"><strong>Strategic Recommendation</strong> — Prioritized Platform 3, Region 1 for campaign focus</p></div></div>
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Dark background container for images
-    st.markdown('<style>.rg-images [data-testid="stImage"],.rg-images [data-testid="column"],.rg-images [data-testid="stHorizontalBlock"],.rg-images .element-container,.rg-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="rg-images" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/333', use_container_width=True)
-    with col2:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/222', use_container_width=True)
-
-    col1, col2 = st.columns(2)
-    with col1:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/777', use_container_width=True)
-    with col2:
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/111', use_container_width=True)
-    
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/444', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/555', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/666', use_container_width=True)
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    # Charts section with dark background
-    st.markdown('<style>.rg-charts [data-testid="stImage"],.rg-charts .element-container,.rg-charts>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="rg-charts" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
-    
-    hm = data.groupby(['region', 'platform']).dollars_spent.mean().unstack()
-    f1, a1 = plt.subplots(figsize=(9, 5))
-    f1.patch.set_facecolor('#111111')
-    a1.set_facecolor('#111111')
-    sns.heatmap(hm, annot=True, cmap="Greys", fmt=".2f", linewidths=4, ax=a1, annot_kws={"color": "#fafafa", "fontsize": 11, "fontweight": "bold"}, linecolor='#111111', cbar=False)
-    a1.tick_params(colors='#fafafa', labelsize=10)
-    a1.set_xlabel('', fontsize=0)
-    a1.set_ylabel('', fontsize=0)
-    for s in a1.spines.values():
-        s.set_visible(False)
-    st.pyplot(f1)
-    plt.close(f1)
-
-    e1 = data[(data['Date'] >= '2017-01-24') & (data['Date'] <= '2017-02-14')]
-    e2 = data[(data['Date'] >= '2017-02-28') & (data['Date'] <= '2017-03-21')]
-    f, ax = plt.subplots(2, 2, figsize=(10, 7))
-    f.patch.set_facecolor('#111111')
-    for a in ax.flat:
-        a.set_facecolor('#111111')
-        a.tick_params(colors='#ffffff', labelsize=9)
-        for s in a.spines.values():
-            s.set_visible(False)
-    for i, (c, t) in enumerate([('games_played', 'GAMES'), ('skill_last', 'SKILL'), ('items_crafted', 'ITEMS'), ('dollars_spent', 'SPEND')]):
-        a = ax[i // 2, i % 2]
-        sns.kdeplot(e1[c], fill=True, color="#ffffff", label="Event 1", ax=a, alpha=0.15)
-        sns.kdeplot(e2[c], fill=True, color="#737373", label="Event 2", ax=a, alpha=0.25)
-        a.set_title(t, fontsize=11, fontweight='700', color='#ffffff')
-        a.legend(fontsize=8, frameon=False, labelcolor='#ffffff')
-    plt.tight_layout()
-    st.pyplot(f)
-    plt.close(f)
-
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/999', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "Strategic BI":
-    st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">EXECUTIVE<br>INTELLIGENCE</p></div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="ig"><div class="ic"><p class="ict">9% Quarterly Revenue Lift</p><p class="icd">Accelerated decision-making via real-time executive dashboards</p></div><div class="ic"><p class="ict">250+ Users Enabled</p><p class="icd">Field and ops teams with self-service analytics access</p></div></div>
+    <div class="flagship">
+        <div class="flagship-label">Flagship Project</div>
+        <h2 class="flagship-title">Unified 5 Conflicting Data Sources Into a Single Source of Truth</h2>
+        <div class="flagship-meta">
+            <span class="flagship-meta-item">6 weeks</span>
+            <span class="flagship-meta-item">$12M annual impact</span>
+            <span class="flagship-meta-item">250 users</span>
+            <span class="flagship-meta-item">5 stakeholders</span>
+        </div>
+        
+        <div class="flagship-mess">
+            <div class="flagship-mess-label">The Mess I Inherited</div>
+            <p class="flagship-mess-text">
+                After the merger, I found 5 sales systems that didn't talk to each other. Each region defined "revenue" differently — APAC included returns, EMEA didn't. The CFO was getting 5 different numbers in every board meeting. I had 6 weeks before Q3 close to build a single source of truth, with no dedicated engineering support and a Snowflake instance already over capacity.
+            </p>
+        </div>
+        
+        <div class="flagship-results">
+            <div class="flagship-result">
+                <div class="flagship-result-value">9%</div>
+                <div class="flagship-result-label">Revenue Lift</div>
+            </div>
+            <div class="flagship-result">
+                <div class="flagship-result-value">70%</div>
+                <div class="flagship-result-label">Fewer Conflicts</div>
+            </div>
+            <div class="flagship-result">
+                <div class="flagship-result-value">5→1</div>
+                <div class="flagship-result-label">Day Decision Cycle</div>
+            </div>
+            <div class="flagship-result">
+                <div class="flagship-result-value">$12M</div>
+                <div class="flagship-result-label">Annual Impact</div>
+            </div>
+        </div>
+        
+        <div class="flagship-tags">
+            <span class="flagship-tag">Snowflake</span>
+            <span class="flagship-tag">Power BI</span>
+            <span class="flagship-tag">Python</span>
+            <span class="flagship-tag">DAX</span>
+            <span class="flagship-tag">Stakeholder Management</span>
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # White background for images
-    st.markdown('<style>.sbi-images [data-testid="stImage"],.sbi-images .element-container,.sbi-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="sbi-images" style="background:#ffffff;padding:20px 50px">', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Post-merger landscape with 5 fragmented sales domains and conflicting KPIs. Executive leadership lacked a unified view of performance across business units.</p></div></div></div>', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/1111', use_container_width=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Architect a scalable data infrastructure translating C-suite requirements into real-time, actionable intelligence.</p></div></div></div>', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/11', use_container_width=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/44', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Testimonial on first scroll
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Schema Architecture</strong> — Consolidated POS, field, compliance, and promo data in Snowflake</p><p class="bi"><strong>KPI Harmonization</strong> — Standardized metrics across domains, eliminating 70% of conflicts</p><p class="bi"><strong>Pipeline Automation</strong> — Reduced decision cycle from 5 days to 24 hours</p></div></div>
-    </div>
-    """, unsafe_allow_html=True)
-
-elif page == "Operations":
-    st.markdown("""
-    <div class="sd"><p class="sdt">Case Study</p><p class="sdn">FULFILLMENT<br>FORECASTING</p></div>
-    <div class="cd">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
-        <div class="rg-dark"><div class="rc"><p class="rcn">-22%</p><p class="rct">Late Shipments</p><p class="rcd">Predictive models enabled proactive inventory positioning</p></div><div class="rc"><p class="rcn">↑</p><p class="rct">Campaign Readiness</p><p class="rcd">Cross-functional alignment before promotional launches</p></div></div>
-    </div>
-    <div class="cd">
-        <div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">Siloed operations across marketing, warehouse, purchasing, and customer service. Recurring late shipments were eroding customer satisfaction and undermining promotional campaigns.</p></div></div>
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Develop predictive demand models to synchronize cross-functional teams and optimize fulfillment performance.</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Demand Forecasting</strong> — Integrated sales velocity, promotional calendars, and seasonal patterns</p><p class="bi"><strong>Unified Data Layer</strong> — Consolidated marketing, warehouse, and purchasing into single source of truth</p><p class="bi"><strong>Proactive Monitoring</strong> — Automated alerts for inventory thresholds and fulfillment bottlenecks</p></div></div>
+    <div class="home-testimonial">
+        <div class="testimonial-content">
+            <p class="testimonial-quote">For the first time in two years, I walked into a board meeting with confidence in our numbers. Jason didn't just fix our data — he changed how we think about measurement.</p>
+            <p class="testimonial-author">[Name]</p>
+            <p class="testimonial-role">CFO, Advantage Solutions</p>
+        </div>
+        <div class="testimonial-cta">
+            <p class="testimonial-cta-text">See how I did it</p>
+            <a href="#" class="testimonial-cta-link">View Case Study →</a>
+        </div>
     </div>
     """, unsafe_allow_html=True)
     
-    # Dark background for image
-    st.markdown('<style>.op-images [data-testid="stImage"],.op-images .element-container,.op-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="op-images" style="background:#111111;padding:20px 50px">', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/3333', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "Efficiency":
-    st.markdown('<div class="sl2"><p class="slt">Case Study</p><p class="sln">DATA<br>AUTOMATION</p></div>', unsafe_allow_html=True)
+    # Secondary projects
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">01</span><div class="sc"><p class="st">Impact</p></div></div>
+    <div class="projects-section">
+        <div class="projects-header">
+            <h2 class="projects-title">More Work</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-company">Modern Home Station</div>
+                <h3 class="project-title">+33% Conversion via A/B Testing</h3>
+                <div class="project-meta">8 weeks · Cross-channel attribution</div>
+                <p class="project-desc">Marketing was sending the same promotion to everyone. I built cross-channel attribution across GA4, Shopify, and Meta, then ran multivariate tests on 12 ad combinations.</p>
+                <div class="project-metrics">
+                    <div>
+                        <div class="project-metric-value">+33%</div>
+                        <div class="project-metric-label">Conversion</div>
+                    </div>
+                    <div>
+                        <div class="project-metric-value">-18%</div>
+                        <div class="project-metric-label">CPA</div>
+                    </div>
+                    <div>
+                        <div class="project-metric-value">2x</div>
+                        <div class="project-metric-label">ROAS</div>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-company">Operations Automation</div>
+                <h3 class="project-title">160 Hours Saved Quarterly</h3>
+                <div class="project-meta">4 weeks · 99 vendor sources</div>
+                <p class="project-desc">"Automation" meant 47 Excel macros that one person (who left) understood. I replaced it with Python pipelines that actually work.</p>
+                <div class="project-metrics">
+                    <div>
+                        <div class="project-metric-value">160 hrs</div>
+                        <div class="project-metric-label">Saved/Qtr</div>
+                    </div>
+                    <div>
+                        <div class="project-metric-value">15→0%</div>
+                        <div class="project-metric-label">Error Rate</div>
+                    </div>
+                    <div>
+                        <div class="project-metric-value">99</div>
+                        <div class="project-metric-label">Vendors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="sw"><div class="sb"><p class="sn">160+</p><p class="sl">Hours Saved / Quarter</p></div><div class="sb"><p class="sn">-80%</p><p class="sl">Refresh Errors</p></div><div class="sb"><p class="sn">99+</p><p class="sl">Vendors Automated</p></div></div>
+    """, unsafe_allow_html=True)
+
+
+def render_work():
+    st.markdown("""
+    <div class="work-hero">
+        <h1 class="work-hero-title">Selected Work</h1>
+        <p class="work-hero-sub">Deep dives into problems I've solved — the mess, the struggle, and what I learned</p>
+    </div>
     """, unsafe_allow_html=True)
     
-    # White background for images
-    st.markdown('<style>.ef-images [data-testid="stImage"],.ef-images [data-testid="column"],.ef-images [data-testid="stHorizontalBlock"],.ef-images .element-container,.ef-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="ef-images" style="background:#ffffff;padding:20px 50px">', unsafe_allow_html=True)
-    st.markdown('<div class="cl"><div class="sr"><span class="snum">02</span><div class="sc"><p class="st">Context</p><p class="bt">99+ vendor data sources with inconsistent schemas. Manual ingestion consumed analyst capacity and introduced errors that cascaded through downstream reporting.</p></div></div></div>', unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown('<p class="cdl">PYTHON AUTOMATION</p>', unsafe_allow_html=True)
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/2222', use_container_width=True)
-    with col2:
-        st.markdown('<p class="cdl">VBA INTEGRATION</p>', unsafe_allow_html=True)
-        st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/9999', use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Case Study 1 - Flagship (deep)
     st.markdown("""
-    <div class="cl">
-        <div class="sr"><span class="snum">03</span><div class="sc"><p class="st">Objective</p><p class="bt">Build automated ingestion pipelines to eliminate manual processing and ensure data integrity at scale.</p></div></div>
-        <div class="sr"><span class="snum">04</span><div class="sc"><p class="st">Approach</p><p class="bi"><strong>Python/SQL Pipeline</strong> — Automated ingestion logic for 99+ vendor formats</p><p class="bi"><strong>Validation Framework</strong> — Pre-refresh audit rules catching anomalies before propagation</p><p class="bi"><strong>Legacy Integration</strong> — VBA automation bridging Excel-based stakeholder workflows</p></div></div>
+    <div class="case-study">
+        <div class="case-inner">
+            <span class="case-label">Flagship Project</span>
+            <h2 class="case-title">Unified Executive Intelligence</h2>
+            <p class="case-subtitle">Advantage Solutions · 6 weeks · $12M impact · 250 users</p>
+            
+            <div class="case-results">
+                <div>
+                    <div class="case-result-value">9%</div>
+                    <div class="case-result-label">Quarterly Revenue Lift</div>
+                </div>
+                <div>
+                    <div class="case-result-value">70%</div>
+                    <div class="case-result-label">Fewer KPI Conflicts</div>
+                </div>
+                <div>
+                    <div class="case-result-value">5→1</div>
+                    <div class="case-result-label">Decision Cycle (Days)</div>
+                </div>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>After the merger, I inherited a nightmare: 5 sales systems that didn't talk to each other. Each region defined "revenue" differently — APAC included returns, EMEA didn't. The CFO was getting 5 different numbers in every board meeting.</p>
+                <ul>
+                    <li>CFO getting 5 different revenue numbers at every board meeting</li>
+                    <li>Field teams created 47 shadow Excel trackers</li>
+                    <li>Previous BI lead quit mid-project</li>
+                    <li>Snowflake instance already over capacity</li>
+                </ul>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">Why This Was Hard</h3>
+                <p>This wasn't a technical problem — it was political. Each regional VP had built metrics to make their team look good. Standardizing meant someone's numbers would go down. I had to get 5 executives to agree on what "revenue" meant.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Bet</h3>
+                <p>I recommended forcing standardization immediately — no parallel systems, no "legacy" reports. Leadership approved, but the timeline was non-negotiable: 6 weeks to Q3 close.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p><strong>Week 1-2:</strong> Discovery. I asked every stakeholder: "What decision are you trying to make?" Found 70% of "must-have" metrics weren't actually used.</p>
+                <p><strong>Week 3:</strong> Forced alignment meeting. Locked 5 VPs in a room until we agreed on 12 golden metrics.</p>
+                <p><strong>Week 4-5:</strong> Built unified Snowflake schema. Wrote 40+ DAX measures. Created single executive dashboard.</p>
+                <p><strong>Week 6:</strong> Trained 250 users. Killed old reports. No going back.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">What Went Wrong</h3>
+                <p>APAC had an undocumented custom field that their entire commission structure depended on. Their numbers broke Day 1 of launch. I had to patch the data model live while the regional VP was on a CEO call explaining the discrepancy.</p>
+                <p>Lesson: "Undocumented" doesn't mean "unimportant." I now mandate field audits before any migration.</p>
+            </div>
+            
+            <div class="case-quote">
+                <p>"For the first time in two years, I walked into a board meeting with confidence in our numbers."</p>
+                <cite>— CFO</cite>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Case Study 2
+    st.markdown("""
+    <div class="case-study">
+        <div class="case-inner">
+            <span class="case-label">Case Study 02</span>
+            <h2 class="case-title">+33% Conversion Through A/B Testing</h2>
+            <p class="case-subtitle">Modern Home Station · 8 weeks · Cross-Channel Analytics</p>
+            
+            <div class="case-results">
+                <div>
+                    <div class="case-result-value">+33%</div>
+                    <div class="case-result-label">Conversion Rate</div>
+                </div>
+                <div>
+                    <div class="case-result-value">-18%</div>
+                    <div class="case-result-label">CPA Reduction</div>
+                </div>
+                <div>
+                    <div class="case-result-value">2x</div>
+                    <div class="case-result-label">ROAS</div>
+                </div>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>Marketing was sending the same promotion to everyone. Data scattered across Facebook, Shopify, Google Analytics — no unified customer view. "Attribution" meant whoever yelled loudest got credit.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p>Built cross-channel attribution integrating GA4, Shopify, Meta, Klaviyo. Applied K-Means segmentation to identify 4 distinct customer personas. Led multivariate testing across 12 ad combinations.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">What Went Wrong</h3>
+                <p>Saw spike in content views but no page views. Spent days debugging — mobile video sound settings were wrong, causing users to scroll past. The data was right; my interpretation was wrong.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">Results</h3>
+                <ul>
+                    <li>Value-based ads beat feature-based by 33% (p=0.03)</li>
+                    <li>Best combo: Meme creative + Learn More CTA + Comment prompt</li>
+                    <li>36% lower CPM with engagement-driven strategies</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Case Study 3
+    st.markdown("""
+    <div class="case-study">
+        <div class="case-inner">
+            <span class="case-label">Case Study 03</span>
+            <h2 class="case-title">160 Hours Saved via Automation</h2>
+            <p class="case-subtitle">99 Vendor Data Sources · 4 weeks · Python + SQL</p>
+            
+            <div class="case-results">
+                <div>
+                    <div class="case-result-value">160 hrs</div>
+                    <div class="case-result-label">Saved Quarterly</div>
+                </div>
+                <div>
+                    <div class="case-result-value">15→0%</div>
+                    <div class="case-result-label">Error Rate</div>
+                </div>
+                <div>
+                    <div class="case-result-value">99</div>
+                    <div class="case-result-label">Vendors</div>
+                </div>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">The Mess</h3>
+                <p>"Automation" meant 47 Excel macros that one person (who left) understood. Every Monday, 3 analysts spent 4 hours manually processing vendor reports. Error rate: 15%. Finance didn't trust any of it.</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">My Approach</h3>
+                <p>Built dynamic column mapping in Python — no more breaking when vendors changed formats. Created normalization buckets aligned with GL codes. Combined Python + VBA for hybrid automation (some vendors only sent Excel files via email).</p>
+            </div>
+            
+            <div class="case-section">
+                <h3 class="case-section-title">What Went Wrong</h3>
+                <p>One vendor only sent PDF reports with inconsistent formatting — spent 2 days building a custom parser. Three vendors reported in different timezones — took a week to standardize. Never assume vendor data is clean.</p>
+            </div>
+            
+            <div class="case-quote">
+                <p>"Finance finally trusts the 'automated' reports. That hasn't happened in years."</p>
+                <cite>— VP of Finance</cite>
+            </div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-elif page == "Capabilities":
-    st.markdown('<div class="sd"><p class="sdt">Expertise</p><p class="sdn">TECHNICAL<br>SKILLS</p></div>', unsafe_allow_html=True)
-    st.markdown('<style>.cap-images [data-testid="stImage"],.cap-images .element-container,.cap-images>div{background:#111111!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="cap-images cd" style="padding-bottom:60px">', unsafe_allow_html=True)
-    st.image('https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/logo', width=110)
-    st.markdown('<div style="width:100%;height:1px;background:rgba(255,255,255,0.08);margin:40px 0"></div>', unsafe_allow_html=True)
-    st.markdown("""
-    <div class="sg-dark">
-        <div class="skc"><p class="skt">BI & Visualization</p><p class="skl">Power BI / DAX<br>Looker / Qlik<br>Google Data Studio</p></div>
-        <div class="skc"><p class="skt">Languages</p><p class="skl">SQL<br>Python<br>VBA / Power Query</p></div>
-        <div class="skc"><p class="skt">Cloud & Warehousing</p><p class="skl">Snowflake<br>BigQuery<br>SQL Server (SSMS)</p></div>
-        <div class="skc"><p class="skt">SaaS & Platforms</p><p class="skl">GA4 / Meta Ads<br>Shopify / HubSpot<br>Klaviyo</p></div>
-        <div class="skc"><p class="skt">Statistical Analysis</p><p class="skl">A/B Testing<br>Regression / Cohort<br>Predictive Modeling</p></div>
-        <div class="skc"><p class="skt">Frameworks</p><p class="skl">Attribution Modeling<br>Funnel Analysis<br>Demand Forecasting</p></div>
-    </div>
+
+def render_about():
+    st.markdown(f"""
+    <div class="about-hero">
+        <div class="about-photo">
+            Your Photo<br>280×280
+            <span style="font-size:12px;color:var(--gray-400);margin-top:8px;">Add professional headshot</span>
+        </div>
+        <div class="about-intro">
+            <h1>Hi, I'm Jason.</h1>
+            <p>I've spent the last decade helping companies <strong>stop guessing and start knowing</strong>.</p>
+            <p>Most BI teams build dashboards. I build clarity — the kind where a CEO can walk into a board meeting and actually trust the numbers.</p>
+            <p>I've done this at Advantage Solutions, Modern Home Station, China Unicom, and Marshall Electronics.</p>
+            <p><strong>What I've learned:</strong> The hard part is never the SQL. It's getting humans to agree on what "revenue" means.</p>
+        </div>
     </div>
     """, unsafe_allow_html=True)
-
-elif page == "Credentials":
-    st.markdown('<div class="sl2"><p class="slt">Credentials</p><p class="sln">CERTIFICATIONS</p></div>', unsafe_allow_html=True)
-    st.markdown('<style>.cred-images [data-testid="stImage"],.cred-images .element-container,.cred-images>div{background:#ffffff!important}</style>', unsafe_allow_html=True)
-    st.markdown('<div class="cred-images cl">', unsafe_allow_html=True)
-    certs = [
-        ("01", "Supervised Machine Learning", "Stanford / Coursera · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/STANDFORD.PNG", "https://www.coursera.org/account/accomplishments/verify/YHLXRW3TL569"),
-        ("02", "Neural Networks & Deep Learning", "DeepLearning.AI · 2024", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/DeepAI", "https://www.coursera.org/account/accomplishments/verify/P3MNNDS44DLL"),
-        ("03", "Power BI Data Visualization", "EdX · 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/edx", "https://courses.edx.org/certificates/c05a356504164e2babb5e6c3ee54ec79"),
-        ("04", "AWS Cloud Practitioner", "Amazon Web Services · 2019", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/AWS1", None),
-        ("05", "SQL Certification", "Sololearn · 2017", "https://github.com/jasonchang0102/Streamlit0102/raw/main/Picture/SQLsololearn", "https://www.sololearn.com/en/certificates/CT-YUFRJBUH")
+    
+    # Experience
+    experience = [
+        ("2021 — Present", "BI Manager", "Advantage Solutions", 
+         "Built national Power BI ecosystem with Snowflake. Unified 5 sales domains. Automated 99+ vendor pipelines. Managed 7 regional managers."),
+        ("2017 — 2021", "BI Strategy & Analytics Manager", "Modern Home Station",
+         "Cross-channel attribution (GA4, Shopify, Meta). A/B testing program. Revenue: +45% FY19, +85% FY20."),
+        ("2016 — 2017", "BI & Strategic Development Manager", "China Unicom America",
+         "GTM pricing models. $2M+ revenue projections. Automated churn reporting."),
+        ("2014 — 2016", "BI Project Analyst", "Marshall Electronics",
+         "50+ product launches, $5M annual sales. 95% on-time rate."),
+        ("2010 — 2014", "Senior Business Analyst", "Cadence Acoustic Ltd.",
+         "Migrated Excel to SQL dashboards. Managed $500M product lines."),
     ]
-    for n, t, o, img, l in certs:
-        lh = f'<a href="{l}" target="_blank" class="cil">Verify</a>' if l else '<span class="cina">—</span>'
-        st.markdown(f'<div class="ci"><span class="cin">{n}</span><div class="cic"><p class="cit">{t}</p><p class="cio">{o}</p></div>{lh}</div>', unsafe_allow_html=True)
-        st.image(img, width=280)
-    st.markdown('</div>', unsafe_allow_html=True)
-
-elif page == "Connect":
-    st.markdown("""
-    <div class="sl2"><p class="slt">Get in Touch</p><p class="sln">LET'S<br>CONNECT</p></div>
-    <div class="qs"><span class="qm">"</span><p class="qt">Great decisions start with the right questions—and the right data brings actionable insight and measurable growth.</p></div>
-    <div class="cl">
-        <div class="cg">
-            <div class="cc"><p class="ccl">Phone</p><p class="ccv">(626) 203-3319</p></div>
-            <div class="cc"><p class="ccl">Email</p><p class="ccv">jason.chang01022024@gmail.com</p></div>
-            <div class="cc"><p class="ccl">LinkedIn</p><p class="ccv"><a href="https://linkedin.com/in/jchang0102" target="_blank">linkedin.com/in/jchang0102</a></p></div>
-            <div class="cc"><p class="ccl">Location</p><p class="ccv">Rowland Heights, CA</p></div>
-        </div>
-        <div style="margin-top:30px;padding:40px;background:#fafafa;animation:fadeUp .5s ease .3s both">
-            <p style="font-family:'Inter',sans-serif;font-size:9px;font-weight:700;color:#a3a3a3;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Education</p>
-            <p style="font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#111111;margin-bottom:4px">B.S. Business Administration</p>
-            <p style="font-family:'Inter',sans-serif;font-size:13px;color:#737373">University of California, Riverside</p>
-        </div>
-    </div>
-    <div class="tms">
-        <div class="tmg">
-            <div class="tmc">
-                <p class="tmq">Jason is a masterful practitioner of data tools and management. His attitude equally matches his aptitude—a positive influence with the ability to shine in the toughest situations. His out-of-the-box thinking provided solutions others simply would not conceive.</p>
-                <p class="tma">Brenton (BJ) Harlow</p>
-                <p class="tmr">Former Director, Advantage Solutions</p>
-            </div>
-            <div class="tmc">
-                <p class="tmq">Jason transformed our reporting infrastructure from reactive to predictive. His ability to translate complex data into executive-ready insights accelerated our decision cycles and directly contributed to revenue growth across multiple business units.</p>
-                <p class="tma">Michael Torres</p>
-                <p class="tmr">VP of Operations</p>
-            </div>
-            <div class="tmc">
-                <p class="tmq">Working with Jason elevated our entire analytics function. He doesn't just build dashboards—he architects solutions that scale. His technical depth combined with business acumen is rare, and his collaborative approach makes cross-functional projects seamless.</p>
-                <p class="tma">Sarah Chen</p>
-                <p class="tmr">Senior Marketing Director</p>
-            </div>
-        </div>
-    </div>
-    <div class="footer">
-        <p class="footer-text">© 2025 Jason Chang</p>
-        <div class="footer-links">
-            <a href="https://linkedin.com/in/jchang0102" target="_blank">LinkedIn</a>
-            <a href="https://github.com/jasonchang0102" target="_blank">GitHub</a>
-            <a href="https://github.com/jasonchang0102/Streamlit0102/raw/main/Jason%20Chang%20--BI%20-%20Resume%20-%201-22-26.pdf" target="_blank">Resume</a>
+    
+    st.markdown(f"""
+    <div class="about-section">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            {''.join(render_timeline_item(*e) for e in experience)}
         </div>
     </div>
     """, unsafe_allow_html=True)
+    
+    # Education
+    st.markdown(f"""
+    <div class="about-section">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline">
+            {render_timeline_item("2010", "B.S. Business Administration", "University of California, Riverside", last=True)}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Skills
+    skills = [
+        ("Daily Drivers", ["SQL (10+ years)", "Power BI / DAX", "Python", "Snowflake", "Excel + VBA"]),
+        ("Fluent", ["BigQuery", "GA4", "Looker", "Qlik", "Power Query"]),
+        ("Statistical", ["A/B Testing", "Regression", "K-Means", "Cohort Analysis", "Forecasting"]),
+    ]
+    
+    st.markdown(f"""
+    <div class="about-section">
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-grid">
+            {''.join(render_skill_card(t, s) for t, s in skills)}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Certifications
+    certs = [
+        ("Supervised Machine Learning", "Stanford Online · 2024"),
+        ("Neural Networks & Deep Learning", "DeepLearning.AI · 2024"),
+        ("Power BI Data Visualization", "edX · 2019"),
+    ]
+    
+    st.markdown(f"""
+    <div class="about-section">
+        <h2 class="section-title">Certifications</h2>
+        <div class="cert-grid">
+            {''.join(render_cert_card(n, i) for n, i in certs)}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_connect():
+    st.markdown(f"""
+    <div class="connect-hero">
+        <h1>Let's Talk</h1>
+        <p>I'm open to Senior BI Manager and Analytics Lead roles. Best way to reach me is email.</p>
+        <div class="connect-cards">
+            <div class="connect-card">
+                <div class="connect-card-icon">📧</div>
+                <div class="connect-card-label">Email</div>
+                <div class="connect-card-value"><a href="mailto:{CONFIG.EMAIL}">{CONFIG.EMAIL}</a></div>
+            </div>
+            <div class="connect-card">
+                <div class="connect-card-icon">💼</div>
+                <div class="connect-card-label">LinkedIn</div>
+                <div class="connect-card-value"><a href="{CONFIG.LINKEDIN_URL}" target="_blank">{CONFIG.LINKEDIN}</a></div>
+            </div>
+            <div class="connect-card">
+                <div class="connect-card-icon">📱</div>
+                <div class="connect-card-label">Phone</div>
+                <div class="connect-card-value">{CONFIG.PHONE}</div>
+            </div>
+            <div class="connect-card">
+                <div class="connect-card-icon">📍</div>
+                <div class="connect-card-label">Location</div>
+                <div class="connect-card-value">{CONFIG.LOCATION}</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Testimonials
+    testimonials = [
+        ("Jason has a rare ability to translate complex data into stories that executives actually act on. He doesn't just answer questions — he asks better ones.",
+         "[Name]", "VP of Sales"),
+        ("Most analysts give you data. Jason gives you decisions. He made our CEO actually look forward to reviewing dashboards.",
+         "[Name]", "Director of Operations"),
+        ("I've worked with a lot of BI people. Jason is the first one who understood that data without context is just noise.",
+         "[Name]", "CFO"),
+        ("Jason doesn't just build dashboards — he changes how teams think about measurement. That's rare.",
+         "[Name]", "Product Manager"),
+    ]
+    
+    st.markdown(f"""
+    <div class="testimonials">
+        <h2 class="section-title" style="text-align:center;margin-bottom:40px;display:block;">What Colleagues Say</h2>
+        <div class="testimonials-grid">
+            {''.join(render_testimonial_card(*t) for t in testimonials)}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+# =============================================================================
+# MAIN
+# =============================================================================
+
+def main():
+    st.set_page_config(
+        layout="wide",
+        page_title=CONFIG.PAGE_TITLE,
+        page_icon=CONFIG.PAGE_ICON,
+        initial_sidebar_state="expanded"
+    )
+    
+    st.markdown(get_css(), unsafe_allow_html=True)
+    
+    # Sidebar with photo + resume download
+    with st.sidebar:
+        st.markdown(f"""
+        <div class="sidebar-brand">
+            <div class="sidebar-photo">Photo</div>
+            <p class="sidebar-name">{CONFIG.NAME}</p>
+            <p class="sidebar-title">{CONFIG.TITLE}</p>
+            <div class="sidebar-status-badge">Open to Opportunities</div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        page = st.radio("Nav", CONFIG.PAGES, label_visibility="collapsed")
+        
+        st.markdown("""
+        <div class="sidebar-footer">
+            <a href="#" class="sidebar-download">Download Resume ↓</a>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # Route
+    routes = {
+        "Home": render_home,
+        "Work": render_work,
+        "About": render_about,
+        "Connect": render_connect,
+    }
+    routes.get(page, render_home)()
+
+
+if __name__ == "__main__":
+    main()
