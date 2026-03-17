@@ -1,0 +1,1048 @@
+Month,Division,Account,Shipped_Sales,Shipped_COGS,Margin_Dollars,Units,Transactions,Margin_Pct
+1,Division A - Core/Licensed,Retailer 033,11935.79,8480.52,3455.27,2594,10,28.95
+1,Division A - Core/Licensed,Retailer 026,4932.8,11504.94,-6572.14,4942,8,-133.23
+1,Division A - Core/Licensed,Department Store C,67035.23,43551.33,23483.9,10627,7,35.03
+1,Division A - Core/Licensed,Off-Price Retailer B,173177.59,131726.43,41451.16,48837,6,23.94
+1,Division A - Core/Licensed,Specialty Retailer B,219584.31,207271.35,12312.96,69047,61,5.61
+1,Division A - Core/Licensed,Off-Price Retailer C,50540.19,30462.91,20077.28,6135,3,39.73
+1,Division A - Core/Licensed,Specialty Retailer D,91308.65,57993.32,33315.33,22350,6,36.49
+1,Division A - Core/Licensed,Retailer 059,5398.8,4079.27,1319.53,1320,2,24.44
+1,Division A - Core/Licensed,Value Retailer B,125330.62,77904.81,47425.81,17850,23,37.84
+1,Division A - Core/Licensed,Value Retailer A,28536.93,20936.76,7600.17,7148,5,26.63
+1,Division A - Core/Licensed,Department Store A,357586.65,277660.45,79926.2,78236,32,22.35
+1,Division A - Core/Licensed,Department Store B,396322.65,282756.5,113566.15,72909,56,28.65
+1,Division A - Core/Licensed,Brand Direct B,21913.74,15846.15,6067.59,4717,3,27.69
+1,Division A - Core/Licensed,Retailer 050,7240.66,3510.63,3730.03,1236,1,51.52
+1,Division A - Core/Licensed,Specialty Retailer A,890593.57,626103.16,264490.41,203541,58,29.7
+1,Division A - Core/Licensed,Off-Price Retailer A,8388.17,12941.75,-4553.58,5320,1,-54.29
+1,Division A - Core/Licensed,E-Commerce A,28211.61,21855.78,6355.83,2569,1,22.53
+1,Division A - Core/Licensed,Retailer 022,74496.76,48855.97,25640.79,10792,4,34.42
+1,Division A - Core/Licensed,National Retailer B,1548553.13,1228196.49,320356.64,423481,33,20.69
+1,Division A - Core/Licensed,National Retailer A,558651.95,489471.89,69180.06,145965,44,12.38
+1,Division A - Core/Licensed,Retailer 068,14001.98,10123.39,3878.59,1346,3,27.7
+1,Division A - Core/Licensed,Retailer 047,1592.48,1429.66,162.82,805,5,10.22
+1,Division A - Core/Licensed,Specialty Retailer C,8775.13,10400.49,-1625.36,3458,5,-18.52
+1,Division C - Global Brands,Retailer 054,5647.6,3110.62,2536.98,637,39,44.92
+1,Division C - Global Brands,Retailer 033,12237.12,7677.28,4559.84,1711,8,37.26
+1,Division C - Global Brands,Retailer 026,2625.57,1794.39,831.18,507,2,31.66
+1,Division C - Global Brands,Department Store C,191971.55,118300.22,73671.33,28074,16,38.38
+1,Division C - Global Brands,Retailer 044,11317.22,6991.91,4325.31,1407,6,38.22
+1,Division C - Global Brands,Specialty Retailer B,257246.31,189964.27,67282.04,44037,10,26.15
+1,Division C - Global Brands,Brand Direct A,467459.07,350157.28,117301.79,79889,344,25.09
+1,Division C - Global Brands,Retailer 030,12865.64,6478.47,6387.17,1691,4,49.65
+1,Division C - Global Brands,Retailer 043,57156.48,65250.32,-8093.84,8370,33,-14.16
+1,Division C - Global Brands,Department Store B,203528.9,129642.51,73886.39,18794,37,36.3
+1,Division C - Global Brands,Retailer 027,188531.56,123715.09,64816.47,24502,11,34.38
+1,Division C - Global Brands,Off-Price Retailer A,302648.28,234400.98,68247.3,56681,15,22.55
+1,Division C - Global Brands,Department Store D,276224.8,229157.82,47066.98,60317,60,17.04
+1,Division C - Global Brands,Retailer 047,14194.44,20766.54,-6572.1,5740,19,-46.3
+1,Division C - Global Brands,Retailer 055,44457.65,53326.08,-8868.43,15769,21,-19.95
+1,Division C - Global Brands,Specialty Retailer C,78636.47,91140.06,-12503.59,17100,149,-15.9
+1,Division D - Core/Licensed,Retailer 028,161698.37,102418.27,59280.1,19529,3,36.66
+1,Division D - Core/Licensed,Department Store C,294516.54,173223.95,121292.59,48203,26,41.18
+1,Division D - Core/Licensed,Off-Price Retailer B,210760.03,160679.03,50081.0,66079,8,23.76
+1,Division D - Core/Licensed,Retailer 036,39254.25,21937.73,17316.52,6518,13,44.11
+1,Division D - Core/Licensed,Specialty Retailer B,4289.67,5186.23,-896.56,1216,3,-20.9
+1,Division D - Core/Licensed,Off-Price Retailer C,257040.75,153795.54,103245.21,26532,19,40.17
+1,Division D - Core/Licensed,Specialty Retailer D,126692.46,69617.0,57075.46,14660,7,45.05
+1,Division D - Core/Licensed,Value Retailer B,87571.84,50886.14,36685.7,9610,18,41.89
+1,Division D - Core/Licensed,Value Retailer A,157354.63,100041.59,57313.04,19803,15,36.42
+1,Division D - Core/Licensed,Department Store A,5467.11,5965.95,-498.84,1305,10,-9.12
+1,Division D - Core/Licensed,Department Store B,621696.8,456243.95,165452.85,120845,112,26.61
+1,Division D - Core/Licensed,Brand Direct B,237370.31,146040.25,91330.06,21700,4,38.48
+1,Division D - Core/Licensed,Specialty Retailer A,45166.13,32028.9,13137.23,3495,1,29.09
+1,Division D - Core/Licensed,Off-Price Retailer A,811602.34,674397.6,137204.74,169831,49,16.91
+1,Division D - Core/Licensed,E-Commerce A,125073.17,84038.06,41035.11,23248,8,32.81
+1,Division D - Core/Licensed,National Retailer B,5338117.23,3707046.47,1631070.76,946987,173,30.56
+1,Division D - Core/Licensed,Department Store E,67645.23,48396.55,19248.68,6202,5,28.46
+1,Division D - Core/Licensed,National Retailer A,2034562.91,1622658.92,411903.99,648414,32,20.25
+1,Division D - Core/Licensed,Specialty Retailer C,517.63,351.18,166.45,90,13,32.16
+1,Division E - Lifestyle,Specialty Retailer B,1417.56,1373.94,43.62,550,1,3.08
+1,Division E - Lifestyle,Off-Price Retailer C,12471.83,8468.52,4003.31,1551,1,32.1
+1,Division E - Lifestyle,Value Retailer A,27147.69,18874.34,8273.35,7267,10,30.48
+1,Division E - Lifestyle,Department Store A,819507.13,666989.83,152517.3,256891,90,18.61
+1,Division E - Lifestyle,Department Store B,169025.92,142230.01,26795.91,23767,50,15.85
+1,Division E - Lifestyle,Brand Direct B,70219.3,52212.78,18006.52,20706,3,25.64
+1,Division E - Lifestyle,Specialty Retailer A,76248.77,49348.47,26900.3,15970,19,35.28
+1,Division E - Lifestyle,Off-Price Retailer A,8537.93,10974.26,-2436.33,2929,3,-28.54
+1,Division E - Lifestyle,National Retailer B,1789056.47,1435608.03,353448.44,377989,39,19.76
+1,Division E - Lifestyle,National Retailer A,942834.87,773497.28,169337.59,143742,16,17.96
+1,Division E - Lifestyle,Retailer 047,52.65,46.86,5.79,5,2,11.0
+1,Division F - Specialty,Retailer 037,47641.93,29401.34,18240.59,3047,3,38.29
+1,Division F - Specialty,Retailer 066,14933.33,13782.13,1151.2,985,4,7.71
+1,Division F - Specialty,Retailer 062,25370.88,23203.27,2167.61,2788,21,8.54
+1,Division F - Specialty,Retailer 031,29901.35,25911.44,3989.91,3330,16,13.34
+1,Division F - Specialty,Retailer 060,8512.24,4636.55,3875.69,552,34,45.53
+1,Division F - Specialty,Retailer 042,10968.19,7618.89,3349.3,602,5,30.54
+1,Division F - Specialty,Retailer 027,74582.89,43198.72,31384.17,7848,9,42.08
+1,Division F - Specialty,Retailer 064,5124.47,3115.92,2008.55,299,2,39.2
+1,Division F - Specialty,Retailer 032,87951.61,51485.95,36465.66,8448,4,41.46
+1,Division F - Specialty,Department Store D,52888.07,68461.28,-15573.21,8088,11,-29.45
+1,Division F - Specialty,Retailer 034,16049.02,11416.2,4632.82,1394,1,28.87
+1,Division F - Specialty,Specialty Retailer C,69365.94,53774.22,15591.72,4946,250,22.48
+1,Division G - Sports,Retailer 063,13928.92,11277.45,2651.47,755,11,19.04
+1,Division G - Sports,Retailer 041,43616.52,30045.57,13570.95,2697,43,31.11
+1,Division G - Sports,Specialty Retailer C,18997.78,13519.54,5478.24,1090,9,28.84
+1,Division I - Digital,Retailer 021,158220.17,54872.22,103347.95,4012,919,65.32
+2,Division A - Core/Licensed,Retailer 033,20525.18,14194.57,6330.61,4398,13,30.84
+2,Division A - Core/Licensed,Department Store C,126692.37,79914.74,46777.63,19358,12,36.92
+2,Division A - Core/Licensed,Off-Price Retailer B,213540.24,165255.59,48284.65,60010,6,22.61
+2,Division A - Core/Licensed,Retailer 067,764.61,535.22,229.39,165,1,30.0
+2,Division A - Core/Licensed,Retailer 036,89408.75,74194.18,15214.57,23631,36,17.02
+2,Division A - Core/Licensed,Specialty Retailer B,189445.33,148038.18,41407.15,48825,26,21.86
+2,Division A - Core/Licensed,Retailer 031,10094.45,6311.78,3782.67,1473,5,37.47
+2,Division A - Core/Licensed,Off-Price Retailer C,183139.74,122863.58,60276.16,12344,10,32.91
+2,Division A - Core/Licensed,Specialty Retailer D,85026.9,51645.62,33381.28,18954,5,39.26
+2,Division A - Core/Licensed,Value Retailer B,27682.03,17160.41,10521.62,3838,6,38.01
+2,Division A - Core/Licensed,Value Retailer A,400325.3,276493.39,123831.91,66081,38,30.93
+2,Division A - Core/Licensed,Department Store A,1651008.29,1197705.02,453303.27,273662,136,27.46
+2,Division A - Core/Licensed,Department Store B,514471.3,384392.31,130078.99,81487,142,25.28
+2,Division A - Core/Licensed,Retailer 024,39919.7,25831.37,14088.33,9682,3,35.29
+2,Division A - Core/Licensed,Brand Direct B,10167.42,7814.75,2352.67,2543,1,23.14
+2,Division A - Core/Licensed,Retailer 050,22790.67,13639.2,9151.47,3851,5,40.15
+2,Division A - Core/Licensed,Specialty Retailer A,2164538.85,1551120.35,613418.5,470309,103,28.34
+2,Division A - Core/Licensed,E-Commerce A,25796.31,18286.72,7509.59,3171,1,29.11
+2,Division A - Core/Licensed,Retailer 022,45306.36,30014.62,15291.74,6888,6,33.75
+2,Division A - Core/Licensed,National Retailer B,1638456.68,1305237.96,333218.72,415137,41,20.34
+2,Division A - Core/Licensed,Retailer 053,11466.81,6883.36,4583.45,2283,4,39.97
+2,Division A - Core/Licensed,Department Store D,36249.07,29661.44,6587.63,10027,10,18.17
+2,Division A - Core/Licensed,Retailer 034,22774.63,13095.41,9679.22,2240,1,42.5
+2,Division A - Core/Licensed,National Retailer A,1029217.29,912490.8,116726.49,300032,57,11.34
+2,Division A - Core/Licensed,Retailer 068,8940.91,4646.37,4294.54,558,1,48.03
+2,Division A - Core/Licensed,Specialty Retailer C,2084.55,1354.55,730.0,115,1,35.02
+2,Division C - Global Brands,Retailer 046,68136.77,39397.85,28738.92,9872,8,42.18
+2,Division C - Global Brands,Retailer 023,258421.06,157588.83,100832.23,28520,12,39.02
+2,Division C - Global Brands,Retailer 054,11206.52,6185.24,5021.28,1288,40,44.81
+2,Division C - Global Brands,Retailer 033,31703.93,18201.13,13502.8,3801,16,42.59
+2,Division C - Global Brands,Retailer 026,151380.57,128066.64,23313.93,30955,51,15.4
+2,Division C - Global Brands,Department Store C,168163.91,98014.08,70149.83,21839,10,41.72
+2,Division C - Global Brands,Retailer 029,309721.4,205190.43,104530.97,31661,1,33.75
+2,Division C - Global Brands,Brand Direct A,918714.27,685223.97,233490.3,154759,390,25.41
+2,Division C - Global Brands,Retailer 075,4147.95,3979.86,168.09,488,4,4.05
+2,Division C - Global Brands,Retailer 030,548709.54,319626.72,229082.82,65476,20,41.75
+2,Division C - Global Brands,Retailer 049,77466.84,62121.28,15345.56,13744,2,19.81
+2,Division C - Global Brands,Retailer 045,162867.16,91257.35,71609.81,20076,4,43.97
+2,Division C - Global Brands,Retailer 043,36964.04,46050.13,-9086.09,6729,10,-24.58
+2,Division C - Global Brands,Department Store A,259287.44,146324.26,112963.18,37147,23,43.57
+2,Division C - Global Brands,Department Store B,55411.37,32517.2,22894.17,6150,35,41.32
+2,Division C - Global Brands,Retailer 027,30309.55,19118.3,11191.25,3617,5,36.92
+2,Division C - Global Brands,Retailer 051,145099.11,124899.2,20199.91,10144,73,13.92
+2,Division C - Global Brands,Off-Price Retailer A,204820.38,224354.23,-19533.85,37006,38,-9.54
+2,Division C - Global Brands,Warehouse Club A,3622732.34,2475201.82,1147530.52,389152,14,31.68
+2,Division C - Global Brands,Department Store D,537899.29,436976.54,100922.75,116804,25,18.76
+2,Division C - Global Brands,Retailer 047,1204.69,681.0,523.69,68,35,43.47
+2,Division C - Global Brands,Specialty Retailer C,160791.24,100782.18,60009.06,22057,358,37.32
+2,Division D - Core/Licensed,Retailer 028,169147.36,103841.67,65305.69,30062,5,38.61
+2,Division D - Core/Licensed,Retailer 026,13768.58,13710.38,58.2,2242,11,0.42
+2,Division D - Core/Licensed,Department Store C,75603.6,42225.1,33378.5,13537,6,44.15
+2,Division D - Core/Licensed,Off-Price Retailer B,204900.99,158026.0,46874.99,63151,6,22.88
+2,Division D - Core/Licensed,Retailer 036,17005.62,10125.84,6879.78,2463,5,40.46
+2,Division D - Core/Licensed,Off-Price Retailer C,32077.48,21041.84,11035.64,1944,3,34.4
+2,Division D - Core/Licensed,Retailer 040,6194.79,4725.47,1469.32,934,1,23.72
+2,Division D - Core/Licensed,Specialty Retailer D,186527.1,88894.48,97632.62,18689,7,52.34
+2,Division D - Core/Licensed,Retailer 059,20742.16,14384.11,6358.05,4033,7,30.65
+2,Division D - Core/Licensed,Value Retailer B,254797.13,160623.52,94173.61,37672,27,36.96
+2,Division D - Core/Licensed,Value Retailer A,499748.38,325096.97,174651.41,72837,26,34.95
+2,Division D - Core/Licensed,Department Store A,860962.4,625157.32,235805.08,163636,41,27.39
+2,Division D - Core/Licensed,Department Store B,261285.26,186569.21,74716.05,54243,75,28.6
+2,Division D - Core/Licensed,Retailer 024,45788.86,31350.11,14438.75,9218,3,31.53
+2,Division D - Core/Licensed,Brand Direct B,413580.08,276056.43,137523.65,30496,9,33.25
+2,Division D - Core/Licensed,Specialty Retailer A,36660.7,22762.22,13898.48,6113,3,37.91
+2,Division D - Core/Licensed,Off-Price Retailer A,1063576.8,831254.49,232322.31,241838,54,21.84
+2,Division D - Core/Licensed,E-Commerce A,145140.82,98535.76,46605.06,20578,13,32.11
+2,Division D - Core/Licensed,National Retailer B,2378468.67,1644933.45,733535.22,432144,58,30.84
+2,Division D - Core/Licensed,Department Store E,106067.08,78144.22,27922.86,9907,4,26.33
+2,Division D - Core/Licensed,National Retailer A,2710548.64,2174189.32,536359.32,824059,63,19.79
+2,Division D - Core/Licensed,Retailer 047,88.37,64.45,23.92,9,1,27.07
+2,Division D - Core/Licensed,Specialty Retailer C,96.11,71.36,24.75,15,4,25.75
+2,Division E - Lifestyle,Retailer 033,6004.95,3656.61,2348.34,1158,2,39.11
+2,Division E - Lifestyle,Specialty Retailer B,44817.86,33821.65,10996.21,4991,2,24.54
+2,Division E - Lifestyle,Specialty Retailer D,15727.46,9243.04,6484.42,2658,6,41.23
+2,Division E - Lifestyle,Value Retailer A,280820.83,188021.77,92799.06,47857,19,33.05
+2,Division E - Lifestyle,Department Store A,2696035.04,2171068.94,524966.1,737464,254,19.47
+2,Division E - Lifestyle,Department Store B,688186.93,533936.81,154250.12,99771,123,22.41
+2,Division E - Lifestyle,Retailer 076,1380.37,987.02,393.35,350,5,28.5
+2,Division E - Lifestyle,Specialty Retailer A,536911.87,381766.74,155145.13,114375,34,28.9
+2,Division E - Lifestyle,Off-Price Retailer A,27351.99,22597.16,4754.83,11613,8,17.38
+2,Division E - Lifestyle,National Retailer B,1778662.96,1439858.71,338804.25,334784,36,19.05
+2,Division E - Lifestyle,National Retailer A,285578.55,229649.86,55928.69,49085,6,19.58
+2,Division E - Lifestyle,Specialty Retailer C,13.77,5.53,8.24,2,2,59.84
+2,Division F - Specialty,Retailer 037,55848.86,31020.02,24828.84,4784,7,44.46
+2,Division F - Specialty,Retailer 031,105176.97,72128.55,33048.42,9359,37,31.42
+2,Division F - Specialty,Retailer 060,12143.47,7442.69,4700.78,746,6,38.71
+2,Division F - Specialty,Retailer 042,53702.16,29210.18,24491.98,2955,11,45.61
+2,Division F - Specialty,Department Store B,169118.79,113329.3,55789.49,12591,20,32.99
+2,Division F - Specialty,Retailer 027,92066.35,52827.53,39238.82,10570,11,42.62
+2,Division F - Specialty,Off-Price Retailer A,64743.71,107602.5,-42858.79,10459,16,-66.2
+2,Division F - Specialty,Retailer 032,80173.34,52008.73,28164.61,8578,8,35.13
+2,Division F - Specialty,Retailer 034,15999.29,11827.11,4172.18,1579,2,26.08
+2,Division F - Specialty,Retailer 047,6980.17,12681.23,-5701.06,1183,10,-81.68
+2,Division F - Specialty,Specialty Retailer C,33185.55,18759.07,14426.48,1932,159,43.47
+2,Division G - Sports,Retailer 063,486.64,410.11,76.53,32,3,15.73
+2,Division G - Sports,Retailer 041,366.28,258.53,107.75,28,1,29.42
+2,Division G - Sports,Retailer 027,12273.41,7694.6,4578.81,688,5,37.31
+2,Division G - Sports,Specialty Retailer C,6016.84,3521.59,2495.25,244,15,41.47
+2,Division I - Digital,Retailer 021,135891.4,45517.82,90373.58,3290,770,66.5
+3,Division A - Core/Licensed,Retailer 028,42256.26,22873.5,19382.76,7232,1,45.87
+3,Division A - Core/Licensed,Retailer 033,10965.69,7107.02,3858.67,1697,3,35.19
+3,Division A - Core/Licensed,Off-Price Retailer B,220213.57,171495.69,48717.88,52808,6,22.12
+3,Division A - Core/Licensed,Retailer 067,2814.64,1785.18,1029.46,618,2,36.58
+3,Division A - Core/Licensed,Retailer 036,39486.44,32806.9,6679.54,9348,32,16.92
+3,Division A - Core/Licensed,Specialty Retailer B,417201.17,323715.17,93486.0,121657,49,22.41
+3,Division A - Core/Licensed,Retailer 035,63271.69,41090.58,22181.11,12822,3,35.06
+3,Division A - Core/Licensed,Off-Price Retailer C,191233.35,125673.82,65559.53,22333,18,34.28
+3,Division A - Core/Licensed,Specialty Retailer D,75333.81,50124.28,25209.53,13493,3,33.46
+3,Division A - Core/Licensed,Value Retailer B,278931.52,185920.58,93010.94,37166,15,33.35
+3,Division A - Core/Licensed,Value Retailer A,52519.59,37367.43,15152.16,14243,8,28.85
+3,Division A - Core/Licensed,Department Store A,1565966.94,1136705.45,429261.49,330910,132,27.41
+3,Division A - Core/Licensed,Department Store B,163331.43,118373.93,44957.5,34471,98,27.53
+3,Division A - Core/Licensed,Retailer 024,67385.74,40958.54,26427.2,13889,5,39.22
+3,Division A - Core/Licensed,Brand Direct B,6331.4,4409.78,1921.62,1366,2,30.35
+3,Division A - Core/Licensed,Retailer 050,16894.09,8920.33,7973.76,2269,3,47.2
+3,Division A - Core/Licensed,Specialty Retailer A,773753.02,553894.63,219858.39,137518,79,28.41
+3,Division A - Core/Licensed,Off-Price Retailer A,5021.65,5608.82,-587.17,2787,4,-11.69
+3,Division A - Core/Licensed,E-Commerce A,101381.88,65502.75,35879.13,22607,8,35.39
+3,Division A - Core/Licensed,Retailer 022,99498.67,66224.68,33273.99,14377,10,33.44
+3,Division A - Core/Licensed,National Retailer B,2258180.81,1730381.44,527799.37,559462,55,23.37
+3,Division A - Core/Licensed,Retailer 034,42341.62,22431.38,19910.24,4525,3,47.02
+3,Division A - Core/Licensed,National Retailer A,1086425.45,961413.63,125011.82,279166,74,11.51
+3,Division A - Core/Licensed,Retailer 068,7183.12,6362.19,820.93,1037,1,11.43
+3,Division A - Core/Licensed,Retailer 047,49.36,35.12,14.24,11,7,28.85
+3,Division A - Core/Licensed,Specialty Retailer C,3440.37,2325.36,1115.01,214,2,32.41
+3,Division C - Global Brands,Retailer 023,890009.27,527091.74,362917.53,114797,31,40.78
+3,Division C - Global Brands,Retailer 054,14712.26,8120.52,6591.74,1492,81,44.8
+3,Division C - Global Brands,Retailer 033,107215.97,69554.14,37661.83,16155,65,35.13
+3,Division C - Global Brands,Retailer 026,203106.52,151173.34,51933.18,40246,34,25.57
+3,Division C - Global Brands,Department Store C,846458.45,477077.03,369381.42,125807,94,43.64
+3,Division C - Global Brands,Retailer 029,599306.22,383207.35,216098.87,68497,3,36.06
+3,Division C - Global Brands,Retailer 044,17357.17,10091.42,7265.75,2283,6,41.86
+3,Division C - Global Brands,Specialty Retailer B,98576.2,113109.15,-14532.95,13338,17,-14.74
+3,Division C - Global Brands,Brand Direct A,1307338.09,987595.28,319742.81,198022,434,24.46
+3,Division C - Global Brands,Retailer 030,74451.12,45681.77,28769.35,8774,7,38.64
+3,Division C - Global Brands,Retailer 061,19438.63,11227.61,8211.02,2384,3,42.24
+3,Division C - Global Brands,Retailer 070,12678.77,8116.75,4562.02,1002,158,35.98
+3,Division C - Global Brands,Retailer 043,35864.13,42581.57,-6717.44,5883,15,-18.73
+3,Division C - Global Brands,Department Store A,106043.02,59500.92,46542.1,14070,21,43.89
+3,Division C - Global Brands,Department Store B,488940.91,292820.93,196119.98,52948,150,40.11
+3,Division C - Global Brands,Brand Direct B,123352.24,53149.51,70202.73,9088,9,56.91
+3,Division C - Global Brands,Retailer 051,5768.61,6005.74,-237.13,439,5,-4.11
+3,Division C - Global Brands,Off-Price Retailer A,964360.68,798867.37,165493.31,209147,78,17.16
+3,Division C - Global Brands,Warehouse Club A,1228337.47,813888.53,414448.94,106976,10,33.74
+3,Division C - Global Brands,Retailer 032,5782.84,2959.79,2823.05,341,3,48.82
+3,Division C - Global Brands,Department Store D,203579.65,163773.16,39806.49,44486,32,19.55
+3,Division C - Global Brands,Retailer 047,61549.96,82579.25,-21029.29,21138,3,-34.17
+3,Division C - Global Brands,Retailer 055,21900.36,19401.43,2498.93,3473,60,11.41
+3,Division C - Global Brands,Specialty Retailer C,211749.23,125790.07,85959.16,21237,868,40.59
+3,Division D - Core/Licensed,Retailer 028,99089.65,63420.65,35669.0,15269,7,36.0
+3,Division D - Core/Licensed,Retailer 026,307944.67,303470.13,4474.54,69216,57,1.45
+3,Division D - Core/Licensed,Department Store C,150460.24,88091.01,62369.23,23507,13,41.45
+3,Division D - Core/Licensed,Off-Price Retailer B,460206.15,333082.8,127123.35,117789,13,27.62
+3,Division D - Core/Licensed,Retailer 067,3101.55,1936.08,1165.47,661,4,37.58
+3,Division D - Core/Licensed,Retailer 036,37007.93,19934.72,17073.21,5588,13,46.13
+3,Division D - Core/Licensed,Specialty Retailer B,91021.28,73762.5,17258.78,22404,17,18.96
+3,Division D - Core/Licensed,Off-Price Retailer C,460427.32,294009.85,166417.47,40456,28,36.14
+3,Division D - Core/Licensed,Retailer 040,27227.84,18775.79,8452.05,3852,3,31.04
+3,Division D - Core/Licensed,Specialty Retailer D,9148.9,6130.39,3018.51,1013,3,32.99
+3,Division D - Core/Licensed,Retailer 059,5811.58,4369.75,1441.83,1112,2,24.81
+3,Division D - Core/Licensed,Value Retailer B,69850.4,45244.51,24605.89,9615,6,35.23
+3,Division D - Core/Licensed,Value Retailer A,71068.29,45637.1,25431.19,13422,4,35.78
+3,Division D - Core/Licensed,Retailer 039,105085.23,83608.49,21476.74,12719,10,20.44
+3,Division D - Core/Licensed,Department Store A,178630.36,133452.45,45177.91,26086,37,25.29
+3,Division D - Core/Licensed,Department Store B,478755.04,326800.39,151954.65,85084,80,31.74
+3,Division D - Core/Licensed,Retailer 024,115879.34,76546.75,39332.59,22069,8,33.94
+3,Division D - Core/Licensed,Brand Direct B,115992.1,82217.27,33774.83,18064,4,29.12
+3,Division D - Core/Licensed,Specialty Retailer A,26160.57,16791.48,9369.09,3504,2,35.81
+3,Division D - Core/Licensed,Off-Price Retailer A,1416176.07,1035853.84,380322.23,255635,61,26.86
+3,Division D - Core/Licensed,E-Commerce A,73189.79,49062.75,24127.04,17772,5,32.97
+3,Division D - Core/Licensed,National Retailer B,1891424.39,1244160.12,647264.27,384652,53,34.22
+3,Division D - Core/Licensed,Retailer 053,24277.14,14442.97,9834.17,4085,5,40.51
+3,Division D - Core/Licensed,Department Store E,308650.35,219161.78,89488.57,32953,11,28.99
+3,Division D - Core/Licensed,Retailer 034,25406.65,14443.11,10963.54,2471,5,43.15
+3,Division D - Core/Licensed,National Retailer A,8734353.94,6314480.93,2419873.01,2033678,83,27.71
+3,Division D - Core/Licensed,Specialty Retailer C,52.55,38.66,13.89,10,5,26.43
+3,Division E - Lifestyle,Retailer 033,5450.71,3667.35,1783.36,1045,2,32.72
+3,Division E - Lifestyle,Retailer 067,1823.57,1244.18,579.39,440,3,31.77
+3,Division E - Lifestyle,Specialty Retailer B,62390.24,49188.09,13202.15,11343,6,21.16
+3,Division E - Lifestyle,Off-Price Retailer C,14446.82,9787.73,4659.09,1826,2,32.25
+3,Division E - Lifestyle,Specialty Retailer D,99677.44,63462.53,36214.91,13597,10,36.33
+3,Division E - Lifestyle,Value Retailer A,85290.41,57212.43,28077.98,21983,10,32.92
+3,Division E - Lifestyle,Department Store A,1859657.51,1491945.19,367712.32,487630,296,19.77
+3,Division E - Lifestyle,Department Store B,397056.71,333766.3,63290.41,55046,134,15.94
+3,Division E - Lifestyle,Specialty Retailer A,239554.54,175290.54,64264.0,54035,27,26.83
+3,Division E - Lifestyle,Off-Price Retailer A,48524.07,42181.83,6342.24,20725,16,13.07
+3,Division E - Lifestyle,National Retailer B,1051996.57,813865.84,238130.73,176934,43,22.64
+3,Division E - Lifestyle,National Retailer A,2226470.36,1714791.15,511679.21,600679,30,22.98
+3,Division E - Lifestyle,Retailer 047,9.98,8.75,1.23,3,1,12.32
+3,Division E - Lifestyle,Specialty Retailer C,14.53,7.05,7.48,2,1,51.48
+3,Division F - Specialty,Retailer 037,33280.59,17881.47,15399.12,3004,2,46.27
+3,Division F - Specialty,Retailer 066,6013.95,4375.15,1638.8,271,1,27.25
+3,Division F - Specialty,Department Store C,4211.84,2421.54,1790.3,279,2,42.51
+3,Division F - Specialty,Retailer 071,5957.98,3087.27,2870.71,341,3,48.18
+3,Division F - Specialty,Retailer 062,7348.05,7383.73,-35.68,821,9,-0.49
+3,Division F - Specialty,Retailer 031,97366.81,70179.52,27187.29,10455,35,27.92
+3,Division F - Specialty,Retailer 060,8836.2,5784.12,3052.08,638,12,34.54
+3,Division F - Specialty,Retailer 042,91335.87,55378.93,35956.94,4550,10,39.37
+3,Division F - Specialty,Retailer 049,18030.79,19701.13,-1670.34,3259,9,-9.26
+3,Division F - Specialty,Department Store B,31701.9,22703.03,8998.87,2467,4,28.39
+3,Division F - Specialty,Retailer 027,19051.95,12322.58,6729.37,1891,6,35.32
+3,Division F - Specialty,Retailer 064,7182.6,4874.4,2308.2,531,7,32.14
+3,Division F - Specialty,Retailer 032,212300.04,145786.19,66513.85,23664,24,31.33
+3,Division F - Specialty,Department Store D,50511.27,49991.01,520.26,9510,31,1.03
+3,Division F - Specialty,Retailer 047,109.06,54.37,54.69,5,5,50.15
+3,Division F - Specialty,Specialty Retailer C,69094.87,39872.2,29222.67,4493,297,42.29
+3,Division G - Sports,Retailer 041,24444.77,19368.01,5076.76,1566,19,20.77
+3,Division G - Sports,Department Store D,14309.34,16327.29,-2017.95,1940,83,-14.1
+3,Division G - Sports,Specialty Retailer C,9521.63,6366.69,3154.94,427,4,33.13
+3,Division H - Marketplace,Retailer 054,50.54,22.08,28.46,3,3,56.31
+3,Division I - Digital,Retailer 021,129359.5,41660.05,87699.45,3364,755,67.8
+4,Division A - Core/Licensed,Retailer 026,90517.33,71044.64,19472.69,24821,27,21.51
+4,Division A - Core/Licensed,Department Store C,19329.26,14435.09,4894.17,2831,2,25.32
+4,Division A - Core/Licensed,Off-Price Retailer B,628572.97,502274.16,126298.81,168050,19,20.09
+4,Division A - Core/Licensed,Retailer 067,8784.3,5565.35,3218.95,2007,8,36.64
+4,Division A - Core/Licensed,Retailer 036,38629.92,28323.09,10306.83,9888,17,26.68
+4,Division A - Core/Licensed,Specialty Retailer B,387548.02,299663.6,87884.42,117881,52,22.68
+4,Division A - Core/Licensed,Off-Price Retailer C,489898.3,334126.09,155772.21,34568,28,31.8
+4,Division A - Core/Licensed,Specialty Retailer D,109254.18,71721.96,37532.22,25017,6,34.35
+4,Division A - Core/Licensed,Value Retailer B,225575.32,135672.49,89902.83,25719,12,39.85
+4,Division A - Core/Licensed,Value Retailer A,3237.02,2147.11,1089.91,672,2,33.67
+4,Division A - Core/Licensed,Department Store A,1802547.43,1317924.29,484623.14,384582,142,26.89
+4,Division A - Core/Licensed,Department Store B,567573.36,410386.24,157187.12,98938,149,27.69
+4,Division A - Core/Licensed,Brand Direct B,40232.56,25293.07,14939.49,7890,3,37.13
+4,Division A - Core/Licensed,Retailer 050,12080.2,6574.27,5505.93,2052,2,45.58
+4,Division A - Core/Licensed,Specialty Retailer A,1533214.65,1093725.35,439489.3,312117,112,28.66
+4,Division A - Core/Licensed,Off-Price Retailer A,22898.84,24248.9,-1350.06,7820,37,-5.9
+4,Division A - Core/Licensed,E-Commerce A,123728.53,84144.14,39584.39,26324,7,31.99
+4,Division A - Core/Licensed,Retailer 022,375204.78,246259.89,128944.89,58566,17,34.37
+4,Division A - Core/Licensed,National Retailer B,1343902.63,1010213.74,333688.89,307032,42,24.83
+4,Division A - Core/Licensed,Department Store D,112871.59,82421.01,30450.58,29508,10,26.98
+4,Division A - Core/Licensed,Retailer 034,20595.54,10904.8,9690.74,2258,2,47.05
+4,Division A - Core/Licensed,National Retailer A,1269055.76,1093809.54,175246.22,365966,82,13.81
+4,Division A - Core/Licensed,Specialty Retailer C,2566.32,1620.54,945.78,200,2,36.85
+4,Division C - Global Brands,Retailer 046,70924.14,40772.55,30151.59,9830,9,42.51
+4,Division C - Global Brands,Retailer 054,12041.1,6673.3,5367.8,1446,61,44.58
+4,Division C - Global Brands,Retailer 033,33381.77,19240.4,14141.37,3996,34,42.36
+4,Division C - Global Brands,Retailer 026,137266.43,94953.64,42312.79,24423,32,30.83
+4,Division C - Global Brands,Department Store C,530550.36,338099.42,192450.94,76394,43,36.27
+4,Division C - Global Brands,Retailer 029,461672.26,324671.67,137000.59,50352,2,29.67
+4,Division C - Global Brands,Retailer 044,7739.28,4373.77,3365.51,1030,12,43.49
+4,Division C - Global Brands,Specialty Retailer B,134156.65,100496.45,33660.2,25960,3,25.09
+4,Division C - Global Brands,Brand Direct A,1020358.11,765913.89,254444.22,164639,411,24.94
+4,Division C - Global Brands,Retailer 030,278585.33,162188.9,116396.43,37965,11,41.78
+4,Division C - Global Brands,Retailer 061,10397.24,6027.25,4369.99,1353,2,42.03
+4,Division C - Global Brands,Retailer 043,59591.4,86056.17,-26464.77,13385,32,-44.41
+4,Division C - Global Brands,Department Store A,7497.04,4187.41,3309.63,875,5,44.15
+4,Division C - Global Brands,Department Store B,249612.07,145534.61,104077.46,33488,65,41.7
+4,Division C - Global Brands,Retailer 072,3977.76,1812.49,2165.27,216,6,54.43
+4,Division C - Global Brands,Brand Direct B,86016.72,37574.57,48442.15,5899,6,56.32
+4,Division C - Global Brands,Retailer 051,2426.68,2047.17,379.51,256,4,15.64
+4,Division C - Global Brands,Warehouse Club A,4548107.87,2524494.26,2023613.61,431504,13,44.49
+4,Division C - Global Brands,Retailer 048,53429.06,40960.31,12468.75,8208,34,23.34
+4,Division C - Global Brands,Retailer 032,8912.92,4871.87,4041.05,608,6,45.34
+4,Division C - Global Brands,Department Store D,1249972.4,913931.86,336040.54,278625,46,26.88
+4,Division C - Global Brands,Retailer 047,1391.33,375.91,1015.42,148,11,72.98
+4,Division C - Global Brands,Specialty Retailer C,109346.34,64773.31,44573.03,12790,457,40.76
+4,Division D - Core/Licensed,Retailer 028,23902.25,14211.59,9690.66,4381,2,40.54
+4,Division D - Core/Licensed,Retailer 033,3181.96,2188.67,993.29,568,1,31.22
+4,Division D - Core/Licensed,Retailer 026,31248.66,42999.41,-11750.75,6547,7,-37.6
+4,Division D - Core/Licensed,Department Store C,159634.39,89372.14,70262.25,23075,16,44.01
+4,Division D - Core/Licensed,Off-Price Retailer B,604501.44,451325.28,153176.16,158802,24,25.34
+4,Division D - Core/Licensed,Retailer 067,934.67,534.1,400.57,186,1,42.86
+4,Division D - Core/Licensed,Retailer 036,12241.39,7115.23,5126.16,2174,7,41.88
+4,Division D - Core/Licensed,Specialty Retailer B,12460.98,10950.67,1510.31,3442,3,12.12
+4,Division D - Core/Licensed,Off-Price Retailer C,174676.81,111948.95,62727.86,13995,13,35.91
+4,Division D - Core/Licensed,Retailer 040,19256.28,14772.86,4483.42,3324,4,23.28
+4,Division D - Core/Licensed,Specialty Retailer D,128908.77,75502.62,53406.15,12579,5,41.43
+4,Division D - Core/Licensed,Retailer 059,24349.56,17704.68,6644.88,4458,8,27.29
+4,Division D - Core/Licensed,Retailer 049,12239.96,15290.8,-3050.84,4082,16,-24.93
+4,Division D - Core/Licensed,Value Retailer B,357059.22,235011.21,122048.01,36735,13,34.18
+4,Division D - Core/Licensed,Value Retailer A,11582.37,8024.93,3557.44,2500,1,30.71
+4,Division D - Core/Licensed,Department Store A,472595.18,344789.33,127805.85,92835,33,27.04
+4,Division D - Core/Licensed,Department Store B,519903.05,355367.1,164535.95,97504,99,31.65
+4,Division D - Core/Licensed,Retailer 024,193974.87,135379.13,58595.74,41402,19,30.21
+4,Division D - Core/Licensed,Retailer 025,160038.79,106651.01,53387.78,28147,7,33.36
+4,Division D - Core/Licensed,Brand Direct B,249662.06,153449.13,96212.93,39051,10,38.54
+4,Division D - Core/Licensed,Specialty Retailer A,261968.6,177515.79,84452.81,41973,28,32.24
+4,Division D - Core/Licensed,Off-Price Retailer A,939803.04,710003.43,229799.61,194187,53,24.45
+4,Division D - Core/Licensed,E-Commerce A,97178.54,60678.83,36499.71,16789,8,37.56
+4,Division D - Core/Licensed,National Retailer B,2795148.59,1777677.1,1017471.49,568544,114,36.4
+4,Division D - Core/Licensed,Retailer 053,71636.52,47257.67,24378.85,11294,16,34.03
+4,Division D - Core/Licensed,Department Store E,161263.46,122501.06,38762.4,15702,7,24.04
+4,Division D - Core/Licensed,Retailer 034,52322.96,35722.31,16600.65,2718,1,31.73
+4,Division D - Core/Licensed,Retailer 069,678.49,445.75,232.74,80,7,34.3
+4,Division D - Core/Licensed,National Retailer A,3458705.37,2568369.1,890336.27,765270,67,25.74
+4,Division E - Lifestyle,Department Store C,61781.4,32854.39,28927.01,12463,13,46.82
+4,Division E - Lifestyle,Off-Price Retailer B,116046.51,88408.64,27637.87,40115,2,23.82
+4,Division E - Lifestyle,Retailer 067,666.97,455.77,211.2,139,1,31.67
+4,Division E - Lifestyle,Specialty Retailer B,60841.57,53341.76,7499.81,24067,27,12.33
+4,Division E - Lifestyle,Off-Price Retailer C,42142.19,28978.44,13163.75,5325,4,31.24
+4,Division E - Lifestyle,Specialty Retailer D,56561.45,43433.36,13128.09,7577,10,23.21
+4,Division E - Lifestyle,Retailer 059,13557.95,8571.3,4986.65,3391,8,36.78
+4,Division E - Lifestyle,Value Retailer A,31522.05,21579.86,9942.19,8201,10,31.54
+4,Division E - Lifestyle,Department Store A,911652.51,750942.02,160710.49,239060,147,17.63
+4,Division E - Lifestyle,Department Store B,306652.31,227404.52,79247.79,56216,123,25.84
+4,Division E - Lifestyle,Brand Direct B,42624.17,28285.03,14339.14,10180,2,33.64
+4,Division E - Lifestyle,Retailer 076,841.51,592.92,248.59,208,4,29.54
+4,Division E - Lifestyle,Specialty Retailer A,264356.34,188772.45,75583.89,52953,50,28.59
+4,Division E - Lifestyle,Off-Price Retailer A,68668.37,65729.21,2939.16,23987,32,4.28
+4,Division E - Lifestyle,National Retailer B,675505.54,539476.79,136028.75,158717,32,20.14
+4,Division E - Lifestyle,Retailer 053,10342.29,6915.2,3427.09,2480,4,33.14
+4,Division E - Lifestyle,National Retailer A,118146.86,92735.91,25410.95,36698,1,21.51
+4,Division F - Specialty,Retailer 037,62952.7,32093.5,30859.2,4686,4,49.02
+4,Division F - Specialty,Retailer 066,8363.37,5061.61,3301.76,450,3,39.48
+4,Division F - Specialty,Retailer 026,18616.74,17399.17,1217.57,1997,3,6.54
+4,Division F - Specialty,Retailer 062,3407.68,4026.74,-619.06,406,3,-18.17
+4,Division F - Specialty,Retailer 031,71283.56,54393.29,16890.27,8013,21,23.69
+4,Division F - Specialty,Retailer 060,1600.0,1117.63,482.37,120,2,30.15
+4,Division F - Specialty,Retailer 042,56038.32,34010.55,22027.77,2664,9,39.31
+4,Division F - Specialty,Department Store B,99346.34,67835.37,31510.97,7393,12,31.72
+4,Division F - Specialty,Retailer 027,77833.06,53041.4,24791.66,4814,3,31.85
+4,Division F - Specialty,Retailer 032,40245.72,26138.02,14107.7,4496,4,35.05
+4,Division F - Specialty,Retailer 034,65916.49,38168.96,27747.53,5332,3,42.09
+4,Division F - Specialty,Specialty Retailer C,22332.05,13042.66,9289.39,1742,80,41.6
+4,Division G - Sports,Department Store D,26442.03,39518.16,-13076.13,5388,170,-49.45
+4,Division G - Sports,Retailer 047,45.82,26.96,18.86,4,4,41.16
+4,Division H - Marketplace,Retailer 054,20.77,7.33,13.44,1,1,64.71
+4,Division I - Digital,Retailer 021,170404.96,53649.7,116755.26,3875,801,68.52
+5,Division A - Core/Licensed,Retailer 033,24037.98,16831.93,7206.05,6105,10,29.98
+5,Division A - Core/Licensed,Retailer 026,80495.89,63898.78,16597.11,23226,20,20.62
+5,Division A - Core/Licensed,Department Store C,290485.17,170154.91,120330.26,52377,24,41.42
+5,Division A - Core/Licensed,Off-Price Retailer B,226325.15,173408.73,52916.42,62345,8,23.38
+5,Division A - Core/Licensed,Retailer 036,29644.67,21738.71,7905.96,7375,17,26.67
+5,Division A - Core/Licensed,Specialty Retailer B,585338.14,480787.52,104550.62,187273,69,17.86
+5,Division A - Core/Licensed,Retailer 035,45659.69,26613.08,19046.61,9272,1,41.71
+5,Division A - Core/Licensed,Off-Price Retailer C,269564.01,182921.3,86642.71,17710,17,32.14
+5,Division A - Core/Licensed,Retailer 065,48769.87,27684.91,21084.96,6566,3,43.23
+5,Division A - Core/Licensed,Value Retailer B,226023.65,148410.4,77613.25,28267,13,34.34
+5,Division A - Core/Licensed,Value Retailer A,301313.49,204279.99,97033.5,52343,16,32.2
+5,Division A - Core/Licensed,Department Store A,1161640.0,860360.64,301279.36,238116,61,25.94
+5,Division A - Core/Licensed,Department Store B,136354.97,98525.91,37829.06,33449,96,27.74
+5,Division A - Core/Licensed,Retailer 024,42015.73,27105.98,14909.75,9899,3,35.49
+5,Division A - Core/Licensed,Brand Direct B,220304.92,134663.86,85641.06,38696,6,38.87
+5,Division A - Core/Licensed,Retailer 050,124095.16,73394.13,50701.03,14458,16,40.86
+5,Division A - Core/Licensed,Specialty Retailer A,1422866.16,1017896.77,404969.39,267957,130,28.46
+5,Division A - Core/Licensed,Off-Price Retailer A,65848.72,51917.69,13931.03,18026,6,21.16
+5,Division A - Core/Licensed,E-Commerce A,17313.33,13183.96,4129.37,3914,3,23.85
+5,Division A - Core/Licensed,Retailer 022,397020.76,267069.32,129951.44,64315,12,32.73
+5,Division A - Core/Licensed,National Retailer B,1382216.21,1077055.8,305160.41,390619,59,22.08
+5,Division A - Core/Licensed,Department Store D,154946.34,114210.61,40735.73,43237,14,26.29
+5,Division A - Core/Licensed,Retailer 034,20357.75,10821.41,9536.34,2119,2,46.84
+5,Division A - Core/Licensed,National Retailer A,2344393.29,1970463.82,373929.47,569725,87,15.95
+5,Division A - Core/Licensed,Specialty Retailer C,4381.07,2862.76,1518.31,618,13,34.66
+5,Division C - Global Brands,Retailer 046,17619.0,10035.58,7583.42,2541,4,43.04
+5,Division C - Global Brands,Retailer 023,410246.51,374077.15,36169.36,114481,27,8.82
+5,Division C - Global Brands,Retailer 054,10650.75,5921.57,4729.18,1247,36,44.4
+5,Division C - Global Brands,Retailer 033,197522.93,114335.23,83187.7,25314,100,42.12
+5,Division C - Global Brands,Retailer 026,144528.82,94730.26,49798.56,31275,37,34.46
+5,Division C - Global Brands,Department Store C,283965.04,167875.32,116089.72,44000,23,40.88
+5,Division C - Global Brands,Retailer 044,23557.65,13278.63,10279.02,2971,18,43.63
+5,Division C - Global Brands,Retailer 062,3443.35,3474.65,-31.3,303,2,-0.91
+5,Division C - Global Brands,Specialty Retailer B,174885.08,120186.56,54698.52,29179,16,31.28
+5,Division C - Global Brands,Brand Direct A,779100.02,583294.09,195805.93,125935,452,25.13
+5,Division C - Global Brands,Retailer 030,43193.27,23666.96,19526.31,5761,9,45.21
+5,Division C - Global Brands,Retailer 045,75529.87,43514.29,32015.58,10508,2,42.39
+5,Division C - Global Brands,Retailer 043,116527.61,163911.72,-47384.11,28453,56,-40.66
+5,Division C - Global Brands,Department Store A,367730.62,210717.74,157012.88,46429,24,42.7
+5,Division C - Global Brands,Department Store B,240205.34,146384.28,93821.06,22629,62,39.06
+5,Division C - Global Brands,Retailer 072,5774.21,2726.0,3048.21,259,8,52.79
+5,Division C - Global Brands,Brand Direct B,208397.07,113987.99,94409.08,13735,12,45.3
+5,Division C - Global Brands,Retailer 027,6544.16,3944.52,2599.64,732,1,39.72
+5,Division C - Global Brands,Retailer 051,1862.83,1927.21,-64.38,179,2,-3.46
+5,Division C - Global Brands,Off-Price Retailer A,905814.97,675105.03,230709.94,174371,41,25.47
+5,Division C - Global Brands,Warehouse Club A,2233252.24,1384516.86,848735.38,248488,21,38.0
+5,Division C - Global Brands,Retailer 048,6157.97,6177.28,-19.31,757,5,-0.31
+5,Division C - Global Brands,Retailer 032,9884.53,5032.14,4852.39,662,7,49.09
+5,Division C - Global Brands,Department Store D,28961.05,26365.34,2595.71,3259,10,8.96
+5,Division C - Global Brands,Specialty Retailer C,99642.34,59904.11,39738.23,8779,363,39.88
+5,Division D - Core/Licensed,Retailer 028,34315.09,21684.65,12630.44,6272,1,36.81
+5,Division D - Core/Licensed,Retailer 033,29622.94,19420.5,10202.44,4801,10,34.44
+5,Division D - Core/Licensed,Retailer 026,46828.91,31134.47,15694.44,11013,9,33.51
+5,Division D - Core/Licensed,Department Store C,269819.13,160692.67,109126.46,41659,29,40.44
+5,Division D - Core/Licensed,Off-Price Retailer B,375000.98,276642.97,98358.01,103980,17,26.23
+5,Division D - Core/Licensed,Retailer 067,642.28,311.0,331.28,146,1,51.58
+5,Division D - Core/Licensed,Retailer 036,16616.83,9451.88,7164.95,3020,4,43.12
+5,Division D - Core/Licensed,Specialty Retailer B,25694.01,23897.82,1796.19,5409,6,6.99
+5,Division D - Core/Licensed,Off-Price Retailer C,49732.47,32405.81,17326.66,4321,9,34.84
+5,Division D - Core/Licensed,Retailer 040,15053.15,8134.22,6918.93,2550,1,45.96
+5,Division D - Core/Licensed,Specialty Retailer D,211531.97,128814.89,82717.08,24188,10,39.1
+5,Division D - Core/Licensed,Retailer 059,25354.02,18491.03,6862.99,5237,8,27.07
+5,Division D - Core/Licensed,Value Retailer B,48028.33,27392.47,20635.86,6316,4,42.97
+5,Division D - Core/Licensed,Value Retailer A,494394.21,329703.83,164690.38,70969,34,33.31
+5,Division D - Core/Licensed,Department Store A,120606.9,90701.06,29905.84,29131,9,24.8
+5,Division D - Core/Licensed,Retailer 052,30612.29,9667.04,20945.25,1853,4,68.42
+5,Division D - Core/Licensed,Department Store B,654484.06,471371.08,183112.98,152012,133,27.98
+5,Division D - Core/Licensed,Retailer 024,236941.85,157182.52,79759.33,41029,17,33.66
+5,Division D - Core/Licensed,Retailer 025,262417.63,160669.45,101748.18,48022,14,38.77
+5,Division D - Core/Licensed,Specialty Retailer A,35608.48,25107.21,10501.27,5057,5,29.49
+5,Division D - Core/Licensed,Off-Price Retailer A,1450784.55,1117097.87,333686.68,295863,99,23.0
+5,Division D - Core/Licensed,E-Commerce A,363184.39,243781.59,119402.8,54615,17,32.88
+5,Division D - Core/Licensed,National Retailer B,2905555.6,1875839.32,1029716.28,625086,52,35.44
+5,Division D - Core/Licensed,Retailer 053,61265.25,34042.0,27223.25,10827,16,44.44
+5,Division D - Core/Licensed,Department Store E,356031.17,264788.18,91242.99,30975,12,25.63
+5,Division D - Core/Licensed,Retailer 069,498.94,301.22,197.72,59,6,39.63
+5,Division D - Core/Licensed,National Retailer A,2254752.29,1664463.23,590289.06,497039,16,26.18
+5,Division D - Core/Licensed,Retailer 047,16.5,13.08,3.42,4,1,20.73
+5,Division D - Core/Licensed,Specialty Retailer C,1052.74,825.74,227.0,158,21,21.56
+5,Division E - Lifestyle,Department Store C,108300.12,61990.92,46309.2,17020,14,42.76
+5,Division E - Lifestyle,Off-Price Retailer C,54269.67,39346.43,14923.24,7157,5,27.5
+5,Division E - Lifestyle,Specialty Retailer D,9177.53,5218.08,3959.45,1285,1,43.14
+5,Division E - Lifestyle,Value Retailer B,14585.98,7652.03,6933.95,2310,1,47.54
+5,Division E - Lifestyle,Value Retailer A,198995.73,132632.78,66362.95,40580,29,33.35
+5,Division E - Lifestyle,Department Store A,678493.03,542440.61,136052.42,160615,83,20.05
+5,Division E - Lifestyle,Department Store B,155946.7,124215.91,31730.79,22845,92,20.35
+5,Division E - Lifestyle,Brand Direct B,84227.82,60837.84,23389.98,24185,5,27.77
+5,Division E - Lifestyle,Specialty Retailer A,155036.8,114963.76,40073.04,28235,16,25.85
+5,Division E - Lifestyle,Off-Price Retailer A,113417.68,107607.15,5810.53,84349,68,5.12
+5,Division E - Lifestyle,National Retailer B,719031.03,572020.2,147010.83,190492,40,20.45
+5,Division E - Lifestyle,National Retailer A,285286.68,217177.09,68109.59,87746,12,23.87
+5,Division E - Lifestyle,Specialty Retailer C,1379.85,905.25,474.6,182,2,34.4
+5,Division F - Specialty,Retailer 037,144524.57,81226.59,63297.98,12105,10,43.8
+5,Division F - Specialty,Retailer 066,3011.77,2009.96,1001.81,186,1,33.26
+5,Division F - Specialty,Retailer 026,22709.09,16916.48,5792.61,3835,21,25.51
+5,Division F - Specialty,Retailer 071,3784.35,2555.76,1228.59,223,2,32.47
+5,Division F - Specialty,Retailer 062,20783.71,15476.92,5306.79,2368,19,25.53
+5,Division F - Specialty,Retailer 031,51708.09,37701.26,14006.83,5473,17,27.09
+5,Division F - Specialty,Retailer 060,5802.07,4665.66,1136.41,449,4,19.59
+5,Division F - Specialty,Retailer 042,84633.54,50175.45,34458.09,4296,12,40.71
+5,Division F - Specialty,Department Store B,94143.0,64745.75,29397.25,7138,19,31.23
+5,Division F - Specialty,Retailer 027,113019.18,68736.05,44283.13,10469,5,39.18
+5,Division F - Specialty,Retailer 064,29539.67,17209.84,12329.83,1708,11,41.74
+5,Division F - Specialty,Retailer 032,39428.91,21381.11,18047.8,3499,4,45.77
+5,Division F - Specialty,Retailer 034,72230.54,42054.38,30176.16,6406,7,41.78
+5,Division F - Specialty,Specialty Retailer C,26571.22,14556.76,12014.46,1525,155,45.22
+5,Division G - Sports,Specialty Retailer C,707.61,361.72,345.89,50,4,48.88
+5,Division I - Digital,Retailer 021,218066.54,71296.23,146770.31,6059,932,67.31
+6,Division A - Core/Licensed,Retailer 028,2465.39,1291.66,1173.73,433,1,47.61
+6,Division A - Core/Licensed,Retailer 033,13047.41,9080.37,3967.04,2883,5,30.4
+6,Division A - Core/Licensed,Retailer 026,56329.53,45045.51,11284.02,16308,15,20.03
+6,Division A - Core/Licensed,Department Store C,95107.65,66643.59,28464.06,14091,17,29.93
+6,Division A - Core/Licensed,Off-Price Retailer B,758384.02,586028.93,172355.09,177103,16,22.73
+6,Division A - Core/Licensed,Specialty Retailer B,356926.43,294684.18,62242.25,101947,36,17.44
+6,Division A - Core/Licensed,Retailer 035,450029.56,297140.53,152889.03,43081,4,33.97
+6,Division A - Core/Licensed,Off-Price Retailer C,309860.82,210468.55,99392.27,21967,19,32.08
+6,Division A - Core/Licensed,Specialty Retailer D,103271.03,68664.4,34606.63,18266,10,33.51
+6,Division A - Core/Licensed,Retailer 038,165013.17,93282.61,71730.56,28412,10,43.47
+6,Division A - Core/Licensed,Value Retailer B,106441.83,71572.02,34869.81,14418,15,32.76
+6,Division A - Core/Licensed,Value Retailer A,200393.03,132596.6,67796.43,45071,19,33.83
+6,Division A - Core/Licensed,Department Store A,2162170.51,1584678.75,577491.76,421104,108,26.71
+6,Division A - Core/Licensed,Department Store B,127800.31,95686.0,32114.31,31045,105,25.13
+6,Division A - Core/Licensed,Retailer 024,69363.98,43631.07,25732.91,15316,6,37.1
+6,Division A - Core/Licensed,Brand Direct B,102181.81,58096.74,44085.07,16863,4,43.14
+6,Division A - Core/Licensed,Retailer 050,16456.94,13188.5,3268.44,2055,3,19.86
+6,Division A - Core/Licensed,Specialty Retailer A,3053502.63,2210965.93,842536.7,584923,137,27.59
+6,Division A - Core/Licensed,Off-Price Retailer A,107556.86,84787.98,22768.88,28041,21,21.17
+6,Division A - Core/Licensed,E-Commerce A,7538.08,4409.78,3128.3,1782,1,41.5
+6,Division A - Core/Licensed,Retailer 022,293203.75,201328.15,91875.6,40899,11,31.34
+6,Division A - Core/Licensed,National Retailer B,1495057.19,1181535.71,313521.48,370507,56,20.97
+6,Division A - Core/Licensed,Retailer 034,39001.28,19188.98,19812.3,4011,3,50.8
+6,Division A - Core/Licensed,National Retailer A,2330443.12,1923461.71,406981.41,586419,89,17.46
+6,Division A - Core/Licensed,Specialty Retailer C,0.07,41.51,-41.44,7,7,-59200.0
+6,Division B - Other,Retailer 052,197192.81,152932.38,44260.43,8232,2,22.45
+6,Division C - Global Brands,Retailer 023,283300.38,234959.55,48340.83,66199,17,17.06
+6,Division C - Global Brands,Retailer 054,22965.41,12982.65,9982.76,2964,59,43.47
+6,Division C - Global Brands,Retailer 033,4403.5,2582.13,1821.37,536,15,41.36
+6,Division C - Global Brands,Retailer 026,167617.66,116940.38,50677.28,31492,22,30.23
+6,Division C - Global Brands,Department Store C,537275.26,304612.98,232662.28,94092,31,43.3
+6,Division C - Global Brands,Retailer 044,14086.39,7903.85,6182.54,1837,12,43.89
+6,Division C - Global Brands,Brand Direct A,1026130.69,769503.24,256627.45,191070,739,25.01
+6,Division C - Global Brands,Retailer 030,7293.88,3672.82,3621.06,891,2,49.65
+6,Division C - Global Brands,Retailer 045,81620.72,44753.13,36867.59,10014,2,45.17
+6,Division C - Global Brands,Retailer 043,70701.12,95902.72,-25201.6,17867,82,-35.65
+6,Division C - Global Brands,Department Store A,144211.06,80286.08,63924.98,18250,21,44.33
+6,Division C - Global Brands,Department Store B,327706.32,188418.91,139287.41,35916,75,42.5
+6,Division C - Global Brands,Retailer 027,223877.7,132269.75,91607.95,26070,19,40.92
+6,Division C - Global Brands,Retailer 051,16683.8,9715.83,6967.97,1909,11,41.76
+6,Division C - Global Brands,Off-Price Retailer A,22861.7,16978.69,5883.01,5318,3,25.73
+6,Division C - Global Brands,Warehouse Club A,5536584.27,3831664.02,1704920.25,471364,10,30.79
+6,Division C - Global Brands,Retailer 048,197934.11,170198.29,27735.82,30722,29,14.01
+6,Division C - Global Brands,Retailer 058,92863.44,53222.18,39641.26,11145,8,42.69
+6,Division C - Global Brands,Department Store D,1558998.31,1158553.63,400444.68,317551,79,25.69
+6,Division C - Global Brands,Retailer 034,12848.31,7487.97,5360.34,1612,2,41.72
+6,Division C - Global Brands,Specialty Retailer C,40112.02,37046.35,3065.67,5448,284,7.64
+6,Division D - Core/Licensed,Retailer 028,342777.63,234239.58,108538.05,40556,7,31.66
+6,Division D - Core/Licensed,Retailer 026,92734.28,62908.44,29825.84,21155,16,32.16
+6,Division D - Core/Licensed,Department Store C,156749.68,92047.61,64702.07,24647,13,41.28
+6,Division D - Core/Licensed,Off-Price Retailer B,1520557.68,1140657.46,379900.22,301820,25,24.98
+6,Division D - Core/Licensed,Retailer 036,20226.63,12355.96,7870.67,3809,8,38.91
+6,Division D - Core/Licensed,Specialty Retailer B,108932.09,88316.99,20615.1,27197,13,18.92
+6,Division D - Core/Licensed,Off-Price Retailer C,401475.49,275856.84,125618.65,24077,25,31.29
+6,Division D - Core/Licensed,Retailer 040,22999.76,15973.4,7026.36,3715,4,30.55
+6,Division D - Core/Licensed,Specialty Retailer D,328674.61,200420.04,128254.57,38878,13,39.02
+6,Division D - Core/Licensed,Retailer 049,6707.39,8543.94,-1836.55,620,1,-27.38
+6,Division D - Core/Licensed,Value Retailer B,204116.51,135806.7,68309.81,30618,19,33.47
+6,Division D - Core/Licensed,Value Retailer A,172404.78,121451.98,50952.8,22422,14,29.55
+6,Division D - Core/Licensed,Retailer 039,145508.9,115182.12,30326.78,13941,20,20.84
+6,Division D - Core/Licensed,Department Store A,1000197.65,682237.69,317959.96,212078,40,31.79
+6,Division D - Core/Licensed,Department Store B,833396.54,558288.03,275108.51,157001,150,33.01
+6,Division D - Core/Licensed,Retailer 024,203654.88,154752.17,48902.71,35274,13,24.01
+6,Division D - Core/Licensed,Retailer 025,144395.57,79740.8,64654.77,24425,4,44.78
+6,Division D - Core/Licensed,Specialty Retailer A,8745.36,6334.41,2410.95,1708,3,27.57
+6,Division D - Core/Licensed,Off-Price Retailer A,3670969.21,2818217.91,852751.3,621495,136,23.23
+6,Division D - Core/Licensed,E-Commerce A,1015409.6,682861.58,332548.02,142207,41,32.75
+6,Division D - Core/Licensed,National Retailer B,2973406.25,1964946.37,1008459.88,804263,94,33.92
+6,Division D - Core/Licensed,Department Store E,635842.13,467873.5,167968.63,59269,26,26.42
+6,Division D - Core/Licensed,Retailer 069,1127.25,715.85,411.4,119,8,36.5
+6,Division D - Core/Licensed,National Retailer A,3330864.66,2457726.02,873138.64,861171,28,26.21
+6,Division D - Core/Licensed,Specialty Retailer C,0.01,6.18,-6.17,1,1,-61700.0
+6,Division E - Lifestyle,Department Store C,58824.07,27604.02,31220.05,10575,19,53.07
+6,Division E - Lifestyle,Off-Price Retailer B,349332.83,271923.45,77409.38,94609,8,22.16
+6,Division E - Lifestyle,Off-Price Retailer C,76296.25,51074.27,25221.98,6291,5,33.06
+6,Division E - Lifestyle,Retailer 040,8888.87,6802.1,2086.77,2279,7,23.48
+6,Division E - Lifestyle,Specialty Retailer D,34041.13,20363.68,13677.45,5432,8,40.18
+6,Division E - Lifestyle,Value Retailer B,6920.81,4429.32,2491.49,1026,1,36.0
+6,Division E - Lifestyle,Value Retailer A,20752.23,14584.74,6167.49,4099,4,29.72
+6,Division E - Lifestyle,Department Store A,2920971.35,2420787.04,500184.31,799933,208,17.12
+6,Division E - Lifestyle,Department Store B,340210.41,273313.66,66896.75,59931,130,19.66
+6,Division E - Lifestyle,Brand Direct B,83430.16,61132.09,22298.07,20648,5,26.73
+6,Division E - Lifestyle,Specialty Retailer A,249930.73,186259.7,63671.03,52771,18,25.48
+6,Division E - Lifestyle,Off-Price Retailer A,269466.76,256414.05,13052.71,92562,55,4.84
+6,Division E - Lifestyle,National Retailer B,1282871.32,1011611.86,271259.46,296569,54,21.14
+6,Division E - Lifestyle,National Retailer A,3267644.23,2610406.21,657238.02,562498,67,20.11
+6,Division E - Lifestyle,Specialty Retailer C,20.76,161.02,-140.26,115,40,-675.63
+6,Division F - Specialty,Retailer 037,24950.86,13857.47,11093.39,2144,8,44.46
+6,Division F - Specialty,Retailer 026,16632.78,16143.33,489.45,3414,15,2.94
+6,Division F - Specialty,Retailer 071,5168.62,3532.46,1636.16,370,5,31.66
+6,Division F - Specialty,Retailer 031,95108.58,65383.45,29725.13,11071,27,31.25
+6,Division F - Specialty,Retailer 060,13524.25,8788.5,4735.75,919,17,35.02
+6,Division F - Specialty,Retailer 042,91779.17,51946.5,39832.67,4804,15,43.4
+6,Division F - Specialty,Retailer 027,86221.27,56688.36,29532.91,6726,7,34.25
+6,Division F - Specialty,Retailer 064,9907.0,6028.55,3878.45,617,4,39.15
+6,Division F - Specialty,Retailer 032,107084.64,71403.35,35681.29,9718,10,33.32
+6,Division F - Specialty,Department Store D,13283.26,10568.06,2715.2,2624,48,20.44
+6,Division F - Specialty,Retailer 034,39750.12,25321.31,14428.81,3538,3,36.3
+6,Division F - Specialty,Retailer 047,26137.12,12522.27,13614.85,1649,21,52.09
+6,Division F - Specialty,Specialty Retailer C,122570.16,74224.42,48345.74,5829,303,39.44
+6,Division G - Sports,Specialty Retailer B,7582.66,4162.63,3420.03,1387,25,45.1
+6,Division G - Sports,Retailer 063,13128.46,6487.56,6640.9,820,8,50.58
+6,Division G - Sports,Retailer 041,41172.16,20314.74,20857.42,2227,16,50.66
+6,Division G - Sports,Retailer 056,19816.23,8344.06,11472.17,773,2,57.89
+6,Division G - Sports,Department Store D,1405.82,648.4,757.42,252,9,53.88
+6,Division G - Sports,Specialty Retailer C,38023.81,15021.74,23002.07,2141,25,60.49
+6,Division I - Digital,Retailer 021,174671.1,55629.99,119041.11,4331,817,68.15
+7,Division A - Core/Licensed,Retailer 028,1793.52,943.55,849.97,283,1,47.39
+7,Division A - Core/Licensed,Retailer 033,14185.88,10178.8,4007.08,3910,6,28.25
+7,Division A - Core/Licensed,Department Store C,25477.65,15561.73,9915.92,4290,6,38.92
+7,Division A - Core/Licensed,Retailer 067,1620.7,1117.65,503.05,404,2,31.04
+7,Division A - Core/Licensed,Retailer 036,139756.08,99843.94,39912.14,29744,37,28.56
+7,Division A - Core/Licensed,Specialty Retailer B,416171.46,332468.28,83703.18,116384,51,20.11
+7,Division A - Core/Licensed,Retailer 035,15419.66,10096.21,5323.45,3221,1,34.52
+7,Division A - Core/Licensed,Off-Price Retailer C,584985.34,383248.72,201736.62,43198,32,34.49
+7,Division A - Core/Licensed,Specialty Retailer D,7335.38,4242.3,3093.08,1244,1,42.17
+7,Division A - Core/Licensed,Retailer 038,3562.56,2703.42,859.14,589,1,24.12
+7,Division A - Core/Licensed,Value Retailer B,163607.46,98613.72,64993.74,19763,16,39.73
+7,Division A - Core/Licensed,Value Retailer A,70129.72,47124.61,23005.11,12308,8,32.8
+7,Division A - Core/Licensed,Department Store A,1094231.11,799761.21,294469.9,207287,93,26.91
+7,Division A - Core/Licensed,Department Store B,440934.15,296971.08,143963.07,93256,116,32.65
+7,Division A - Core/Licensed,Retailer 024,40382.43,28133.09,12249.34,8653,3,30.33
+7,Division A - Core/Licensed,Brand Direct B,51449.4,33366.14,18083.26,9856,6,35.15
+7,Division A - Core/Licensed,Specialty Retailer A,963994.55,700623.82,263370.73,218768,99,27.32
+7,Division A - Core/Licensed,Off-Price Retailer A,67471.44,51367.61,16103.83,19466,9,23.87
+7,Division A - Core/Licensed,E-Commerce A,100702.41,59476.4,41226.01,19297,5,40.94
+7,Division A - Core/Licensed,Retailer 022,477619.24,315440.82,162178.42,83483,22,33.96
+7,Division A - Core/Licensed,National Retailer B,1432429.23,1105360.52,327068.71,375237,48,22.83
+7,Division A - Core/Licensed,National Retailer A,1222879.97,989878.54,233001.43,346998,122,19.05
+7,Division A - Core/Licensed,Retailer 047,3019.52,3010.9,8.62,907,2,0.29
+7,Division A - Core/Licensed,Specialty Retailer C,180.56,293.97,-113.41,141,44,-62.81
+7,Division C - Global Brands,Retailer 054,31708.01,18318.66,13389.35,3608,48,42.23
+7,Division C - Global Brands,Retailer 033,38581.75,22282.94,16298.81,5437,46,42.24
+7,Division C - Global Brands,Retailer 026,87185.87,69909.23,17276.64,12723,12,19.82
+7,Division C - Global Brands,Department Store C,502395.9,325186.36,177209.54,69124,23,35.27
+7,Division C - Global Brands,Retailer 044,15864.45,8881.8,6982.65,1937,10,44.01
+7,Division C - Global Brands,Brand Direct A,1200741.42,888748.29,311993.13,174128,714,25.98
+7,Division C - Global Brands,Retailer 030,3757.81,1892.25,1865.56,439,2,49.64
+7,Division C - Global Brands,Retailer 061,21124.53,11113.86,10010.67,2648,4,47.39
+7,Division C - Global Brands,Retailer 049,50699.23,32025.01,18674.22,9178,1,36.83
+7,Division C - Global Brands,Retailer 043,68743.21,95217.4,-26474.19,11658,25,-38.51
+7,Division C - Global Brands,Department Store A,204054.49,171948.71,32105.78,48261,33,15.73
+7,Division C - Global Brands,Department Store B,84242.02,49389.36,34852.66,10372,30,41.37
+7,Division C - Global Brands,Brand Direct B,173380.91,153831.98,19548.93,27508,4,11.28
+7,Division C - Global Brands,Retailer 027,26302.42,15953.08,10349.34,3093,2,39.35
+7,Division C - Global Brands,Retailer 051,26694.73,19164.58,7530.15,2754,10,28.21
+7,Division C - Global Brands,Off-Price Retailer A,2761744.78,2034245.23,727499.55,469357,112,26.34
+7,Division C - Global Brands,Department Store D,76013.17,74216.58,1796.59,16317,3,2.36
+7,Division C - Global Brands,Retailer 057,128121.93,111503.85,16618.08,17927,4,12.97
+7,Division C - Global Brands,Specialty Retailer C,302680.69,233784.52,68896.17,36839,649,22.76
+7,Division D - Core/Licensed,Retailer 028,180398.45,125498.14,54900.31,19563,6,30.43
+7,Division D - Core/Licensed,Retailer 033,19344.99,9730.77,9614.22,3394,10,49.7
+7,Division D - Core/Licensed,Retailer 026,10111.88,6325.54,3786.34,2189,1,37.44
+7,Division D - Core/Licensed,Department Store C,163520.91,87267.13,76253.78,24506,11,46.63
+7,Division D - Core/Licensed,Retailer 067,3922.8,2580.52,1342.28,554,5,34.22
+7,Division D - Core/Licensed,Retailer 036,4085.46,2050.51,2034.95,547,3,49.81
+7,Division D - Core/Licensed,Specialty Retailer B,266897.56,221460.4,45437.16,80809,29,17.02
+7,Division D - Core/Licensed,Off-Price Retailer C,475128.37,321596.98,153531.39,25697,34,32.31
+7,Division D - Core/Licensed,Retailer 040,140016.3,99207.63,40808.67,21998,19,29.15
+7,Division D - Core/Licensed,Specialty Retailer D,175333.96,115322.3,60011.66,13884,7,34.23
+7,Division D - Core/Licensed,Retailer 059,11980.71,8949.49,3031.22,2258,4,25.3
+7,Division D - Core/Licensed,Value Retailer B,120468.16,77953.04,42515.12,16042,9,35.29
+7,Division D - Core/Licensed,Value Retailer A,174533.41,117302.41,57231.0,29220,9,32.79
+7,Division D - Core/Licensed,Department Store A,847965.38,600058.95,247906.43,144869,30,29.24
+7,Division D - Core/Licensed,Department Store B,546704.69,383852.31,162852.38,85077,112,29.79
+7,Division D - Core/Licensed,Retailer 024,244576.45,165143.22,79433.23,51789,20,32.48
+7,Division D - Core/Licensed,Retailer 025,136630.54,85144.38,51486.16,17637,11,37.68
+7,Division D - Core/Licensed,Brand Direct B,146336.63,85467.45,60869.18,12311,4,41.6
+7,Division D - Core/Licensed,Specialty Retailer A,133402.45,98843.46,34558.99,26335,16,25.91
+7,Division D - Core/Licensed,Off-Price Retailer A,1595365.62,1263126.91,332238.71,363758,86,20.83
+7,Division D - Core/Licensed,E-Commerce A,107757.55,75113.0,32644.55,13450,3,30.29
+7,Division D - Core/Licensed,National Retailer B,2742290.92,1719887.51,1022403.41,591932,38,37.28
+7,Division D - Core/Licensed,Department Store E,247041.37,190735.71,56305.66,24264,10,22.79
+7,Division D - Core/Licensed,Retailer 069,1402.37,929.94,472.43,172,7,33.69
+7,Division D - Core/Licensed,National Retailer A,540247.73,387793.45,152454.28,111262,19,28.22
+7,Division D - Core/Licensed,Retailer 047,28.65,16.74,11.91,6,1,41.57
+7,Division D - Core/Licensed,Specialty Retailer C,48.15,75.13,-26.98,18,10,-56.03
+7,Division E - Lifestyle,Department Store C,43453.08,25955.43,17497.65,3805,4,40.27
+7,Division E - Lifestyle,Specialty Retailer B,69779.67,56312.29,13467.38,10336,3,19.3
+7,Division E - Lifestyle,Off-Price Retailer C,72349.24,49253.9,23095.34,6203,5,31.92
+7,Division E - Lifestyle,Retailer 040,22932.89,17439.48,5493.41,5003,17,23.95
+7,Division E - Lifestyle,Specialty Retailer D,190806.0,126325.71,64480.29,28023,29,33.79
+7,Division E - Lifestyle,Value Retailer A,109954.9,74976.71,34978.19,30663,32,31.81
+7,Division E - Lifestyle,Department Store A,2303225.05,1874557.76,428667.29,538165,244,18.61
+7,Division E - Lifestyle,Department Store B,89914.82,72658.92,17255.9,14602,93,19.19
+7,Division E - Lifestyle,Brand Direct B,29028.47,20244.0,8784.47,5309,2,30.26
+7,Division E - Lifestyle,Specialty Retailer A,175827.91,127561.91,48266.0,33879,43,27.45
+7,Division E - Lifestyle,Off-Price Retailer A,175490.85,175070.29,420.56,41869,29,0.24
+7,Division E - Lifestyle,National Retailer B,1543015.94,1203304.55,339711.39,330653,80,22.02
+7,Division E - Lifestyle,Department Store D,8087.95,8164.62,-76.67,3325,6,-0.95
+7,Division E - Lifestyle,National Retailer A,2228287.63,1741283.14,487004.49,580399,37,21.86
+7,Division E - Lifestyle,Specialty Retailer C,62.14,75.33,-13.19,52,18,-21.23
+7,Division F - Specialty,Retailer 037,38524.56,22242.43,16282.13,3569,3,42.26
+7,Division F - Specialty,Retailer 031,80473.89,52555.59,27918.3,6973,21,34.69
+7,Division F - Specialty,Retailer 060,1914.98,1178.28,736.7,94,2,38.47
+7,Division F - Specialty,Retailer 042,91274.62,52316.49,38958.13,4983,9,42.68
+7,Division F - Specialty,Retailer 027,71024.14,43725.22,27298.92,7178,10,38.44
+7,Division F - Specialty,Retailer 064,867.33,491.64,375.69,55,4,43.32
+7,Division F - Specialty,Retailer 032,136321.5,84241.34,52080.16,10631,7,38.2
+7,Division F - Specialty,Retailer 034,21892.45,15132.7,6759.75,1890,2,30.88
+7,Division F - Specialty,Specialty Retailer C,117319.52,71382.38,45937.14,12438,127,39.16
+7,Division G - Sports,Retailer 063,19591.7,11172.24,8419.46,820,10,42.97
+7,Division G - Sports,Retailer 041,33811.15,19068.89,14742.26,1677,18,43.6
+7,Division G - Sports,Retailer 064,3847.41,1769.81,2077.6,132,2,54.0
+7,Division G - Sports,Retailer 056,62867.55,39015.46,23852.09,2314,9,37.94
+7,Division G - Sports,Retailer 047,39.97,31.96,8.01,3,3,20.04
+7,Division G - Sports,Specialty Retailer C,277389.95,151601.0,125788.95,11442,171,45.35
+7,Division I - Digital,Retailer 021,172833.46,55772.35,117061.11,4425,810,67.73
+8,Division A - Core/Licensed,Retailer 026,574.66,681.32,-106.66,178,3,-18.56
+8,Division A - Core/Licensed,Department Store C,126407.86,77004.48,49403.38,20861,19,39.08
+8,Division A - Core/Licensed,Off-Price Retailer B,1037197.08,821689.27,215507.81,166008,17,20.78
+8,Division A - Core/Licensed,Retailer 067,887.99,623.93,264.06,179,1,29.74
+8,Division A - Core/Licensed,Retailer 036,71406.84,51156.41,20250.43,6520,9,28.36
+8,Division A - Core/Licensed,Specialty Retailer B,423168.41,334738.23,88430.18,96774,44,20.9
+8,Division A - Core/Licensed,Off-Price Retailer C,218532.14,147751.2,70780.94,15407,14,32.39
+8,Division A - Core/Licensed,Specialty Retailer D,71613.86,51551.78,20062.08,15079,5,28.01
+8,Division A - Core/Licensed,Value Retailer B,406121.43,275791.63,130329.8,48606,26,32.09
+8,Division A - Core/Licensed,Value Retailer A,239762.41,146372.67,93389.74,52844,26,38.95
+8,Division A - Core/Licensed,Department Store A,1283498.82,946445.75,337053.07,296442,212,26.26
+8,Division A - Core/Licensed,Department Store B,758121.1,498140.27,259980.83,126818,187,34.29
+8,Division A - Core/Licensed,Retailer 024,113018.74,75621.69,37397.05,24303,8,33.09
+8,Division A - Core/Licensed,Retailer 050,11807.92,6518.57,5289.35,1942,2,44.79
+8,Division A - Core/Licensed,Specialty Retailer A,2004887.0,1483681.77,521205.23,448999,99,26.0
+8,Division A - Core/Licensed,Off-Price Retailer A,100502.29,73898.26,26604.03,25137,14,26.47
+8,Division A - Core/Licensed,E-Commerce A,312276.16,221126.13,91150.03,36903,14,29.19
+8,Division A - Core/Licensed,Retailer 022,277467.14,166930.21,110536.93,37675,19,39.84
+8,Division A - Core/Licensed,National Retailer B,1302587.11,987873.93,314713.18,371282,42,24.16
+8,Division A - Core/Licensed,Department Store D,72229.03,51317.79,20911.24,18264,25,28.95
+8,Division A - Core/Licensed,Retailer 034,63339.51,29844.74,33494.77,6793,5,52.88
+8,Division A - Core/Licensed,National Retailer A,2898672.89,2355781.18,542891.71,704649,124,18.73
+8,Division A - Core/Licensed,Retailer 047,547.88,426.48,121.4,74,3,22.16
+8,Division A - Core/Licensed,Specialty Retailer C,1638.71,1084.07,554.64,156,1,33.85
+8,Division C - Global Brands,Retailer 046,60648.04,36217.77,24430.27,8466,6,40.28
+8,Division C - Global Brands,Retailer 023,106286.8,94169.62,12117.18,25036,5,11.4
+8,Division C - Global Brands,Retailer 054,32950.28,19561.59,13388.69,4175,47,40.63
+8,Division C - Global Brands,Retailer 033,8503.37,4931.69,3571.68,1015,15,42.0
+8,Division C - Global Brands,Retailer 026,335379.8,279260.12,56119.68,49903,42,16.73
+8,Division C - Global Brands,Department Store C,40423.89,29659.95,10763.94,5705,6,26.63
+8,Division C - Global Brands,Retailer 044,81331.63,48507.27,32824.36,9347,36,40.36
+8,Division C - Global Brands,Brand Direct A,1220851.92,889298.29,331553.63,176653,653,27.16
+8,Division C - Global Brands,Retailer 030,272905.34,258652.53,14252.81,51184,20,5.22
+8,Division C - Global Brands,Retailer 070,3858.8,3140.98,717.82,518,29,18.6
+8,Division C - Global Brands,Retailer 043,36181.2,52293.08,-16111.88,6446,25,-44.53
+8,Division C - Global Brands,Department Store A,51564.82,46986.56,4578.26,11951,18,8.88
+8,Division C - Global Brands,Department Store B,677423.09,403639.98,273783.11,65535,187,40.42
+8,Division C - Global Brands,Retailer 027,31338.73,19111.29,12227.44,3856,3,39.02
+8,Division C - Global Brands,Retailer 051,17490.7,16252.11,1238.59,1745,12,7.08
+8,Division C - Global Brands,Off-Price Retailer A,956120.76,675102.11,281018.65,173422,40,29.39
+8,Division C - Global Brands,Department Store D,118003.09,81448.68,36554.41,13031,22,30.98
+8,Division C - Global Brands,Retailer 047,68383.26,87468.4,-19085.14,23968,2,-27.91
+8,Division C - Global Brands,Retailer 055,83809.69,69745.63,14064.06,20123,40,16.78
+8,Division C - Global Brands,Specialty Retailer C,120145.41,80722.72,39422.69,11481,563,32.81
+8,Division D - Core/Licensed,Retailer 028,6546.56,3762.03,2784.53,1261,2,42.53
+8,Division D - Core/Licensed,Retailer 033,27293.73,14781.1,12512.63,4397,10,45.84
+8,Division D - Core/Licensed,Retailer 026,11841.21,8532.13,3309.08,2163,2,27.95
+8,Division D - Core/Licensed,Department Store C,472035.91,260094.89,211941.02,54448,33,44.9
+8,Division D - Core/Licensed,Off-Price Retailer B,953298.56,714838.21,238460.35,162377,23,25.01
+8,Division D - Core/Licensed,Retailer 067,2528.62,1389.64,1138.98,355,3,45.04
+8,Division D - Core/Licensed,Retailer 036,33869.76,20099.31,13770.45,6083,11,40.66
+8,Division D - Core/Licensed,Specialty Retailer B,48338.8,39637.82,8700.98,9388,2,18.0
+8,Division D - Core/Licensed,Off-Price Retailer C,129607.09,83863.11,45743.98,8808,17,35.29
+8,Division D - Core/Licensed,Retailer 040,117999.53,72193.26,45806.27,17764,16,38.82
+8,Division D - Core/Licensed,Specialty Retailer D,131762.49,79202.82,52559.67,11919,4,39.89
+8,Division D - Core/Licensed,Value Retailer B,103573.52,56587.79,46985.73,16358,8,45.36
+8,Division D - Core/Licensed,Value Retailer A,633312.02,409140.41,224171.61,70902,39,35.4
+8,Division D - Core/Licensed,Retailer 039,91377.85,71052.35,20325.5,6965,7,22.24
+8,Division D - Core/Licensed,Department Store A,1116842.85,798247.73,318595.12,212515,65,28.53
+8,Division D - Core/Licensed,Department Store B,804813.0,564223.83,240589.17,108616,122,29.89
+8,Division D - Core/Licensed,Retailer 024,382028.19,268233.84,113794.35,79796,29,29.79
+8,Division D - Core/Licensed,Retailer 025,788818.03,504769.17,284048.86,113182,15,36.01
+8,Division D - Core/Licensed,Brand Direct B,465412.11,268344.07,197068.04,39290,10,42.34
+8,Division D - Core/Licensed,Specialty Retailer A,86006.17,62746.79,23259.38,9876,20,27.04
+8,Division D - Core/Licensed,Off-Price Retailer A,2255273.55,1771052.23,484221.32,447626,120,21.47
+8,Division D - Core/Licensed,E-Commerce A,239445.34,159812.78,79632.56,48720,19,33.26
+8,Division D - Core/Licensed,National Retailer B,1173624.82,751215.68,422409.14,252525,34,35.99
+8,Division D - Core/Licensed,Retailer 053,25113.83,13940.9,11172.93,4839,6,44.49
+8,Division D - Core/Licensed,Department Store E,1001267.74,750282.2,250985.54,87470,39,25.07
+8,Division D - Core/Licensed,Retailer 069,2818.81,1790.06,1028.75,295,8,36.5
+8,Division D - Core/Licensed,National Retailer A,3121007.68,2399748.89,721258.79,799112,21,23.11
+8,Division D - Core/Licensed,Retailer 047,69.34,49.82,19.52,26,2,28.15
+8,Division D - Core/Licensed,Specialty Retailer C,2684.77,1781.61,903.16,104,6,33.64
+8,Division E - Lifestyle,Department Store C,19238.77,13222.77,6016.0,1629,9,31.27
+8,Division E - Lifestyle,Off-Price Retailer B,81605.56,60929.05,20676.51,18726,2,25.34
+8,Division E - Lifestyle,Specialty Retailer B,176819.61,137492.49,39327.12,19773,4,22.24
+8,Division E - Lifestyle,Off-Price Retailer C,27788.74,20371.81,7416.93,3236,4,26.69
+8,Division E - Lifestyle,Retailer 040,25595.99,18196.74,7399.25,5548,17,28.91
+8,Division E - Lifestyle,Specialty Retailer D,39897.03,27872.22,12024.81,5128,6,30.14
+8,Division E - Lifestyle,Value Retailer A,177260.02,122016.43,55243.59,30088,30,31.17
+8,Division E - Lifestyle,Department Store A,3555283.39,2935151.45,620131.94,727317,454,17.44
+8,Division E - Lifestyle,Department Store B,397866.88,296194.66,101672.22,70717,177,25.55
+8,Division E - Lifestyle,Brand Direct B,71784.93,50135.58,21649.35,14647,4,30.16
+8,Division E - Lifestyle,Specialty Retailer A,444235.73,332563.07,111672.66,81779,31,25.14
+8,Division E - Lifestyle,Off-Price Retailer A,103594.6,82489.67,21104.93,39352,16,20.37
+8,Division E - Lifestyle,National Retailer B,1543732.25,1197573.2,346159.05,382163,52,22.42
+8,Division E - Lifestyle,National Retailer A,721922.86,565923.29,155999.57,178783,42,21.61
+8,Division E - Lifestyle,Specialty Retailer C,2.31,27.64,-25.33,10,9,-1096.54
+8,Division F - Specialty,Retailer 037,99282.38,61158.44,38123.94,7816,9,38.4
+8,Division F - Specialty,Retailer 062,13763.13,8304.78,5458.35,1994,13,39.66
+8,Division F - Specialty,Retailer 031,117210.48,71722.58,45487.9,7150,23,38.81
+8,Division F - Specialty,Retailer 060,1984.05,939.4,1044.65,109,7,52.65
+8,Division F - Specialty,Retailer 042,11138.36,5786.31,5352.05,627,2,48.05
+8,Division F - Specialty,Retailer 027,231252.23,140173.22,91079.01,17544,8,39.39
+8,Division F - Specialty,Retailer 064,144.9,103.61,41.29,8,1,28.5
+8,Division F - Specialty,Retailer 032,171163.71,111470.34,59693.37,14812,15,34.88
+8,Division F - Specialty,Retailer 034,32270.5,20258.7,12011.8,2926,2,37.22
+8,Division F - Specialty,Specialty Retailer C,102428.18,59629.83,42798.35,7450,153,41.78
+8,Division G - Sports,Retailer 060,904.76,581.11,323.65,61,7,35.77
+8,Division G - Sports,Retailer 063,12531.61,7030.17,5501.44,620,8,43.9
+8,Division G - Sports,Retailer 041,226802.04,140795.76,86006.28,8497,115,37.92
+8,Division G - Sports,Retailer 027,68049.84,38067.9,29981.94,3127,62,44.06
+8,Division G - Sports,Retailer 056,47937.97,28050.64,19887.33,1952,13,41.49
+8,Division G - Sports,Retailer 032,8032.95,5269.43,2763.52,638,3,34.4
+8,Division G - Sports,Specialty Retailer C,122847.86,69385.15,53462.71,4958,121,43.52
+8,Division H - Marketplace,Retailer 054,0.0,0.0,0.0,1,1,0.0
+8,Division I - Digital,Retailer 021,152873.2,49380.93,103492.27,4024,941,67.7
+9,Division A - Core/Licensed,Retailer 028,7609.0,5378.98,2230.02,628,2,29.31
+9,Division A - Core/Licensed,Retailer 033,23235.74,15536.5,7699.24,5440,8,33.14
+9,Division A - Core/Licensed,Retailer 026,31252.98,29009.92,2243.06,7518,8,7.18
+9,Division A - Core/Licensed,Department Store C,221903.99,132218.43,89685.56,38035,24,40.42
+9,Division A - Core/Licensed,Off-Price Retailer B,620431.71,457339.02,163092.69,90432,12,26.29
+9,Division A - Core/Licensed,Retailer 044,86524.91,54900.05,31624.86,18599,12,36.55
+9,Division A - Core/Licensed,Specialty Retailer B,492005.42,379936.9,112068.52,95629,47,22.78
+9,Division A - Core/Licensed,Retailer 035,26390.11,18170.15,8219.96,5403,2,31.15
+9,Division A - Core/Licensed,Off-Price Retailer C,420079.99,276052.82,144027.17,32300,18,34.29
+9,Division A - Core/Licensed,Specialty Retailer D,8248.41,6103.83,2144.58,1628,1,26.0
+9,Division A - Core/Licensed,Retailer 038,262471.08,150533.64,111937.44,14689,1,42.65
+9,Division A - Core/Licensed,Value Retailer B,450049.33,302194.38,147854.95,54220,35,32.85
+9,Division A - Core/Licensed,Value Retailer A,263677.38,180415.49,83261.89,42840,27,31.58
+9,Division A - Core/Licensed,Department Store A,1330805.99,982550.66,348255.33,300508,187,26.17
+9,Division A - Core/Licensed,Department Store B,1491326.97,945241.04,546085.93,135906,161,36.62
+9,Division A - Core/Licensed,Retailer 024,41429.86,26817.41,14612.45,9859,3,35.27
+9,Division A - Core/Licensed,Brand Direct B,26646.71,16721.47,9925.24,4277,3,37.25
+9,Division A - Core/Licensed,Retailer 050,2715.27,1466.89,1248.38,537,1,45.98
+9,Division A - Core/Licensed,Specialty Retailer A,2135790.7,1515042.48,620748.22,477162,115,29.06
+9,Division A - Core/Licensed,Off-Price Retailer A,49297.03,34709.59,14587.44,12419,4,29.59
+9,Division A - Core/Licensed,E-Commerce A,222464.31,147405.31,75059.0,34136,8,33.74
+9,Division A - Core/Licensed,Retailer 022,973067.33,627214.59,345852.74,154318,29,35.54
+9,Division A - Core/Licensed,National Retailer B,4131882.96,3060628.23,1071254.73,783472,81,25.93
+9,Division A - Core/Licensed,Department Store D,196510.34,163483.76,33026.58,17886,10,16.81
+9,Division A - Core/Licensed,Retailer 034,20799.87,10774.33,10025.54,1942,2,48.2
+9,Division A - Core/Licensed,National Retailer A,8728795.85,6963836.12,1764959.73,1572516,168,20.22
+9,Division A - Core/Licensed,Specialty Retailer C,1920270.59,1370587.7,549682.89,209442,27,28.63
+9,Division C - Global Brands,Retailer 046,78853.73,54278.83,24574.9,6917,6,31.17
+9,Division C - Global Brands,Retailer 023,369082.38,332579.79,36502.59,78094,24,9.89
+9,Division C - Global Brands,Retailer 054,11908.26,6997.14,4911.12,1396,25,41.24
+9,Division C - Global Brands,Retailer 033,9686.24,5605.43,4080.81,1350,14,42.13
+9,Division C - Global Brands,Retailer 026,194770.01,159690.08,35079.93,31362,33,18.01
+9,Division C - Global Brands,Department Store C,487297.5,330595.48,156702.02,76177,34,32.16
+9,Division C - Global Brands,Retailer 044,9060.04,5313.87,3746.17,1046,20,41.35
+9,Division C - Global Brands,Specialty Retailer B,86108.6,57040.02,29068.58,15228,7,33.76
+9,Division C - Global Brands,Brand Direct A,1354818.84,1001124.86,353693.98,208591,752,26.11
+9,Division C - Global Brands,Retailer 061,34927.07,21674.1,13252.97,3685,6,37.94
+9,Division C - Global Brands,Retailer 049,24489.88,18799.22,5690.66,5097,8,23.24
+9,Division C - Global Brands,Retailer 043,29686.21,42537.64,-12851.43,5047,65,-43.29
+9,Division C - Global Brands,Department Store A,91520.83,81296.17,10224.66,23578,13,11.17
+9,Division C - Global Brands,Department Store B,242955.64,156955.8,85999.84,18104,120,35.4
+9,Division C - Global Brands,Retailer 051,28746.48,24290.57,4455.91,2251,39,15.5
+9,Division C - Global Brands,Off-Price Retailer A,224386.35,181697.3,42689.05,47476,2,19.02
+9,Division C - Global Brands,Retailer 048,18330.35,19215.02,-884.67,4010,13,-4.83
+9,Division C - Global Brands,Department Store D,24275.64,19954.58,4321.06,4931,9,17.8
+9,Division C - Global Brands,Specialty Retailer C,36959.76,21072.7,15887.06,2523,277,42.98
+9,Division D - Core/Licensed,Retailer 028,265479.33,181298.0,84181.33,26475,9,31.71
+9,Division D - Core/Licensed,Retailer 033,17774.14,9205.73,8568.41,2961,13,48.21
+9,Division D - Core/Licensed,Retailer 026,36185.34,23177.61,13007.73,8576,6,35.95
+9,Division D - Core/Licensed,Department Store C,295986.76,216467.7,79519.06,35531,20,26.87
+9,Division D - Core/Licensed,Off-Price Retailer B,331059.17,248993.61,82065.56,82736,23,24.79
+9,Division D - Core/Licensed,Retailer 067,1284.46,891.46,393.0,132,1,30.6
+9,Division D - Core/Licensed,Retailer 036,2840.75,1989.87,850.88,507,3,29.95
+9,Division D - Core/Licensed,Specialty Retailer B,218510.19,169692.04,48818.15,35036,11,22.34
+9,Division D - Core/Licensed,Off-Price Retailer C,102120.42,65729.81,36390.61,5109,7,35.63
+9,Division D - Core/Licensed,Retailer 040,73827.57,45508.64,28318.93,10827,10,38.36
+9,Division D - Core/Licensed,Specialty Retailer D,28783.48,19655.01,9128.47,2230,1,31.71
+9,Division D - Core/Licensed,Value Retailer B,502276.39,305176.45,197099.94,65272,30,39.24
+9,Division D - Core/Licensed,Value Retailer A,124927.95,80201.42,44726.53,17484,13,35.8
+9,Division D - Core/Licensed,Retailer 039,192657.14,160282.37,32374.77,18570,28,16.8
+9,Division D - Core/Licensed,Department Store A,967316.75,731755.62,235561.13,161729,40,24.35
+9,Division D - Core/Licensed,Department Store B,854374.74,599830.53,254544.21,134822,138,29.79
+9,Division D - Core/Licensed,Retailer 024,227537.25,154358.95,73178.3,45355,25,32.16
+9,Division D - Core/Licensed,Retailer 025,1093799.13,722521.59,371277.54,140019,20,33.94
+9,Division D - Core/Licensed,Brand Direct B,119252.33,80291.87,38960.46,9765,2,32.67
+9,Division D - Core/Licensed,Specialty Retailer A,361162.47,263302.37,97860.1,55122,27,27.1
+9,Division D - Core/Licensed,Off-Price Retailer A,2196587.3,1667810.98,528776.32,350934,78,24.07
+9,Division D - Core/Licensed,E-Commerce A,749646.05,504497.49,245148.56,90438,28,32.7
+9,Division D - Core/Licensed,National Retailer B,5853159.93,3938159.68,1915000.25,967969,75,32.72
+9,Division D - Core/Licensed,Department Store E,561137.64,428081.54,133056.1,47640,18,23.71
+9,Division D - Core/Licensed,Retailer 069,2464.46,1548.92,915.54,296,6,37.15
+9,Division D - Core/Licensed,National Retailer A,1446083.22,1093475.21,352608.01,318461,22,24.38
+9,Division D - Core/Licensed,Specialty Retailer C,1.87,10.23,-8.36,4,1,-447.06
+9,Division E - Lifestyle,Department Store C,94587.26,52391.37,42195.89,13693,18,44.61
+9,Division E - Lifestyle,Specialty Retailer B,490911.89,370675.81,120236.08,71693,15,24.49
+9,Division E - Lifestyle,Off-Price Retailer C,191620.48,137132.89,54487.59,13902,5,28.44
+9,Division E - Lifestyle,Retailer 040,42389.33,29177.99,13211.34,7431,23,31.17
+9,Division E - Lifestyle,Specialty Retailer D,139861.27,86276.57,53584.7,15514,15,38.31
+9,Division E - Lifestyle,Value Retailer A,135073.68,96071.56,39002.12,28415,23,28.87
+9,Division E - Lifestyle,Department Store A,3058489.71,2449806.68,608683.03,630268,458,19.9
+9,Division E - Lifestyle,Department Store B,1284101.0,854568.41,429532.59,145783,105,33.45
+9,Division E - Lifestyle,Specialty Retailer A,433862.63,328163.93,105698.7,98716,44,24.36
+9,Division E - Lifestyle,Off-Price Retailer A,298503.27,222476.14,76027.13,73297,26,25.47
+9,Division E - Lifestyle,National Retailer B,2480182.88,1976063.46,504119.42,422683,68,20.33
+9,Division E - Lifestyle,National Retailer A,5747726.96,4392776.23,1354950.73,961278,84,23.57
+9,Division F - Specialty,Retailer 037,58352.53,33506.71,24845.82,4757,5,42.58
+9,Division F - Specialty,Retailer 066,13587.17,7489.05,6098.12,969,3,44.88
+9,Division F - Specialty,Retailer 031,137888.29,89546.06,48342.23,9587,27,35.06
+9,Division F - Specialty,Retailer 060,185.29,114.24,71.05,9,1,38.35
+9,Division F - Specialty,Retailer 050,37628.01,21459.14,16168.87,1773,5,42.97
+9,Division F - Specialty,Retailer 027,95545.87,59804.31,35741.56,6913,10,37.41
+9,Division F - Specialty,Retailer 064,178.21,131.6,46.61,10,1,26.15
+9,Division F - Specialty,Retailer 032,51997.92,35255.8,16742.12,3841,3,32.2
+9,Division F - Specialty,Retailer 034,41696.35,25037.66,16658.69,3404,2,39.95
+9,Division F - Specialty,Retailer 047,24.85,16.21,8.64,2,2,34.77
+9,Division F - Specialty,Specialty Retailer C,37828.71,26409.82,11418.89,2147,149,30.19
+9,Division G - Sports,Retailer 060,3078.49,1751.57,1326.92,125,9,43.1
+9,Division G - Sports,Retailer 041,142411.34,77063.49,65347.85,6876,61,45.89
+9,Division G - Sports,Retailer 056,12410.35,6305.25,6105.1,679,4,49.19
+9,Division G - Sports,Retailer 047,57.3,41.09,16.21,4,3,28.29
+9,Division G - Sports,Specialty Retailer C,126664.67,69616.19,57048.48,5427,122,45.04
+9,Division H - Marketplace,Retailer 054,0.0,0.0,0.0,3,1,0.0
+9,Division I - Digital,Retailer 021,1467419.67,424023.55,1043396.12,30176,1144,71.1
+10,Division A - Core/Licensed,Retailer 026,15282.17,11168.92,4113.25,2863,4,26.92
+10,Division A - Core/Licensed,Department Store C,198404.47,116459.84,81944.63,34489,22,41.3
+10,Division A - Core/Licensed,Off-Price Retailer B,51159.04,39034.3,12124.74,14077,8,23.7
+10,Division A - Core/Licensed,Retailer 036,54911.28,39106.3,15804.98,7565,16,28.78
+10,Division A - Core/Licensed,Retailer 044,110654.87,69961.74,40693.13,24772,22,36.77
+10,Division A - Core/Licensed,Specialty Retailer B,543882.86,425311.63,118571.23,130730,75,21.8
+10,Division A - Core/Licensed,Retailer 035,69154.24,47005.44,22148.8,14223,3,32.03
+10,Division A - Core/Licensed,Retailer 031,246049.11,157460.16,88588.95,12508,20,36.0
+10,Division A - Core/Licensed,Off-Price Retailer C,169107.69,100027.68,69080.01,15421,16,40.85
+10,Division A - Core/Licensed,Specialty Retailer D,374936.19,248366.35,126569.84,42372,19,33.76
+10,Division A - Core/Licensed,Retailer 038,163979.02,99194.13,64784.89,28330,1,39.51
+10,Division A - Core/Licensed,Value Retailer B,422704.16,271740.24,150963.92,42461,27,35.71
+10,Division A - Core/Licensed,Value Retailer A,262020.17,176045.19,85974.98,43107,37,32.81
+10,Division A - Core/Licensed,Department Store A,2293248.99,1662892.75,630356.24,453187,144,27.49
+10,Division A - Core/Licensed,Department Store B,598833.24,398207.88,200625.36,83351,162,33.5
+10,Division A - Core/Licensed,Retailer 024,138263.9,85806.58,52457.32,30661,10,37.94
+10,Division A - Core/Licensed,Brand Direct B,302000.28,200238.55,101761.73,55720,24,33.7
+10,Division A - Core/Licensed,Specialty Retailer A,1554707.72,1114340.4,440367.32,313520,101,28.32
+10,Division A - Core/Licensed,Off-Price Retailer A,398646.64,470828.38,-72181.74,146367,46,-18.11
+10,Division A - Core/Licensed,E-Commerce A,674910.63,446185.34,228725.29,95124,24,33.89
+10,Division A - Core/Licensed,Retailer 022,250104.96,172965.54,77139.42,25054,12,30.84
+10,Division A - Core/Licensed,National Retailer B,4808991.28,3441468.05,1367523.23,797902,87,28.44
+10,Division A - Core/Licensed,Department Store D,394930.07,291300.11,103629.96,93941,44,26.24
+10,Division A - Core/Licensed,Retailer 034,72988.64,36228.28,36760.36,6285,6,50.36
+10,Division A - Core/Licensed,Retailer 069,1248.16,777.92,470.24,164,3,37.67
+10,Division A - Core/Licensed,National Retailer A,827586.93,673400.72,154186.21,235019,143,18.63
+10,Division A - Core/Licensed,Retailer 047,82403.67,301890.21,-219486.54,95993,4,-266.36
+10,Division A - Core/Licensed,Specialty Retailer C,200213.85,142407.25,57806.6,25463,11,28.87
+10,Division C - Global Brands,Retailer 023,412846.16,371320.91,41525.25,100230,30,10.06
+10,Division C - Global Brands,Retailer 054,16069.56,9368.5,6701.06,1792,25,41.7
+10,Division C - Global Brands,Retailer 033,76932.24,42795.13,34137.11,11218,44,44.37
+10,Division C - Global Brands,Retailer 026,133141.53,115023.14,18118.39,20630,23,13.61
+10,Division C - Global Brands,Department Store C,571432.32,371536.59,199895.73,75464,39,34.98
+10,Division C - Global Brands,Retailer 044,23957.0,14402.02,9554.98,2542,20,39.88
+10,Division C - Global Brands,Specialty Retailer B,30832.12,20494.91,10337.21,5295,3,33.53
+10,Division C - Global Brands,Brand Direct A,858707.29,642007.5,216699.79,137409,613,25.24
+10,Division C - Global Brands,Retailer 030,171494.1,168889.35,2604.75,34150,18,1.52
+10,Division C - Global Brands,Retailer 073,7232.36,3450.63,3781.73,579,4,52.29
+10,Division C - Global Brands,Retailer 049,67327.32,57296.74,10030.58,10567,20,14.9
+10,Division C - Global Brands,Retailer 043,18061.91,25453.64,-7391.73,2872,59,-40.92
+10,Division C - Global Brands,Department Store A,99102.92,87496.86,11606.06,25897,44,11.71
+10,Division C - Global Brands,Department Store B,453274.24,275342.2,177932.04,36177,135,39.25
+10,Division C - Global Brands,Brand Direct B,232545.15,181308.62,51236.53,20100,4,22.03
+10,Division C - Global Brands,Retailer 027,282251.89,167184.94,115066.95,41218,10,40.77
+10,Division C - Global Brands,Retailer 051,2693.62,2353.16,340.46,431,5,12.64
+10,Division C - Global Brands,Off-Price Retailer A,1823794.04,1338020.25,485773.79,373763,100,26.64
+10,Division C - Global Brands,Retailer 048,41876.5,41858.63,17.87,5700,7,0.04
+10,Division C - Global Brands,Retailer 058,26732.97,15290.7,11442.27,3542,9,42.8
+10,Division C - Global Brands,Department Store D,172759.5,129075.51,43683.99,35278,31,25.29
+10,Division C - Global Brands,Retailer 047,30745.12,53342.79,-22597.67,15837,1,-73.5
+10,Division C - Global Brands,Retailer 055,7164.17,5714.55,1449.62,889,27,20.23
+10,Division C - Global Brands,Specialty Retailer C,807396.15,496328.43,311067.72,109468,305,38.53
+10,Division D - Core/Licensed,Retailer 028,89343.11,32181.76,57161.35,9214,2,63.98
+10,Division D - Core/Licensed,Retailer 033,6542.79,3632.09,2910.7,1128,2,44.49
+10,Division D - Core/Licensed,Retailer 026,34982.22,24887.13,10095.09,6990,5,28.86
+10,Division D - Core/Licensed,Department Store C,215369.92,153712.91,61657.01,26866,14,28.63
+10,Division D - Core/Licensed,Off-Price Retailer B,117064.11,115928.47,1135.64,40949,15,0.97
+10,Division D - Core/Licensed,Specialty Retailer B,133350.07,94801.82,38548.25,16996,4,28.91
+10,Division D - Core/Licensed,Retailer 035,71815.21,44855.29,26959.92,10184,2,37.54
+10,Division D - Core/Licensed,Off-Price Retailer C,183706.03,115522.22,68183.81,9786,17,37.12
+10,Division D - Core/Licensed,Retailer 040,44282.96,25732.0,18550.96,6114,6,41.89
+10,Division D - Core/Licensed,Specialty Retailer D,427879.05,299357.72,128521.33,33609,16,30.04
+10,Division D - Core/Licensed,Value Retailer B,507241.33,335906.82,171334.51,50947,27,33.78
+10,Division D - Core/Licensed,Value Retailer A,578627.9,369030.16,209597.74,78887,34,36.22
+10,Division D - Core/Licensed,Retailer 039,88056.05,72762.89,15293.16,8901,19,17.37
+10,Division D - Core/Licensed,Department Store A,903916.94,658268.44,245648.5,155828,54,27.18
+10,Division D - Core/Licensed,Department Store B,1004185.84,698215.13,305970.71,128441,145,30.47
+10,Division D - Core/Licensed,Retailer 024,502913.27,365870.73,137042.54,114480,40,27.25
+10,Division D - Core/Licensed,Retailer 025,99261.34,68778.6,30482.74,12578,8,30.71
+10,Division D - Core/Licensed,Brand Direct B,379550.9,259328.53,120222.37,33709,8,31.67
+10,Division D - Core/Licensed,Specialty Retailer A,168533.09,120614.38,47918.71,32846,14,28.43
+10,Division D - Core/Licensed,Off-Price Retailer A,1612612.85,1251629.87,360982.98,382118,90,22.38
+10,Division D - Core/Licensed,E-Commerce A,1381619.57,941370.0,440249.57,129239,33,31.86
+10,Division D - Core/Licensed,National Retailer B,5644644.06,3808929.44,1835714.62,776997,75,32.52
+10,Division D - Core/Licensed,Department Store D,1602042.53,1102944.86,499097.67,202239,47,31.15
+10,Division D - Core/Licensed,Department Store E,376210.2,277001.01,99209.19,29688,14,26.37
+10,Division D - Core/Licensed,Retailer 069,840.38,525.92,314.46,109,5,37.42
+10,Division D - Core/Licensed,National Retailer A,9510998.12,7293763.81,2217234.31,1446262,53,23.31
+10,Division E - Lifestyle,Department Store C,75197.01,39468.5,35728.51,10720,10,47.51
+10,Division E - Lifestyle,Off-Price Retailer C,29032.79,20009.69,9023.1,3835,4,31.08
+10,Division E - Lifestyle,Retailer 040,20502.27,14610.22,5892.05,4424,12,28.74
+10,Division E - Lifestyle,Specialty Retailer D,130792.69,93738.51,37054.18,14574,11,28.33
+10,Division E - Lifestyle,Value Retailer A,120293.32,81988.17,38305.15,17093,18,31.84
+10,Division E - Lifestyle,Department Store A,1759606.73,1443606.17,316000.56,439012,202,17.96
+10,Division E - Lifestyle,Department Store B,703036.67,464547.59,238489.08,97614,80,33.92
+10,Division E - Lifestyle,Retailer 025,28837.07,20586.47,8250.6,5306,2,28.61
+10,Division E - Lifestyle,Brand Direct B,99165.22,64722.11,34443.11,22027,4,34.73
+10,Division E - Lifestyle,Specialty Retailer A,291953.16,211250.88,80702.28,57522,37,27.64
+10,Division E - Lifestyle,Off-Price Retailer A,784626.2,598571.32,186054.88,171731,61,23.71
+10,Division E - Lifestyle,National Retailer B,2938904.34,2345064.2,593840.14,600101,65,20.21
+10,Division E - Lifestyle,Department Store D,222735.16,167485.65,55249.51,39957,7,24.81
+10,Division E - Lifestyle,Retailer 069,12292.42,8516.18,3776.24,844,13,30.72
+10,Division E - Lifestyle,National Retailer A,43455.98,33406.84,10049.14,5967,16,23.12
+10,Division E - Lifestyle,Specialty Retailer C,2090.52,2501.65,-411.13,454,3,-19.67
+10,Division F - Specialty,Retailer 037,80009.87,45315.36,34694.51,5822,5,43.36
+10,Division F - Specialty,Retailer 071,1731.71,1244.14,487.57,98,1,28.16
+10,Division F - Specialty,Retailer 074,4670.75,2658.25,2012.5,238,26,43.09
+10,Division F - Specialty,Retailer 062,7107.34,5285.07,1822.27,906,6,25.64
+10,Division F - Specialty,Retailer 031,137250.77,86039.72,51211.05,7813,13,37.31
+10,Division F - Specialty,Retailer 060,22720.0,13396.87,9323.13,1044,20,41.03
+10,Division F - Specialty,Retailer 042,32120.21,20342.86,11777.35,1691,4,36.67
+10,Division F - Specialty,Retailer 049,7665.79,6559.46,1106.33,1577,7,14.43
+10,Division F - Specialty,Retailer 045,6888.97,3852.08,3036.89,633,1,44.08
+10,Division F - Specialty,Retailer 027,25800.83,17814.35,7986.48,2021,7,30.95
+10,Division F - Specialty,Retailer 032,75260.0,49534.88,25725.12,5478,3,34.18
+10,Division F - Specialty,Retailer 058,2204.63,1321.46,883.17,124,8,40.06
+10,Division F - Specialty,Department Store D,9853.66,7750.83,2102.83,1852,10,21.34
+10,Division F - Specialty,Retailer 034,39567.3,24284.61,15282.69,3421,2,38.62
+10,Division F - Specialty,Retailer 047,4409.44,5213.73,-804.29,677,31,-18.24
+10,Division F - Specialty,Specialty Retailer C,105774.2,60449.58,45324.62,5728,294,42.85
+10,Division G - Sports,Retailer 060,15968.26,8699.85,7268.41,705,20,45.52
+10,Division G - Sports,Retailer 041,64621.72,33687.86,30933.86,2756,17,47.87
+10,Division G - Sports,Retailer 032,29669.19,17794.52,11874.67,1337,8,40.02
+10,Division G - Sports,Department Store D,2290.22,2042.88,247.34,474,1,10.8
+10,Division G - Sports,Specialty Retailer C,79050.26,46940.51,32109.75,3230,49,40.62
+10,Division H - Marketplace,Retailer 054,0.0,0.0,0.0,1,1,0.0
+10,Division I - Digital,Retailer 021,402288.8,118614.38,283674.42,8805,839,70.52
