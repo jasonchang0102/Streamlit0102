@@ -18,13 +18,14 @@ class Config:
     NAME: str = "Jason C. Chang"
     INITIALS: str = "JC"
     TITLE: str = "BI Manager"
-    TAGLINE: str = "I turn data chaos into executive clarity"
+    TAGLINE: str = "I turn fragmented data into executive clarity"
     VALUE_PROP: str = "I help executives stop arguing about numbers and start making decisions."
     EMAIL: str = "jason.chang01022024@gmail.com"
     PHONE: str = "(626) 203-3319"
     LINKEDIN: str = "linkedin.com/in/jchang0102"
     LINKEDIN_URL: str = "https://linkedin.com/in/jchang0102"
     LOCATION: str = "Hacienda Heights, CA"
+    RESUME_URL: str = "https://github.com/jasonchang0102/Streamlit0102/blob/main/--Jason_Chang_Sr_BI_Analytics_Manager_Resume--03-17-26.pdf"
     KEYWORDS: tuple = ("SQL", "Python", "Power BI", "Snowflake", "DAX")
     PAGES: tuple = ("Home", "Work", "About", "Connect")
 
@@ -60,12 +61,40 @@ CSS = """
 #MainMenu, footer, header, .stDeployButton, div[data-testid="stDecoration"], [data-testid="stHeader"], [data-testid="stToolbar"] { display: none !important; }
 .block-container { padding: 0 !important; max-width: 100% !important; }
 
+/* Sidebar - fixed collapse behavior */
 section[data-testid="stSidebar"] { background: var(--black) !important; min-width: 300px !important; max-width: 300px !important; }
 section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padding-bottom: 100px !important; background: var(--black) !important; }
 [data-testid="stSidebarNav"] { display: none !important; }
 
+/* Fix: Keep sidebar collapse/expand button always visible and functional */
+button[data-testid="stSidebarCollapseButton"],
+[data-testid="collapsedControl"],
+button[kind="header"],
+section[data-testid="stSidebar"] button[aria-label="Close"],
+section[data-testid="stSidebar"] button[aria-label="Collapse sidebar"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+}
+
+/* Fix: Ensure the expand button is visible when sidebar is collapsed */
+[data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    position: fixed !important;
+    left: 0 !important;
+    top: 0 !important;
+    z-index: 999999 !important;
+    background: var(--black) !important;
+    border-radius: 0 !important;
+}
+[data-testid="collapsedControl"] button {
+    color: var(--white) !important;
+    background: var(--black) !important;
+}
+
 .sidebar-brand { padding: 64px 40px 40px; border-bottom: 1px solid var(--gray-800); text-align: center; }
-.sidebar-photo { width: 100px; height: 100px; background: var(--gray-700); border: 3px solid var(--white); border-radius: 50%; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 11px; color: var(--gray-400); }
 .sidebar-name { font-family: var(--font-display); font-size: 24px; color: var(--white); margin: 0 0 4px; letter-spacing: 3px; }
 .sidebar-title { font-family: var(--font-body); font-size: 13px; color: var(--gray-400); margin: 0 0 16px; }
 .sidebar-status { display: inline-flex; align-items: center; gap: 8px; background: var(--gray-800); padding: 8px 16px; font-family: var(--font-body); font-size: 11px; font-weight: 600; color: #4ade80; letter-spacing: 1px; }
@@ -83,13 +112,13 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .sidebar-footer { position: fixed; bottom: 0; left: 0; width: 300px; padding: 24px 40px; border-top: 1px solid var(--gray-800); background: var(--black); }
 .sidebar-download { display: block; background: var(--white); color: var(--black); font-family: var(--font-display); font-size: 14px; letter-spacing: 2px; text-align: center; text-decoration: none; padding: 12px; }
 
-.hero { display: grid; grid-template-columns: 1fr 280px; gap: 96px; padding: 96px 80px; min-height: calc(100vh - 200px); align-items: center; }
+/* Hero - no photo */
+.hero { padding: 96px 80px; min-height: calc(100vh - 200px); display: flex; flex-direction: column; justify-content: center; }
 .hero-eyebrow { font-family: var(--font-body); font-size: 15px; font-weight: 600; color: var(--gray-500); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
 .hero-headline { font-family: var(--font-display); font-size: 72px; color: var(--black); line-height: 0.95; margin: 0 0 24px; letter-spacing: 3px; }
 .hero-value { font-family: var(--font-body); font-size: 22px; color: var(--gray-600); line-height: 1.6; max-width: 560px; margin-bottom: 40px; }
 .hero-keywords { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-keyword { font-family: var(--font-mono); font-size: 14px; color: var(--black); background: var(--gray-100); padding: 10px 18px; border: 2px solid var(--gray-200); }
-.hero-photo { width: 260px; height: 260px; background: var(--gray-200); border: 4px solid var(--black); display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 15px; color: var(--gray-500); text-align: center; }
 
 .stats-section { padding: 0 80px 64px; }
 .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 40px 0; border-top: 2px solid var(--black); border-bottom: 2px solid var(--black); }
@@ -116,16 +145,17 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .testimonial-author { font-family: var(--font-body); font-size: 16px; font-weight: 600; color: var(--black); text-transform: uppercase; letter-spacing: 1px; }
 .testimonial-role { font-family: var(--font-body); font-size: 14px; color: var(--gray-500); margin-top: 2px; }
 
+/* Fix: MORE WORK and project titles too light - force black */
 .projects-section { padding: 64px 80px 96px; }
-.projects-title { font-family: var(--font-display); font-size: 32px; color: var(--black); letter-spacing: 3px; margin: 0 0 40px; }
+.projects-title { font-family: var(--font-display); font-size: 32px; color: var(--black) !important; letter-spacing: 3px; margin: 0 0 40px; }
 .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .project-card { background: var(--white); border: 2px solid var(--gray-200); padding: 40px; }
-.project-company { font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--gray-500); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-.project-title { font-family: var(--font-display); font-size: 26px; color: var(--black); line-height: 1.2; margin: 0 0 8px; letter-spacing: 1px; }
+.project-company { font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--gray-600); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.project-title { font-family: var(--font-display); font-size: 26px; color: var(--black) !important; line-height: 1.2; margin: 0 0 8px; letter-spacing: 1px; }
 .project-meta { font-family: var(--font-mono); font-size: 12px; color: var(--gray-500); margin-bottom: 16px; }
 .project-desc { font-family: var(--font-body); font-size: 16px; color: var(--gray-600); line-height: 1.6; margin-bottom: 24px; }
 .project-metrics { display: flex; gap: 40px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
-.pm-value { font-family: var(--font-display); font-size: 26px; color: var(--black); }
+.pm-value { font-family: var(--font-display); font-size: 26px; color: var(--black) !important; }
 .pm-label { font-family: var(--font-body); font-size: 12px; color: var(--gray-500); text-transform: uppercase; }
 
 .work-hero { background: var(--black); padding: 100px 80px; text-align: center; }
@@ -136,13 +166,13 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .case-study:nth-child(even) { background: var(--gray-50); }
 .case-inner { max-width: 800px; margin: 0 auto; }
 .case-label { display: inline-block; font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--white); background: var(--black); padding: 8px 16px; letter-spacing: 2px; margin-bottom: 24px; }
-.case-title { font-family: var(--font-display); font-size: 44px; color: var(--black); line-height: 1.1; margin: 0 0 8px; letter-spacing: 2px; background: linear-gradient(180deg, transparent 60%, #fde047 60%); display: inline; padding: 0 4px; }
+.case-title { font-family: var(--font-display); font-size: 44px; color: var(--black) !important; line-height: 1.1; margin: 0 0 8px; letter-spacing: 2px; background: linear-gradient(180deg, transparent 60%, #fde047 60%); display: inline; padding: 0 4px; }
 .case-subtitle { font-family: var(--font-body); font-size: 17px; color: var(--gray-500); margin-bottom: 40px; margin-top: 16px; }
 .case-results { background: var(--black); padding: 40px; margin-bottom: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
 .cr-value { font-family: var(--font-display); font-size: 44px; color: var(--white); }
 .cr-label { font-family: var(--font-body); font-size: 13px; color: var(--gray-400); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
 .case-section { margin-bottom: 40px; }
-.case-section-title { font-family: var(--font-display); font-size: 22px; color: var(--black); letter-spacing: 2px; margin-bottom: 16px; padding-left: 16px; border-left: 4px solid var(--black); }
+.case-section-title { font-family: var(--font-display); font-size: 22px; color: var(--black) !important; letter-spacing: 2px; margin-bottom: 16px; padding-left: 16px; border-left: 4px solid var(--black); }
 .case-section p { font-family: var(--font-body); font-size: 17px; color: var(--gray-600); line-height: 1.8; margin: 0 0 16px; }
 .case-section ul { margin: 0; padding: 0; list-style: none; }
 .case-section li { font-family: var(--font-body); font-size: 17px; color: var(--gray-600); line-height: 1.8; margin-bottom: 8px; padding-left: 24px; position: relative; }
@@ -151,14 +181,14 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .case-quote p { font-family: var(--font-body); font-size: 20px; font-style: italic; color: var(--black); line-height: 1.6; margin: 0; }
 .case-quote cite { font-family: var(--font-body); font-size: 14px; color: var(--gray-500); font-style: normal; display: block; margin-top: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-.about-hero { display: grid; grid-template-columns: 300px 1fr; gap: 96px; padding: 96px 80px; align-items: start; }
-.about-photo { width: 280px; height: 280px; background: var(--gray-200); border: 4px solid var(--black); display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 15px; color: var(--gray-500); text-align: center; }
+/* About - no photo */
+.about-hero { padding: 96px 80px; }
 .about-intro h1 { font-family: var(--font-display); font-size: 52px; color: var(--black); margin: 0 0 24px; letter-spacing: 2px; }
 .about-intro p { font-family: var(--font-body); font-size: 19px; color: var(--gray-600); line-height: 1.8; margin: 0 0 16px; }
 
 .about-section { padding: 64px 80px; border-top: 1px solid var(--gray-200); }
 .about-section:nth-child(even) { background: var(--gray-50); }
-.section-title { font-family: var(--font-display); font-size: 32px; color: var(--black); margin: 0 0 40px; letter-spacing: 3px; }
+.section-title { font-family: var(--font-display); font-size: 32px; color: var(--black) !important; margin: 0 0 40px; letter-spacing: 3px; }
 
 .timeline { max-width: 720px; position: relative; padding-left: 40px; }
 .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--black); }
@@ -166,13 +196,13 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .tl-item::before { content: ''; position: absolute; left: -47px; top: 32px; width: 16px; height: 16px; background: var(--white); border: 3px solid var(--black); border-radius: 50%; }
 .tl-item:last-child { border-bottom: none; }
 .tl-year { font-family: var(--font-mono); font-size: 14px; color: var(--gray-500); }
-.tl-role { font-family: var(--font-display); font-size: 22px; color: var(--black); margin: 0 0 4px; letter-spacing: 1px; }
+.tl-role { font-family: var(--font-display); font-size: 22px; color: var(--black) !important; margin: 0 0 4px; letter-spacing: 1px; }
 .tl-company { font-family: var(--font-body); font-size: 16px; color: var(--gray-500); }
 .tl-desc { font-family: var(--font-body); font-size: 16px; color: var(--gray-600); line-height: 1.6; margin-top: 8px; }
 
 .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 900px; }
 .skill-card { background: var(--white); border: 2px solid var(--gray-200); padding: 40px; }
-.skill-card-title { font-family: var(--font-display); font-size: 18px; color: var(--black); letter-spacing: 2px; margin-bottom: 16px; }
+.skill-card-title { font-family: var(--font-display); font-size: 18px; color: var(--black) !important; letter-spacing: 2px; margin-bottom: 16px; }
 .skill-card-list { font-family: var(--font-body); font-size: 16px; color: var(--gray-600); line-height: 2.2; }
 
 .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; }
@@ -191,7 +221,7 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .cc-value a { color: var(--gray-300); text-decoration: none; }
 
 .testimonials { padding: 96px 80px; }
-.testimonials-title { font-family: var(--font-display); font-size: 32px; color: var(--black); letter-spacing: 3px; text-align: center; margin: 0 0 40px; }
+.testimonials-title { font-family: var(--font-display); font-size: 32px; color: var(--black) !important; letter-spacing: 3px; text-align: center; margin: 0 0 40px; }
 .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
 .tc { background: var(--white); border: 2px solid var(--gray-200); padding: 40px; }
 .tc-quote { font-family: var(--font-body); font-size: 17px; color: var(--gray-600); line-height: 1.7; font-style: italic; margin-bottom: 16px; }
@@ -199,11 +229,10 @@ section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padd
 .tc-role { font-family: var(--font-body); font-size: 14px; color: var(--gray-500); margin-top: 2px; }
 
 @media (max-width: 1024px) {
-    .hero { grid-template-columns: 1fr; padding: 64px 40px; }
-    .hero-photo { display: none; }
+    .hero { padding: 64px 40px; }
     .stats-bar, .flagship-results { grid-template-columns: repeat(2, 1fr); }
     .flagship, .projects-section, .case-study, .about-section, .testimonials { padding-left: 40px; padding-right: 40px; }
-    .about-hero { grid-template-columns: 1fr; padding: 40px; }
+    .about-hero { padding: 40px; }
     .projects-grid, .testimonials-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 768px) {
@@ -232,7 +261,6 @@ def main():
     # Sidebar
     with st.sidebar:
         st.markdown(f'''<div class="sidebar-brand">
-            <div class="sidebar-photo">Photo</div>
             <p class="sidebar-name">{CONFIG.NAME}</p>
             <p class="sidebar-title">{CONFIG.TITLE}</p>
             <div class="sidebar-status">Open to Opportunities</div>
@@ -240,8 +268,8 @@ def main():
         
         page = st.radio("Nav", CONFIG.PAGES, label_visibility="collapsed")
         
-        st.markdown('''<div class="sidebar-footer">
-            <a href="#" class="sidebar-download">Download Resume</a>
+        st.markdown(f'''<div class="sidebar-footer">
+            <a href="{CONFIG.RESUME_URL}" target="_blank" class="sidebar-download">Download Resume</a>
         </div>''', unsafe_allow_html=True)
     
     if page == "Home":
@@ -255,21 +283,20 @@ def main():
 
 
 def render_home():
-    # Hero
+    # Hero - no photo
     keywords_html = ''.join(f'<span class="hero-keyword">{k}</span>' for k in CONFIG.KEYWORDS)
     st.markdown(f'''<div class="hero">
         <div>
-            <p class="hero-eyebrow">{CONFIG.TITLE} - 10+ Years - Advantage Solutions</p>
-            <h1 class="hero-headline">I TURN DATA CHAOS INTO EXECUTIVE CLARITY</h1>
+            <p class="hero-eyebrow">{CONFIG.TITLE} - 8+ Years - Advantage Solutions</p>
+            <h1 class="hero-headline">I TURN FRAGMENTED DATA INTO EXECUTIVE CLARITY</h1>
             <p class="hero-value">{CONFIG.VALUE_PROP}</p>
             <div class="hero-keywords">{keywords_html}</div>
         </div>
-        <div class="hero-photo">Your Photo<br>260x260</div>
     </div>''', unsafe_allow_html=True)
     
     # Stats
     st.markdown('''<div class="stats-section"><div class="stats-bar">
-        <div class="stat-item"><div class="stat-value">10+</div><div class="stat-label">Years in BI</div></div>
+        <div class="stat-item"><div class="stat-value">8+</div><div class="stat-label">Years in BI</div></div>
         <div class="stat-item"><div class="stat-value">$15M</div><div class="stat-label">Revenue Impact</div></div>
         <div class="stat-item"><div class="stat-value">250+</div><div class="stat-label">Users Enabled</div></div>
         <div class="stat-item"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
@@ -284,7 +311,7 @@ def render_home():
         </div>''', unsafe_allow_html=True)
     
     st.markdown('''<div class="flagship-mess">
-            <div class="flagship-mess-label">THE MESS I INHERITED</div>
+            <div class="flagship-mess-label">THE CHALLENGE</div>
             <p class="flagship-mess-text">After the merger, I found 5 sales systems that did not talk to each other. Each region defined revenue differently. The CFO was getting 5 different numbers in every board meeting. I had 6 weeks before Q3 close to build a single source of truth.</p>
         </div>''', unsafe_allow_html=True)
     
@@ -356,7 +383,7 @@ def render_work():
         </div>''', unsafe_allow_html=True)
     
     st.markdown('''<div class="case-section">
-            <h3 class="case-section-title">THE MESS</h3>
+            <h3 class="case-section-title">THE CHALLENGE</h3>
             <p>After the merger, I inherited 5 sales systems that did not talk to each other. Each region defined revenue differently. The CFO was getting 5 different numbers in every board meeting.</p>
             <ul>
                 <li>CFO getting 5 different revenue numbers at every board meeting</li>
@@ -400,7 +427,7 @@ def render_work():
             <div><div class="cr-value">2x</div><div class="cr-label">ROAS</div></div>
         </div>
         <div class="case-section">
-            <h3 class="case-section-title">THE MESS</h3>
+            <h3 class="case-section-title">THE CHALLENGE</h3>
             <p>Marketing was sending the same promotion to everyone. Data scattered across Facebook, Shopify, Google Analytics - no unified customer view.</p>
         </div>
         <div class="case-section">
@@ -424,7 +451,7 @@ def render_work():
             <div><div class="cr-value">99</div><div class="cr-label">Vendors</div></div>
         </div>
         <div class="case-section">
-            <h3 class="case-section-title">THE MESS</h3>
+            <h3 class="case-section-title">THE CHALLENGE</h3>
             <p>Automation meant 47 Excel macros that one person understood. Every Monday, 3 analysts spent 4 hours manually processing vendor reports. Error rate: 15%.</p>
         </div>
         <div class="case-section">
@@ -439,8 +466,8 @@ def render_work():
 
 
 def render_about():
+    # No photo
     st.markdown('''<div class="about-hero">
-        <div class="about-photo">Your Photo<br>280x280</div>
         <div class="about-intro">
             <h1>HI, I AM JASON.</h1>
             <p>I have spent the last decade helping companies <strong>stop guessing and start knowing</strong>.</p>
@@ -491,7 +518,7 @@ def render_about():
     st.markdown('''<div class="about-section">
         <h2 class="section-title">SKILLS</h2>
         <div class="skills-grid">
-            <div class="skill-card"><div class="skill-card-title">DAILY DRIVERS</div><div class="skill-card-list">SQL (10+ years)<br>Power BI / DAX<br>Python<br>Snowflake<br>Excel + VBA</div></div>
+            <div class="skill-card"><div class="skill-card-title">DAILY DRIVERS</div><div class="skill-card-list">SQL (8+ years)<br>Power BI / DAX<br>Python<br>Snowflake<br>Excel + VBA</div></div>
             <div class="skill-card"><div class="skill-card-title">FLUENT</div><div class="skill-card-list">BigQuery<br>GA4<br>Looker<br>Qlik<br>Power Query</div></div>
             <div class="skill-card"><div class="skill-card-title">STATISTICAL</div><div class="skill-card-list">A/B Testing<br>Regression<br>K-Means<br>Cohort Analysis<br>Forecasting</div></div>
         </div>
