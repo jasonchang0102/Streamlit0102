@@ -130,14 +130,15 @@ section[data-testid="stSidebar"] button[aria-label="Collapse sidebar"] {
 .flagship-label { font-family: var(--font-body); font-size: 13px; font-weight: 600; color: var(--gray-400); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--white); display: inline-block; }
 .flagship-title { font-family: var(--font-display); font-size: 44px; color: var(--white); line-height: 1.1; margin: 0 0 16px; letter-spacing: 2px; max-width: 700px; }
 .flagship-meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 40px; font-family: var(--font-mono); font-size: 14px; color: var(--gray-400); }
-.flagship-mess { background: var(--gray-900); padding: 40px; margin-bottom: 40px; border-left: 4px solid var(--white); }
+.flagship-mess { background: var(--gray-900); padding: 40px 80px; margin-bottom: 0; border-left: none; }
+.flagship-mess-inner { border-left: 4px solid var(--white); padding-left: 40px; }
 .flagship-mess-label { font-family: var(--font-display); font-size: 20px; color: var(--white); letter-spacing: 2px; margin-bottom: 16px; }
 .flagship-mess-text { font-family: var(--font-body); font-size: 18px; color: var(--gray-300); line-height: 1.8; }
-.flagship-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 40px; }
-.flagship-result { border-left: 3px solid var(--white); padding-left: 24px; }
-.flagship-result-value { font-family: var(--font-display); font-size: 44px; color: var(--white); }
-.flagship-result-label { font-family: var(--font-body); font-size: 13px; color: var(--gray-400); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
-.flagship-tags { display: flex; gap: 12px; flex-wrap: wrap; }
+.flagship-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 0; background: var(--black); padding: 40px 80px; }
+.flagship-result { border-left: 3px solid #ffffff; padding-left: 24px; }
+.flagship-result-value { font-family: var(--font-display); font-size: 44px; color: #ffffff !important; }
+.flagship-result-label { font-family: var(--font-body); font-size: 13px; color: #a3a3a3 !important; margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+.flagship-tags { display: flex; gap: 12px; flex-wrap: wrap; background: var(--black); padding: 20px 80px 60px; }
 .flagship-tag { font-family: var(--font-mono); font-size: 13px; color: var(--gray-400); background: var(--gray-800); padding: 10px 16px; }
 
 .home-testimonial { background: var(--gray-100); padding: 64px 80px; }
@@ -302,29 +303,31 @@ def render_home():
         <div class="stat-item"><div class="stat-value">70%</div><div class="stat-label">Faster Decisions</div></div>
     </div></div>''', unsafe_allow_html=True)
     
-    # Flagship - split into chunks
+    # Flagship - each chunk needs own black background since Streamlit breaks parent-child
     st.markdown('''<div class="flagship">
         <div class="flagship-label">Flagship Project</div>
         <h2 class="flagship-title">UNIFIED 5 CONFLICTING DATA SOURCES INTO A SINGLE SOURCE OF TRUTH</h2>
         <div class="flagship-meta">
             <span>6 weeks</span><span>$12M annual impact</span><span>250 users</span><span>5 stakeholders</span>
-        </div>''', unsafe_allow_html=True)
+        </div>
+    </div>''', unsafe_allow_html=True)
     
     st.markdown('''<div class="flagship-mess">
+        <div class="flagship-mess-inner">
             <div class="flagship-mess-label">THE CHALLENGE</div>
             <p class="flagship-mess-text">After the merger, I found 5 sales systems that did not talk to each other. Each region defined revenue differently. The CFO was getting 5 different numbers in every board meeting. I had 6 weeks before Q3 close to build a single source of truth.</p>
-        </div>''', unsafe_allow_html=True)
+        </div>
+    </div>''', unsafe_allow_html=True)
     
     st.markdown('''<div class="flagship-results">
-            <div class="flagship-result"><div class="flagship-result-value">9%</div><div class="flagship-result-label">Revenue Lift</div></div>
-            <div class="flagship-result"><div class="flagship-result-value">70%</div><div class="flagship-result-label">Fewer Conflicts</div></div>
-            <div class="flagship-result"><div class="flagship-result-value">5-1</div><div class="flagship-result-label">Day Decision Cycle</div></div>
-            <div class="flagship-result"><div class="flagship-result-value">$12M</div><div class="flagship-result-label">Annual Impact</div></div>
-        </div>''', unsafe_allow_html=True)
+        <div class="flagship-result"><div class="flagship-result-value">9%</div><div class="flagship-result-label">Revenue Lift</div></div>
+        <div class="flagship-result"><div class="flagship-result-value">70%</div><div class="flagship-result-label">Fewer Conflicts</div></div>
+        <div class="flagship-result"><div class="flagship-result-value">5-1</div><div class="flagship-result-label">Day Decision Cycle</div></div>
+        <div class="flagship-result"><div class="flagship-result-value">$12M</div><div class="flagship-result-label">Annual Impact</div></div>
+    </div>''', unsafe_allow_html=True)
     
     st.markdown('''<div class="flagship-tags">
-            <span class="flagship-tag">Snowflake</span><span class="flagship-tag">Power BI</span><span class="flagship-tag">Python</span><span class="flagship-tag">DAX</span>
-        </div>
+        <span class="flagship-tag">Snowflake</span><span class="flagship-tag">Power BI</span><span class="flagship-tag">Python</span><span class="flagship-tag">DAX</span>
     </div>''', unsafe_allow_html=True)
     
     # Testimonial
