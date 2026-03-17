@@ -66,7 +66,16 @@ section[data-testid="stSidebar"] { background: var(--black) !important; min-widt
 section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padding-bottom: 100px !important; background: var(--black) !important; }
 [data-testid="stSidebarNav"] { display: none !important; }
 button[data-testid="stSidebarCollapseButton"] { display: none !important; }
-[data-testid="collapsedControl"] { display: none !important; }
+[data-testid="collapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 999999 !important;
+    background: var(--black) !important;
+    padding: 12px !important;
+}
+[data-testid="collapsedControl"] svg { fill: white !important; color: white !important; stroke: white !important; }
+[data-testid="collapsedControl"] button { background: var(--black) !important; color: white !important; }
 
 .sidebar-brand { padding: 64px 40px 40px; border-bottom: 1px solid var(--gray-800); text-align: center; }
 .sidebar-name { font-family: var(--font-display); font-size: 24px; color: var(--white); margin: 0 0 4px; letter-spacing: 3px; }
