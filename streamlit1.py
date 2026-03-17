@@ -61,38 +61,12 @@ CSS = """
 #MainMenu, footer, header, .stDeployButton, div[data-testid="stDecoration"], [data-testid="stHeader"], [data-testid="stToolbar"] { display: none !important; }
 .block-container { padding: 0 !important; max-width: 100% !important; }
 
-/* Sidebar - fixed collapse behavior */
+/* Sidebar - prevent collapse entirely */
 section[data-testid="stSidebar"] { background: var(--black) !important; min-width: 300px !important; max-width: 300px !important; }
 section[data-testid="stSidebar"] > div:first-child { padding: 0 !important; padding-bottom: 100px !important; background: var(--black) !important; }
 [data-testid="stSidebarNav"] { display: none !important; }
-
-/* Fix: Keep sidebar collapse/expand button always visible and functional */
-button[data-testid="stSidebarCollapseButton"],
-[data-testid="collapsedControl"],
-button[kind="header"],
-section[data-testid="stSidebar"] button[aria-label="Close"],
-section[data-testid="stSidebar"] button[aria-label="Collapse sidebar"] {
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    z-index: 999999 !important;
-}
-
-/* Fix: Ensure the expand button is visible when sidebar is collapsed */
-[data-testid="collapsedControl"] {
-    display: flex !important;
-    visibility: visible !important;
-    position: fixed !important;
-    left: 0 !important;
-    top: 0 !important;
-    z-index: 999999 !important;
-    background: var(--black) !important;
-    border-radius: 0 !important;
-}
-[data-testid="collapsedControl"] button {
-    color: var(--white) !important;
-    background: var(--black) !important;
-}
+button[data-testid="stSidebarCollapseButton"] { display: none !important; }
+[data-testid="collapsedControl"] { display: none !important; }
 
 .sidebar-brand { padding: 64px 40px 40px; border-bottom: 1px solid var(--gray-800); text-align: center; }
 .sidebar-name { font-family: var(--font-display); font-size: 24px; color: var(--white); margin: 0 0 4px; letter-spacing: 3px; }
