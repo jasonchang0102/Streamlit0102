@@ -217,6 +217,22 @@ button[data-testid="stSidebarCollapseButton"] { display: none !important; }
     .connect-cards { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
+<script>
+try {
+    var keys = Object.keys(localStorage);
+    for (var i = 0; i < keys.length; i++) {
+        if (keys[i].indexOf('sidebar') !== -1 || keys[i].indexOf('Sidebar') !== -1) {
+            localStorage.removeItem(keys[i]);
+        }
+    }
+    var keys2 = Object.keys(sessionStorage);
+    for (var j = 0; j < keys2.length; j++) {
+        if (keys2[j].indexOf('sidebar') !== -1 || keys2[j].indexOf('Sidebar') !== -1) {
+            sessionStorage.removeItem(keys2[j]);
+        }
+    }
+} catch(e) {}
+</script>
 """
 
 # =============================================================================
