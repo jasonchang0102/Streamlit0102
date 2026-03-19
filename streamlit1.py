@@ -327,7 +327,7 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 
 **Week 6:** Trained 250 users. Deprecated 47 legacy reports. Established a formal data governance process — any metric change required a written change request reviewed by the metric owner and one cross-functional stakeholder before deployment.
 
-**ETL Automation:** Replaced 47 Excel macros with automated Python + SQL pipelines. Reverse-engineered undocumented business logic over a full week with the finance analyst. Built dynamic column mapping that handles vendor format changes without code updates.
+**ETL Automation:** The analyst who maintained the 47 Excel macros had been doing it alone for two years. Over a full week together, we reverse-engineered every undocumented business rule — GL code mappings, vendor exceptions, formatting requirements that existed only in her workflow. Built dynamic column mapping in Python that captured all of it. The pipeline now runs quarterly without human intervention.
 """)
 
     section_header("WHAT WENT WRONG")
@@ -435,6 +435,7 @@ def render_case2():
     st.write("")
     section_header("THE SITUATION")
     st.markdown("DTC startup, $65K+/month, 780 units moving. Four ad platforms, zero unified attribution. Each platform claimed credit for the same conversion — making it impossible to identify the actual breakeven cost per acquisition.")
+    st.markdown("When I joined, the founder was making budget decisions based on platform-reported ROAS — numbers that were inflated because Facebook, Google, and Shopify were all taking credit for the same sale. The marketing team was scaling what looked profitable and killing what didn't, but nobody had asked the fundamental question: what does a profitable order actually cost us after COGS, shipping, and platform fees? The first time I walked the team through the unit economics — showing that breakeven CPP was $47.48, not the $20 they assumed — the entire ad strategy had to be rebuilt.")
 
     section_header("MY APPROACH")
     st.markdown("**Unit Economics Model** — Before allocating budget, the team needed a shared definition of \'profitable\' at every funnel stage:")
@@ -498,6 +499,9 @@ def render_case3():
     st.write("")
     section_header("THE SITUATION")
     st.markdown("Two senior financial analysts, three full weeks, every quarter. 99 vendor contracts across 6 source systems with completely different column structures. Manual column mapping, vendor filtering, statement formatting, individual emails. One wrong column mapping meant incorrect royalty payments to Disney, Columbia, or Warner Bros — a compliance and relationship risk, not just a data quality issue.")
+
+    section_header("WHY THIS WAS HARD")
+    st.markdown("The lead finance analyst had been doing this manually for 3 years. During our week together reverse-engineering her process, undocumented rules surfaced that only existed in her head — vendor exception codes, seasonal rate adjustments, GL mappings that changed quarterly but were never written down. She knew the system so well that she didn't realize how much tribal knowledge she was carrying. Automating this wasn't just a coding problem — it was a knowledge extraction problem. Every shortcut she took mentally had to be made explicit in code.")
 
     section_header("MY APPROACH")
     st.markdown("""
