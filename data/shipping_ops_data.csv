@@ -1,0 +1,19 @@
+country,region,ship_cost,orders_2wk,carrier,avg_delay_days,delay_rate,orders_quarterly,delayed_orders,total_ship_cost,cs_tickets_est,cs_hours_est
+United States,North America,26.0,328,USPS/FedEx,3,0.08,2132,170,55432.0,306,76.5
+Brazil,South America,32.78,209,YanWen,18,0.45,1358,611,44515.0,1099,274.8
+France,Europe,22.01,145,PostNL,10,0.22,942,207,20733.0,372,93.0
+Germany,Europe,21.85,83,DHL,8,0.15,539,80,11777.0,144,36.0
+Russia,Eastern Europe,25.58,67,YanWen,22,0.55,435,239,11127.0,430,107.5
+Australia,APAC,27.63,66,Australia Post,12,0.3,429,128,11853.0,230,57.5
+United Kingdom,Europe,24.43,60,Royal Mail,7,0.12,390,46,9528.0,82,20.5
+Italy,Europe,23.87,47,YanWen,14,0.35,305,106,7280.0,190,47.5
+Spain,Europe,21.94,38,PostNL,11,0.25,247,61,5419.0,109,27.2
+Poland,Eastern Europe,26.51,25,YanWen,16,0.4,162,64,4295.0,115,28.8
+Netherlands,Europe,27.5,17,PostNL,6,0.1,110,11,3025.0,19,4.8
+Sweden,Europe,26.34,10,PostNord,9,0.18,65,11,1712.0,19,4.8
+New Zealand,APAC,28.73,10,YanWen,20,0.5,65,32,1867.0,57,14.2
+Portugal,Europe,26.98,8,PostNL,12,0.28,52,14,1403.0,25,6.2
+Canada,North America,38.82,5,Canada Post,5,0.1,32,3,1242.0,5,1.2
+Switzerland,Europe,30.15,5,YanWen,15,0.38,32,12,965.0,21,5.2
+Ireland,Europe,28.02,3,Royal Mail,8,0.15,19,2,532.0,3,0.8
+Hong Kong,APAC,22.48,2,SF Express,4,0.05,13,0,292.0,0,0.0
