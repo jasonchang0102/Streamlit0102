@@ -258,6 +258,16 @@ def render_home():
         m2.metric("Users", "250+")
         m3.metric("Cycle", "5→1 day")
 
+    # Dashboard previews
+    st.write("")
+    img1, img2 = st.columns(2)
+    with img1:
+        show_image("mhs_engagement.png", "K-Means clustering: which campaigns are worth scaling vs spend traps")
+    with img2:
+        show_image("advantage_executive.png", "Executive dashboard: 83 customers against budget in one view")
+
+    st.markdown("*Full case studies with dashboard walkthroughs on the **Work** page →*")
+
     # Direction 7: Industry hook
     st.write("")
     st.markdown('*Whether your problem is fragmented reporting, broken attribution, or manual processes eating analyst time — I have solved each one.*')
@@ -500,157 +510,282 @@ Separately: spike in video views with zero page views. Days debugging analytics 
 # EXPLORER
 # =============================================================================
 def render_explorer():
-    st.markdown("# PROFITABILITY EXPLORER")
-    st.markdown("A working profitability analyzer processing **$392M in shipped sales** across **76 accounts** and **9 divisions**. Filter by division, sort by margin, and see which accounts make money vs which just generate volume.")
-    st.markdown("*If Division X has 40% of revenue but negative margin, do you invest to fix it or reallocate to Division Y? That is what this tool answers.*")
+    st.markdown("# LIVE DEMOS")
+    st.markdown("Three interactive analyses built from **real program data** at Advantage Solutions. Filter, sort, and explore — this is the type of work I build for executive stakeholders.")
     st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102/tree/main/code_samples" target="_blank">View code samples on GitHub →</a>', unsafe_allow_html=True)
-
-    st.markdown('<div class="accent-section"><p style="font-size:14px;line-height:1.7;color:#404040"><strong>Try this:</strong> The default view shows Division D and Division F side by side. Division D generates $139M in revenue at 28.9% margin. Division F generates only $6M — but at 34.4% margin. That gap is the resource allocation question: do you scale the profitable niche or double down on volume? Click the X to clear the filter and explore all 9 divisions.</p></div>', unsafe_allow_html=True)
 
     st.divider()
 
     df = load_data()
 
-    # Filters — pre-filtered for aha moment (Direction 8)
-    default_divisions = ["Division D - Core/Licensed", "Division F - Specialty"]
-    col_f1, col_f2, col_f3 = st.columns(3)
-    with col_f1:
-        divisions = st.multiselect("Division", sorted(df["Division"].unique()), default=default_divisions)
-    with col_f2:
-        month_range = st.slider("Month Range", 1, 10, (1, 10))
-        st.caption("Data covers Jan–Oct (shipped orders only)")
-    with col_f3:
-        top_n = st.selectbox("Show Top N Accounts", [10, 20, 50, "All"], index=1)
+    # Three demo tabs
+    demo_tab1, demo_tab2, demo_tab3 = st.tabs(["📊 Profitability Explorer", "🔥 Revenue × Margin Heatmap", "📈 Division Deep Dive"])
 
-    # Filter
-    filtered = df[
-        (df["Division"].isin(divisions)) &
-        (df["Month"] >= month_range[0]) &
-        (df["Month"] <= month_range[1])
-    ]
+    # ─── DEMO 1: PROFITABILITY EXPLORER ──────────────────────────────────
+    with demo_tab1:
+        st.markdown("### PROFITABILITY EXPLORER")
+        st.markdown("*If Division X has 40% of revenue but low margin, do you invest to fix it or reallocate to Division Y?*")
 
-    # KPIs
-    total_sales = filtered["Shipped_Sales"].sum()
-    total_margin = filtered["Margin_Dollars"].sum()
-    margin_pct = (total_margin / total_sales * 100) if total_sales > 0 else 0
-    total_accounts = filtered["Account"].nunique()
-    total_units = filtered["Units"].sum()
+        col_f1, col_f2, col_f3 = st.columns(3)
+        with col_f1:
+            default_divisions = ["Division D - Core/Licensed", "Division F - Specialty"]
+            divisions = st.multiselect("Division", sorted(df["Division"].unique()), default=default_divisions, key="demo1_div")
+        with col_f2:
+            month_range = st.slider("Month Range", 1, 10, (1, 10), key="demo1_month")
+            st.caption("Data covers Jan–Oct (shipped orders only)")
+        with col_f3:
+            top_n = st.selectbox("Show Top N Accounts", [10, 20, 50, "All"], index=1, key="demo1_topn")
 
-    st.write("")
-    k1, k2, k3 = st.columns(3)
-    k1.metric("Total Sales", f"${total_sales/1e6:.1f}M")
-    k2.metric("Total Margin", f"${total_margin/1e6:.1f}M")
-    k3.metric("Margin %", f"{margin_pct:.1f}%")
-    k4, k5 = st.columns(2)
-    k4.metric("Accounts", f"{total_accounts}")
-    k5.metric("Units", f"{total_units/1e6:.1f}M")
+        filtered = df[
+            (df["Division"].isin(divisions)) &
+            (df["Month"] >= month_range[0]) &
+            (df["Month"] <= month_range[1])
+        ]
+
+        total_sales = filtered["Shipped_Sales"].sum()
+        total_margin = filtered["Margin_Dollars"].sum()
+        margin_pct = (total_margin / total_sales * 100) if total_sales > 0 else 0
+        total_accounts = filtered["Account"].nunique()
+        total_units = filtered["Units"].sum()
+
+        st.write("")
+        k1, k2, k3, k4, k5 = st.columns(5)
+        k1.metric("Sales", f"${total_sales/1e6:.1f}M")
+        k2.metric("Margin $", f"${total_margin/1e6:.1f}M")
+        k3.metric("Margin %", f"{margin_pct:.1f}%")
+        k4.metric("Accounts", f"{total_accounts}")
+        k5.metric("Units", f"{total_units/1e6:.1f}M")
+
+        st.divider()
+
+        # Monthly trend + bubble chart side by side
+        chart_col1, chart_col2 = st.columns(2)
+
+        with chart_col1:
+            st.markdown("**Monthly Trend**")
+            monthly = filtered.groupby("Month").agg(
+                Sales=("Shipped_Sales", "sum"),
+                Margin=("Margin_Dollars", "sum")
+            ).reset_index()
+            monthly["Margin_Pct"] = monthly.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
+
+            fig = go.Figure()
+            fig.add_trace(go.Bar(x=monthly["Month"], y=monthly["Sales"], name="Shipped Sales", marker_color="#ca8a04", opacity=0.85))
+            fig.add_trace(go.Scatter(x=monthly["Month"], y=monthly["Margin_Pct"], name="Margin %", yaxis="y2", mode="lines+markers", line=dict(color="#0a0a0a", width=2.5), marker=dict(size=7)))
+            fig.update_layout(
+                yaxis=dict(title="Sales ($)", tickformat="$,.0f"),
+                yaxis2=dict(title="Margin %", overlaying="y", side="right", tickformat=".1f", range=[0, max(monthly["Margin_Pct"].max() * 1.2, 50) if len(monthly) > 0 and not pd.isna(monthly["Margin_Pct"].max()) else 50]),
+                xaxis=dict(title="Month", dtick=1),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02),
+                height=350, margin=dict(l=50, r=50, t=30, b=30),
+                plot_bgcolor="#fff", paper_bgcolor="#fff"
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+        with chart_col2:
+            st.markdown("**Division Profitability Map**")
+            div_agg = filtered.groupby("Division").agg(
+                Sales=("Shipped_Sales", "sum"),
+                Margin=("Margin_Dollars", "sum"),
+                Accounts=("Account", "nunique")
+            ).reset_index()
+            div_agg["Margin_Pct"] = div_agg.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
+
+            fig2 = px.scatter(
+                div_agg, x="Margin_Pct", y="Sales", size="Accounts",
+                color="Division", text="Division",
+                labels={"Margin_Pct": "Margin %", "Sales": "Revenue ($)"},
+                height=350, size_max=55
+            )
+            fig2.update_traces(textposition="top center", textfont_size=9)
+            fig2.update_layout(
+                yaxis=dict(tickformat="$,.0f"),
+                xaxis=dict(tickformat=".0f", title="Margin %"),
+                showlegend=False,
+                plot_bgcolor="#fff", paper_bgcolor="#fff",
+                margin=dict(l=50, r=30, t=20, b=30)
+            )
+            st.plotly_chart(fig2, use_container_width=True)
+
+        st.divider()
+
+        # Account table
+        st.markdown("**Account Profitability**")
+        acct_agg = filtered.groupby(["Account", "Division"]).agg(
+            Sales=("Shipped_Sales", "sum"),
+            COGS=("Shipped_COGS", "sum"),
+            Margin=("Margin_Dollars", "sum"),
+            Units=("Units", "sum")
+        ).reset_index()
+        acct_agg["Margin_Pct"] = acct_agg.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
+        acct_agg = acct_agg[acct_agg["Sales"] > 0]
+        acct_agg = acct_agg.sort_values("Sales", ascending=False)
+
+        if top_n != "All":
+            acct_agg = acct_agg.head(int(top_n))
+
+        display_df = acct_agg.copy()
+        display_df["Sales"] = display_df["Sales"].apply(lambda x: f"${x:,.0f}")
+        display_df["COGS"] = display_df["COGS"].apply(lambda x: f"${x:,.0f}")
+        display_df["Margin"] = display_df["Margin"].apply(lambda x: f"${x:,.0f}")
+        display_df["Units"] = display_df["Units"].apply(lambda x: f"{x:,.0f}")
+        display_df["Margin_Pct"] = display_df["Margin_Pct"].apply(lambda x: f"{x:.1f}%")
+        display_df.columns = ["Account", "Division", "Sales", "COGS", "Margin $", "Units", "Margin %"]
+
+        st.dataframe(display_df, hide_index=True, use_container_width=True, height=400)
+
+    # ─── DEMO 2: HEATMAP ────────────────────────────────────────────────
+    with demo_tab2:
+        st.markdown("### REVENUE × MARGIN HEATMAP")
+        st.markdown("*This replicates the Python-in-Power-BI heatmap I build at Advantage Solutions. Each cell shows shipped sales — color intensity reveals where the money concentrates.*")
+
+        # Build heatmap: accounts (rows) x divisions (cols)
+        heatmap_data = df.groupby(["Account", "Division"]).agg(
+            Sales=("Shipped_Sales", "sum"),
+            Margin_Pct=("Margin_Pct", "mean")
+        ).reset_index()
+
+        # Get top 20 accounts by total sales
+        top_accounts = df.groupby("Account")["Shipped_Sales"].sum().nlargest(20).index.tolist()
+        heatmap_filtered = heatmap_data[heatmap_data["Account"].isin(top_accounts)]
+
+        sales_pivot = heatmap_filtered.pivot_table(index="Account", columns="Division", values="Sales", aggfunc="sum").fillna(0)
+        margin_pivot = heatmap_filtered.pivot_table(index="Account", columns="Division", values="Margin_Pct", aggfunc="mean").fillna(0)
+
+        # Sort by total sales
+        sales_pivot = sales_pivot.loc[sales_pivot.sum(axis=1).sort_values(ascending=True).index]
+
+        # Build annotations: "$12.5M : 28.9%"
+        import numpy as np
+        annotations = []
+        for i, acct in enumerate(sales_pivot.index):
+            for j, div in enumerate(sales_pivot.columns):
+                val = sales_pivot.iloc[i, j]
+                mpct = margin_pivot.loc[acct, div] if acct in margin_pivot.index and div in margin_pivot.columns else 0
+                if val > 0:
+                    if val >= 1e6:
+                        text = f"${val/1e6:.1f}M : {mpct:.0f}%"
+                    elif val >= 1e3:
+                        text = f"${val/1e3:.0f}K : {mpct:.0f}%"
+                    else:
+                        text = f"${val:.0f}"
+                else:
+                    text = ""
+                annotations.append(dict(
+                    x=div, y=acct, text=text,
+                    font=dict(size=9, color="white" if val > sales_pivot.values.max() * 0.4 else "black"),
+                    showarrow=False
+                ))
+
+        fig3 = go.Figure(data=go.Heatmap(
+            z=sales_pivot.values,
+            x=[d.split(" - ")[0] for d in sales_pivot.columns],
+            y=sales_pivot.index,
+            colorscale="Reds",
+            showscale=True,
+            colorbar=dict(title="Sales ($)", tickformat="$,.0f")
+        ))
+        fig3.update_layout(
+            annotations=[dict(x=a["x"].split(" - ")[0] if " - " in str(a["x"]) else a["x"],
+                              y=a["y"], text=a["text"], font=a["font"], showarrow=False) for a in annotations],
+            height=600,
+            xaxis=dict(title="Division", tickangle=45),
+            yaxis=dict(title=""),
+            margin=dict(l=150, r=40, t=20, b=80),
+            plot_bgcolor="#fff", paper_bgcolor="#fff"
+        )
+        st.plotly_chart(fig3, use_container_width=True)
+
+        st.markdown("*Top 20 accounts by total sales. Each cell: revenue and margin %. Red intensity = higher sales. This dual-metric view is what standard Power BI matrices cannot do — I solve it with Python visuals embedded in Power BI.*")
+
+    # ─── DEMO 3: DIVISION DEEP DIVE ─────────────────────────────────────
+    with demo_tab3:
+        st.markdown("### DIVISION DEEP DIVE")
+        st.markdown("*Select a division to see its top accounts, monthly trajectory, and margin distribution.*")
+
+        selected_div = st.selectbox("Select Division", sorted(df["Division"].unique()), key="demo3_div")
+        div_df = df[df["Division"] == selected_div]
+
+        # KPIs for selected division
+        div_sales = div_df["Shipped_Sales"].sum()
+        div_margin = div_df["Margin_Dollars"].sum()
+        div_mpct = (div_margin / div_sales * 100) if div_sales > 0 else 0
+        div_accts = div_df["Account"].nunique()
+
+        d1, d2, d3, d4 = st.columns(4)
+        d1.metric("Division Sales", f"${div_sales/1e6:.1f}M")
+        d2.metric("Margin $", f"${div_margin/1e6:.1f}M")
+        d3.metric("Margin %", f"{div_mpct:.1f}%")
+        d4.metric("Accounts", f"{div_accts}")
+
+        st.divider()
+
+        deep_col1, deep_col2 = st.columns(2)
+
+        with deep_col1:
+            st.markdown("**Monthly Trajectory**")
+            div_monthly = div_df.groupby("Month").agg(
+                Sales=("Shipped_Sales", "sum"),
+                Margin=("Margin_Dollars", "sum")
+            ).reset_index()
+            div_monthly["Margin_Pct"] = div_monthly.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
+
+            fig4 = go.Figure()
+            fig4.add_trace(go.Scatter(x=div_monthly["Month"], y=div_monthly["Sales"], mode="lines+markers", name="Sales", line=dict(color="#ca8a04", width=3), marker=dict(size=8)))
+            fig4.update_layout(
+                yaxis=dict(tickformat="$,.0f"),
+                xaxis=dict(title="Month", dtick=1),
+                height=300, margin=dict(l=50, r=30, t=20, b=30),
+                plot_bgcolor="#fff", paper_bgcolor="#fff"
+            )
+            st.plotly_chart(fig4, use_container_width=True)
+
+        with deep_col2:
+            st.markdown("**Account Margin Distribution**")
+            div_acct = div_df.groupby("Account").agg(
+                Sales=("Shipped_Sales", "sum"),
+                Margin_Pct=("Margin_Pct", "mean")
+            ).reset_index()
+            div_acct = div_acct[div_acct["Sales"] > 0].sort_values("Sales", ascending=False)
+
+            fig5 = px.bar(
+                div_acct.head(15), x="Margin_Pct", y="Account", orientation="h",
+                color="Margin_Pct",
+                color_continuous_scale=["#dc2626", "#f59e0b", "#16a34a"],
+                labels={"Margin_Pct": "Margin %"},
+                height=300
+            )
+            fig5.update_layout(
+                showlegend=False,
+                xaxis=dict(title="Margin %"),
+                yaxis=dict(title=""),
+                margin=dict(l=120, r=30, t=20, b=30),
+                plot_bgcolor="#fff", paper_bgcolor="#fff"
+            )
+            st.plotly_chart(fig5, use_container_width=True)
+
+        # Top accounts table for this division
+        st.markdown("**Top Accounts**")
+        div_table = div_df.groupby("Account").agg(
+            Sales=("Shipped_Sales", "sum"),
+            Margin=("Margin_Dollars", "sum"),
+            Units=("Units", "sum")
+        ).reset_index()
+        div_table["Margin_Pct"] = div_table.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
+        div_table = div_table[div_table["Sales"] > 0].sort_values("Sales", ascending=False)
+
+        div_display = div_table.copy()
+        div_display["Sales"] = div_display["Sales"].apply(lambda x: f"${x:,.0f}")
+        div_display["Margin"] = div_display["Margin"].apply(lambda x: f"${x:,.0f}")
+        div_display["Units"] = div_display["Units"].apply(lambda x: f"{x:,.0f}")
+        div_display["Margin_Pct"] = div_display["Margin_Pct"].apply(lambda x: f"{x:.1f}%")
+        div_display.columns = ["Account", "Sales", "Margin $", "Units", "Margin %"]
+
+        st.dataframe(div_display, hide_index=True, use_container_width=True, height=300)
 
     st.divider()
-
-    # Monthly trend
-    st.markdown("### MONTHLY TREND")
-    monthly = filtered.groupby("Month").agg(
-        Sales=("Shipped_Sales", "sum"),
-        Margin=("Margin_Dollars", "sum")
-    ).reset_index()
-    monthly["Margin_Pct"] = monthly.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
-
-    fig = go.Figure()
-    fig.add_trace(go.Bar(x=monthly["Month"], y=monthly["Sales"], name="Shipped Sales", marker_color="#ca8a04", opacity=0.85))
-    fig.add_trace(go.Scatter(x=monthly["Month"], y=monthly["Margin_Pct"], name="Margin %", yaxis="y2", mode="lines+markers", line=dict(color="#0a0a0a", width=2.5), marker=dict(size=7)))
-    fig.update_layout(
-        yaxis=dict(title="Shipped Sales ($)", tickformat="$,.0f"),
-        yaxis2=dict(title="Margin %", overlaying="y", side="right", tickformat=".1f", range=[0, max(monthly["Margin_Pct"].max() * 1.2, 50) if len(monthly) > 0 and not pd.isna(monthly["Margin_Pct"].max()) else 50]),
-        xaxis=dict(title="Month", dtick=1),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02),
-        height=400, margin=dict(l=60, r=60, t=40, b=40),
-        plot_bgcolor="#fff", paper_bgcolor="#fff"
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.divider()
-
-    # Division bubble chart
-    st.markdown("### DIVISION PROFITABILITY MAP")
-    st.markdown("*Bubble size = number of accounts. Position reveals the revenue vs margin tradeoff by division.*")
-
-    div_agg = filtered.groupby("Division").agg(
-        Sales=("Shipped_Sales", "sum"),
-        Margin=("Margin_Dollars", "sum"),
-        Accounts=("Account", "nunique")
-    ).reset_index()
-    div_agg["Margin_Pct"] = div_agg.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
-
-    fig2 = px.scatter(
-        div_agg, x="Margin_Pct", y="Sales", size="Accounts",
-        color="Division", text="Division",
-        labels={"Margin_Pct": "Margin %", "Sales": "Revenue ($)"},
-        height=450, size_max=60
-    )
-    fig2.update_traces(textposition="top center", textfont_size=10)
-    fig2.update_layout(
-        yaxis=dict(tickformat="$,.0f"),
-        xaxis=dict(tickformat=".0f", title="Margin %"),
-        showlegend=False,
-        plot_bgcolor="#fff", paper_bgcolor="#fff",
-        margin=dict(l=60, r=40, t=20, b=40)
-    )
-    st.plotly_chart(fig2, use_container_width=True)
-
-    st.divider()
-
-    # Account profitability table
-    st.markdown("### ACCOUNT PROFITABILITY")
-
-    acct_agg = filtered.groupby(["Account", "Division"]).agg(
-        Sales=("Shipped_Sales", "sum"),
-        COGS=("Shipped_COGS", "sum"),
-        Margin=("Margin_Dollars", "sum"),
-        Units=("Units", "sum")
-    ).reset_index()
-    acct_agg["Margin_Pct"] = acct_agg.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
-    acct_agg = acct_agg[acct_agg["Sales"] > 0]  # Remove zero-sales accounts
-    acct_agg = acct_agg.sort_values("Sales", ascending=False)
-
-    if top_n != "All":
-        acct_agg = acct_agg.head(int(top_n))
-
-    # Format for display
-    display_df = acct_agg.copy()
-    display_df["Sales"] = display_df["Sales"].apply(lambda x: f"${x:,.0f}")
-    display_df["COGS"] = display_df["COGS"].apply(lambda x: f"${x:,.0f}")
-    display_df["Margin"] = display_df["Margin"].apply(lambda x: f"${x:,.0f}")
-    display_df["Units"] = display_df["Units"].apply(lambda x: f"{x:,.0f}")
-    display_df["Margin_Pct"] = display_df["Margin_Pct"].apply(lambda x: f"{x:.1f}%")
-    display_df.columns = ["Account", "Division", "Sales", "COGS", "Margin $", "Units", "Margin %"]
-
-    st.dataframe(display_df, hide_index=True, use_container_width=True, height=500)
-    st.caption("Note: Negative margins reflect closeout pricing, returns, or below-cost promotional commitments — real operational data.")
-
-    st.divider()
-
-    # Dynamic insight
-    st.markdown("### KEY INSIGHT")
-    top_rev = acct_agg.sort_values("Sales", ascending=False).head(1)
-    top_margin = acct_agg.sort_values("Margin_Pct", ascending=False).head(1)
-
-    if len(top_rev) > 0 and len(top_margin) > 0:
-        rev_name = top_rev.iloc[0]["Account"]
-        rev_sales = top_rev.iloc[0]["Sales"]
-        rev_mpct = top_rev.iloc[0]["Margin_Pct"]
-        mar_name = top_margin.iloc[0]["Account"]
-        mar_mpct = top_margin.iloc[0]["Margin_Pct"]
-        mar_sales = top_margin.iloc[0]["Sales"]
-
-        if rev_name == mar_name:
-            # Same account is both top revenue and top margin — show runner-up comparison
-            second_rev = acct_agg.sort_values("Sales", ascending=False).iloc[1] if len(acct_agg) > 1 else None
-            if second_rev is not None:
-                st.markdown(f'<div class="accent-section"><p style="font-size:16px;line-height:1.8;color:#404040"><strong>{rev_name}</strong> leads in both revenue (${rev_sales:,.0f}) and margin ({rev_mpct:.1f}%) — a rare combination. The next largest account, <strong>{second_rev["Account"]}</strong>, generates ${second_rev["Sales"]:,.0f} at {second_rev["Margin_Pct"]:.1f}% margin. In practice, this is the analysis that triggers a portfolio review — where leadership decides whether to double down on high-margin accounts or invest in turning volume accounts profitable.</p></div>', unsafe_allow_html=True)
-            else:
-                st.markdown(f'<div class="accent-section"><p style="font-size:16px;line-height:1.8;color:#404040"><strong>{rev_name}</strong> leads in both revenue (${rev_sales:,.0f}) and margin ({rev_mpct:.1f}%).</p></div>', unsafe_allow_html=True)
-        else:
-            st.markdown(f'<div class="accent-section"><p style="font-size:16px;line-height:1.8;color:#404040"><strong>{rev_name}</strong> leads in revenue (${rev_sales:,.0f}) at {rev_mpct:.1f}% margin, while <strong>{mar_name}</strong> achieves the highest margin at {mar_mpct:.1f}% on ${mar_sales:,.0f} in sales. This is the analysis that triggers a portfolio review — high volume does not equal high value, and the resource allocation decision depends on which metric leadership prioritizes.</p></div>', unsafe_allow_html=True)
+    st.caption("All data anonymized. Account and division names replaced for confidentiality. Underlying data is real operational data from Advantage Solutions.")
+    st.markdown("**Ready to talk?** Navigate to **Connect** or reach me at [linkedin.com/in/jchang0102](https://linkedin.com/in/jchang0102).")
 
 
 # =============================================================================
