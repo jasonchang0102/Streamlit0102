@@ -187,7 +187,7 @@ def main():
 
     with st.sidebar:
         st.markdown('<div class="sb-brand"><p class="sb-name">JASON C. CHANG</p><p class="sb-title">Senior BI & Analytics Manager</p><div class="sb-status">Open to Opportunities</div></div>', unsafe_allow_html=True)
-        page = st.radio("Nav", ["Home", "Work", "About", "Live Demo", "Code & Method", "Connect"], label_visibility="collapsed")
+        page = st.radio("Nav", ["Home", "Work", "Live Demo", "Code & Method", "About", "Connect"], label_visibility="collapsed")
         st.markdown(f'<div class="sb-footer"><a href="{RESUME_URL}" target="_blank" class="sb-dl">DOWNLOAD RESUME</a></div>', unsafe_allow_html=True)
 
     pages = {
@@ -206,7 +206,7 @@ def main():
 def render_home():
     st.markdown("##### Senior BI & Analytics Manager — 8+ Years")
     st.markdown("# I WALK INTO DATA CHAOS AND BUILD SYSTEMS EXECUTIVES TRUST")
-    st.markdown("Companies hire me when the data exists but nobody believes it. I fix the trust gap between raw data and executive decisions — through platform architecture, metric alignment, and reporting systems that 200+ stakeholders actually use.")
+    st.markdown("Companies hire me when the data exists but nobody believes it. I fix the trust gap between raw data and executive decisions — through platform architecture, metric alignment, and reporting systems that 250+ stakeholders actually use.")
     st.write("")
     tags(["SQL", "Python", "Power BI", "Snowflake", "DAX", "BigQuery"])
 
@@ -221,29 +221,18 @@ def render_home():
 
     st.divider()
 
-    # Social proof above the fold
+    # Social proof — one line only
     st.markdown('*"His out of the box thinking provided solutions that others simply would not conceive."* — **Brenton Harlow**, Direct Manager at Advantage Solutions')
 
     st.divider()
 
-    # Flagship
-    dark_section("""
-        <p style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#a3a3a3;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px">FLAGSHIP — ADVANTAGE SOLUTIONS</p>
-        <h2 style="font-size:36px;line-height:1.1;margin:0 0 12px">FIVE SALES SYSTEMS. FIVE REVENUE NUMBERS. ONE BOARD MEETING.</h2>
-        <p class="meta">6 weeks &nbsp;|&nbsp; Post-merger unification &nbsp;|&nbsp; 250 users</p>
-        <br>
-        <p style="color:#d4d4d4;font-size:16px;line-height:1.8">Five regional sales systems, five definitions of revenue, and a CFO who couldn't trust any of them. I had 6 weeks before Q3 close to build a single source of truth — starting with getting five VPs to agree on what the numbers should mean. Full story under <strong style="color:#ca8a04">Work</strong>.</p>
-    """)
-
+    # Result cards
     result_cards([
         ("$55M", "Royalty Processing Automated"),
         ("350→2 hrs", "Quarterly Analyst-Hours"),
         ("47→0", "Shadow Excel Trackers"),
         ("70%", "Fewer KPI Conflicts")
     ])
-
-    st.write("")
-    tags(["Snowflake", "Power BI", "DAX", "Python", "SQL"], dark=False)
 
     st.write("")
     st.write("")
@@ -254,8 +243,8 @@ def render_home():
 
     with col1:
         st.markdown("##### MODERN HOME STATION")
-        st.markdown("### MARKETING WAS SPENDING BLIND")
-        st.markdown("No attribution. Same promo to everyone. Data scattered across Facebook, Shopify, GA4. Built cross-channel attribution framework, A/B testing program, and 4-phase ad scaling system from scratch.")
+        st.markdown("### DTC ANALYTICS — ZERO TO 2x ROAS")
+        st.markdown("Built data infrastructure from scratch for a DTC startup. Unified Facebook, Shopify, GA4, Klaviyo into one attribution framework. Multivariate testing, K-Means segmentation, demand forecasting.")
         m1, m2, m3 = st.columns(3)
         m1.metric("Conversion", "+33%")
         m2.metric("CPA", "-18%")
@@ -263,30 +252,12 @@ def render_home():
 
     with col2:
         st.markdown("##### ADVANTAGE SOLUTIONS")
-        st.markdown("### SALES PIPELINE — FROM LEADS TO REVENUE")
-        st.markdown("Built end-to-end sales conversion analytics tracking 1,489 leads through opportunity, proposal, and close stages. Enabled real-time visibility into rep-level conversion rates across regions and programs.")
+        st.markdown("### POST-MERGER UNIFICATION — $1.68B ENTERPRISE")
+        st.markdown("5 sales systems, 5 revenue definitions, 99+ vendor sources. Built unified Snowflake + Power BI ecosystem, data governance framework, and royalty automation pipeline.")
         m1, m2, m3 = st.columns(3)
-        m1.metric("Win Rate", "24.1%")
-        m2.metric("Leads Tracked", "1,489")
-        m3.metric("Wins", "360")
-
-    # Dashboard previews — full width so details are readable
-    img1, img2 = st.columns(2)
-    with img1:
-        show_image("mhs_engagement.png", "Answers: Which campaign segments are cost-efficient? Clusters separate high-engagement targets from spend traps by CPC and page interaction.")
-    with img2:
-        show_image("advantage_program.png", "Answers: Which reps need coaching? Full funnel tracking across 1,489 leads with real-time converter ranking.")
-
-    st.write("")
-    st.divider()
-
-    # POV
-    st.markdown('<div class="accent-section"><p style="font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:2px;margin-bottom:12px;color:#0a0a0a">WHAT I BELIEVE</p><p style="font-size:17px;line-height:1.8;font-style:italic;color:#404040">Most BI teams start with the dashboard. I start with the decision. If you cannot name the specific decision a report changes, you are decorating, not analyzing. The hardest part of my job is never the SQL — it is getting five VPs to agree on what revenue means.</p></div>', unsafe_allow_html=True)
-
-    # Testimonial
-    st.write("")
-    st.markdown("> *\"Jason is a masterful practitioner of data tools and management. His out of the box thinking provided solutions that others simply would not conceive. His attitude equally matches his aptitude — a positive influence on those around him with the ability to shine in the toughest of situations.\"*")
-    st.markdown("**Brenton Harlow** — Executive Leader, CPG Sales & Operations — Direct Manager at Advantage Solutions")
+        m1.metric("Sources", "99+")
+        m2.metric("Users", "250+")
+        m3.metric("Cycle", "5→1 day")
 
 
 # =============================================================================
@@ -385,15 +356,15 @@ Replaced the 47 Excel macros that one analyst maintained for 99 vendor data sour
     with tab2:
         show_image("advantage_margin.png", "Answers: Where are we making vs losing money? Maps revenue variance against gross margin by business unit and industry — surfaces which programs to scale vs restructure.")
     with tab3:
-        show_image("advantage_sales.png", "Answers: How is this rep performing? Individual scorecard showing 16 customers, monthly revenue with budget variance — used in weekly 1:1s between managers and reps.", width=0.50)
+        show_image("advantage_sales.png", "Answers: How is this rep performing? Individual scorecard showing 16 customers, monthly revenue with budget variance — used in weekly 1:1s between managers and reps.", width=0.30)
 
     st.divider()
 
     # ─── CASE 02 ─────────────────────────────────────────────────────────
     st.write("")
     st.markdown("`CASE 02 — MODERN HOME STATION`")
-    st.markdown("# SCALING REVENUE WITHOUT SCALING WASTE")
-    st.markdown("*Cross-channel attribution, A/B testing & ad spend optimization — GA4, Shopify, Meta, Klaviyo*")
+    st.markdown("# DTC ANALYTICS — FROM ZERO TO 2x ROAS")
+    st.markdown("*Cross-channel analytics, multivariate testing, customer segmentation & operations optimization — GA4, Shopify, Meta, Klaviyo*")
 
     result_cards([
         ("+33%", "Conversion Rate"),
