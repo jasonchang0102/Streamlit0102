@@ -482,15 +482,20 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 # =============================================================================
 def render_explorer():
     st.markdown("# LIVE DEMOS")
-    st.markdown("Three interactive analyses built from **real program data** at Advantage Solutions. Filter, sort, and explore — this is the type of work I build for executive stakeholders.")
+    st.markdown("Five interactive analyses built from **real program data** — $387M in shipped sales across **75 accounts** and **9 divisions**. This is the type of work I build for executive stakeholders.")
     st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102/tree/main/code_samples" target="_blank">View code samples on GitHub →</a>', unsafe_allow_html=True)
 
     st.divider()
 
     df = load_data()
 
-    # Three demo tabs
-    demo_tab1, demo_tab2, demo_tab3 = st.tabs(["📊 Profitability Explorer", "🔥 Revenue × Margin Heatmap", "📈 Division Deep Dive"])
+    demo_tab1, demo_tab2, demo_tab3, demo_tab4, demo_tab5 = st.tabs([
+        "📊 Profitability Explorer",
+        "🔥 Revenue × Margin Heatmap",
+        "📈 Division Deep Dive",
+        "🎯 Customer Concentration",
+        "📉 Month-over-Month Trend"
+    ])
 
     # ─── DEMO 1: PROFITABILITY EXPLORER ──────────────────────────────────
     with demo_tab1:
@@ -753,6 +758,157 @@ def render_explorer():
         div_display.columns = ["Account", "Sales", "Margin $", "Units", "Margin %"]
 
         st.dataframe(div_display, hide_index=True, use_container_width=True, height=300)
+
+    # ─── DEMO 4: CUSTOMER CONCENTRATION ──────────────────────────────────
+    with demo_tab4:
+        st.markdown("### CUSTOMER CONCENTRATION RISK")
+        st.markdown("*How dependent is the business on its top accounts? If your top 3 customers represent 60%+ of revenue, one lost contract changes everything.*")
+
+        # Pareto / concentration analysis
+        acct_total = df.groupby("Account").agg(
+            Sales=("Shipped_Sales", "sum"),
+            Margin=("Margin_Dollars", "sum")
+        ).reset_index().sort_values("Sales", ascending=False)
+        acct_total["Margin_Pct"] = acct_total.apply(lambda r: round(r["Margin"] / r["Sales"] * 100, 1) if r["Sales"] > 0 else 0, axis=1)
+        acct_total["Cumulative_Sales"] = acct_total["Sales"].cumsum()
+        acct_total["Cumulative_Pct"] = (acct_total["Cumulative_Sales"] / acct_total["Sales"].sum() * 100).round(1)
+        acct_total["Rank"] = range(1, len(acct_total) + 1)
+
+        # KPIs
+        top3_pct = acct_total.head(3)["Sales"].sum() / acct_total["Sales"].sum() * 100
+        top10_pct = acct_total.head(10)["Sales"].sum() / acct_total["Sales"].sum() * 100
+        accounts_for_80 = acct_total[acct_total["Cumulative_Pct"] <= 80].shape[0] + 1
+
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Top 3 Accounts", f"{top3_pct:.1f}% of Revenue")
+        c2.metric("Top 10 Accounts", f"{top10_pct:.1f}% of Revenue")
+        c3.metric("Accounts for 80% Revenue", f"{accounts_for_80}")
+
+        st.divider()
+
+        # Pareto chart
+        fig_pareto = go.Figure()
+        fig_pareto.add_trace(go.Bar(
+            x=acct_total.head(20)["Account"],
+            y=acct_total.head(20)["Sales"],
+            name="Revenue",
+            marker_color="#ca8a04",
+            opacity=0.85
+        ))
+        fig_pareto.add_trace(go.Scatter(
+            x=acct_total.head(20)["Account"],
+            y=acct_total.head(20)["Cumulative_Pct"],
+            name="Cumulative %",
+            yaxis="y2",
+            mode="lines+markers",
+            line=dict(color="#0a0a0a", width=2.5),
+            marker=dict(size=6)
+        ))
+        fig_pareto.add_hline(y=80, yref="y2", line_dash="dash", line_color="#dc2626", annotation_text="80% threshold")
+        fig_pareto.update_layout(
+            yaxis=dict(title="Revenue ($)", tickformat="$,.0f"),
+            yaxis2=dict(title="Cumulative %", overlaying="y", side="right", range=[0, 105]),
+            xaxis=dict(tickangle=45),
+            legend=dict(orientation="h", yanchor="bottom", y=1.02),
+            height=400, margin=dict(l=60, r=60, t=40, b=120),
+            plot_bgcolor="#fff", paper_bgcolor="#fff"
+        )
+        st.plotly_chart(fig_pareto, use_container_width=True)
+
+        st.markdown("*This is the analysis that triggers a customer diversification discussion in a quarterly business review. If one account churns, what happens to the P&L?*")
+
+        # Top 10 table with margin
+        st.markdown("**Top 10 Accounts — Revenue & Margin**")
+        top10_display = acct_total.head(10).copy()
+        top10_display["Sales"] = top10_display["Sales"].apply(lambda x: f"${x:,.0f}")
+        top10_display["Margin"] = top10_display["Margin"].apply(lambda x: f"${x:,.0f}")
+        top10_display["Cumulative_Pct"] = top10_display["Cumulative_Pct"].apply(lambda x: f"{x:.1f}%")
+        top10_display["Margin_Pct"] = top10_display["Margin_Pct"].apply(lambda x: f"{x:.1f}%")
+        top10_display = top10_display[["Rank", "Account", "Sales", "Margin", "Margin_Pct", "Cumulative_Pct"]]
+        top10_display.columns = ["#", "Account", "Sales", "Margin $", "Margin %", "Cumulative %"]
+        st.dataframe(top10_display, hide_index=True, use_container_width=True)
+
+    # ─── DEMO 5: MONTH-OVER-MONTH TREND ─────────────────────────────────
+    with demo_tab5:
+        st.markdown("### MONTH-OVER-MONTH ANALYSIS")
+        st.markdown("*Spot trends before they become problems. A 3-month margin decline is a signal — not a data point.*")
+
+        # Overall monthly trend with MoM change
+        monthly_all = df.groupby("Month").agg(
+            Sales=("Shipped_Sales", "sum"),
+            COGS=("Shipped_COGS", "sum"),
+            Margin=("Margin_Dollars", "sum"),
+            Units=("Units", "sum"),
+            Transactions=("Transactions", "sum")
+        ).reset_index()
+        monthly_all["Margin_Pct"] = (monthly_all["Margin"] / monthly_all["Sales"] * 100).round(1)
+        monthly_all["Sales_MoM"] = monthly_all["Sales"].pct_change() * 100
+        monthly_all["Margin_MoM"] = monthly_all["Margin_Pct"].diff()
+        monthly_all["Avg_Order"] = (monthly_all["Sales"] / monthly_all["Transactions"]).round(0)
+
+        # KPIs — latest month vs first month
+        latest = monthly_all.iloc[-1]
+        first = monthly_all.iloc[0]
+        sales_change = ((latest["Sales"] - first["Sales"]) / first["Sales"] * 100)
+        margin_change = latest["Margin_Pct"] - first["Margin_Pct"]
+
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Latest Month Sales", f"${latest['Sales']/1e6:.1f}M", f"{sales_change:+.1f}% vs M1")
+        c2.metric("Latest Margin %", f"{latest['Margin_Pct']:.1f}%", f"{margin_change:+.1f}pp vs M1")
+        c3.metric("Avg Order Value", f"${latest['Avg_Order']:,.0f}")
+        c4.metric("Monthly Transactions", f"{latest['Transactions']:,.0f}")
+
+        st.divider()
+
+        # Dual chart: Sales bars + Margin % line + MoM % change
+        trend_col1, trend_col2 = st.columns(2)
+
+        with trend_col1:
+            st.markdown("**Sales & Margin Trend**")
+            fig_trend = go.Figure()
+            fig_trend.add_trace(go.Bar(x=monthly_all["Month"], y=monthly_all["Sales"], name="Sales", marker_color="#ca8a04", opacity=0.85))
+            fig_trend.add_trace(go.Scatter(x=monthly_all["Month"], y=monthly_all["Margin_Pct"], name="Margin %", yaxis="y2", mode="lines+markers", line=dict(color="#0a0a0a", width=2.5), marker=dict(size=7)))
+            fig_trend.update_layout(
+                yaxis=dict(title="Sales ($)", tickformat="$,.0f"),
+                yaxis2=dict(title="Margin %", overlaying="y", side="right", tickformat=".1f", range=[0, max(monthly_all["Margin_Pct"].max() * 1.3, 40)]),
+                xaxis=dict(title="Month", dtick=1),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02),
+                height=350, margin=dict(l=50, r=50, t=30, b=30),
+                plot_bgcolor="#fff", paper_bgcolor="#fff"
+            )
+            st.plotly_chart(fig_trend, use_container_width=True)
+
+        with trend_col2:
+            st.markdown("**Month-over-Month Sales Change %**")
+            colors = ["#16a34a" if v >= 0 else "#dc2626" for v in monthly_all["Sales_MoM"].fillna(0)]
+            fig_mom = go.Figure()
+            fig_mom.add_trace(go.Bar(
+                x=monthly_all["Month"],
+                y=monthly_all["Sales_MoM"].fillna(0),
+                marker_color=colors
+            ))
+            fig_mom.add_hline(y=0, line_color="#a3a3a3", line_width=1)
+            fig_mom.update_layout(
+                yaxis=dict(title="MoM Change %", tickformat=".1f"),
+                xaxis=dict(title="Month", dtick=1),
+                height=350, margin=dict(l=50, r=30, t=30, b=30),
+                plot_bgcolor="#fff", paper_bgcolor="#fff"
+            )
+            st.plotly_chart(fig_mom, use_container_width=True)
+
+        # Monthly detail table
+        st.markdown("**Monthly Detail**")
+        monthly_display = monthly_all.copy()
+        monthly_display["Sales"] = monthly_display["Sales"].apply(lambda x: f"${x:,.0f}")
+        monthly_display["COGS"] = monthly_display["COGS"].apply(lambda x: f"${x:,.0f}")
+        monthly_display["Margin"] = monthly_display["Margin"].apply(lambda x: f"${x:,.0f}")
+        monthly_display["Units"] = monthly_display["Units"].apply(lambda x: f"{x:,.0f}")
+        monthly_display["Margin_Pct"] = monthly_display["Margin_Pct"].apply(lambda x: f"{x:.1f}%")
+        monthly_display["Sales_MoM"] = monthly_display["Sales_MoM"].apply(lambda x: f"{x:+.1f}%" if pd.notna(x) else "—")
+        monthly_display["Avg_Order"] = monthly_display["Avg_Order"].apply(lambda x: f"${x:,.0f}")
+        monthly_display = monthly_display[["Month", "Sales", "COGS", "Margin", "Margin_Pct", "Units", "Sales_MoM", "Avg_Order"]]
+        monthly_display.columns = ["Month", "Sales", "COGS", "Margin $", "Margin %", "Units", "MoM %", "Avg Order"]
+        st.dataframe(monthly_display, hide_index=True, use_container_width=True)
 
     st.divider()
     st.caption("All data anonymized. Account and division names replaced for confidentiality. Underlying data is real operational data from Advantage Solutions.")
