@@ -282,17 +282,25 @@ def render_work():
         <p>Deep dives into organizational data problems I have solved</p>
     """)
 
+    case1, case2, case3, methodology = st.tabs([
+        "Post-Merger Unification",
+        "DTC Analytics — Zero to 2x ROAS",
+        "Royalty Automation — $55M Pipeline",
+        "My 7-Layer Approach"
+    ])
+
     # ─── CASE 01 ─────────────────────────────────────────────────────────
-    st.write("")
-    st.markdown("`CASE 01 — ADVANTAGE SOLUTIONS`")
-    st.markdown("# FIVE REVENUE NUMBERS IN ONE BOARD MEETING")
-    st.markdown("*Post-merger data unification — 6 weeks — Snowflake, Power BI, DAX, Python*")
+    with case1:
+        st.write("")
+        st.markdown("`CASE 01 — ADVANTAGE SOLUTIONS`")
+        st.markdown("# FIVE REVENUE NUMBERS IN ONE BOARD MEETING")
+        st.markdown("*Post-merger data unification — 6 weeks — Snowflake, Power BI, DAX, Python*")
 
-    result_cards([("70%", "Fewer KPI Conflicts"), ("5→1 day", "Reporting Cycle"), ("$3M", "Misallocated Spend Found")])
+        result_cards([("70%", "Fewer KPI Conflicts"), ("5→1 day", "Reporting Cycle"), ("$3M", "Misallocated Spend Found")])
 
-    st.write("")
-    section_header("THE SITUATION")
-    st.markdown("""
+        st.write("")
+        section_header("THE SITUATION")
+        st.markdown("""
 After the merger, I inherited 5 sales systems that did not talk to each other. Each region defined revenue differently. The CFO was getting 5 different numbers in every board meeting. Field teams had lost trust in central reporting and created 47 shadow Excel trackers.
 
 - 5 sales systems with incompatible metric definitions
@@ -301,37 +309,33 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 - 6 weeks until Q3 close deadline
 """)
 
-    section_header("WHY THIS WAS HARD")
-    st.markdown("This was not a technical problem — it was political. Each regional VP had built metrics to make their team look good. Standardizing meant someone's numbers would go down. Getting alignment required trust-building before any code was written.")
+        section_header("WHY THIS WAS HARD")
+        st.markdown("This was not a technical problem — it was political. Each regional VP had built metrics to make their team look good. Standardizing meant someone\'s numbers would go down. Getting alignment required trust-building before any code was written.")
 
-    section_header("MY APPROACH")
-    st.markdown("""
+        section_header("MY APPROACH")
+        st.markdown("""
 **Week 1–2:** Interviewed 12 stakeholders. Asked each one: "What decision are you trying to make with this data?" Mapped every metric definition across all 5 systems.
 
 **Week 3:** Facilitated an alignment session. Got 5 VPs to agree on 12 golden metrics with documented definitions. This was the hardest week.
 
 **Week 4–5:** Built unified Snowflake schema. Wrote 40+ DAX measures. Designed Power BI dashboards with drill-through from executive summary to regional detail.
 
-**Week 6:** Trained 250 users. Deprecated 47 legacy reports. Established a formal data governance process — any metric change required a written change request reviewed by the metric owner and one cross-functional stakeholder before deployment. This prevented the "quiet definition drift" that caused the original mess.
+**Week 6:** Trained 250 users. Deprecated 47 legacy reports. Established a formal data governance process — any metric change required a written change request reviewed by the metric owner and one cross-functional stakeholder before deployment.
 
-Separately, built a weekly office hours cadence with the 7 regional analytics managers — structured around a shared query library and a rotating "metric of the week" deep dive. Within 3 months, regional teams were self-serving 80% of ad hoc requests instead of routing everything through central BI.
-
-**ETL Automation — Replacing 47 Shadow Trackers**
-
-Replaced the 47 Excel macros that one analyst maintained for 99 vendor data sources with automated Python + SQL pipelines. Sat with the analyst for a full week reverse-engineering undocumented business logic — custom GL code mappings, vendor exception rules. Built dynamic column mapping in Python that handles vendor format changes without code updates. Significantly reduced error rates and eliminated 160 hours of manual processing per quarter.
+**ETL Automation:** Replaced 47 Excel macros with automated Python + SQL pipelines. Reverse-engineered undocumented business logic over a full week with the finance analyst. Built dynamic column mapping that handles vendor format changes without code updates.
 """)
 
-    section_header("WHAT WENT WRONG")
-    st.markdown("APAC had an undocumented custom field that their entire commission structure depended on. Their numbers broke on Day 1 of launch. I deployed an emergency fix to the data model while the regional VP was on a call with the CEO. Lesson: always audit edge-case dependencies before deprecating legacy systems. After the fix, APAC became the highest-adoption group on the platform — because they saw firsthand that the team could respond in real-time.")
+        section_header("WHAT WENT WRONG")
+        st.markdown("APAC had an undocumented custom field that their entire commission structure depended on. Their numbers broke on Day 1. I deployed an emergency fix while the regional VP was on a call with the CEO. After the fix, APAC became the highest-adoption group on the platform — because they saw the team could respond in real-time.")
 
-    section_header("BUSINESS IMPACT")
-    st.markdown("Once the unified platform was live, same-week budget visibility revealed that $3M in trade spend had been allocated to campaigns with negative ROI across regions. Previously invisible because each region reported separately. Leadership reallocated within one reporting cycle, improving ROI by 12%.")
+        section_header("BUSINESS IMPACT")
+        st.markdown("Same-week budget visibility revealed $3M in trade spend allocated to campaigns with negative ROI — previously invisible because each region reported separately. Leadership reallocated within one cycle, improving ROI by 12%.")
 
-    # Architecture diagram
-    st.write("")
-    section_header("PLATFORM ARCHITECTURE")
-    st.markdown("""
-<div style="max-width:600px;margin:0 auto;font-family:'Inter',sans-serif;font-size:14px;line-height:1.6">
+        # Architecture diagram
+        st.write("")
+        section_header("PLATFORM ARCHITECTURE")
+        st.markdown("""
+<div style="max-width:600px;margin:0 auto;font-family:\'Inter\',sans-serif;font-size:14px;line-height:1.6">
 <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px">
 <span style="background:#f5f5f5;border:1px solid #e5e5e5;padding:6px 14px;font-size:13px">99+ Vendor Sources</span>
 <span style="background:#f5f5f5;border:1px solid #e5e5e5;padding:6px 14px;font-size:13px">POS Systems</span>
@@ -339,168 +343,135 @@ Replaced the 47 Excel macros that one analyst maintained for 99 vendor data sour
 </div>
 <div style="text-align:center;color:#a3a3a3;font-size:18px;margin:4px 0">▼</div>
 <div style="background:#0a0a0a;color:#fff;padding:16px 24px;text-align:center;margin:4px 0">
-<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#ca8a04">PYTHON ETL PIPELINES</div>
+<div style="font-family:\'Bebas Neue\',sans-serif;font-size:16px;letter-spacing:2px;color:#ca8a04">PYTHON ETL PIPELINES</div>
 <div style="font-size:12px;color:#a3a3a3;margin-top:4px">Dynamic column mapping · GL code logic · QA validation</div>
 </div>
 <div style="text-align:center;color:#a3a3a3;font-size:18px;margin:4px 0">▼</div>
 <div style="background:#0a0a0a;color:#fff;padding:16px 24px;text-align:center;margin:4px 0">
-<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#ca8a04">SNOWFLAKE WAREHOUSE</div>
-<div style="font-size:12px;color:#a3a3a3;margin-top:4px">Unified schema · 12 golden metrics · Single source of truth</div>
+<div style="font-family:\'Bebas Neue\',sans-serif;font-size:16px;letter-spacing:2px;color:#ca8a04">SNOWFLAKE → STAR SCHEMA → POWER BI</div>
+<div style="font-size:12px;color:#a3a3a3;margin-top:4px">12 golden metrics · 40+ DAX measures · Row-level security</div>
 </div>
 <div style="text-align:center;color:#a3a3a3;font-size:18px;margin:4px 0">▼</div>
-<div style="background:#0a0a0a;color:#fff;padding:16px 24px;text-align:center;margin:4px 0">
-<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#ca8a04">SQL SEMANTIC LAYER</div>
-<div style="font-size:12px;color:#a3a3a3;margin-top:4px">40+ DAX measures · Drill-through logic</div>
-</div>
-<div style="text-align:center;color:#a3a3a3;font-size:18px;margin:4px 0">▼</div>
-<div style="background:#0a0a0a;color:#fff;padding:16px 24px;text-align:center;margin:4px 0">
-<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#ca8a04">POWER BI DASHBOARDS</div>
-<div style="font-size:12px;color:#a3a3a3;margin-top:4px">Executive → Regional → Individual views</div>
-</div>
-<div style="text-align:center;color:#a3a3a3;font-size:18px;margin:4px 0">▼</div>
-<div style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#0a0a0a;padding:8px 0">250+ STAKEHOLDERS</div>
+<div style="text-align:center;font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:2px;color:#0a0a0a;padding:8px 0">250+ STAKEHOLDERS</div>
 </div>
 """, unsafe_allow_html=True)
-    st.caption("Platform still in production serving 250+ users. Data governance process I established continues to manage metric change requests.")
+        st.caption("Platform still in production serving 250+ users.")
 
-    # Images
-    st.write("")
-    st.markdown("##### DASHBOARD VIEWS")
-    tab1, tab2, tab3 = st.tabs(["Is the business on track?", "Where are we making vs losing money?", "How is this rep performing?"])
-    with tab1:
-        show_image("advantage_executive.png", "Answers: Is the business on track this quarter? Enables CFO to compare all 83 customers against budget in one view — by region, by product, with GM% trend.")
-    with tab2:
-        show_image("advantage_margin.png", "Answers: Where are we making vs losing money? Maps revenue variance against gross margin by business unit and industry — surfaces which programs to scale vs restructure.")
-    with tab3:
-        show_image("advantage_sales.png", "Answers: How is this rep performing? Individual scorecard showing 16 customers, monthly revenue with budget variance — used in weekly 1:1s between managers and reps.", width=0.30)
-
-    st.divider()
-
-    st.markdown('*"His out of the box thinking provided solutions that others simply would not conceive."* — **Brenton Harlow**, Direct Manager')
-
-    st.divider()
+        st.write("")
+        st.markdown("##### DASHBOARD VIEWS")
+        tab1, tab2, tab3 = st.tabs(["Is the business on track?", "Where are we making vs losing money?", "How is this rep performing?"])
+        with tab1:
+            show_image("advantage_executive.png", "Executive view: 83 customers against budget — by region, product, GM% trend.")
+        with tab2:
+            show_image("advantage_margin.png", "Margin view: revenue variance vs gross margin by business unit.")
+        with tab3:
+            show_image("advantage_sales.png", "Rep scorecard: 16 customers, monthly revenue with budget variance.", width=0.30)
 
     # ─── CASE 02 ─────────────────────────────────────────────────────────
-    st.write("")
-    st.markdown("`CASE 02 — MODERN HOME STATION`")
-    st.markdown("# FOUR PLATFORMS. ZERO ATTRIBUTION. SPENDING BLIND.")
-    st.markdown("*Cross-channel analytics, multivariate testing, customer segmentation & operations optimization — GA4, Shopify, Meta, Klaviyo*")
+    with case2:
+        st.write("")
+        st.markdown("`CASE 02 — MODERN HOME STATION`")
+        st.markdown("# FOUR PLATFORMS. ZERO ATTRIBUTION. SPENDING BLIND.")
+        st.markdown("*Cross-channel analytics, multivariate testing, K-Means segmentation — GA4, Shopify, Meta, Klaviyo*")
 
-    result_cards([
-        ("+33%", "Conversion Rate"),
-        ("-18%", "CPA Reduction"),
-        ("+85%", "YoY Revenue (FY20)")
-    ])
+        result_cards([
+            ("+33%", "Conversion Rate"),
+            ("-18%", "CPA Reduction"),
+            ("+85%", "YoY Revenue (FY20)")
+        ])
 
-    st.write("")
-    section_header("THE SITUATION")
-    st.markdown("""
-The company was growing — $65K+/month in revenue, 780 units moving. But profitable scaling was the bottleneck. Ad spend was increasing linearly with revenue because there was no systematic framework connecting unit economics to campaign decisions. The marketing team had the tools — Meta Ads, Shopify, GA4, Klaviyo — but each operated in isolation. Budget allocation was reactive: scale what looked good yesterday, kill what didn't. No one had modeled the relationship between COGS ($32.09/unit), platform fees (4%), and the actual breakeven threshold per funnel stage.
+        st.write("")
+        section_header("THE SITUATION")
+        st.markdown("DTC startup, $65K+/month revenue, 780 units. Ad spend increasing linearly with revenue — no framework connecting unit economics to campaign decisions. Four platforms operating in isolation. Budget allocation was reactive.")
+
+        section_header("MY APPROACH")
+        st.markdown("**Unit Economics Model** — Before spending a dollar on ads, defined what \'profitable\' meant at every funnel stage:")
+
+        econ_data = {
+            "Metric": ["Cost per Purchase", "Cost per Initiate Checkout", "Cost per Add to Cart", "ROAS"],
+            "Breakeven": ["$47.48", "$28.49", "$55.14", "1.75x"],
+            "20% Margin": ["$30.91", "$18.54", "$35.89", "2.68x"],
+            "10% Margin": ["$39.20", "$23.52", "$45.52", "2.11x"]
+        }
+        st.table(pd.DataFrame(econ_data).set_index("Metric"))
+
+        st.markdown("""
+**4-Phase Scaling Framework** — Discovery ($5/adset, strict kill rules) → Controlled (lookalikes, retargeting) → Scale (50-100% budget increases on profitable adsets) → Bid Cap ($1K-3K campaigns, 2x breakeven ROAS gate).
+
+**K-Means Clustering** — Segmented customers by page view sequences, visit depth, and engagement. 4 clusters by CPC vs engagement identified high-value segments.
+
+**Demand Forecasting** — Unified marketing, warehouse, purchasing, and CS data. Shortened cross-team decision cycles by 40%.
+
+**Shipping Analytics** — Analyzed delay patterns by country and carrier, switched underperforming logistics partners, built notification system. Reduced unmet delivery expectations by 75%, shipping costs by 18%.
 """)
 
-    section_header("WHY THIS WAS HARD")
-    st.markdown("Three problems compounded each other. First, attribution — every platform claimed credit for the same conversion, so reported ROAS was inflated. Second, no unit economics baseline — without knowing that breakeven CPP was $47.48 and target CPP at 20% margin was $30.91, there was no objective basis for pause/scale decisions. Third, scaling required a framework, not just more budget.")
+        section_header("WHAT WENT WRONG")
+        st.markdown("Three adsets cannibalizing each other (overlapping audiences). Built negative exclusions. Separately: silent autoplay videos inflating view counts — implemented pre-launch QA checklist for all creative.")
 
-    section_header("MY APPROACH")
-    st.markdown("**Foundation — Unit Economics Model**")
-    st.markdown("Before spending a dollar on ads, we needed to know exactly what 'profitable' meant at every stage of the funnel. Built the financial layer first:")
-
-    econ_data = {
-        "Metric": ["Cost per Purchase", "Cost per Initiate Checkout", "Cost per Add to Cart", "ROAS"],
-        "Breakeven": ["$47.48", "$28.49", "$55.14", "1.75x"],
-        "20% Margin": ["$30.91", "$18.54", "$35.89", "2.68x"],
-        "10% Margin": ["$39.20", "$23.52", "$45.52", "2.11x"]
-    }
-    st.table(pd.DataFrame(econ_data).set_index("Metric"))
-
-    st.markdown("""
-**4-Phase Scaling Framework**
-
-Designed a 4-phase system that took campaigns from discovery to scale with clear gates at each stage. Phase 1 tested 10 interest audiences at $5/adset with strict kill rules (CPC >$2, CTR <1% = pause). Phase 2 introduced lookalike audiences and creative retargeting at controlled budgets. Phase 3 scaled winners vertically (50–100% budget increases on 30–40% net profit adsets) while cutting underperformers. Phase 4 operated at $1K–3K campaign budgets with bid caps, gated by 400+ purchases and consistent 2x breakeven ROAS. Max daily spend capped at $508.
-
-The framework's value was that every pause/scale decision was tied to the unit economics thresholds above — not gut feel, not platform-reported ROAS.
-
-**Cross-Channel Attribution:** Built unified attribution across GA4, Shopify, Meta, Klaviyo. Applied K-Means clustering (4 clusters by CPC vs engagement) to identify high-value campaign segments. Led A/B testing across 12 creative combinations.
-
-**Demand Forecasting:** Implemented demand forecasting dashboards that aligned marketing, warehouse, purchasing, and customer service data — so before any promotion launched, the team could see projected demand against inventory levels and CS staffing. Shortened cross-team feedback loops by 40%.
-""")
-
-    section_header("WHAT WENT WRONG")
-    st.markdown("""
-During Phase 2, three adsets showed 2x ROAS individually but were targeting overlapping audiences, cannibalizing each other. Combined spend was high but incremental conversions were flat. Had to build negative audience exclusions and restructure campaign hierarchy.
-
-Separately: spike in video views with zero page views. Days debugging analytics — turned out mobile videos were autoplaying without sound, users scrolling past. Fixed creative direction, not the data pipeline.
-
-**Process change after this:** Implemented a pre-launch QA checklist for all ad creative — verifying audio, thumbnail, CTA rendering, and platform-specific format requirements before any budget was allocated.
-""")
-
-    st.write("")
-    st.markdown("##### DASHBOARD VIEWS")
-    tab1, tab2, tab3 = st.tabs(["K-Means Clustering", "Customer Journey", "Email Analytics"])
-    with tab1:
-        show_image("mhs_engagement.png", "Answers: Which campaigns are worth scaling? K-Means clustering separates high-CPC/high-engagement winners from spend traps — used to set Phase 2 budget allocation.")
-    with tab2:
-        show_image("mhs_customer_journey.png", "Answers: Where do leads drop off? Maps 86 contacts across 17 email journeys — identifies which touchpoints convert vs which get ignored.")
-    with tab3:
-        show_image("mhs_email_analysis.png", "Answers: What interactions precede a purchase? Ranks all CRM touchpoints by frequency — WebsiteVisited (162) and EmailOpened (86) were the most common pre-purchase interactions.")
-
-    st.caption("Attribution framework and scaling playbook adopted as standard operating process. Unit economics model used for all subsequent campaign launches through FY21. Shipping delay analysis by country and carrier also led to carrier switch, reducing unmet delivery expectations by 75% and shipping costs by 18%.")
-
-    st.divider()
+        st.write("")
+        st.markdown("##### DASHBOARD VIEWS")
+        tab1, tab2, tab3 = st.tabs(["K-Means Clustering", "Customer Journey", "Email Analytics"])
+        with tab1:
+            show_image("mhs_engagement.png", "K-Means clustering: high-CPC/high-engagement winners vs spend traps.")
+        with tab2:
+            show_image("mhs_customer_journey.png", "86 contacts across 17 email journeys — which touchpoints convert?")
+        with tab3:
+            show_image("mhs_email_analysis.png", "CRM touchpoint ranking: WebsiteVisited (162) and EmailOpened (86) led pre-purchase.")
 
     # ─── CASE 03 ─────────────────────────────────────────────────────────
-    st.write("")
-    st.markdown("`CASE 03 — ADVANTAGE SOLUTIONS`")
-    st.markdown("# TWO ANALYSTS. THREE WEEKS. EVERY QUARTER. FOR $55M IN ROYALTIES.")
-    st.markdown("*End-to-end automation — Python, VBA, Excel, automated email distribution*")
+    with case3:
+        st.write("")
+        st.markdown("`CASE 03 — ADVANTAGE SOLUTIONS`")
+        st.markdown("# TWO ANALYSTS. THREE WEEKS. EVERY QUARTER. FOR $55M IN ROYALTIES.")
+        st.markdown("*End-to-end automation — Python, VBA, Excel, automated email distribution*")
 
-    result_cards([
-        ("$55M", "Quarterly Royalties"),
-        ("350→2 hrs", "Processing Time"),
-        ("99", "Vendor Contracts")
-    ])
+        result_cards([
+            ("$55M", "Quarterly Royalties"),
+            ("350→2 hrs", "Processing Time"),
+            ("99", "Vendor Contracts")
+        ])
 
-    st.write("")
-    section_header("THE SITUATION")
-    st.markdown("Every quarter, two senior financial analysts spent three full weeks manually processing royalty calculations across 99 vendor contracts from 6 different source systems (SQL exports, Amazon, AW Wholesale, AW Retail, A&F, NTD). Each source had a completely different column structure. The analysts manually mapped columns, filtered by vendor lists, formatted statements, and emailed results to each vendor individually. Error rate was high. Any mistake meant incorrect payments to licensors like Disney, Columbia, and Warner Bros.")
+        st.write("")
+        section_header("THE SITUATION")
+        st.markdown("Two senior financial analysts, three full weeks, every quarter. 99 vendor contracts across 6 source systems with completely different column structures. Manual column mapping, vendor filtering, statement formatting, individual emails. Error rate was high — incorrect payments to Disney, Columbia, Warner Bros.")
 
-    section_header("WHY THIS WAS HARD")
-    st.markdown("This was not a simple automation — it was reverse-engineering undocumented business logic. I sat with the finance analyst for a full week mapping every column transformation, GL code mapping, and vendor exception rule. Each of the 6 source systems had different column positions for the same data fields (e.g., 'Net Sales' was column 12 in SQL but column 29 in AW Wholesale). The output had to match exact formatting requirements for each vendor's royalty statement template.")
+        section_header("MY APPROACH")
+        st.markdown("""
+**Dynamic Column Mapping:** Python dictionary mapping each source system\'s column positions to a standard output. Adding a 7th source = one new line, not new code.
 
-    section_header("MY APPROACH")
-    st.markdown("""
-**Dynamic Column Mapping:** Built a Python dictionary that maps each source system's column positions to a standard output format. Adding a new source system requires one new line, not new code.
+**Vendor Filtering:** 99 vendors in 4 contract groups. Python filters by vendor ID, processes through mapping, outputs clean data per group.
 
-**Vendor Filtering:** 99 vendors organized into 4 contract groups. Python filters transactions by vendor ID, processes through the column mapping, and outputs clean data per group.
+**VBA Statement Generation:** Auto-generated formatted royalty statements matching each vendor\'s contractual template.
 
-**VBA Statement Generation:** Embedded VBA macros auto-generate formatted royalty statements matching each vendor's contractual template — including headers, currency formatting, date formatting, and summary calculations.
+**Automated Distribution:** Statements emailed to vendor contacts automatically. Finance reviews QA summary before release.
 
-**Automated Distribution:** Final statements emailed to each vendor contact automatically. Finance reviews a QA summary before release.
-
-**Result:** 350+ analyst-hours per quarter reduced to 2 hours. Two senior FAs reassigned to strategic analysis. Error rate dropped to near-zero because the logic is coded, not manual.
+**Result:** 350+ analyst-hours → 2 hours. Two senior FAs reassigned to strategic analysis. Near-zero error rate.
 """)
 
-    section_header("WHAT WENT WRONG")
-    st.markdown("First run produced incorrect royalty rates for one vendor group because their contract had a tiered rate structure (different % above/below a sales threshold) that the original analyst handled mentally but never documented. Built a rate lookup table with threshold logic to handle this and any future tiered contracts.")
+        section_header("WHAT WENT WRONG")
+        st.markdown("First run: incorrect royalty rates for one vendor group — tiered rate structure (different % above/below sales threshold) that the analyst handled mentally but never documented. Built rate lookup table with threshold logic.")
 
-    st.caption("Pipeline still in production. Has processed 4+ quarters of royalty calculations without manual intervention.")
+        st.caption("Pipeline still in production. 4+ quarters without manual intervention.")
 
-    st.divider()
+    # ─── METHODOLOGY ─────────────────────────────────────────────────────
+    with methodology:
+        st.write("")
+        st.markdown("## MY 7-LAYER APPROACH")
+        st.markdown("Every project above followed this methodology — developed across 5 companies over 14 years:")
+        approach = [
+            "**1. Requirements & Alignment** — What decision will this enable? RACI, KPI definitions, governance.",
+            "**2. Data Quality** — Null detection, dedup, schema validation, row count baselines. Hard-fail gates.",
+            "**3. Exploratory Analysis** — Understand relationships before building. Correlation tells you where to look.",
+            "**4. Hypothesis & Testing** — A/B, multivariate, forecasting. Statistical significance, not gut feel.",
+            "**5. Visualization & Reporting** — Star schema, DAX measures, RLS, sub-3-second load targets.",
+            "**6. Culture & Change** — Training, onboarding, self-service. If the team can\'t operate without me, I\'m not done.",
+            "**7. Delivery & QA** — KPI variance alerts, cross-source parity, refresh monitoring. Trust must persist."
+        ]
+        for line in approach:
+            st.markdown(line)
 
-    # Compact methodology section
-    st.markdown("## MY APPROACH")
-    st.markdown("Every project above followed the same 7-layer methodology — developed across 5 companies over 14 years:")
-    approach = [
-        "**1. Requirements & Alignment** — What decision will this enable? RACI, KPI definitions, governance.",
-        "**2. Data Quality** — Null detection, dedup, schema validation, row count baselines. Hard-fail gates.",
-        "**3. Exploratory Analysis** — Understand relationships before building. Correlation tells you where to look.",
-        "**4. Hypothesis & Testing** — A/B, multivariate, forecasting. Statistical significance, not gut feel.",
-        "**5. Visualization & Reporting** — Star schema, DAX measures, RLS, sub-3-second load targets.",
-        "**6. Culture & Change** — Training, onboarding, self-service. If the team can't operate without me, I'm not done.",
-        "**7. Delivery & QA** — KPI variance alerts, cross-source parity, refresh monitoring. Trust must persist."
-    ]
-    for line in approach:
-        st.markdown(line)
+        st.markdown("")
+        st.markdown('*"His out of the box thinking provided solutions that others simply would not conceive."* — **Brenton Harlow**, Direct Manager')
 
     st.divider()
     st.markdown("**Ready to talk?** Navigate to **Connect** or reach me at [linkedin.com/in/jchang0102](https://linkedin.com/in/jchang0102).")
