@@ -11,7 +11,7 @@ from pathlib import Path
 # =============================================================================
 # CONFIG
 # =============================================================================
-RESUME_URL = "https://github.com/jasonchang0102/Streamlit0102/raw/main/--Jason_Chang_Sr_BI_Analytics_Manager_Resume--03-17-26.pdf"
+RESUME_URL = "https://github.com/jasonchang0102/Streamlit0102/raw/main/--Jason_Chang_Sr_BI_Analytics_Manager_Resume--03-19-26.pdf"
 BASE_DIR = Path(__file__).parent
 ASSETS = BASE_DIR / "assets"
 DATA = BASE_DIR / "data"
@@ -31,6 +31,16 @@ CERTS = {
         "issuer": "edX",
         "date": "2019",
         "url": "https://courses.edx.org/certificates/c05a356504164e2babb5e6c3ee54ec79"
+    },
+    "Big Data on AWS": {
+        "issuer": "AWS Training & Certification",
+        "date": "2019",
+        "url": ""
+    },
+    "Cloud Foundations": {
+        "issuer": "AWS Training & Certification",
+        "date": "2019",
+        "url": ""
     }
 }
 
@@ -177,7 +187,7 @@ def main():
 
     with st.sidebar:
         st.markdown('<div class="sb-brand"><p class="sb-name">JASON C. CHANG</p><p class="sb-title">Senior BI & Analytics Manager</p><div class="sb-status">Open to Opportunities</div></div>', unsafe_allow_html=True)
-        page = st.radio("Nav", ["Home", "Work", "About", "Live Demo", "Connect"], label_visibility="collapsed")
+        page = st.radio("Nav", ["Home", "Work", "About", "Live Demo", "Code & Method", "Connect"], label_visibility="collapsed")
         st.markdown(f'<div class="sb-footer"><a href="{RESUME_URL}" target="_blank" class="sb-dl">DOWNLOAD RESUME</a></div>', unsafe_allow_html=True)
 
     pages = {
@@ -185,6 +195,7 @@ def main():
         "Work": render_work,
         "About": render_about,
         "Live Demo": render_explorer,
+        "Code & Method": render_code,
         "Connect": render_connect
     }
     pages[page]()
@@ -225,10 +236,10 @@ def render_home():
     """)
 
     result_cards([
-        ("9%", "Quarterly Revenue Growth"),
-        ("160 hrs", "Manual Work Eliminated/Qtr"),
+        ("$55M", "Royalty Processing Automated"),
+        ("350→2 hrs", "Quarterly Analyst-Hours"),
         ("47→0", "Shadow Excel Trackers"),
-        ("6 weeks", "Start to Launch")
+        ("70%", "Fewer KPI Conflicts")
     ])
 
     st.write("")
@@ -554,13 +565,24 @@ Most BI teams build dashboards. I build clarity — the kind where a CEO can wal
 
     # Certifications
     st.markdown("## CERTIFICATIONS")
-    cert_cols = st.columns(len(CERTS))
-    for col, (name, info) in zip(cert_cols, CERTS.items()):
+    cert_list = list(CERTS.items())
+    row1 = cert_list[:3]
+    row2 = cert_list[3:]
+    cert_cols = st.columns(3)
+    for col, (name, info) in zip(cert_cols, row1):
         with col:
             st.markdown(f"**{name}**")
             date_str = f" — {info['date']}" if info['date'] else ""
             st.markdown(f"*{info['issuer']}{date_str}*")
-            st.markdown(f'<a href="{info["url"]}" target="_blank">Verify →</a>', unsafe_allow_html=True)
+            if info['url']:
+                st.markdown(f'<a href="{info["url"]}" target="_blank">Verify →</a>', unsafe_allow_html=True)
+    if row2:
+        cert_cols2 = st.columns(3)
+        for i, (name, info) in enumerate(row2):
+            with cert_cols2[i]:
+                st.markdown(f"**{name}**")
+                date_str = f" — {info['date']}" if info['date'] else ""
+                st.markdown(f"*{info['issuer']}{date_str}*")
 
     st.divider()
 
@@ -572,6 +594,29 @@ Most BI teams build dashboards. I build clarity — the kind where a CEO can wal
     st.markdown("*The best BI managers spend more time listening to stakeholders than writing queries.*")
     st.markdown("*If your reporting cycle is longer than your decision cycle, you are always too late.*")
     st.markdown('</div>', unsafe_allow_html=True)
+
+    st.divider()
+
+    # Mentorship
+    st.markdown("## HOW I MENTOR")
+    st.markdown("""
+When I joined Advantage Solutions, the 7 regional analytics managers could run reports but could not build them. I created a structured mentorship program:
+
+**Technical development:** Hands-on training in Power BI development, DAX measure writing, and data governance standards — tied to real dashboards they would own.
+
+**Ownership transfer:** Each manager built and presented their own regional dashboard to their VP within 30 days. This was not a training exercise — it became their production deliverable.
+
+**Self-sufficiency:** Within 6 months, regional teams could independently identify performance gaps, build drill-down views, and troubleshoot data quality issues without escalating to me.
+
+The result was not just skill transfer — it was a culture shift from "request a report" to "build the answer yourself."
+""")
+
+    st.divider()
+
+    # Portfolio as project
+    st.markdown("## ABOUT THIS PORTFOLIO")
+    st.markdown("This site is itself a project — built with **Python, Streamlit, Plotly, and Pandas**, deployed on **Streamlit Cloud**, with anonymized real data from Advantage Solutions. The profitability explorer processes 1,047 rows of shipped sales data across 76 accounts and 9 divisions.")
+    st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102" target="_blank">View source code on GitHub →</a>', unsafe_allow_html=True)
 
 
 # =============================================================================
@@ -731,12 +776,178 @@ def render_explorer():
 
 
 # =============================================================================
+# CODE & METHODOLOGY
+# =============================================================================
+def render_code():
+    st.markdown("# CODE & METHODOLOGY")
+    st.markdown("Real code from production systems I built. Not classroom exercises — these solved business problems at scale.")
+
+    st.divider()
+
+    # Python ETL
+    section_header("PYTHON ETL — DYNAMIC COLUMN MAPPING")
+    st.markdown("**Problem:** 6 vendor source systems (SQL, Amazon, AW Wholesale, AW Retail, A&F, NTD) each send data with completely different column structures. Manual reconciliation took 2 analysts 3+ weeks per quarter.")
+    st.markdown("**Solution:** A column mapping dictionary that lets one function process ANY vendor format without code changes. When a vendor changes their schema, we update the mapping — not the pipeline.")
+    st.code("""column_mappings = {
+    'SQL':          [1, 7, 5, 9, 11, 12, 13, 14, 15, 16, 18, 25, 23, 26, 24, 27, 21],
+    'AMAZON':       [1, 16, 17, 6, 5, 7, 8, 9, 10, 19, 18, 11, 12, 14, 13, 15, 2],
+    'AW WHOLESALE': [27, 31, 1, 5, 7, 8, 12, 13, 28, 30, 29, 14, 21, 22, 23, 24, 20],
+    'AW RETAIL':    [27, 31, 1, 5, 7, 8, 12, 13, 28, 30, 29, 14, 21, 22, 23, 24, 20],
+    'A&F':          [2, 35, 17, 21, 19, 26, 27, 28, 29, 37, 31, 38, 39, 41, 40, 42, 24],
+    'NTD':          [2, 6, 8, 21, 19, 26, 27, 28, 29, 37, 31, 38, 39, 41, 40, 42, 24]
+}
+
+def process_sheet(source_name, source_sheet, output_sheet, vendor_list):
+    mapping = column_mappings[source_name]
+    for row in source_sheet.iter_rows(min_row=2):
+        vendor_num = row[mapping[-1] - 1].value
+        if vendor_num in vendor_list:
+            data = []
+            for idx in mapping:
+                cell = row[idx - 1]
+                if cell.value is None:
+                    data.append("")
+                elif cell.is_date:
+                    data.append(cell.value.strftime("%Y-%m-%d"))
+                else:
+                    data.append(cell.value)
+            data.append(source_name)  # track origin
+            output_sheet.append(data)""", language="python")
+    st.markdown("*This pattern processed $55M in quarterly royalties across 99 vendor contracts. The same function handles all 6 source systems — adding a 7th vendor requires only a new mapping line, not new code.*")
+
+    st.divider()
+
+    # SQL
+    section_header("SQL — DATABASE SCHEMA DISCOVERY")
+    st.markdown("**Problem:** After a merger, we inherited databases with no documentation. Before building the unified data model, I needed to catalog every table, primary key, foreign key, and column description across all databases.")
+    st.markdown("**Solution:** A single query that maps the entire SQL Server estate — used before any schema change to assess downstream impact.")
+    st.code("""IF OBJECT_ID('tempdb..##AllTables') IS NULL
+BEGIN
+    CREATE TABLE ##AllTables (
+        DatabaseName sysname,
+        SchemaName sysname NULL,
+        TableName sysname,
+        PrimaryKeyColumn sysname NULL,
+        ForeignKeyColumn sysname NULL,
+        ColumnName sysname NULL,
+        ColumnDescription NVARCHAR(MAX) NULL
+    );
+END
+
+EXEC sp_MSforeachdb '
+    USE [?];
+    INSERT INTO ##AllTables
+    SELECT DB_NAME(), SCHEMA_NAME(), t.name,
+        (SELECT TOP 1 c.name FROM sys.indexes i
+         JOIN sys.index_columns ic ON i.object_id = ic.object_id
+         JOIN sys.columns c ON c.object_id = t.object_id
+            AND c.column_id = ic.column_id
+         WHERE i.is_primary_key = 1 AND i.object_id = t.object_id),
+        (SELECT TOP 1 c.name FROM sys.foreign_key_columns fkc
+         JOIN sys.columns c ON c.object_id = t.object_id
+            AND c.column_id = fkc.parent_column_id),
+        C.name,
+        CONVERT(NVARCHAR(MAX), ep.value)
+    FROM sys.tables t
+    JOIN sys.columns C ON C.object_id = T.object_id
+    LEFT JOIN sys.extended_properties ep
+        ON ep.major_id = C.object_id AND ep.minor_id = C.column_id;
+'
+SELECT * FROM ##AllTables;""", language="sql")
+    st.markdown("*This query was run before every schema migration. It mapped the full database estate so we could trace which downstream dashboards would break before making changes — not after.*")
+
+    st.divider()
+
+    # Python in Power BI
+    section_header("PYTHON IN POWER BI — HEATMAP VISUAL")
+    st.markdown("**Problem:** Standard Power BI visuals cannot show two metrics (shipped sales AND gross margin %) in the same cell of a matrix. Executives needed to see both at a glance — which accounts generate volume vs which actually make money.")
+    st.markdown("**Solution:** Python visuals embedded directly in Power BI, using seaborn heatmaps with dual annotations.")
+    st.code("""import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+def format_sales(value):
+    if pd.isna(value) or value == 0: return ""
+    elif value < 1e6: return f"${value/1e3:.1f}K"
+    elif value < 1e9: return f"${value/1e6:.1f}M"
+    else: return f"${value/1e9:.1f}B"
+
+# Pivot: rows = accounts, cols = divisions
+sales_pivot = dataset.pivot_table(
+    index="ACCOUNT2", columns="DIVISION",
+    values="SHIPPED SALES", aggfunc='sum')
+igm_pivot = dataset.pivot_table(
+    index="ACCOUNT2", columns="DIVISION",
+    values="IGM%", aggfunc='mean')
+
+# Combine: "$12.5M : 42.3%" in each cell
+combined = sales_pivot.applymap(format_sales) + " : " + \\
+    (igm_pivot * 100).round(1).astype(str) + "%"
+
+plt.figure(figsize=(20, 8))
+sns.heatmap(sales_pivot, mask=sales_pivot.isna(),
+    annot=combined, fmt="", cmap="Reds",
+    linewidths=.5, annot_kws={"size": 10})
+plt.title('Shipped Sales and IGM% by Account and Division')
+plt.tight_layout()
+plt.show()""", language="python")
+    st.markdown("*This visual runs inside Power BI as a Python visual. 7 dashboard pages at Advantage Solutions use this pattern — each combining two metrics that standard Power BI matrices cannot display simultaneously.*")
+
+    st.divider()
+
+    # Data Governance Framework
+    section_header("DATA GOVERNANCE — 7-LAYER FRAMEWORK")
+    st.markdown("My approach to every analytics project follows a 7-layer methodology. This is not theoretical — it was developed across 5 companies and is currently in production at Advantage Solutions.")
+    st.write("")
+
+    layers = [
+        ("Layer 1", "Business Requirements & Stakeholder Alignment",
+         "RACI matrix, KPI definitions, metric change request process, governance committee structure. Every project starts here — not with a dashboard, but with the question: what decision will this enable?"),
+        ("Layer 2", "Data Cleaning & Quality Assurance",
+         "Null detection, deduplication, schema validation, row count monitoring against 12-week baselines. Hard-fail gates prevent bad data from reaching dashboards."),
+        ("Layer 3", "Exploratory Data Analysis & Distribution",
+         "Bivariate and multivariate analysis to understand relationships before building models. Correlation does not imply causation — but it tells you where to look."),
+        ("Layer 4", "Hypothesis Testing / A/B Design / Forecasting",
+         "Experiment design with statistical significance thresholds. Multivariate testing when single-variable A/B is insufficient. Demand forecasting with seasonal adjustment."),
+        ("Layer 5", "Visualization & Standardized Reporting",
+         "Star schema data models, DAX measure libraries, row-level security, performance optimization (sub-3-second load targets). Every dashboard answers a named decision."),
+        ("Layer 6", "Data-Driven Culture & Change Management",
+         "Training, onboarding guides, self-service enablement. The goal is not adoption — it is self-sufficiency. If the team cannot operate without me, I have not finished."),
+        ("Layer 7", "Delivery, QA & Long-Term Strategy",
+         "Upstream and downstream monitoring, KPI variance alerts (±10% from trend), cross-source parity checks, refresh failure alerting. The system must stay trustworthy after I build it.")
+    ]
+
+    for num, title, desc in layers:
+        st.markdown(f"**{num}: {title}**")
+        st.markdown(f"*{desc}*")
+        st.write("")
+
+    st.markdown("*Full framework documentation (42,000 words, 151 items with business impact statements) available on request.*")
+
+    st.divider()
+
+    # Downloadable artifacts
+    section_header("DOWNLOADABLE ARTIFACTS")
+    st.markdown("These are documents I created for my team at Advantage Solutions:")
+
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("**Regional Analytics Onboarding Guide**")
+        st.markdown("6-page guide covering platform access, 12 golden metrics, reporting standards, data quality checks, escalation matrix, and 30-day onboarding plan for new regional analytics managers.")
+    with col2:
+        st.markdown("**Analytics Standards & Development Guide**")
+        st.markdown("Companion document with SQL templates, DAX patterns, Python-in-Power-BI standards, ETL error handling procedures, and naming conventions.")
+
+    st.markdown("*Contact me for copies — these documents contain proprietary references that have been generalized for portfolio purposes.*")
+
+
+# =============================================================================
 # CONNECT
 # =============================================================================
 def render_connect():
     dark_section("""
         <h2 style="font-size:44px;letter-spacing:4px;margin:0 0 12px">LET'S TALK</h2>
-        <p style="font-size:16px">Open to Senior BI & Analytics Manager opportunities across retail, eCommerce, CPG, and tech.</p>
+        <p style="font-size:16px">Open to Senior BI & Analytics Manager opportunities across all industries.</p>
     """)
 
     st.markdown("I'm looking for organizations where the data infrastructure is broken or outgrown — where leadership needs someone to come in, align the metrics, build the platform, and make the numbers trustworthy. If that sounds like your team, I'd like to hear about it.")
