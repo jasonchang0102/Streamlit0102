@@ -187,15 +187,13 @@ def main():
 
     with st.sidebar:
         st.markdown('<div class="sb-brand"><p class="sb-name">JASON C. CHANG</p><p class="sb-title">Senior BI & Analytics Manager</p><div class="sb-status">Open to Opportunities</div></div>', unsafe_allow_html=True)
-        page = st.radio("Nav", ["Home", "Work", "Live Demo", "Code & Method", "About", "Connect"], label_visibility="collapsed")
+        page = st.radio("Nav", ["Home", "Work", "Live Demo", "Connect"], label_visibility="collapsed")
         st.markdown(f'<div class="sb-footer"><a href="{RESUME_URL}" target="_blank" class="sb-dl">DOWNLOAD RESUME</a></div>', unsafe_allow_html=True)
 
     pages = {
         "Home": render_home,
         "Work": render_work,
-        "About": render_about,
         "Live Demo": render_explorer,
-        "Code & Method": render_code,
         "Connect": render_connect
     }
     pages[page]()
@@ -275,7 +273,7 @@ def render_work():
     st.markdown("# FIVE REVENUE NUMBERS IN ONE BOARD MEETING")
     st.markdown("*Post-merger data unification — 6 weeks — Snowflake, Power BI, DAX, Python*")
 
-    result_cards([("70%", "Fewer KPI Conflicts"), ("5→1 day", "Reporting Cycle"), ("9%", "Quarterly Revenue Growth")])
+    result_cards([("70%", "Fewer KPI Conflicts"), ("5→1 day", "Reporting Cycle"), ("$3M", "Misallocated Spend Found")])
 
     st.write("")
     section_header("THE SITUATION")
@@ -422,7 +420,7 @@ Separately: spike in video views with zero page views. Days debugging analytics 
     with tab3:
         show_image("mhs_email_analysis.png", "Answers: What interactions precede a purchase? Ranks all CRM touchpoints by frequency — WebsiteVisited (162) and EmailOpened (86) were the most common pre-purchase interactions.")
 
-    st.caption("Attribution framework and scaling playbook adopted as standard operating process. Unit economics model used for all subsequent campaign launches through FY21.")
+    st.caption("Attribution framework and scaling playbook adopted as standard operating process. Unit economics model used for all subsequent campaign launches through FY21. Shipping delay analysis by country and carrier also led to carrier switch, reducing unmet delivery expectations by 75% and shipping costs by 18%.")
 
     st.divider()
 
@@ -465,6 +463,23 @@ Additionally built a program-level view breaking conversion by region (Midwest 2
         show_image("conversion_dashboard.jpg", "Answers: Which regions and programs need intervention? Maps 92 BDRs across 519 accounts — Midwest at 26.6% vs South at 19.3% triggers resource reallocation decisions.")
 
     st.caption("Pipeline dashboard used by sales leadership for weekly pipeline reviews and quarterly business reviews through 2024.")
+
+    st.divider()
+
+    # Compact methodology section
+    st.markdown("## MY APPROACH")
+    st.markdown("Every project above followed the same 7-layer methodology — developed across 5 companies over 14 years:")
+    approach = [
+        "**1. Requirements & Alignment** — What decision will this enable? RACI, KPI definitions, governance.",
+        "**2. Data Quality** — Null detection, dedup, schema validation, row count baselines. Hard-fail gates.",
+        "**3. Exploratory Analysis** — Understand relationships before building. Correlation tells you where to look.",
+        "**4. Hypothesis & Testing** — A/B, multivariate, forecasting. Statistical significance, not gut feel.",
+        "**5. Visualization & Reporting** — Star schema, DAX measures, RLS, sub-3-second load targets.",
+        "**6. Culture & Change** — Training, onboarding, self-service. If the team can't operate without me, I'm not done.",
+        "**7. Delivery & QA** — KPI variance alerts, cross-source parity, refresh monitoring. Trust must persist."
+    ]
+    for line in approach:
+        st.markdown(line)
 
 
 # =============================================================================
@@ -946,6 +961,11 @@ def render_connect():
     st.markdown("## WHAT MY MANAGER SAID")
     st.markdown("> *\"Jason is a masterful practitioner of data tools and management. He is someone our team relied on for all key performance metrics in a very demanding and often changing environment. His attitude equally matches his aptitude. Jason is a positive influence on those around him and has the ability to shine in the darkest of and toughest of situations. His ideas and creativity were an asset to me personally as well as our team and client. His out of the box thinking provided solutions that others simply would not conceive. I am very glad I was fortunate enough to work with Jason and hope to do so again.\"*")
     st.markdown("**Brenton Harlow** — Executive Leader, CPG Sales, Marketing, Operations & Technology — Direct Manager at Advantage Solutions")
+
+    st.divider()
+
+    st.markdown("*This portfolio was built with Python, Streamlit, Plotly, and Pandas — deployed on Streamlit Cloud with anonymized real data.*")
+    st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102" target="_blank">View source code on GitHub →</a>', unsafe_allow_html=True)
 
 
 main()
