@@ -204,7 +204,7 @@ def main():
 def render_home():
     st.markdown("##### Senior BI & Analytics Manager — 8+ Years")
     st.markdown("# YOUR DATA EXISTS. YOUR EXECUTIVES DON'T TRUST IT.")
-    st.markdown("Companies hire me when five VPs show up to a board meeting with five different revenue numbers. I make it one number that everyone trusts.")
+    st.markdown("Companies hire me when five VPs show up to a board meeting with five different revenue numbers. I build the platform, align the metrics, and make it one number that everyone trusts.")
 
     # Result cards — FIRST thing after headline (Direction 2)
     st.write("")
@@ -213,7 +213,7 @@ def render_home():
         ("$55M", "Royalty Processing Automated"),
         ("350→2 hrs", "Quarterly Analyst-Hours"),
         ("47→0", "Shadow Excel Trackers"),
-        ("70%", "Fewer KPI Conflicts")
+        ("$3M", "Misallocated Spend Found")
     ])
 
     st.write("")
@@ -232,7 +232,7 @@ def render_home():
     st.divider()
 
     # Social proof — one line only
-    st.markdown('*"His out of the box thinking provided solutions that others simply would not conceive."* — **Brenton Harlow**, Direct Manager at Advantage Solutions')
+    st.markdown('*"His out of the box thinking provided solutions that others simply would not conceive."* — **Brenton Harlow**, Executive Leader, Advantage Solutions')
 
     st.divider()
 
@@ -243,7 +243,7 @@ def render_home():
     with col1:
         st.markdown("##### MODERN HOME STATION")
         st.markdown("**Four platforms. Zero attribution. Spending blind.**")
-        st.markdown("Built data infrastructure from zero for a DTC startup — unified Facebook, Shopify, GA4, Klaviyo into one framework. Multivariate testing, K-Means segmentation, carrier analysis.")
+        st.markdown("No data infrastructure existed. Built attribution framework from zero — unified 4 platforms, designed multivariate testing program (12 groups), applied K-Means segmentation, optimized logistics by carrier and country.")
         m1, m2, m3 = st.columns(3)
         m1.metric("Conversion", "+33%")
         m2.metric("CPA", "-18%")
@@ -268,9 +268,15 @@ def render_home():
 
     st.markdown("*Full case studies with dashboard walkthroughs on the **Work** page →*")
 
-    # Direction 7: Industry hook
+    # Live Demo CTA (Gap 1)
     st.write("")
-    st.markdown('*Whether your problem is fragmented reporting, broken attribution, or manual processes eating analyst time — I have solved each one.*')
+    dark_section("""
+        <p style="font-size:18px;text-align:center;margin:0;color:#d4d4d4">→ <strong style="color:#ca8a04">Try the Live Demo</strong> — filter $387M in real data across 75 accounts. Built with Plotly, Pandas, and Streamlit.</p>
+    """)
+
+    # Industry hook
+    st.write("")
+    st.markdown('*Fragmented reporting. Broken attribution. Manual processes eating 350+ analyst-hours per quarter. I have solved each one — with systems still in production years later.*')
 
 
 # =============================================================================
@@ -281,6 +287,24 @@ def render_work():
         <h2 style="font-size:44px;letter-spacing:4px;margin:0 0 8px">CASE STUDIES</h2>
         <p>Deep dives into organizational data problems I have solved</p>
     """)
+
+    # Case summary row (Gap 2) — see all 3 at a glance
+    st.write("")
+    s1, s2, s3 = st.columns(3)
+    with s1:
+        st.markdown("**CASE 01 — Post-Merger Unification**")
+        st.markdown("5 systems → 1 platform · 250+ users")
+        st.metric("Key Result", "70% fewer KPI conflicts")
+    with s2:
+        st.markdown("**CASE 02 — DTC Cross-Channel Analytics**")
+        st.markdown("4 platforms → unified attribution · 12-group MVT")
+        st.metric("Key Result", "2x ROAS, +85% YoY")
+    with s3:
+        st.markdown("**CASE 03 — Royalty Automation**")
+        st.markdown("$55M · 99 vendors · 6 source systems")
+        st.metric("Key Result", "350 hrs → 2 hrs")
+
+    st.divider()
 
     case1, case2, case3, methodology = st.tabs([
         "Post-Merger Unification",
@@ -305,7 +329,7 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 
 - 5 sales systems with incompatible metric definitions
 - 47 shadow Excel trackers maintained by field teams
-- I inherited the project mid-cycle after the previous lead departed
+- I was brought in mid-cycle after the previous lead departed
 - 6 weeks until Q3 close deadline
 """)
 
@@ -330,6 +354,28 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 
         section_header("BUSINESS IMPACT")
         st.markdown("Same-week budget visibility revealed $3M in trade spend allocated to campaigns with negative ROI — previously invisible because each region reported separately. Leadership reallocated within one cycle, improving ROI by 12%.")
+
+        # Before → After visual (Gap 5)
+        st.write("")
+        ba1, ba2, ba3 = st.columns(3)
+        with ba1:
+            st.markdown("**BEFORE**")
+            st.markdown("5 revenue definitions  \n47 shadow trackers  \n5-day reporting cycle  \nNo governance process")
+        with ba2:
+            st.markdown("&nbsp;")
+            st.markdown('<p style="text-align:center;font-size:36px;color:#ca8a04;margin-top:20px">→</p>', unsafe_allow_html=True)
+        with ba3:
+            st.markdown("**AFTER**")
+            st.markdown("1 unified platform  \n0 shadow trackers  \n24-hour reporting cycle  \nBi-weekly VP governance")
+
+        # Timeline (Gap 10)
+        st.write("")
+        section_header("EXECUTION TIMELINE")
+        t1, t2, t3, t4 = st.columns(4)
+        t1.markdown("**Week 1-2**  \n*Stakeholder interviews  \nMetric mapping*")
+        t2.markdown("**Week 3**  \n*VP alignment session  \n12 golden metrics*")
+        t3.markdown("**Week 4-5**  \n*Snowflake schema  \n40+ DAX measures*")
+        t4.markdown("**Week 6**  \n*250 users trained  \nGovernance launched*")
 
         # Architecture diagram
         st.write("")
@@ -382,7 +428,7 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 
         st.write("")
         section_header("THE SITUATION")
-        st.markdown("DTC startup, $65K+/month revenue, 780 units. Ad spend increasing linearly with revenue — no framework connecting unit economics to campaign decisions. Four platforms operating in isolation. Budget allocation was reactive.")
+        st.markdown("DTC startup, $65K+/month, 780 units moving. Four ad platforms, zero unified attribution. Every platform claimed credit for the same conversion. No one knew the actual breakeven cost per acquisition.")
 
         section_header("MY APPROACH")
         st.markdown("**Unit Economics Model** — Before spending a dollar on ads, defined what \'profitable\' meant at every funnel stage:")
@@ -396,7 +442,12 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
         st.table(pd.DataFrame(econ_data).set_index("Metric"))
 
         st.markdown("""
-**4-Phase Scaling Framework** — Discovery ($5/adset, strict kill rules) → Controlled (lookalikes, retargeting) → Scale (50-100% budget increases on profitable adsets) → Bid Cap ($1K-3K campaigns, 2x breakeven ROAS gate).
+**4-Phase Scaling Framework:**
+
+Phase 1: Discovery — 10 audiences at $5/adset, strict kill rules (CPC >$2 or CTR <1% = pause)
+Phase 2: Controlled — Lookalike audiences, creative retargeting at capped budgets
+Phase 3: Scale — 50-100% increases on profitable adsets, cut underperformers
+Phase 4: Bid Cap — $1K-3K campaigns, gated by 400+ purchases and 2x breakeven ROAS
 
 **K-Means Clustering** — Segmented customers by page view sequences, visit depth, and engagement. 4 clusters by CPC vs engagement identified high-value segments.
 
@@ -433,7 +484,7 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 
         st.write("")
         section_header("THE SITUATION")
-        st.markdown("Two senior financial analysts, three full weeks, every quarter. 99 vendor contracts across 6 source systems with completely different column structures. Manual column mapping, vendor filtering, statement formatting, individual emails. Error rate was high — incorrect payments to Disney, Columbia, Warner Bros.")
+        st.markdown("Two senior financial analysts, three full weeks, every quarter. 99 vendor contracts across 6 source systems with completely different column structures. Manual column mapping, vendor filtering, statement formatting, individual emails. One wrong column mapping meant incorrect royalty payments to Disney, Columbia, or Warner Bros — a compliance and relationship risk, not just a data quality issue.")
 
         section_header("MY APPROACH")
         st.markdown("""
@@ -441,7 +492,7 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 
 **Vendor Filtering:** 99 vendors in 4 contract groups. Python filters by vendor ID, processes through mapping, outputs clean data per group.
 
-**VBA Statement Generation:** Auto-generated formatted royalty statements matching each vendor\'s contractual template.
+**VBA Statement Generation:** Auto-generated formatted royalty statements per vendor contract template — headers, currency formatting, date localization, and summary calculations matching each licensor\'s requirements (Disney, Columbia, Warner Bros).
 
 **Automated Distribution:** Statements emailed to vendor contacts automatically. Finance reviews QA summary before release.
 
@@ -482,12 +533,28 @@ After the merger, I inherited 5 sales systems that did not talk to each other. E
 # =============================================================================
 def render_explorer():
     st.markdown("# LIVE DEMOS")
-    st.markdown("Five interactive analyses built from **real program data** — $387M in shipped sales across **75 accounts** and **9 divisions**. This is the type of work I build for executive stakeholders.")
+    st.markdown("Interactive analyses built from **real operational data** — not sample datasets or Kaggle projects. $387M in shipped sales across **75 accounts** and **9 divisions**. Built with Plotly, Pandas, and Streamlit.")
     st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102/tree/main/code_samples" target="_blank">View code samples on GitHub →</a>', unsafe_allow_html=True)
 
     st.divider()
 
     df = load_data()
+
+    # Summary metrics at top (Gap 3) — visible regardless of which tab is active
+    total_sales = df["Shipped_Sales"].sum()
+    total_margin = df["Margin_Dollars"].sum()
+    overall_margin_pct = (total_margin / total_sales * 100) if total_sales > 0 else 0
+    total_accounts = df["Account"].nunique()
+    top3_pct = df.groupby("Account")["Shipped_Sales"].sum().nlargest(3).sum() / total_sales * 100
+
+    sk1, sk2, sk3, sk4, sk5 = st.columns(5)
+    sk1.metric("Total Sales", f"${total_sales/1e6:.0f}M")
+    sk2.metric("Margin", f"{overall_margin_pct:.1f}%")
+    sk3.metric("Accounts", f"{total_accounts}")
+    sk4.metric("Top 3 Concentration", f"{top3_pct:.0f}%")
+    sk5.metric("Divisions", f"{df['Division'].nunique()}")
+
+    st.divider()
 
     demo_tab1, demo_tab2, demo_tab3, demo_tab4, demo_tab5 = st.tabs([
         "📊 Profitability Explorer",
@@ -613,7 +680,7 @@ def render_explorer():
     # ─── DEMO 2: HEATMAP ────────────────────────────────────────────────
     with demo_tab2:
         st.markdown("### REVENUE × MARGIN HEATMAP")
-        st.markdown("*This replicates the Python-in-Power-BI heatmap I build at Advantage Solutions. Each cell shows shipped sales — color intensity reveals where the money concentrates.*")
+        st.markdown("*This is the same dual-metric heatmap technique running in production at Advantage Solutions — rebuilt here in Plotly so you can interact with it. Each cell shows shipped sales; color intensity reveals where the money concentrates.*")
 
         # Build heatmap: accounts (rows) x divisions (cols)
         heatmap_data = df.groupby(["Account", "Division"]).agg(
@@ -677,7 +744,7 @@ def render_explorer():
     # ─── DEMO 3: DIVISION DEEP DIVE ─────────────────────────────────────
     with demo_tab3:
         st.markdown("### DIVISION DEEP DIVE")
-        st.markdown("*Select a division to see its top accounts, monthly trajectory, and margin distribution.*")
+        st.markdown("*This is the drill-down a regional VP uses in their weekly review. Select a division — see which accounts are growing, which are eroding margin, and where to intervene.*")
 
         selected_div = st.selectbox("Select Division", sorted(df["Division"].unique()), key="demo3_div")
         div_df = df[df["Division"] == selected_div]
@@ -816,6 +883,7 @@ def render_explorer():
         st.plotly_chart(fig_pareto, use_container_width=True)
 
         st.markdown("*This is the analysis that triggers a customer diversification discussion in a quarterly business review. If one account churns, what happens to the P&L?*")
+        st.markdown("*In practice, I present this quarterly. The question it answers is not 'do we have concentration risk' — it is 'which of our top 5 accounts has the weakest renewal, and what is the contingency?'*")
 
         # Top 10 table with margin
         st.markdown("**Top 10 Accounts — Revenue & Margin**")
@@ -831,7 +899,7 @@ def render_explorer():
     # ─── DEMO 5: MONTH-OVER-MONTH TREND ─────────────────────────────────
     with demo_tab5:
         st.markdown("### MONTH-OVER-MONTH ANALYSIS")
-        st.markdown("*Spot trends before they become problems. A 3-month margin decline is a signal — not a data point.*")
+        st.markdown("*Spot trends before they become problems. A 3-month margin decline is a signal — not a data point. This is the analysis that caught $3M in misallocated spend at Advantage Solutions.*")
 
         # Overall monthly trend with MoM change
         monthly_all = df.groupby("Month").agg(
@@ -924,7 +992,7 @@ def render_connect():
         <p style="font-size:16px">Currently interviewing for Senior BI & Analytics Manager roles. Best reached via LinkedIn for a quick response.</p>
     """)
 
-    st.markdown("I'm looking for organizations ready to turn their data into a strategic asset — where the right platform and governance can unlock decisions that are currently blocked. If that sounds like your team, I'd like to hear about it.")
+    st.markdown("I'm looking for organizations ready to turn their data into a strategic asset — where the right platform and governance can unlock decisions that are currently blocked. I have done this four times — at a $1.68B enterprise, a DTC startup, a B2B telecom, and a consumer electronics manufacturer. The pattern is the same regardless of industry.")
 
     st.write("")
     c1, c2, c3, c4 = st.columns(4)
@@ -952,7 +1020,7 @@ def render_connect():
         ("How do you handle metric disagreements between VPs?", "I get them in a room with the data, not the dashboards. Definitions first, visualizations second."),
         ("What's the hardest part of post-merger data work?", "Not the schemas — the politics of whose numbers go down when you standardize."),
         ("How do you know a dashboard is successful?", "When stakeholders stop requesting ad hoc reports and start making decisions in the same meeting they see the data."),
-        ("How do you build trust with non-technical stakeholders?", "I ask them what decision they're trying to make before I ask what data they need.")
+        ("How do you build trust with non-technical stakeholders?", "I never open with 'what data do you need?' I open with 'what decision are you trying to make?' The data question answers itself after that.")
     ]
     for q, a in faq:
         st.markdown(f"**{q}**")
