@@ -152,14 +152,28 @@ def load_data():
 # HELPERS
 # =============================================================================
 def scroll_to_top():
-    """Reset scroll position on page switch — multiple fallbacks for reliability"""
+    """Reset scroll on page navigation. Uses MutationObserver for reliable DOM-ready detection."""
     st.markdown("""
         <script>
-            // Try all known Streamlit scroll containers
-            try { window.parent.document.querySelector('[data-testid="stAppViewContainer"]').scrollTo(0, 0); } catch(e) {}
-            try { window.parent.document.querySelector('section.main').scrollTo(0, 0); } catch(e) {}
-            try { window.parent.document.querySelector('.main').scrollTo(0, 0); } catch(e) {}
-            try { window.scrollTo(0, 0); } catch(e) {}
+            (function() {
+                var target = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
+                if (target) {
+                    // DOM ready — scroll immediately
+                    target.scrollTo({top: 0, behavior: 'instant'});
+                } else {
+                    // DOM not ready — observe until it appears
+                    var observer = new MutationObserver(function(mutations, obs) {
+                        var el = window.parent.document.querySelector('[data-testid="stAppViewContainer"]');
+                        if (el) {
+                            el.scrollTo({top: 0, behavior: 'instant'});
+                            obs.disconnect();
+                        }
+                    });
+                    observer.observe(window.parent.document.body, {childList: true, subtree: true});
+                    // Safety timeout — disconnect after 2 seconds regardless
+                    setTimeout(function() { observer.disconnect(); }, 2000);
+                }
+            })();
         </script>
     """, unsafe_allow_html=True)
 
@@ -203,6 +217,10 @@ def main():
     )
     st.markdown(CSS, unsafe_allow_html=True)
 
+    # Initialize page state
+    if "current_page" not in st.session_state:
+        st.session_state.current_page = "Home"
+
     with st.sidebar:
         st.markdown('<div class="sb-brand"><p class="sb-name">JASON C. CHANG</p><p class="sb-title">Senior BI & Analytics Manager</p><div class="sb-status">Available for Senior BI Roles</div></div>', unsafe_allow_html=True)
         page = st.radio("Nav", [
@@ -213,6 +231,13 @@ def main():
             "Connect"
         ], label_visibility="collapsed")
         st.markdown(f'<div class="sb-footer"><a href="{RESUME_URL}" target="_blank" class="sb-dl">DOWNLOAD RESUME</a></div>', unsafe_allow_html=True)
+
+    # Detect page change — scroll only on actual navigation, not on widget interactions
+    page_changed = (page != st.session_state.current_page)
+    st.session_state.current_page = page
+
+    if page_changed:
+        scroll_to_top()
 
     pages = {
         "Home": render_home,
@@ -227,20 +252,21 @@ def main():
 # HOME
 # =============================================================================
 def render_home():
-    scroll_to_top()
     st.markdown("##### Senior BI & Analytics Manager — 8+ Years")
-    st.markdown("# FROM STAR SCHEMA TO MULTIVARIATE TESTING — THE ANALYTICAL FRAMEWORK BEHIND TRUSTED DATA")
-    st.markdown("Most organizations have the data. What they lack is the analytical framework — star schema design, statistical testing, governance processes — that turns conflicting numbers into a single trusted view. Over 14 years and 5 organizations, I have developed a methodology that connects data architecture to business decisions. The platforms I build are still in production. The teams I mentor are self-sufficient.")
+    st.markdown("*For BI, Analytics, and Data leadership roles focused on revenue performance, forecasting, and business decision support.*")
+    st.markdown("# THE ANALYTICAL FRAMEWORK BEHIND CONFIDENT EXECUTIVE DECISIONS")
+    st.markdown("Most organizations have the data. What they lack is the framework that turns it into confident decisions — star schema architecture, statistical testing, governance. Over 14 years and 5 organizations, I developed a methodology connecting data infrastructure to executive decision-making. Platforms still in production. Teams self-sufficient.")
 
     # Result cards — FIRST thing after headline (Direction 2)
     st.write("")
-    st.markdown("**Impact delivered at Advantage Solutions:**")
+    st.markdown("**Measurable impact at Advantage Solutions:**")
     result_cards([
         ("$55M", "Royalty Processing Automated"),
         ("350→2 hrs", "Quarterly Analyst-Hours"),
         ("47→0", "Shadow Excel Trackers"),
         ("$3M", "Misallocated Spend Found")
     ])
+    st.markdown("*These results came from building the analytical framework — not just the dashboards. The methodology is documented and repeatable.*")
 
     st.write("")
     tags(["SQL", "Python", "Power BI", "Snowflake", "DAX", "BigQuery"])
@@ -268,7 +294,7 @@ def render_home():
 
     with col1:
         st.markdown("##### MODERN HOME STATION")
-        st.markdown("**Cross-channel attribution from scratch**")
+        st.markdown("**Attribution framework enabling profitable scaling**")
         st.markdown("DTC startup with no analytics infrastructure. Built single attribution framework across GA4, Shopify, Meta, and Klaviyo. Designed 12-group multivariate testing program, used K-Means clustering (page view sequences, visit depth, engagement patterns) to surface 4 distinct behavioral segments, and surfaced shipping cost inefficiencies through carrier-by-country analysis.")
         m1, m2, m3 = st.columns(3)
         m1.metric("Conversion", "+33%")
@@ -302,14 +328,13 @@ def render_home():
 
     # Industry hook
     st.write("")
-    st.markdown('*From statistical testing and customer segmentation to ETL automation and governance design — platforms still in production, teams self-serving, years after initial deployment.*')
+    st.markdown('*Statistical testing. Customer segmentation. ETL automation. Governance design. Platforms still in production. Teams self-sufficient.*')
 
 
 # =============================================================================
 # ADVANTAGE SOLUTIONS
 # =============================================================================
 def render_advantage():
-    scroll_to_top()
     dark_section("""
         <h2 style="font-size:40px;letter-spacing:3px;margin:0 0 8px">ADVANTAGE SOLUTIONS</h2>
         <p style="font-size:16px;color:#a3a3a3">$1.68B Enterprise · Post-Merger · 250+ Stakeholders · 99 Vendor Sources</p>
@@ -326,7 +351,7 @@ def render_advantage():
     st.write("")
 
     # ─── SECTION 1: THE ENVIRONMENT I INHERITED ──────────────────────────
-    section_header("THE STARTING POINT")
+    section_header("INHERITED ENVIRONMENT")
     st.markdown("""
 Following the merger, Advantage Solutions operated five separate regional sales systems — each with its own metric definitions, data sources, and reporting cadence. The CFO received five different revenue numbers in board meetings. Field teams, lacking confidence in centralized reporting, had created 47 independent Excel trackers across regions. Two senior financial analysts spent three full weeks every quarter manually processing $55M in royalty calculations across 99 vendor contracts from 6 different source systems.
 
@@ -343,7 +368,7 @@ The opportunity was clear: unify the data infrastructure, establish governance, 
     st.divider()
 
     # ─── SECTION 2: WHAT I BUILT — TECHNICAL ─────────────────────────────
-    section_header("WHAT I BUILT")
+    section_header("PLATFORM & AUTOMATION")
 
     st.markdown("**Platform Unification (6 weeks to Q3 close)**")
     st.markdown("""
@@ -376,7 +401,7 @@ The solution: a Python ETL pipeline with dynamic column mapping across all 6 sou
     st.divider()
 
     # ─── SECTION 3: DATA ARCHITECTURE ────────────────────────────────────
-    section_header("DATA ARCHITECTURE")
+    section_header("DATA ARCHITECTURE — PERFORMANCE & HISTORICAL INTEGRITY")
     st.markdown("""
 I redesigned the data architecture as a star schema — fact tables for sales, compliance, and campaign performance, dimension tables for time, store, product, vendor, and campaign metadata.
 
@@ -384,7 +409,9 @@ I redesigned the data architecture as a star schema — fact tables for sales, c
 
 **Type 1 Warehouse Mitigation:** The source systems used Type 1 slowly-changing dimensions — meaning historical values were overwritten. I implemented weekly Snowflake snapshots to preserve historical state, then built reconstruction logic for any point-in-time view. This gave leadership the ability to compare current performance against true historical baselines.
 
-**Performance:** Pre-aggregated fact tables at multiple grain levels. Row-level security filtering at the Snowflake level, not Power BI level. Dashboard load target: under 3 seconds. Full refresh cycle: under 15 minutes. Refresh errors reduced 80%.
+**Performance:** Pre-aggregated fact tables at multiple grain levels. Row-level security at Snowflake level. Dashboard load: under 3 seconds. Full refresh: under 15 minutes. Refresh errors reduced 80%.
+
+*Implication: sub-3-second load times enabled executives to make decisions in the same meeting they reviewed the data — eliminating the 5-day lag that previously delayed budget reallocations.*
 """)
 
     # Architecture diagram
@@ -415,13 +442,30 @@ I redesigned the data architecture as a star schema — fact tables for sales, c
     st.divider()
 
     # ─── SECTION 4: HOW I LED ────────────────────────────────────────────
-    section_header("EXECUTIVE ALIGNMENT & GOVERNANCE")
+    section_header("GOVERNANCE & EXECUTIVE ALIGNMENT")
     st.markdown("""
 The unification required alignment before architecture. Each regional VP had built metrics around their team's strengths. Standardizing meant some numbers would shift. Building consensus required trust and transparency before any code was written.
 
 The governance framework I established includes: a formal metric change request process, QA validation gates (row count monitoring, null detection, KPI variance ±10% from trend), and a bi-weekly governance committee with VP Finance, VP Sales, and VP Operations. This framework is still in production and serves as the standard for cross-program reporting.
 
+**Metric Definitions (standardized across all programs):**
+- *Shipped Sales* = net invoiced amount after discounts, by ship date
+- *Gross Margin %* = (Shipped Sales - COGS) / Shipped Sales
+- *Royalty Earned* = Net Sales × Royalty Rate per license contract
+- *Revenue vs Budget Variance* = (Actual - Budget) / Budget
+- *Customer Concentration* = Top 3 customer share of total shipped sales
+- *Reporting Cycle Time* = Business days from period close to dashboard publish (target: 1 day)
+
+*Implication: governance prevented the metric drift that caused the original fragmentation — ensuring decisions continue to be based on agreed definitions, not departmental interpretations.*
+
 Once unified, the platform's same-week budget visibility surfaced $3M in trade spend allocated to campaigns with negative ROI — an insight that only became visible once all regions reported from a unified data source. Leadership reallocated within one reporting cycle, improving ROI by 12%.
+
+**Decision Scenario — Budget Reallocation:**
+- *Observation:* $3M in trade spend concentrated in campaigns with negative ROI across 3 regions
+- *Root Cause:* Regional reporting separation prevented cross-program visibility
+- *Decision:* Reallocate within current quarter rather than wait for annual planning cycle
+- *Action:* Shifted budget to campaigns exceeding 2x breakeven ROAS threshold
+- *Impact:* +12% ROI within one reporting cycle
 """)
 
     st.markdown("**Analytical Methodology**")
@@ -441,7 +485,7 @@ Once unified, the platform's same-week budget visibility surfaced $3M in trade s
     st.divider()
 
     # ─── SECTION 5: TEAM DEVELOPMENT ─────────────────────────────────────
-    section_header("TEAM DEVELOPMENT")
+    section_header("TEAM DEVELOPMENT — FROM DEPENDENCY TO SELF-SUFFICIENCY")
     st.markdown("""
 When I joined, the 7 regional analytics managers could run pre-built reports but could not build their own. Every ad hoc request escalated to me — consuming 60% of my time.
 
@@ -450,6 +494,8 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
 **Phase 2 — Ownership Transfer (Weeks 5-8):** Each manager built and presented their own regional dashboard to their VP. I reviewed the data model and DAX logic before presentation but did not build it for them.
 
 **Phase 3 — Self-Sufficiency (Months 3-6):** Established a shared query library, rotating "metric of the week" deep dives, and peer review process. Within 6 months, 80% of ad hoc analytical requests were resolved at the regional level without escalation.
+
+*Implication: self-sufficiency freed senior analytical capacity for strategic work — the team could now sustain the platform independently.*
 """)
 
     # Team before→after
@@ -462,7 +508,7 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
     st.divider()
 
     # ─── SECTION 6: DASHBOARDS ───────────────────────────────────────────
-    section_header("DASHBOARD VIEWS")
+    section_header("EXECUTIVE DASHBOARDS")
     show_image("advantage_executive.png", "Executive view: 83 customers against budget — revenue, margin, GM% trend.")
     dtab1, dtab2 = st.tabs(["Margin Analysis", "Rep Scorecard"])
     with dtab1:
@@ -473,7 +519,7 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
     st.divider()
 
     # ─── SECTION 7: WHAT WENT WRONG + DURABILITY ─────────────────────────
-    section_header("CHALLENGES & DURABILITY")
+    section_header("RISK RESPONSE & LONG-TERM DURABILITY")
     st.markdown("APAC had an undocumented custom field that their entire commission structure depended on. Their numbers shifted on Day 1 of launch. The team deployed an emergency data model fix within hours while the regional VP was on a call with the CEO. After the resolution, APAC became the highest-adoption group on the platform — because they experienced firsthand that the team could respond in real-time.")
     st.markdown("The first royalty automation run produced incorrect rates for one vendor group — a tiered rate structure that the analyst handled mentally but had never documented. Built a rate lookup table with threshold logic to handle this and any future tiered contracts.")
     st.caption("Platform still in production serving 250+ users. Royalty pipeline has processed 4+ quarters without manual intervention. Mentorship structure has onboarded 3 additional managers since established.")
@@ -486,7 +532,6 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
 # MODERN HOME STATION
 # =============================================================================
 def render_mhs():
-    scroll_to_top()
     dark_section("""
         <h2 style="font-size:40px;letter-spacing:3px;margin:0 0 8px">MODERN HOME STATION</h2>
         <p style="font-size:16px;color:#a3a3a3">DTC eCommerce Startup · Built Analytics from Zero · 4 Platforms Unified</p>
@@ -503,7 +548,7 @@ def render_mhs():
     st.write("")
 
     # ─── SECTION 1: THE ENVIRONMENT ──────────────────────────────────────
-    section_header("THE STARTING POINT")
+    section_header("INHERITED ENVIRONMENT")
     st.markdown("""
 DTC startup, $65K+/month revenue, 780 units moving. Four ad platforms operating independently — GA4, Shopify, Meta, Klaviyo. Each platform attributed the same conversions to itself, making accurate breakeven analysis impractical without a unified framework.
 
@@ -513,7 +558,7 @@ When I joined, the founder was making budget decisions based on platform-reporte
     st.divider()
 
     # ─── SECTION 2: UNIT ECONOMICS & TESTING ─────────────────────────────
-    section_header("ANALYTICAL FRAMEWORK")
+    section_header("ANALYTICAL FRAMEWORK — UNIT ECONOMICS, TESTING & SEGMENTATION")
 
     st.markdown("**Unit Economics Model** — Before allocating budget, the team needed a shared definition of 'profitable' at every funnel stage:")
 
@@ -538,6 +583,8 @@ Phase 4: Bid Cap — $1K-3K campaigns, gated by 400+ purchases and 2x breakeven 
 **K-Means Clustering** — Customer segmentation by page view sequences, visit depth, and engagement patterns. The analysis surfaced 4 distinct clusters by CPC vs engagement, revealing which segments warranted further investment.
 
 **Demand Forecasting** — Unified marketing, warehouse, purchasing, and customer service data into a shared operational view. Enabled cross-team decision-making with 40% shorter feedback cycles.
+
+*Implication: marketing could now validate inventory and staffing capacity before launching promotions — eliminating the pattern of high-ROAS campaigns creating downstream service failures.*
 """)
 
     # Results
@@ -550,7 +597,7 @@ Phase 4: Bid Cap — $1K-3K campaigns, gated by 400+ purchases and 2x breakeven 
     st.divider()
 
     # ─── SECTION 3: OPERATIONS INTELLIGENCE ──────────────────────────────
-    section_header("OPERATIONS: AD SPEND → CUSTOMER SERVICE")
+    section_header("OPERATIONAL INTELLIGENCE — AD SPEND TO CS STAFFING")
     st.markdown("""
 As the DTC business scaled internationally, customer inquiries about shipping timelines increased — but the data to understand the root causes was distributed across multiple systems. Ad budgets were approved by country without visibility into downstream impact: how many orders each campaign would generate, which carriers would handle them, expected delay rates, and how many Zendesk tickets that would create.
 
@@ -622,7 +669,7 @@ The model ultimately became the backbone for ad budget approval. Before scaling 
     st.divider()
 
     # ─── SECTION 4: DASHBOARDS ───────────────────────────────────────────
-    section_header("DASHBOARD VIEWS")
+    section_header("MARKETING & OPERATIONS DASHBOARDS")
     show_image("mhs_engagement.png", "K-Means clustering: campaign segments by CPC vs engagement.")
     dtab1, dtab2 = st.tabs(["Customer Journey", "Email Analytics"])
     with dtab1:
@@ -633,7 +680,7 @@ The model ultimately became the backbone for ad budget approval. Before scaling 
     st.divider()
 
     # ─── SECTION 5: CHALLENGES & DURABILITY ──────────────────────────────
-    section_header("CHALLENGES & DURABILITY")
+    section_header("RISK RESPONSE & PROCESS IMPROVEMENTS")
     st.markdown("Three adsets cannibalizing each other due to overlapping audiences — built negative exclusions and restructured campaign hierarchy. Separately: silent autoplay videos inflating view counts — implemented a pre-launch QA checklist for all creative (audio, thumbnail, CTA rendering, platform-specific format).")
     st.markdown("Initial carrier switch recommendation for Brazil (YanWen → DHL) was cost-prohibitive. Found a middle path: regional carrier at $36/unit with 22% delay rate (down from 45%). Operational optimization is always constrained by unit economics.")
     st.caption("Attribution framework, scaling playbook, and operational model adopted as standard processes. Unit economics model used for all subsequent campaign launches through FY21.")
@@ -646,9 +693,9 @@ The model ultimately became the backbone for ad budget approval. Before scaling 
 # EXPLORER
 # =============================================================================
 def render_explorer():
-    scroll_to_top()
-    st.markdown("# LIVE DEMOS")
-    st.markdown("Interactive analyses built from **real operational data** — $387M in shipped sales across **75 accounts** and **9 divisions**. Profitability analysis, heatmap visualization, concentration risk, and trend detection — the same analytical methods I apply at Advantage Solutions, rebuilt with Plotly, Pandas, and Streamlit.")
+    st.markdown("# INTERACTIVE ANALYSIS — EXECUTIVE DECISION TOOLS")
+    st.markdown("Decision-ready analyses built from **real operational data** — $387M in shipped sales, **75 accounts**, **9 divisions**. Each view answers a specific executive question: where is revenue concentrated, which accounts drive margin, and where is the business exposed to risk.")
+    st.markdown("*Built as a working demonstration of how I approach business analytics problems end-to-end — from data modeling through transformation to executive-ready insights.*")
     st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102/tree/main/code_samples" target="_blank">View code samples on GitHub →</a>', unsafe_allow_html=True)
 
     st.divider()
@@ -683,7 +730,7 @@ def render_explorer():
     # ─── DEMO 1: PROFITABILITY EXPLORER ──────────────────────────────────
     with demo_tab1:
         st.markdown("### PROFITABILITY EXPLORER")
-        st.markdown("*If Division X has 40% of revenue but low margin, do you invest to fix it or reallocate to Division Y?*")
+        st.markdown("*Decision: allocate resources to high-margin divisions or invest in turning volume divisions profitable.*")
 
         col_f1, col_f2, col_f3 = st.columns(3)
         with col_f1:
@@ -721,7 +768,7 @@ def render_explorer():
         chart_col1, chart_col2 = st.columns(2)
 
         with chart_col1:
-            st.markdown("**Monthly Trend**")
+            st.markdown("**Revenue Trend & Momentum**")
             monthly = filtered.groupby("Month").agg(
                 Sales=("Shipped_Sales", "sum"),
                 Margin=("Margin_Dollars", "sum")
@@ -742,7 +789,7 @@ def render_explorer():
             st.plotly_chart(fig, use_container_width=True)
 
         with chart_col2:
-            st.markdown("**Division Profitability Map**")
+            st.markdown("**Division Risk Map: Revenue vs Margin**")
             div_agg = filtered.groupby("Division").agg(
                 Sales=("Shipped_Sales", "sum"),
                 Margin=("Margin_Dollars", "sum"),
@@ -769,7 +816,7 @@ def render_explorer():
         st.divider()
 
         # Account table
-        st.markdown("**Account Profitability**")
+        st.markdown("**Account-Level Profitability: Drivers vs Drag**")
         acct_agg = filtered.groupby(["Account", "Division"]).agg(
             Sales=("Shipped_Sales", "sum"),
             COGS=("Shipped_COGS", "sum"),
@@ -796,7 +843,7 @@ def render_explorer():
     # ─── DEMO 2: HEATMAP ────────────────────────────────────────────────
     with demo_tab2:
         st.markdown("### REVENUE × MARGIN HEATMAP")
-        st.markdown("*I developed this dual-metric heatmap technique to solve a Power BI limitation — standard matrices cannot display two measures per cell. Running in production at Advantage Solutions using Python embedded in Power BI. Rebuilt here in Plotly for interactivity.*")
+        st.markdown("*Dual-metric view: revenue concentration and margin performance in a single matrix. Surfaces which account-division intersections drive value vs generate volume. Running in production at Advantage Solutions.*")
 
         # Build heatmap: accounts (rows) x divisions (cols)
         heatmap_data = df.groupby(["Account", "Division"]).agg(
@@ -860,7 +907,7 @@ def render_explorer():
     # ─── DEMO 3: DIVISION DEEP DIVE ─────────────────────────────────────
     with demo_tab3:
         st.markdown("### DIVISION DEEP DIVE")
-        st.markdown("*The drill-down view used in weekly regional reviews. I designed this to surface margin erosion at the account level — select a division to see which accounts are growing, which are declining, and where intervention is needed.*")
+        st.markdown("*The drill-down view used in weekly regional reviews. Drill-down for weekly regional reviews. Surfaces account-level margin erosion and growth — identifies where intervention is needed before quarterly results confirm the trend.*")
 
         selected_div = st.selectbox("Select Division", sorted(df["Division"].unique()), key="demo3_div")
         div_df = df[df["Division"] == selected_div]
@@ -882,7 +929,7 @@ def render_explorer():
         deep_col1, deep_col2 = st.columns(2)
 
         with deep_col1:
-            st.markdown("**Monthly Trajectory**")
+            st.markdown("**Revenue Trajectory**")
             div_monthly = div_df.groupby("Month").agg(
                 Sales=("Shipped_Sales", "sum"),
                 Margin=("Margin_Dollars", "sum")
@@ -900,7 +947,7 @@ def render_explorer():
             st.plotly_chart(fig4, use_container_width=True)
 
         with deep_col2:
-            st.markdown("**Account Margin Distribution**")
+            st.markdown("**Margin Distribution by Account**")
             div_acct = div_df.groupby("Account").agg(
                 Sales=("Shipped_Sales", "sum"),
                 Margin_Pct=("Margin_Pct", "mean")
@@ -998,8 +1045,8 @@ def render_explorer():
         )
         st.plotly_chart(fig_pareto, use_container_width=True)
 
-        st.markdown("*This is the analysis that triggers a customer diversification discussion in a quarterly business review. If one account churns, what happens to the P&L?*")
-        st.markdown("*I present this analysis quarterly to leadership. The actionable question it drives: which of our top 5 accounts has the weakest renewal position, and what is the contingency if we lose them?*")
+        st.markdown("*Decision: assess revenue dependency. If one top account churns, what is the P&L exposure? Triggers diversification strategy discussion.*")
+        st.markdown("*Presented quarterly to leadership. Actionable question: which top account has the weakest renewal position, and what contingency should be in place?*")
 
         # Top 10 table with margin
         st.markdown("**Top 10 Accounts — Revenue & Margin**")
@@ -1048,7 +1095,7 @@ def render_explorer():
         trend_col1, trend_col2 = st.columns(2)
 
         with trend_col1:
-            st.markdown("**Sales & Margin Trend**")
+            st.markdown("**Revenue & Margin Trend**")
             fig_trend = go.Figure()
             fig_trend.add_trace(go.Bar(x=monthly_all["Month"], y=monthly_all["Sales"], name="Sales", marker_color="#ca8a04", opacity=0.85))
             fig_trend.add_trace(go.Scatter(x=monthly_all["Month"], y=monthly_all["Margin_Pct"], name="Margin %", yaxis="y2", mode="lines+markers", line=dict(color="#0a0a0a", width=2.5), marker=dict(size=7)))
@@ -1063,7 +1110,7 @@ def render_explorer():
             st.plotly_chart(fig_trend, use_container_width=True)
 
         with trend_col2:
-            st.markdown("**Month-over-Month Sales Change %**")
+            st.markdown("**MoM Revenue Change**")
             colors = ["#16a34a" if v >= 0 else "#dc2626" for v in monthly_all["Sales_MoM"].fillna(0)]
             fig_mom = go.Figure()
             fig_mom.add_trace(go.Bar(
@@ -1081,7 +1128,7 @@ def render_explorer():
             st.plotly_chart(fig_mom, use_container_width=True)
 
         # Monthly detail table
-        st.markdown("**Monthly Detail**")
+        st.markdown("**Monthly Performance Detail**")
         monthly_display = monthly_all.copy()
         monthly_display["Sales"] = monthly_display["Sales"].apply(lambda x: f"${x:,.0f}")
         monthly_display["COGS"] = monthly_display["COGS"].apply(lambda x: f"${x:,.0f}")
@@ -1097,7 +1144,7 @@ def render_explorer():
     # ─── DEMO 6: MULTIVARIATE TESTING ──────────────────────────────────
     with demo_tab6:
         st.markdown("### MULTIVARIATE TEST DESIGN & RESULTS")
-        st.markdown("*At Modern Home Station, I designed a 12-group multivariate test (3 creatives × 2 CTAs × 2 interaction types) to optimize ad performance. This interactive demo shows the test matrix and simulated results based on the actual patterns we observed.*")
+        st.markdown("*12-group multivariate test (3 creatives × 2 CTAs × 2 interactions) designed to isolate the highest-performing ad combination. Results based on actual MHS patterns. Decision: which creative-CTA-interaction mix maximizes CTR while minimizing CPM?*")
 
         st.divider()
 
@@ -1214,7 +1261,6 @@ def render_explorer():
 # CONNECT
 # =============================================================================
 def render_connect():
-    scroll_to_top()
     dark_section("""
         <h2 style="font-size:44px;letter-spacing:4px;margin:0 0 12px">LET'S TALK</h2>
         <p style="font-size:16px">Open to Senior BI & Analytics Manager roles. Best reached via LinkedIn.</p>
@@ -1243,7 +1289,7 @@ def render_connect():
     st.divider()
 
     # Direction 4: FAQ
-    st.markdown("## WHAT HIRING MANAGERS ASK ME")
+    st.markdown("## COMMON QUESTIONS")
     faq = [
         ("How do you handle metric disagreements between VPs?", "Bring the source data into the room, not the dashboards. Most disagreements dissolve when everyone is looking at the same raw numbers. Define the metric first, then build the visualization."),
         ("What's the hardest part of post-merger data work?", "Not the schemas — the politics of whose numbers go down when you standardize."),
@@ -1258,7 +1304,7 @@ def render_connect():
     st.divider()
 
     # Direction 29: Trimmed Brenton quote
-    st.markdown("## LEADERSHIP TESTIMONIAL")
+    st.markdown("## DIRECT MANAGER REFERENCE")
     st.markdown("> *\"He is someone our team relied on for all key performance metrics in a very demanding and often changing environment. His out of the box thinking provided solutions that others simply would not conceive.\"*")
     st.markdown("**Brenton Harlow** — Executive Leader, CPG Sales, Marketing, Operations & Technology — Direct Manager at Advantage Solutions")
 
