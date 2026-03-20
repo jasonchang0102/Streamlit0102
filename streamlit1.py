@@ -740,7 +740,9 @@ def render_explorer():
     # ─── DEMO 1: PROFITABILITY EXPLORER ──────────────────────────────────
     with demo_tab1:
         st.markdown("### PROFITABILITY EXPLORER")
-        st.markdown("*Decision: allocate resources to high-margin divisions or invest in turning volume divisions profitable.*")
+        st.markdown("**Decision:** Allocate resources to high-margin divisions or invest in turning volume divisions profitable.")
+        st.markdown("**Used by:** Regional managers, finance leadership, program directors")
+        st.markdown("**Impact:** Enabled same-week budget reallocation across divisions based on margin performance")
 
         col_f1, col_f2, col_f3 = st.columns(3)
         with col_f1:
@@ -826,7 +828,7 @@ def render_explorer():
         st.divider()
 
         # Account table
-        st.markdown("**Account-Level Profitability: Drivers vs Drag**")
+        st.markdown("**Account-Level Profitability** — *ranks accounts by revenue; margin % reveals which drive profit vs generate volume only*")
         acct_agg = filtered.groupby(["Account", "Division"]).agg(
             Sales=("Shipped_Sales", "sum"),
             COGS=("Shipped_COGS", "sum"),
@@ -850,10 +852,15 @@ def render_explorer():
 
         st.dataframe(display_df, hide_index=True, use_container_width=True, height=400)
 
+        st.markdown("---")
+        st.markdown("**How this analysis is used:** Review division-level performance → Identify margin outliers → Drill into account-level drivers → Recommend budget reallocation within the same reporting cycle.")
+
     # ─── DEMO 2: HEATMAP ────────────────────────────────────────────────
     with demo_tab2:
         st.markdown("### REVENUE × MARGIN HEATMAP")
-        st.markdown("*Dual-metric view: revenue concentration and margin performance in a single matrix. Surfaces which account-division intersections drive value vs generate volume. Running in production at Advantage Solutions.*")
+        st.markdown("**Decision:** Identify which account-division intersections drive value vs generate volume — and where to focus negotiation.")
+        st.markdown("**Used by:** Account managers, regional VPs, finance")
+        st.markdown("**Impact:** Surfaces revenue-margin mismatches that standard Power BI matrices cannot display. Running in production at Advantage Solutions.")
 
         # Build heatmap: accounts (rows) x divisions (cols)
         heatmap_data = df.groupby(["Account", "Division"]).agg(
@@ -917,7 +924,9 @@ def render_explorer():
     # ─── DEMO 3: DIVISION DEEP DIVE ─────────────────────────────────────
     with demo_tab3:
         st.markdown("### DIVISION DEEP DIVE")
-        st.markdown("*The drill-down view used in weekly regional reviews. Drill-down for weekly regional reviews. Surfaces account-level margin erosion and growth — identifies where intervention is needed before quarterly results confirm the trend.*")
+        st.markdown("**Decision:** Identify which accounts within a division are growing vs eroding margin — intervene before quarterly results confirm the trend.")
+        st.markdown("**Used by:** Division leads, regional managers in weekly reviews")
+        st.markdown("**Impact:** Surfaces account-level performance shifts that aggregate reporting conceals")
 
         selected_div = st.selectbox("Select Division", sorted(df["Division"].unique()), key="demo3_div")
         div_df = df[df["Division"] == selected_div]
@@ -1002,7 +1011,9 @@ def render_explorer():
     # ─── DEMO 4: CUSTOMER CONCENTRATION ──────────────────────────────────
     with demo_tab4:
         st.markdown("### CUSTOMER CONCENTRATION RISK")
-        st.markdown("*How dependent is the business on its top accounts? If your top 3 customers represent 60%+ of revenue, one lost contract changes everything.*")
+        st.markdown("**Decision:** Assess revenue dependency — if one top account churns, what is the P&L exposure? Triggers diversification vs deepening strategy.")
+        st.markdown("**Used by:** Program leadership, finance, strategic planning")
+        st.markdown("**Impact:** Presented quarterly to leadership as part of strategic review")
 
         # Pareto / concentration analysis
         acct_total = df.groupby("Account").agg(
@@ -1059,7 +1070,7 @@ def render_explorer():
         st.markdown("*Presented quarterly to leadership. Actionable question: which top account has the weakest renewal position, and what contingency should be in place?*")
 
         # Top 10 table with margin
-        st.markdown("**Top 10 Accounts — Revenue & Margin**")
+        st.markdown("**Top 10 Accounts** — *revenue, margin, and cumulative share; identifies which accounts carry the most renewal risk*")
         top10_display = acct_total.head(10).copy()
         top10_display["Sales"] = top10_display["Sales"].apply(lambda x: f"${x:,.0f}")
         top10_display["Margin"] = top10_display["Margin"].apply(lambda x: f"${x:,.0f}")
@@ -1069,10 +1080,15 @@ def render_explorer():
         top10_display.columns = ["#", "Account", "Sales", "Margin $", "Margin %", "Cumulative %"]
         st.dataframe(top10_display, hide_index=True, use_container_width=True)
 
+        st.markdown("---")
+        st.markdown("**How this analysis is used:** Review Pareto distribution → Assess top-account dependency → Evaluate renewal strength of concentrated accounts → Present contingency plan to leadership.")
+
     # ─── DEMO 5: MONTH-OVER-MONTH TREND ─────────────────────────────────
     with demo_tab5:
         st.markdown("### MONTH-OVER-MONTH ANALYSIS")
-        st.markdown("*Trend analysis for early signal detection. I built this monitoring approach after a 3-month margin decline across two regions surfaced $3M in misallocated spend — the kind of pattern that only becomes visible with unified, consistent data.*")
+        st.markdown("**Decision:** Detect margin decline patterns early — a 3-month trend is a signal that requires investigation, not a single data point.")
+        st.markdown("**Used by:** Finance, program leadership, operations")
+        st.markdown("**Impact:** This approach surfaced $3M in misallocated spend at Advantage Solutions — invisible until data was unified")
 
         # Overall monthly trend with MoM change
         monthly_all = df.groupby("Month").agg(
@@ -1138,7 +1154,7 @@ def render_explorer():
             st.plotly_chart(fig_mom, use_container_width=True)
 
         # Monthly detail table
-        st.markdown("**Monthly Performance Detail**")
+        st.markdown("**Monthly Detail** — *full breakdown with MoM % and avg order value for period-over-period comparison*")
         monthly_display = monthly_all.copy()
         monthly_display["Sales"] = monthly_display["Sales"].apply(lambda x: f"${x:,.0f}")
         monthly_display["COGS"] = monthly_display["COGS"].apply(lambda x: f"${x:,.0f}")
@@ -1151,10 +1167,15 @@ def render_explorer():
         monthly_display.columns = ["Month", "Sales", "COGS", "Margin $", "Margin %", "Units", "MoM %", "Avg Order"]
         st.dataframe(monthly_display, hide_index=True, use_container_width=True)
 
+        st.markdown("---")
+        st.markdown("**How this analysis is used:** Monitor MoM trends → Flag consecutive decline patterns → Investigate root cause (pricing, volume, mix) → Escalate to leadership with specific reallocation recommendation.")
+
     # ─── DEMO 6: MULTIVARIATE TESTING ──────────────────────────────────
     with demo_tab6:
         st.markdown("### MULTIVARIATE TEST DESIGN & RESULTS")
-        st.markdown("*12-group multivariate test (3 creatives × 2 CTAs × 2 interactions) designed to isolate the highest-performing ad combination. Results based on actual MHS patterns. Decision: which creative-CTA-interaction mix maximizes CTR while minimizing CPM?*")
+        st.markdown("**Decision:** Isolate the highest-performing creative-CTA-interaction combination — maximize CTR while minimizing CPM across 12 test groups.")
+        st.markdown("**Used by:** Marketing, growth, campaign managers")
+        st.markdown("**Impact:** Winning combination informed all subsequent campaign launches through FY21. Engagement-driven strategies confirmed over direct-response.")
 
         st.divider()
 
@@ -1219,7 +1240,7 @@ def render_explorer():
         mvt_col1, mvt_col2 = st.columns(2)
 
         with mvt_col1:
-            st.markdown("**CTR by Creative × CTA**")
+            st.markdown("**CTR by Creative × CTA** — *identifies which creative-CTA combinations generate the most engagement*")
             ctr_pivot = mvt_df.groupby(["Creative", "CTA"])["CTR %"].mean().reset_index()
             ctr_matrix = ctr_pivot.pivot(index="Creative", columns="CTA", values="CTR %")
 
@@ -1237,7 +1258,7 @@ def render_explorer():
             st.plotly_chart(fig_mvt1, use_container_width=True)
 
         with mvt_col2:
-            st.markdown("**CPM by Creative × Interaction**")
+            st.markdown("**CPM by Creative × Interaction** — *lower CPM at higher engagement = the efficient frontier for ad spend*")
             cpm_pivot = mvt_df.groupby(["Creative", "Interaction"])["CPM ($)"].mean().reset_index()
             cpm_matrix = cpm_pivot.pivot(index="Creative", columns="Interaction", values="CPM ($)")
 
