@@ -96,7 +96,7 @@ button[data-testid="stSidebarCollapseButton"] {display:none!important}
 .gold-border h3 {font-size:1.65rem!important}
 
 /* Case result cards */
-.result-card {background:#0a0a0a;padding:28px 16px;text-align:center;border-radius:0;margin:0 2px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:130px}
+.result-card {background:#0a0a0a;padding:28px 16px;text-align:center;border-radius:0;margin:0 2px;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;min-height:130px!important;height:100%!important}
 .result-val {font-family:'Bebas Neue',sans-serif;font-size:42px;color:#ca8a04!important}
 .result-label {font-family:'Inter',sans-serif;font-size:11px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;margin-top:6px;line-height:1.4}
 
