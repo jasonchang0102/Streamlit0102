@@ -493,7 +493,7 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
 
 **Phase 2 — Ownership Transfer (Weeks 5-8):** Each manager built and presented their own regional dashboard to their VP. I reviewed the data model and DAX logic before presentation but did not build it for them.
 
-**Phase 3 — Self-Sufficiency (Months 3-6):** Established a shared query library, rotating "metric of the week" deep dives, and peer review process. Within 6 months, 80% of ad hoc analytical requests were resolved at the regional level without escalation.
+**Phase 3 — Self-Sufficiency (Months 3-6):** Established a shared query library, rotating "metric of the week" deep dives, and peer review process. Within 6 months, 80% of ad hoc analytical requests were resolved at the regional level without escalation. Overall team efficiency improved 30% — junior analysts independently handled tasks that previously required senior oversight. Dashboard usage shifted from weekly Excel reviews to 3x daily check-ins on the live platform.
 
 *Implication: self-sufficiency freed senior analytical capacity for strategic work — the team could now sustain the platform independently.*
 """)
@@ -578,9 +578,9 @@ Phase 2: Controlled — Lookalike audiences, creative retargeting at capped budg
 Phase 3: Scale — 50-100% increases on profitable adsets, cut underperformers
 Phase 4: Bid Cap — $1K-3K campaigns, gated by 400+ purchases and 2x breakeven ROAS
 
-**Multivariate Testing (12 Groups)** — Designed a 3×2×2 test matrix: 3 creative types × 2 CTAs × 2 interaction formats. The winning combination (instructional creative + Learn More CTA + comment prompt) achieved the highest CTR at the lowest CPM — confirming that engagement-driven strategies outperformed direct-response for this product category.
+**Multivariate Testing (12 Groups)** — Designed a 3×2×2 test matrix: 3 creative types × 2 CTAs × 2 interaction formats. The winning combination (instructional creative + Learn More CTA + comment prompt) achieved the highest CTR at the lowest CPM — Results: CTR +28%, engagement rate +65%, conversion rate +22%. Confirming that engagement-driven strategies outperformed direct-response for this product category.
 
-**K-Means Clustering** — Customer segmentation by page view sequences, visit depth, and engagement patterns. The analysis surfaced 4 distinct clusters by CPC vs engagement, revealing which segments warranted further investment.
+**K-Means Clustering** — Customer segmentation by page view sequences, visit depth, and engagement patterns. The analysis surfaced 4 distinct clusters by CPC vs engagement, revealing which segments warranted further investment. Segment-specific creative based on these clusters reduced cost per acquisition from $22 to $10 — a 55% CPA reduction that directly drove the 2x ROAS improvement.
 
 **Demand Forecasting** — Unified marketing, warehouse, purchasing, and customer service data into a shared operational view. Enabled cross-team decision-making with 40% shorter feedback cycles.
 
@@ -611,7 +611,7 @@ The data immediately surfaced a pattern: YanWen (燕文专线) corridors had a 4
 
 Downstream, each delayed order generated ~1.8 support tickets (initial inquiry + follow-up). At 1,797 delayed orders per quarter, that was ~3,200 Zendesk tickets requiring ~800 CS hours — equivalent to a half-time CS hire that had not been budgeted because the connection between shipping delays and staffing demand had not been quantified.
 
-For corridors where carrier switches were not cost-effective, the solution was expectation management — an automated notification system that set delivery expectations at the point of purchase by country. This reduced "where is my order?" inquiries by 75%.
+For corridors where carrier switches were not cost-effective, the solution was expectation management — an automated notification system that set delivery expectations at the point of purchase by country. This reduced "where is my order?" inquiries by 75%. Separately, in-house shipping processing was streamlined from 6 days to 2 days, with overall shipping efficiency improving 22%.
 
 The model ultimately became the backbone for ad budget approval. Before scaling spend into a new country, leadership could see the full cost: ad spend + shipping + expected delays + CS ticket volume + staffing implications.
 """)
@@ -683,6 +683,14 @@ The model ultimately became the backbone for ad budget approval. Before scaling 
     section_header("RISK RESPONSE & PROCESS IMPROVEMENTS")
     st.markdown("Three adsets cannibalizing each other due to overlapping audiences — built negative exclusions and restructured campaign hierarchy. Separately: silent autoplay videos inflating view counts — implemented a pre-launch QA checklist for all creative (audio, thumbnail, CTA rendering, platform-specific format).")
     st.markdown("Initial carrier switch recommendation for Brazil (YanWen → DHL) was cost-prohibitive. Found a middle path: regional carrier at $36/unit with 22% delay rate (down from 45%). Operational optimization is always constrained by unit economics.")
+    st.markdown("""
+**Decision Scenario — Carrier Optimization (Brazil):**
+- *Observation:* YanWen corridor to Brazil showed 45% delay rate, generating ~376 CS tickets/quarter
+- *Options Evaluated:* Switch to DHL ($48/unit, 8% delay) vs regional carrier ($36/unit, 22% delay) vs status quo ($33/unit, 45% delay)
+- *Decision:* Regional carrier — best balance of cost, delivery reliability, and customer experience
+- *Action:* Migrated Brazil fulfillment, updated notification system with revised delivery windows
+- *Impact:* Delay rate reduced from 45% to 22%, CS tickets for Brazil corridor reduced by 51%
+""")
     st.caption("Attribution framework, scaling playbook, and operational model adopted as standard processes. Unit economics model used for all subsequent campaign launches through FY21.")
 
     st.divider()
