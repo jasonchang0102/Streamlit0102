@@ -96,9 +96,9 @@ button[data-testid="stSidebarCollapseButton"] {display:none!important}
 .gold-border h3 {font-size:1.65rem!important}
 
 /* Case result cards */
-.result-card {background:#0a0a0a;padding:28px;text-align:center;border-radius:0;margin:0 2px}
+.result-card {background:#0a0a0a;padding:28px 16px;text-align:center;border-radius:0;margin:0 2px;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:130px}
 .result-val {font-family:'Bebas Neue',sans-serif;font-size:42px;color:#ca8a04!important}
-.result-label {font-family:'Inter',sans-serif;font-size:12px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;margin-top:6px}
+.result-label {font-family:'Inter',sans-serif;font-size:11px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;margin-top:6px;line-height:1.4}
 
 /* Tags */
 .tag {display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 12px;margin:2px;border:1px solid #e5e5e5;background:#f5f5f5;color:#0a0a0a}
