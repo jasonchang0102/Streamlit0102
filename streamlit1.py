@@ -510,11 +510,13 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
     # ─── SECTION 6: DASHBOARDS ───────────────────────────────────────────
     section_header("EXECUTIVE DASHBOARDS")
     show_image("advantage_executive.png", "Executive view: 83 customers against budget — revenue, margin, GM% trend.")
-    dtab1, dtab2 = st.tabs(["Margin Analysis", "Rep Scorecard"])
+    dtab1, dtab2, dtab3 = st.tabs(["Margin Analysis", "Rep Scorecard", "Conversion Rate"])
     with dtab1:
         show_image("advantage_margin.png", "Revenue variance vs gross margin by business unit.")
     with dtab2:
         show_image("advantage_sales.png", "Rep scorecard: 16 customers, monthly revenue.", width=0.30)
+    with dtab3:
+        show_image("conversion_dashboard.jpg", "Conversion rate by region, FMM, and program — 21K engaged, 20.9% conversion across 519 accounts.")
 
     st.divider()
 
