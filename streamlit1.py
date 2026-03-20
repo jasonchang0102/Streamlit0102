@@ -84,45 +84,51 @@ button[data-testid="stSidebarCollapseButton"] {display:none!important}
 
 /* Dark section blocks */
 .dark-section {background:#0a0a0a;color:#fff;padding:48px;border-radius:0;margin:0 0 4px 0}
-.dark-section h2 {font-family:'Bebas Neue',sans-serif;color:#fff!important;letter-spacing:2px;margin:0 0 8px}
+.dark-section h2 {font-family:'Bebas Neue',sans-serif;color:#fff!important;letter-spacing:2px;margin:0 0 8px;font-size:2.4rem!important}
 .dark-section p {color:#a3a3a3}
 .dark-section .meta {font-family:'JetBrains Mono',monospace;font-size:13px;color:#737373}
 
 /* Accent section */
 .accent-section {background:#f5f5f5;padding:32px;border-left:4px solid #0a0a0a;border-radius:0;margin:24px 0}
 
-/* Gold accent */
+/* Gold accent — section headers */
 .gold-border {border-left:3px solid #ca8a04;padding-left:16px;margin-bottom:24px}
+.gold-border h3 {font-size:1.65rem!important}
 
 /* Case result cards */
-.result-card {background:#0a0a0a;padding:24px;text-align:center;border-radius:0;margin:0 2px}
-.result-val {font-family:'Bebas Neue',sans-serif;font-size:36px;color:#ca8a04!important}
-.result-label {font-family:'Inter',sans-serif;font-size:11px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
-
-/* Belief cards */
-.belief {font-family:'Inter',sans-serif;font-size:15px;color:#d4d4d4;line-height:1.8;margin-bottom:16px;padding-left:20px;border-left:2px solid #ca8a04}
+.result-card {background:#0a0a0a;padding:28px;text-align:center;border-radius:0;margin:0 2px}
+.result-val {font-family:'Bebas Neue',sans-serif;font-size:42px;color:#ca8a04!important}
+.result-label {font-family:'Inter',sans-serif;font-size:12px;color:#a3a3a3;text-transform:uppercase;letter-spacing:1px;margin-top:6px}
 
 /* Tags */
 .tag {display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 12px;margin:2px;border:1px solid #e5e5e5;background:#f5f5f5;color:#0a0a0a}
 .tag-dark {border-color:#333;background:#262626;color:#a3a3a3}
 
-/* Headings override */
-h1 {font-family:'Bebas Neue',sans-serif!important;letter-spacing:2px!important;color:#0a0a0a!important}
-h2 {font-family:'Bebas Neue',sans-serif!important;letter-spacing:2px!important;color:#0a0a0a!important}
-h3 {font-family:'Bebas Neue',sans-serif!important;letter-spacing:1px!important;color:#0a0a0a!important}
+/* Headings override — 10% larger */
+h1 {font-family:'Bebas Neue',sans-serif!important;letter-spacing:2px!important;color:#0a0a0a!important;font-size:2.75rem!important}
+h2 {font-family:'Bebas Neue',sans-serif!important;letter-spacing:2px!important;color:#0a0a0a!important;font-size:2.0rem!important}
+h3 {font-family:'Bebas Neue',sans-serif!important;letter-spacing:1px!important;color:#0a0a0a!important;font-size:1.5rem!important}
+h5 {font-size:1.1rem!important}
+
+/* Metric deltas — all gold, no red/green, no arrows */
+[data-testid="stMetricDelta"] {color:#ca8a04!important}
+[data-testid="stMetricDelta"] svg {display:none!important}
+[data-testid="stMetricValue"] {font-size:1.8rem!important}
 
 /* Image frames */
 [data-testid="stImage"] {border:1px solid #e5e5e5;border-radius:2px}
 
-/* Tab styling - make tabs visible */
-.stTabs [data-baseweb="tab-list"] {background:#f5f5f5;padding:4px;border-radius:4px;gap:4px}
-.stTabs [data-baseweb="tab"] {background:#fff;border:1px solid #e5e5e5;border-radius:4px;padding:8px 20px;font-family:'Inter',sans-serif;font-size:14px;font-weight:500;color:#404040}
-.stTabs [data-baseweb="tab"]:hover {background:#0a0a0a;color:#fff;border-color:#0a0a0a}
-.stTabs [aria-selected="true"] {background:#0a0a0a!important;color:#fff!important;border-color:#0a0a0a!important}
-.stTabs [data-baseweb="tab-highlight"] {background:#0a0a0a!important}
+/* Tab styling — larger, dark bg, gold active, clearly interactive */
+.stTabs [data-baseweb="tab-list"] {background:#1a1a1a;padding:8px;border-radius:8px;gap:8px}
+.stTabs [data-baseweb="tab"] {background:#333;border:2px solid #555;border-radius:8px;padding:14px 32px;font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:#d4d4d4;min-height:52px}
+.stTabs [data-baseweb="tab"]:hover {background:#ca8a04;color:#fff;border-color:#ca8a04}
+.stTabs [aria-selected="true"] {background:#ca8a04!important;color:#fff!important;border-color:#ca8a04!important}
+.stTabs [data-baseweb="tab-highlight"] {background:#ca8a04!important}
 .stTabs [data-baseweb="tab-border"] {display:none}
-</style>
-"""
+
+/* Content padding — inset from edges */
+.block-container {padding-left:80px!important;padding-right:80px!important}
+</style>"""
 
 # =============================================================================
 # DATA
@@ -145,6 +151,18 @@ def load_data():
 # =============================================================================
 # HELPERS
 # =============================================================================
+def scroll_to_top():
+    """Reset scroll position on page switch — multiple fallbacks for reliability"""
+    st.markdown("""
+        <script>
+            // Try all known Streamlit scroll containers
+            try { window.parent.document.querySelector('[data-testid="stAppViewContainer"]').scrollTo(0, 0); } catch(e) {}
+            try { window.parent.document.querySelector('section.main').scrollTo(0, 0); } catch(e) {}
+            try { window.parent.document.querySelector('.main').scrollTo(0, 0); } catch(e) {}
+            try { window.scrollTo(0, 0); } catch(e) {}
+        </script>
+    """, unsafe_allow_html=True)
+
 def dark_section(content):
     st.markdown(f'<div class="dark-section">{content}</div>', unsafe_allow_html=True)
 
@@ -209,6 +227,7 @@ def main():
 # HOME
 # =============================================================================
 def render_home():
+    scroll_to_top()
     st.markdown("##### Senior BI & Analytics Manager — 8+ Years")
     st.markdown("# FROM STAR SCHEMA TO MULTIVARIATE TESTING — THE ANALYTICAL FRAMEWORK BEHIND TRUSTED DATA")
     st.markdown("Most organizations have the data. What they lack is the analytical framework — star schema design, statistical testing, governance processes — that turns conflicting numbers into a single trusted view. Over 14 years and 5 organizations, I have developed a methodology that connects data architecture to business decisions. The platforms I build are still in production. The teams I mentor are self-sufficient.")
@@ -290,6 +309,7 @@ def render_home():
 # ADVANTAGE SOLUTIONS
 # =============================================================================
 def render_advantage():
+    scroll_to_top()
     dark_section("""
         <h2 style="font-size:40px;letter-spacing:3px;margin:0 0 8px">ADVANTAGE SOLUTIONS</h2>
         <p style="font-size:16px;color:#a3a3a3">$1.68B Enterprise · Post-Merger · 250+ Stakeholders · 99 Vendor Sources</p>
@@ -315,10 +335,10 @@ The opportunity was clear: unify the data infrastructure, establish governance, 
 
     # Before → After metrics
     ba1, ba2, ba3, ba4 = st.columns(4)
-    ba1.metric("Revenue Definitions", "1", "-4 eliminated")
-    ba2.metric("Shadow Trackers", "0", "-47 eliminated")
-    ba3.metric("Reporting Cycle", "24 hrs", "-4 days faster")
-    ba4.metric("Governance", "Bi-weekly", "VP committee est.")
+    ba1.metric("Revenue Definitions", "1", "4 consolidated", delta_color="normal")
+    ba2.metric("Shadow Trackers", "0", "47 eliminated", delta_color="normal")
+    ba3.metric("Reporting Cycle", "24 hrs", "4 days faster", delta_color="normal")
+    ba4.metric("Governance", "Bi-weekly", "VP committee est.", delta_color="normal")
 
     st.divider()
 
@@ -404,6 +424,20 @@ The governance framework I established includes: a formal metric change request 
 Once unified, the platform's same-week budget visibility surfaced $3M in trade spend allocated to campaigns with negative ROI — an insight that only became visible once all regions reported from a unified data source. Leadership reallocated within one reporting cycle, improving ROI by 12%.
 """)
 
+    st.markdown("**Analytical Methodology**")
+    st.markdown("Every project I lead follows a 7-layer methodology refined across 5 organizations over 14 years:")
+    approach = [
+        "**1. Requirements & Alignment** — What decision will this enable? RACI, KPI definitions, governance.",
+        "**2. Data Quality** — Null detection, deduplication, schema validation, row count baselines. Hard-fail gates.",
+        "**3. Exploratory Analysis** — Understand relationships before building. Identify patterns before modeling.",
+        "**4. Hypothesis & Testing** — A/B, multivariate, forecasting. Statistical significance, not assumptions.",
+        "**5. Visualization & Reporting** — Star schema, DAX measures, RLS, sub-3-second load targets.",
+        "**6. Culture & Change** — Training, mentorship, onboarding, self-service enablement. The goal is team self-sufficiency.",
+        "**7. Delivery & QA** — KPI variance alerts, cross-source parity, refresh monitoring. Trust must persist."
+    ]
+    for line in approach:
+        st.markdown(line)
+
     st.divider()
 
     # ─── SECTION 5: TEAM DEVELOPMENT ─────────────────────────────────────
@@ -420,10 +454,10 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
 
     # Team before→after
     ta1, ta2, ta3, ta4 = st.columns(4)
-    ta1.metric("Ad Hoc Escalations", "20%", "-80% self-served")
-    ta2.metric("Managers Building", "7 of 7", "From 0")
-    ta3.metric("My Time on Strategy", "80%", "+60% shifted")
-    ta4.metric("Peer Reviews", "Active", "Culture established")
+    ta1.metric("Ad Hoc Escalations", "20%", "80% now self-served", delta_color="normal")
+    ta2.metric("Managers Building", "7 of 7", "From 0", delta_color="normal")
+    ta3.metric("My Time on Strategy", "80%", "60% shifted from Q&A", delta_color="normal")
+    ta4.metric("Peer Reviews", "Active", "Culture established", delta_color="normal")
 
     st.divider()
 
@@ -452,6 +486,7 @@ When I joined, the 7 regional analytics managers could run pre-built reports but
 # MODERN HOME STATION
 # =============================================================================
 def render_mhs():
+    scroll_to_top()
     dark_section("""
         <h2 style="font-size:40px;letter-spacing:3px;margin:0 0 8px">MODERN HOME STATION</h2>
         <p style="font-size:16px;color:#a3a3a3">DTC eCommerce Startup · Built Analytics from Zero · 4 Platforms Unified</p>
@@ -611,6 +646,7 @@ The model ultimately became the backbone for ad budget approval. Before scaling 
 # EXPLORER
 # =============================================================================
 def render_explorer():
+    scroll_to_top()
     st.markdown("# LIVE DEMOS")
     st.markdown("Interactive analyses built from **real operational data** — $387M in shipped sales across **75 accounts** and **9 divisions**. Profitability analysis, heatmap visualization, concentration risk, and trend detection — the same analytical methods I apply at Advantage Solutions, rebuilt with Plotly, Pandas, and Streamlit.")
     st.markdown('<a href="https://github.com/jasonchang0102/Streamlit0102/tree/main/code_samples" target="_blank">View code samples on GitHub →</a>', unsafe_allow_html=True)
@@ -1178,6 +1214,7 @@ def render_explorer():
 # CONNECT
 # =============================================================================
 def render_connect():
+    scroll_to_top()
     dark_section("""
         <h2 style="font-size:44px;letter-spacing:4px;margin:0 0 12px">LET'S TALK</h2>
         <p style="font-size:16px">Open to Senior BI & Analytics Manager roles. Best reached via LinkedIn.</p>
