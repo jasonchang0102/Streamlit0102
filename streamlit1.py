@@ -1335,9 +1335,18 @@ def render_connect():
     st.divider()
 
     # Direction 29: Trimmed Brenton quote
-    st.markdown("## DIRECT MANAGER REFERENCE")
-    st.markdown("> *\"He is someone our team relied on for all key performance metrics in a very demanding and often changing environment. His out of the box thinking provided solutions that others simply would not conceive.\"*")
-    st.markdown("**Brenton Harlow** — Executive Leader, CPG Sales, Marketing, Operations & Technology — Direct Manager at Advantage Solutions")
+    st.markdown("## LEADERSHIP REFERENCES")
+
+    ref1, ref2 = st.columns(2)
+    with ref1:
+        st.markdown("**Advantage Solutions**")
+        st.markdown("> *\"He is someone our team relied on for all key performance metrics in a very demanding and often changing environment. His out of the box thinking provided solutions that others simply would not conceive.\"*")
+        st.markdown("**Brenton Harlow** — Executive Leader, CPG Sales, Marketing, Operations & Technology — Direct Manager")
+
+    with ref2:
+        st.markdown("**China Unicom America**")
+        st.markdown("> *\"Jason brought structure to how we managed pipeline data — standardizing revenue tracking, building forecast models that leadership used directly for enterprise targeting. He worked across sales, product, and strategy teams to understand what decisions were being made and built the analytics that closed those gaps.\"*")
+        st.markdown("**Leo Xi** — Strategy Planning & Business Development, B2B Enterprise Sales Operations")
 
     st.divider()
 
