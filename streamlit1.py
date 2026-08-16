@@ -489,11 +489,11 @@ Once unified, the platform's same-week budget visibility surfaced $3M in trade s
     st.markdown("""
 When I joined, the 7 regional analytics managers could run pre-built reports but could not build their own. Every ad hoc request escalated to me — consuming 60% of my time.
 
-**Phase 1 — Foundation (Weeks 1-4):** Hands-on training in Power BI development, DAX measure writing, and data governance standards. Each session tied to a real dashboard they would own. I paired each manager with a specific business question their VP had been asking, and we built the answer together.
+**Phase 1 — Foundation (Weeks 1-4):** Hands-on training in Power BI development, QA sessions, escalation channel and data governance standards. Each session tied to a real dashboard they would own. I paired each manager with a specific business question their VP had been asking, and we identify the answer together.
 
-**Phase 2 — Ownership Transfer (Weeks 5-8):** Each manager built and presented their own regional dashboard to their VP. I reviewed the data model and DAX logic before presentation but did not build it for them.
+**Phase 2 — Ownership Transfer (Weeks 5-8):** Each manager take over the dashboard ownership to maintain and monitor performance assigned by their VP. I reviewed the data model and DAX logic before presentation, and held training session for each of them.
 
-**Phase 3 — Self-Sufficiency (Months 3-6):** Established a shared query library, rotating "metric of the week" deep dives, and peer review process. Within 6 months, 80% of ad hoc analytical requests were resolved at the regional level without escalation. Overall team efficiency improved 30% — junior analysts independently handled tasks that previously required senior oversight. Dashboard usage shifted from weekly Excel reviews to 3x daily check-ins on the live platform.
+**Phase 3 — Self-Sufficiency (Months 3-6):** Established a shared query library, rotating "metric of the week" deep dives, and peer review process. Within 6 months, 75% of ad hoc analytical requests were resolved at the regional level without escalation. Overall team efficiency improved 30% — junior analysts independently handled tasks that previously required senior oversight. Dashboard usage shifted from weekly Excel reviews to 3x daily check-ins on the live platform.
 
 *Implication: self-sufficiency freed senior analytical capacity for strategic work — the team could now sustain the platform independently.*
 """)
